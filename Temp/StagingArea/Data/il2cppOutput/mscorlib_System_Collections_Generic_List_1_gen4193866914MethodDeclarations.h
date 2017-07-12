@@ -1,0 +1,96 @@
+﻿#pragma once
+
+#include "il2cpp-config.h"
+
+#ifndef _MSC_VER
+# include <alloca.h>
+#else
+# include <malloc.h>
+#endif
+
+#include <stdint.h>
+#include <assert.h>
+#include <exception>
+
+
+#include "codegen/il2cpp-codegen.h"
+#include "mscorlib_System_Collections_Generic_List_1_gen2058570427MethodDeclarations.h"
+
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::.ctor()
+#define List_1__ctor_m3411456047(__this, method) ((  void (*) (List_1_t4193866914 *, const MethodInfo*))List_1__ctor_m310736118_gshared)(__this, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::.ctor(System.Collections.Generic.IEnumerable`1<T>)
+#define List_1__ctor_m487805693(__this, ___collection0, method) ((  void (*) (List_1_t4193866914 *, Il2CppObject*, const MethodInfo*))List_1__ctor_m454375187_gshared)(__this, ___collection0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::.ctor(System.Int32)
+#define List_1__ctor_m2583546779(__this, ___capacity0, method) ((  void (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1__ctor_m136460305_gshared)(__this, ___capacity0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::.cctor()
+#define List_1__cctor_m2126634557(__this /* static, unused */, method) ((  void (*) (Il2CppObject * /* static, unused */, const MethodInfo*))List_1__cctor_m138621019_gshared)(__this /* static, unused */, method)
+// System.Collections.Generic.IEnumerator`1<T> System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.Generic.IEnumerable<T>.GetEnumerator()
+#define List_1_System_Collections_Generic_IEnumerableU3CTU3E_GetEnumerator_m328675652(__this, method) ((  Il2CppObject* (*) (List_1_t4193866914 *, const MethodInfo*))List_1_System_Collections_Generic_IEnumerableU3CTU3E_GetEnumerator_m154161632_gshared)(__this, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.ICollection.CopyTo(System.Array,System.Int32)
+#define List_1_System_Collections_ICollection_CopyTo_m2446345838(__this, ___array0, ___arrayIndex1, method) ((  void (*) (List_1_t4193866914 *, Il2CppArray *, int32_t, const MethodInfo*))List_1_System_Collections_ICollection_CopyTo_m2020941110_gshared)(__this, ___array0, ___arrayIndex1, method)
+// System.Collections.IEnumerator System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IEnumerable.GetEnumerator()
+#define List_1_System_Collections_IEnumerable_GetEnumerator_m1362763519(__this, method) ((  Il2CppObject * (*) (List_1_t4193866914 *, const MethodInfo*))List_1_System_Collections_IEnumerable_GetEnumerator_m3552870393_gshared)(__this, method)
+// System.Int32 System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.Add(System.Object)
+#define List_1_System_Collections_IList_Add_m3930983034(__this, ___item0, method) ((  int32_t (*) (List_1_t4193866914 *, Il2CppObject *, const MethodInfo*))List_1_System_Collections_IList_Add_m1765626550_gshared)(__this, ___item0, method)
+// System.Boolean System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.Contains(System.Object)
+#define List_1_System_Collections_IList_Contains_m299533036(__this, ___item0, method) ((  bool (*) (List_1_t4193866914 *, Il2CppObject *, const MethodInfo*))List_1_System_Collections_IList_Contains_m149594880_gshared)(__this, ___item0, method)
+// System.Int32 System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.IndexOf(System.Object)
+#define List_1_System_Collections_IList_IndexOf_m1823412200(__this, ___item0, method) ((  int32_t (*) (List_1_t4193866914 *, Il2CppObject *, const MethodInfo*))List_1_System_Collections_IList_IndexOf_m406088260_gshared)(__this, ___item0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.Insert(System.Int32,System.Object)
+#define List_1_System_Collections_IList_Insert_m1439200951(__this, ___index0, ___item1, method) ((  void (*) (List_1_t4193866914 *, int32_t, Il2CppObject *, const MethodInfo*))List_1_System_Collections_IList_Insert_m3961795241_gshared)(__this, ___index0, ___item1, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.Remove(System.Object)
+#define List_1_System_Collections_IList_Remove_m417905223(__this, ___item0, method) ((  void (*) (List_1_t4193866914 *, Il2CppObject *, const MethodInfo*))List_1_System_Collections_IList_Remove_m3415450529_gshared)(__this, ___item0, method)
+// System.Boolean System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.Generic.ICollection<T>.get_IsReadOnly()
+#define List_1_System_Collections_Generic_ICollectionU3CTU3E_get_IsReadOnly_m2161606259(__this, method) ((  bool (*) (List_1_t4193866914 *, const MethodInfo*))List_1_System_Collections_Generic_ICollectionU3CTU3E_get_IsReadOnly_m2131934397_gshared)(__this, method)
+// System.Object System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.ICollection.get_SyncRoot()
+#define List_1_System_Collections_ICollection_get_SyncRoot_m3730797086(__this, method) ((  Il2CppObject * (*) (List_1_t4193866914 *, const MethodInfo*))List_1_System_Collections_ICollection_get_SyncRoot_m1594235606_gshared)(__this, method)
+// System.Object System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.get_Item(System.Int32)
+#define List_1_System_Collections_IList_get_Item_m922546839(__this, ___index0, method) ((  Il2CppObject * (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1_System_Collections_IList_get_Item_m936612973_gshared)(__this, ___index0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::System.Collections.IList.set_Item(System.Int32,System.Object)
+#define List_1_System_Collections_IList_set_Item_m3733553500(__this, ___index0, ___value1, method) ((  void (*) (List_1_t4193866914 *, int32_t, Il2CppObject *, const MethodInfo*))List_1_System_Collections_IList_set_Item_m162109184_gshared)(__this, ___index0, ___value1, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Add(T)
+#define List_1_Add_m3903420515(__this, ___item0, method) ((  void (*) (List_1_t4193866914 *, HttpListenerPrefix_t529778486 *, const MethodInfo*))List_1_Add_m4157722533_gshared)(__this, ___item0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::GrowIfNeeded(System.Int32)
+#define List_1_GrowIfNeeded_m556378932(__this, ___newCount0, method) ((  void (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1_GrowIfNeeded_m185971996_gshared)(__this, ___newCount0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::AddCollection(System.Collections.Generic.ICollection`1<T>)
+#define List_1_AddCollection_m1724740116(__this, ___collection0, method) ((  void (*) (List_1_t4193866914 *, Il2CppObject*, const MethodInfo*))List_1_AddCollection_m1580067148_gshared)(__this, ___collection0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::AddEnumerable(System.Collections.Generic.IEnumerable`1<T>)
+#define List_1_AddEnumerable_m816631812(__this, ___enumerable0, method) ((  void (*) (List_1_t4193866914 *, Il2CppObject*, const MethodInfo*))List_1_AddEnumerable_m2489692396_gshared)(__this, ___enumerable0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::AddRange(System.Collections.Generic.IEnumerable`1<T>)
+#define List_1_AddRange_m1980215147(__this, ___collection0, method) ((  void (*) (List_1_t4193866914 *, Il2CppObject*, const MethodInfo*))List_1_AddRange_m3614127065_gshared)(__this, ___collection0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Clear()
+#define List_1_Clear_m2207380167(__this, method) ((  void (*) (List_1_t4193866914 *, const MethodInfo*))List_1_Clear_m4254626809_gshared)(__this, method)
+// System.Boolean System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Contains(T)
+#define List_1_Contains_m2910252309(__this, ___item0, method) ((  bool (*) (List_1_t4193866914 *, HttpListenerPrefix_t529778486 *, const MethodInfo*))List_1_Contains_m2577748987_gshared)(__this, ___item0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::CopyTo(T[],System.Int32)
+#define List_1_CopyTo_m1318487839(__this, ___array0, ___arrayIndex1, method) ((  void (*) (List_1_t4193866914 *, HttpListenerPrefixU5BU5D_t4197947187*, int32_t, const MethodInfo*))List_1_CopyTo_m1758262197_gshared)(__this, ___array0, ___arrayIndex1, method)
+// System.Collections.Generic.List`1/Enumerator<T> System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::GetEnumerator()
+#define List_1_GetEnumerator_m57028436(__this, method) ((  Enumerator_t3728596588  (*) (List_1_t4193866914 *, const MethodInfo*))List_1_GetEnumerator_m3294992758_gshared)(__this, method)
+// System.Int32 System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::IndexOf(T)
+#define List_1_IndexOf_m1135756835(__this, ___item0, method) ((  int32_t (*) (List_1_t4193866914 *, HttpListenerPrefix_t529778486 *, const MethodInfo*))List_1_IndexOf_m2070479489_gshared)(__this, ___item0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Shift(System.Int32,System.Int32)
+#define List_1_Shift_m597523170(__this, ___start0, ___delta1, method) ((  void (*) (List_1_t4193866914 *, int32_t, int32_t, const MethodInfo*))List_1_Shift_m3137156970_gshared)(__this, ___start0, ___delta1, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::CheckIndex(System.Int32)
+#define List_1_CheckIndex_m1487934031(__this, ___index0, method) ((  void (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1_CheckIndex_m524615377_gshared)(__this, ___index0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Insert(System.Int32,T)
+#define List_1_Insert_m2159889032(__this, ___index0, ___item1, method) ((  void (*) (List_1_t4193866914 *, int32_t, HttpListenerPrefix_t529778486 *, const MethodInfo*))List_1_Insert_m11735664_gshared)(__this, ___index0, ___item1, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::CheckCollection(System.Collections.Generic.IEnumerable`1<T>)
+#define List_1_CheckCollection_m3510549877(__this, ___collection0, method) ((  void (*) (List_1_t4193866914 *, Il2CppObject*, const MethodInfo*))List_1_CheckCollection_m3968030679_gshared)(__this, ___collection0, method)
+// System.Boolean System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Remove(T)
+#define List_1_Remove_m4135514790(__this, ___item0, method) ((  bool (*) (List_1_t4193866914 *, HttpListenerPrefix_t529778486 *, const MethodInfo*))List_1_Remove_m1271859478_gshared)(__this, ___item0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::RemoveAt(System.Int32)
+#define List_1_RemoveAt_m3475766265(__this, ___index0, method) ((  void (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1_RemoveAt_m3615096820_gshared)(__this, ___index0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::Sort(System.Comparison`1<T>)
+#define List_1_Sort_m1081532645(__this, ___comparison0, method) ((  void (*) (List_1_t4193866914 *, Comparison_1_t1791517337 *, const MethodInfo*))List_1_Sort_m785723827_gshared)(__this, ___comparison0, method)
+// T[] System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::ToArray()
+#define List_1_ToArray_m3057898317(__this, method) ((  HttpListenerPrefixU5BU5D_t4197947187* (*) (List_1_t4193866914 *, const MethodInfo*))List_1_ToArray_m546658539_gshared)(__this, method)
+// System.Int32 System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::get_Capacity()
+#define List_1_get_Capacity_m1700884989(__this, method) ((  int32_t (*) (List_1_t4193866914 *, const MethodInfo*))List_1_get_Capacity_m3133733835_gshared)(__this, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::set_Capacity(System.Int32)
+#define List_1_set_Capacity_m2939333268(__this, ___value0, method) ((  void (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1_set_Capacity_m491101164_gshared)(__this, ___value0, method)
+// System.Int32 System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::get_Count()
+#define List_1_get_Count_m80432791(__this, method) ((  int32_t (*) (List_1_t4193866914 *, const MethodInfo*))List_1_get_Count_m2375293942_gshared)(__this, method)
+// T System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::get_Item(System.Int32)
+#define List_1_get_Item_m4035630724(__this, ___index0, method) ((  HttpListenerPrefix_t529778486 * (*) (List_1_t4193866914 *, int32_t, const MethodInfo*))List_1_get_Item_m1354830498_gshared)(__this, ___index0, method)
+// System.Void System.Collections.Generic.List`1<WebSocketSharp.Net.HttpListenerPrefix>::set_Item(System.Int32,T)
+#define List_1_set_Item_m219413387(__this, ___index0, ___value1, method) ((  void (*) (List_1_t4193866914 *, int32_t, HttpListenerPrefix_t529778486 *, const MethodInfo*))List_1_set_Item_m4128108021_gshared)(__this, ___index0, ___value1, method)
