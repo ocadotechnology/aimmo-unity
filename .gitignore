@@ -1,0 +1,7 @@
+*.bin
+Library/*
+Temp/*
+Build/*
+git_key
+*.pyc
+*.swp

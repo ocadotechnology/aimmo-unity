@@ -10,11 +10,12 @@ public class WorldControls : MonoBehaviour
 {
 	public SocketIOController io;
 
-	// JUST FOR RUNNING ON UNITY!
-	/*void Start()
+	public void Start()
 	{
-		EstablishConnection ();
-	}*/
+		// see unity.html for clarifications
+		Debug.Log("Sending message to WebGLPlayer.");
+		Application.ExternalCall("SendAllConnect");
+	}
 
 	// Socket setup.
 	public void SetGameURL(string url)
