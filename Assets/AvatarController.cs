@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,10 @@ public class AvatarController : MonoBehaviour
 	// Used to avoid laggy movement.
 	private Queue<Vector3> positionsQueue;
 
+	// This is needed to make the updates of the score coherent with
+	// the movement.
+	private Queue<int> scoresQueue;
+
 	// Player state.
 	private int health;
 	private int score;
@@ -24,6 +29,8 @@ public class AvatarController : MonoBehaviour
 		currPosition = transform.position;
 		nextPosition = transform.position;
 		positionsQueue = new Queue<Vector3>();
+		scoresQueue = new Queue<int>();
+		scoresQueue.Enqueue(0);
 	}
 
 	// Move the player to next position.
@@ -46,10 +53,14 @@ public class AvatarController : MonoBehaviour
 			if (positionsQueue.Count > 0) 
 			{
 				nextPosition = positionsQueue.Dequeue();
-				Vector3 direction = nextPosition - currPosition;
+
+				int nextScore = scoresQueue.Dequeue();
+				transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
+
+				/*Vector3 direction = nextPosition - currPosition;
 
 				// Calculate the rotation. Useful when we have a 3D model of a character.
-				/*if (direction.x > 0.0f) 
+				if (direction.x > 0.0f) 
 				{
 					transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 				} 
@@ -72,8 +83,9 @@ public class AvatarController : MonoBehaviour
 	}
 
 	// Set next destination.
-	public void SetNextPosition(Vector3 position)
+	public void SetNextState(Vector3 position, int score)
 	{
 		positionsQueue.Enqueue(position);
+		scoresQueue.Enqueue(score);
 	}
 }

@@ -12,9 +12,18 @@ public class WorldControls : MonoBehaviour
 
 	public void Start()
 	{
-		// see unity.html for clarifications
-		Debug.Log("Sending message to WebGLPlayer.");
-		Application.ExternalCall("SendAllConnect");
+		if (Application.platform == RuntimePlatform.WebGLPlayer) 
+		{
+			// Ask the browsers for setup calls.
+			// (See unity.html for clarifications.)
+			Debug.Log("Sending message to WebGLPlayer.");
+			Application.ExternalCall("SendAllConnect");
+		}
+		else 
+		{
+			// Connect directly. JUST FOR TESTING!!!
+			EstablishConnection();
+		} 
 	}
 
 	// Socket setup.
@@ -83,33 +92,13 @@ public class WorldControls : MonoBehaviour
 			float x = (float) obj["x"].AsInt;
 			float y = (float) obj["y"].AsInt;
 
-			// Create new game object.
+			// Create new obstacle.
 			GameObject wall = GameObject.CreatePrimitive(PrimitiveType.Cube);
 			wall.transform.position = new Vector3(x, 0.5f, y);
 			wall.name = id;
 			wall.GetComponent<Renderer>().material.color = Color.black;
 
 			Debug.Log(id + " is at position (" + x + ", " + y + ")");
-		}
-
-		// Create fancy cubes (score locations)
-		var scoreLocations = map["score_locations"];
-
-		for (int i = 0; i < scoreLocations.Count; i++)
-		{
-			var scoreLoc = scoreLocations[i];
-
-			float x = (float) scoreLoc["x"].AsInt;
-			float y = (float) scoreLoc["y"].AsInt;
-
-			// Create new game object.
-			GameObject scoreCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-			scoreCube.transform.position = new Vector3(x, 0.5f, y);
-
-			// Transparecy doesn't work.
-			Color scoreColor = Color.magenta;
-			scoreColor.a = 0.2f;
-			scoreCube.GetComponent<Renderer>().material.color = scoreColor;
 		}
 
 		// Create spheres (avatars)
@@ -127,9 +116,30 @@ public class WorldControls : MonoBehaviour
 			// Create new game object.
 			CreatePlayer(id, x, y);
 		}
+
+		// Create fancy cubes (score locations)
+		var scoreLocations = map["score_locations"];
+
+		for (int i = 0; i < scoreLocations.Count; i++)
+		{
+			var scoreLoc = scoreLocations[i];
+
+			float x = (float) scoreLoc["x"].AsInt;
+			float y = (float) scoreLoc["y"].AsInt;
+
+			// Create new game object.
+			GameObject scoreCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+			scoreCube.transform.position = new Vector3(x, 0.0f, y);
+			scoreCube.transform.localScale = new Vector3(1.0f, 0.01f, 1.0f);
+
+			// Transparecy doesn't work.
+			Color scoreColor = Color.magenta;
+			scoreColor.a = 0.2f;
+			scoreCube.GetComponent<Renderer>().material.color = scoreColor;
+		}
 	}
 
-	//
+	// Receive just updats from the backend.
 	void WorldUpdate(string rawPlayersList)
 	{
 		Debug.Log("Raw players list: " + rawPlayersList);
@@ -146,12 +156,11 @@ public class WorldControls : MonoBehaviour
 			float x = (float) player["x"].AsInt;
 			float y = (float) player["y"].AsInt;
 
-			//int score = player["score"].AsInt;
-			//avatar.GetComponentInChildren<TextMesh>().text = Convert.ToString(score);
+			int nextScore = player["score"].AsInt;
 
 			AvatarController controller = avatar.GetComponent<AvatarController>();
 			Vector3 nextPosition = new Vector3(x, 0.5f, y);
-			controller.SetNextPosition(nextPosition);
+			controller.SetNextState(nextPosition, nextScore);
 
 			Debug.Log("Moved " + id + " to position (" + x + ", " + y + ")");
 		}
