@@ -88,4 +88,25 @@ public class AvatarController : MonoBehaviour
 		positionsQueue.Enqueue(position);
 		scoresQueue.Enqueue(score);
 	}
+
+	// Detect focus
+	void OnApplicationFocus(bool hasFocus)
+	{
+		if (hasFocus) 
+		{
+			while (positionsQueue.Count > 1) 
+			{
+				positionsQueue.Dequeue();
+				scoresQueue.Dequeue();
+			}
+
+			startTime = Time.time;
+			currPosition = positionsQueue.Dequeue();
+			nextPosition = currPosition;
+			transform.position = currPosition;
+
+			int nextScore = scoresQueue.Dequeue();
+			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
+		}
+	}
 }
