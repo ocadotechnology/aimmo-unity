@@ -5,3 +5,4 @@ Build/
 git_key
 *.pyc
 *.swp
+*.userprefs
