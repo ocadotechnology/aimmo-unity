@@ -53,11 +53,6 @@ public class WorldControls : MonoBehaviour
 
 		io.Connect();
 
-		io.On("world-init", (SocketIOEvent e) => {
-			Debug.Log("Initalising world...");
-			WorldInit(e.data);
-		});
-
 		io.On("world-update", (SocketIOEvent e) => {
 			Debug.Log("Update!");
 			WorldUpdate(e.data);
@@ -67,21 +62,14 @@ public class WorldControls : MonoBehaviour
 	// Handle initial request and build the map.
 	void WorldInit(string rawMap)
 	{
-		var map = JSON.Parse(rawMap);
-
-		// Create plane (floor).
-		float minX = (float) map["minX"].AsInt;
-		float minY = (float) map["minY"].AsInt;
-		float maxX = (float) map["maxX"].AsInt;
-		float maxY = (float) map["maxY"].AsInt;
-
+		// TEMPORARY! For now we'll just have a massive plane. 
 		GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		floor.transform.position = new Vector3(minX + maxX, 0.0f, minY + maxY);
-		floor.transform.localScale = new Vector3((maxX - minX + 1) / 10.0f, 1.0f, (maxY - minY + 1) / 10.0f);
+		floor.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
+		floor.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
 		floor.GetComponent<Renderer>().material.color = Color.gray;
 
 		// Create cubes (walls).
-		var objectList = map["objects"];
+		/*var objectList = map["objects"];
 
 		for (int i = 0; i < objectList.Count; i++)
 		{
@@ -136,15 +124,17 @@ public class WorldControls : MonoBehaviour
 			Color scoreColor = Color.magenta;
 			scoreColor.a = 0.2f;
 			scoreCube.GetComponent<Renderer>().material.color = scoreColor;
-		}
+		}*/
 	}
 
 	// Receive just updats from the backend.
-	void WorldUpdate(string rawPlayersList)
+	void WorldUpdate(string updates)
 	{
-		Debug.Log("Raw players list: " + rawPlayersList);
+		/*Debug.Log("Raw players list: " + rawPlayersList);
 
-		var playersList = JSON.Parse(rawPlayersList)["players"];
+		var playersUpdates = JSON.Parse(updates)["players"];
+		var mapFeaturesUpdates = JSON.Parse()
+
 
 		for (int i = 0; i < playersList.Count; i++)
 		{
@@ -163,7 +153,7 @@ public class WorldControls : MonoBehaviour
 			controller.SetNextState(nextPosition, nextScore);
 
 			Debug.Log("Moved " + id + " to position (" + x + ", " + y + ")");
-		}
+		}*/
 	}
 
 	// Helper method
