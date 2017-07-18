@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AvatarController : MonoBehaviour 
+public class PlayerController : MonoBehaviour 
 {
 	// General movement variables.
 	private const float speed = 1.5f;
@@ -57,36 +57,19 @@ public class AvatarController : MonoBehaviour
 				int nextScore = scoresQueue.Dequeue();
 				transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
 
-				/*Vector3 direction = nextPosition - currPosition;
-
-				// Calculate the rotation. Useful when we have a 3D model of a character.
-				if (direction.x > 0.0f) 
-				{
-					transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-				} 
-				else if (direction.x < 0.0f) 
-				{
-					transform.rotation = Quaternion.Euler(0.0f, 180.0f, 0.0f);
-				} 
-				else if (direction.z > 0.0f) 
-				{
-					transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-				} 
-				else if (direction.z < 0.0f) 
-				{
-					transform.rotation = Quaternion.Euler(0.0f, 270.0f, 0.0f);
-				}*/
-
 				startTime = Time.time;
 			}
 		}
 	}
 
 	// Set next destination.
-	public void SetNextState(Vector3 position, int score)
+	public void SetNextState(PlayerData playerData)
 	{
-		positionsQueue.Enqueue(position);
-		scoresQueue.Enqueue(score);
+		positionsQueue.Enqueue(new Vector3(playerData.x, 0.5f, playerData.y));
+		scoresQueue.Enqueue(playerData.score);
+
+		// TODO: Health and rotation. We can potentially enqueue player data instead
+		// of enqueing the individual parameters.
 	}
 
 	// Detect focus

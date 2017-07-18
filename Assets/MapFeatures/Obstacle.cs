@@ -6,7 +6,7 @@ using UnityEngine;
 /* This class manages obstacles, i.e. the walls in the scene.
  */
 
-public class Obstacle : MonoBehaviour, MapFeature 
+public class Obstacle : MapFeature 
 {
 	public static bool Create(int id, float x, float y)
 	{

@@ -8,9 +8,9 @@ using UnityEngine;
  * its score is incremented by one every iteration.
  */
 
-public class ScorePoint : MonoBehaviour, MapFeature 
+public class ScorePoint : MapFeature 
 {
-	static bool Create(int id, float x, float y)
+	public static bool Create(int id, float x, float y)
 	{
 		// Create new pink cell.
 		GameObject scorePoint = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -24,7 +24,7 @@ public class ScorePoint : MonoBehaviour, MapFeature
 		return true;
 	}
 
-	static bool Delete(int id)
+	public static bool Delete(int id)
 	{
 		GameObject scorePointToDestroy = GameObject.Find(MapFeatureId(id));
 		if (scorePointToDestroy == null)

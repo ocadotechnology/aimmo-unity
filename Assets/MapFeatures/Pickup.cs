@@ -10,7 +10,7 @@ using UnityEngine;
  * TODO: Change this comment!
  */
 
-public class Pickup : MonoBehaviour, MapFeature 
+public class Pickup : MapFeature 
 {
 	static bool Create(int id, float x, float y)
 	{

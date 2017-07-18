@@ -9,9 +9,9 @@ using UnityEngine;
  * he or she stays there.
  */
 
-public static class HealthPoint : MonoBehaviour, MapFeature 
+public class HealthPoint : MapFeature 
 {	
-	static bool Create(int id, float x, float y)
+	public static bool Create(int id, float x, float y)
 	{
 		// Create new green cell.
 		GameObject healthPoint = GameObject.CreatePrimitive(PrimitiveType.Cube);
@@ -25,7 +25,7 @@ public static class HealthPoint : MonoBehaviour, MapFeature
 		return true;
 	}
 
-	static bool Delete(int id)
+	public static bool Delete(int id)
 	{
 		GameObject healthPointToDestroy = GameObject.Find(MapFeatureId(id));
 		if (healthPointToDestroy == null)

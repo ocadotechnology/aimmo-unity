@@ -46,12 +46,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\AvatarController.cs" />
      <Compile Include="Assets\MapFeatures\HealthPoint.cs" />
      <Compile Include="Assets\MapFeatures\MapFeature.cs" />
      <Compile Include="Assets\MapFeatures\Obstacle.cs" />
      <Compile Include="Assets\MapFeatures\Pickup.cs" />
      <Compile Include="Assets\MapFeatures\ScorePoint.cs" />
+     <Compile Include="Assets\Players\Player.cs" />
+     <Compile Include="Assets\Players\PlayerController.cs" />
      <Compile Include="Assets\WorldControls.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
