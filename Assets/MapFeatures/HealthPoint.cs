@@ -24,6 +24,7 @@ public class HealthPoint : MapFeature
 
 		healthPoint.transform.position = new Vector3(x, 0.0f, y);
 		healthPoint.transform.localScale = new Vector3(1.0f, 0.01f, 1.0f);
+		healthPoint.transform.name = MapFeatureId(id);
 		healthPoint.GetComponent<Renderer>().material.color = Color.green;
 
 		return true;

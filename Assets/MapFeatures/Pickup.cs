@@ -25,6 +25,7 @@ public class Pickup : MapFeature
 
 		pickup.transform.position = new Vector3(x, 0.5f, y);
 		pickup.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+		pickup.name = MapFeatureId (id);
 		pickup.GetComponent<Renderer>().material.color = Color.blue;
 
 		return true;
