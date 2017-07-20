@@ -12,8 +12,12 @@ using UnityEngine;
 
 public class Pickup : MapFeature 
 {
-	public static bool Create(int id, float x, float y)
+	public static bool Create(string id, float x, float y)
 	{
+		// It might have already been created
+		if (GameObject.Find(MapFeatureId(id)) != null)
+			return true;
+
 		// Create small blue sphere.
 		GameObject pickup = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		if (pickup == null)
@@ -26,7 +30,7 @@ public class Pickup : MapFeature
 		return true;
 	}
 
-	public static bool Delete(int id)
+	public static bool Delete(string id)
 	{
 		GameObject pickupToDestroy = GameObject.Find(MapFeatureId(id));
 		if (pickupToDestroy == null)
@@ -37,8 +41,8 @@ public class Pickup : MapFeature
 		return true;
 	}
 
-	private static string MapFeatureId(int id)
+	private static string MapFeatureId(string id)
 	{
-		return "pickup" + Convert.ToString(id);
+		return "pickup" + id;
 	}
 }

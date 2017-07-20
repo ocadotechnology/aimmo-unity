@@ -8,9 +8,12 @@ using SimpleJSON;
 
 public class WorldControls : MonoBehaviour
 {
+	private float startTime;
+	private Queue<JSONNode> dataQueue;
+
 	public SocketIOController io;
 
-	public void Start()
+	void Start()
 	{
 		if (Application.platform == RuntimePlatform.WebGLPlayer) 
 		{
@@ -25,7 +28,81 @@ public class WorldControls : MonoBehaviour
 			EstablishConnection();
 		} 
 
+		startTime = Time.time;
+		dataQueue = new Queue<JSONNode>();
+
 		WorldInit();
+	}
+
+	void Update()
+	{
+		float step = Time.time - startTime;
+
+		if (step >= 0.95f && dataQueue.Count > 0)
+		{
+			startTime = Time.time;
+			JSONNode updates = dataQueue.Dequeue();
+
+			// Players updates.
+			JSONNode players = updates["players"];
+
+			foreach (JSONNode player in players["create"].AsArray) 
+				Player.Create(player["id"].AsInt, new PlayerData(player));
+
+			foreach (JSONNode player in players["delete"].AsArray)
+				Player.Delete(player["id"].AsInt);
+
+			foreach (JSONNode player in players["update"].AsArray)
+				Player.Update(player["id"].AsInt, new PlayerData(player));
+
+			// Map features updates.
+			JSONNode mapFeatures = updates["map_features"];
+			JSONNode healthPoints = mapFeatures["health_point"];
+			JSONNode scorePoints = mapFeatures["score_point"];
+			JSONNode pickups = mapFeatures ["pickup"];
+			JSONNode obstacles = mapFeatures ["obstacle"];
+
+			// Health points.
+			foreach (JSONNode healthPoint in healthPoints["create"].AsArray)
+				HealthPoint.Create(
+					healthPoint["id"], 
+					healthPoint["x"].AsFloat, 
+					healthPoint["y"].AsFloat);
+
+			foreach (JSONNode healthPoint in healthPoints["delete"].AsArray)
+				HealthPoint.Delete(healthPoint["id"]);
+
+			// Score points.
+			foreach (JSONNode scorePoint in scorePoints["create"].AsArray) {
+				ScorePoint.Create (
+					scorePoint ["id"], 
+					scorePoint ["x"].AsFloat, 
+					scorePoint ["y"].AsFloat);
+			}
+
+			foreach (JSONNode scorePoint in scorePoints["delete"].AsArray)
+				ScorePoint.Delete(scorePoint["id"]);
+
+			// Pickups.
+			foreach (JSONNode pickup in pickups["create"].AsArray)
+				Pickup.Create(
+					pickup["id"], 
+					pickup["x"].AsFloat, 
+					pickup["y"].AsFloat);
+
+			foreach (JSONNode pickup in pickups["delete"].AsArray)
+				Pickup.Delete(pickup["id"]);
+
+			// Obstacles.
+			foreach (JSONNode obstacle in obstacles["create"].AsArray)
+				Obstacle.Create(
+					obstacle["id"], 
+					obstacle["x"].AsFloat, 
+					obstacle["y"].AsFloat);
+
+			foreach (JSONNode obstacle in obstacles["delete"].AsArray)
+				Obstacle.Delete(obstacle["id"]);
+		}
 	}
 
 	// Socket setup.
@@ -85,65 +162,6 @@ public class WorldControls : MonoBehaviour
 	void WorldUpdate(string updatesString)
 	{
 		JSONNode updates = JSON.Parse(updatesString);
-
-		// Players updates.
-		JSONNode players = updates["players"];
-
-		foreach (JSONNode player in players["create"].AsArray) 
-			Player.Create(player["id"].AsInt, new PlayerData(player));
-
-		foreach (JSONNode player in players["delete"].AsArray)
-			Player.Delete(player["id"].AsInt);
-
-		foreach (JSONNode player in players["update"].AsArray)
-			Player.Update(player["id"].AsInt, new PlayerData(player));
-
-		// Map features updates.
-		JSONNode mapFeatures = updates["map_features"];
-		JSONNode healthPoints = mapFeatures["health_point"];
-		JSONNode scorePoints = mapFeatures["score_point"];
-		JSONNode pickups = mapFeatures ["pickup"];
-		JSONNode obstacles = mapFeatures ["obstacle"];
-
-		// Health points.
-		foreach (JSONNode healthPoint in healthPoints["create"].AsArray)
-			HealthPoint.Create(
-				healthPoint["id"].AsInt, 
-				healthPoint["x"].AsFloat, 
-				healthPoint["y"].AsFloat);
-
-		foreach (JSONNode healthPoint in healthPoints["delete"].AsArray)
-			HealthPoint.Delete(healthPoint["id"].AsInt);
-
-		// Score points.
-		foreach (JSONNode scorePoint in scorePoints["create"].AsArray) {
-			ScorePoint.Create (
-				scorePoint ["id"].AsInt, 
-				scorePoint ["x"].AsFloat, 
-				scorePoint ["y"].AsFloat);
-		}
-
-		foreach (JSONNode scorePoint in scorePoints["delete"].AsArray)
-			ScorePoint.Delete(scorePoint["id"].AsInt);
-
-		// Pickups.
-		foreach (JSONNode pickup in pickups["create"].AsArray)
-			Pickup.Create(
-				pickup["id"].AsInt, 
-				pickup["x"].AsFloat, 
-				pickup["y"].AsFloat);
-		
-		foreach (JSONNode pickup in pickups["delete"].AsArray)
-			Pickup.Delete(pickup["id"].AsInt);
-
-		// Obstacles.
-		foreach (JSONNode obstacle in obstacles["create"].AsArray)
-			Obstacle.Create(
-				obstacle["id"].AsInt, 
-				obstacle["x"].AsFloat, 
-				obstacle["y"].AsFloat);
-
-		foreach (JSONNode healthPoint in healthPoints["delete"].AsArray)
-			Obstacle.Delete(healthPoint["id"].AsInt);
+		dataQueue.Enqueue(updates);
 	}
 }

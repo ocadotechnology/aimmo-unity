@@ -17,12 +17,12 @@ using UnityEngine;
 public class MapFeature : MonoBehaviour
 {
 	// Create map feature with given id and location.
-	bool Create(int id, float x, float y) { return true; }
+	bool Create(string id, float x, float y) { return true; }
 
 	// Delete map feature with given id.
-	bool Delete(int id) { return true; }
+	bool Delete(string id) { return true; }
 
 	// Helps identify the different map features by each having their
 	// name in their game object id.
-	string MapFeatureId(int id) { return ""; }
+	string MapFeatureId(string id) { return ""; }
 }

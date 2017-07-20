@@ -11,8 +11,12 @@ using UnityEngine;
 
 public class HealthPoint : MapFeature 
 {	
-	public static bool Create(int id, float x, float y)
+	public static bool Create(string id, float x, float y)
 	{
+		// It might have already been created
+		if (GameObject.Find(MapFeatureId(id)) != null)
+			return true;
+
 		// Create new green cell.
 		GameObject healthPoint = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		if (healthPoint == null)
@@ -25,7 +29,7 @@ public class HealthPoint : MapFeature
 		return true;
 	}
 
-	public static bool Delete(int id)
+	public static bool Delete(string id)
 	{
 		GameObject healthPointToDestroy = GameObject.Find(MapFeatureId(id));
 		if (healthPointToDestroy == null)
@@ -36,8 +40,8 @@ public class HealthPoint : MapFeature
 		return true;
 	}
 
-	private static string MapFeatureId(int id)
+	private static string MapFeatureId(string id)
 	{
-		return "healthpoint" + Convert.ToString(id);
+		return "healthpoint" + id;
 	}
 }

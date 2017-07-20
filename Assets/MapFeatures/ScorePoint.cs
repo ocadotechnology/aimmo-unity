@@ -10,8 +10,12 @@ using UnityEngine;
 
 public class ScorePoint : MapFeature 
 {
-	public static bool Create(int id, float x, float y)
+	public static bool Create(string id, float x, float y)
 	{
+		// It might have already been created
+		if (GameObject.Find(MapFeatureId(id)) != null)
+			return true;
+
 		// Create new pink cell.
 		GameObject scorePoint = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		if (scorePoint == null)
@@ -24,7 +28,7 @@ public class ScorePoint : MapFeature
 		return true;
 	}
 
-	public static bool Delete(int id)
+	public static bool Delete(string id)
 	{
 		GameObject scorePointToDestroy = GameObject.Find(MapFeatureId(id));
 		if (scorePointToDestroy == null)
@@ -36,8 +40,8 @@ public class ScorePoint : MapFeature
 	}
 
 
-	private static string MapFeatureId(int id)
+	private static string MapFeatureId(string id)
 	{
-		return "scorepoint" + Convert.ToString(id);
+		return "scorepoint" + id;
 	}
 }

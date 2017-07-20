@@ -8,8 +8,12 @@ using UnityEngine;
 
 public class Obstacle : MapFeature 
 {
-	public static bool Create(int id, float x, float y)
+	public static bool Create(string id, float x, float y)
 	{
+		// It might have already been created
+		if (GameObject.Find(MapFeatureId(id)) != null)
+			return true;
+
 		// Create new cube.
 		GameObject obstacle = GameObject.CreatePrimitive(PrimitiveType.Cube);
 		if (obstacle == null) 
@@ -22,7 +26,7 @@ public class Obstacle : MapFeature
 		return true;
 	}
 
-	public static bool Delete(int id)
+	public static bool Delete(string id)
 	{
 		GameObject obstacleToDestroy = GameObject.Find(MapFeatureId(id));
 		if (obstacleToDestroy == null)
@@ -33,8 +37,8 @@ public class Obstacle : MapFeature
 		return true;
 	}
 		
-	private static string MapFeatureId(int id)
+	private static string MapFeatureId(string id)
 	{
-		return "obstacle" + Convert.ToString(id);
+		return "obstacle" + id;
 	}
 }
