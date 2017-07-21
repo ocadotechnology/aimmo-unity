@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
 	{
 		// TODO: Rotation transition. Maybe an animation?
 
-		float step = (Time.time - startTime) * speed;
+		/*float step = (Time.time - startTime) * speed;
 
 		if (step < 1.0f) 
 		{
@@ -40,14 +40,18 @@ public class PlayerController : MonoBehaviour
 			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
 
 			startTime = Time.time;
-		}
+		}*/
 	}
 
 	// Set next destination.
 	public void SetNextState(PlayerData playerData)
 	{
-		nextPosition = new Vector3(playerData.x, 0.5f, playerData.y);
-		nextScore = playerData.score;
+		//nextPosition = new Vector3(playerData.x, 0.5f, playerData.y);
+		//nextScore = playerData.score;
+
+		transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
+		transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(playerData.score);
+
 	}
 
 

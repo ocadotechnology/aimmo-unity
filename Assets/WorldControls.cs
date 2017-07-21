@@ -38,7 +38,7 @@ public class WorldControls : MonoBehaviour
 	{
 		float step = Time.time - startTime;
 
-		if (step >= 2.0f && dataQueue.Count > 0)
+		if (step >= 0.5f && dataQueue.Count > 0)
 		{
 			startTime = Time.time;
 			JSONNode updates = dataQueue.Dequeue();
