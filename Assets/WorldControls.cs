@@ -38,7 +38,7 @@ public class WorldControls : MonoBehaviour
 	{
 		float step = Time.time - startTime;
 
-		if (step >= 0.95f && dataQueue.Count > 0)
+		if (step >= 2.0f && dataQueue.Count > 0)
 		{
 			startTime = Time.time;
 			JSONNode updates = dataQueue.Dequeue();
@@ -141,7 +141,7 @@ public class WorldControls : MonoBehaviour
 		});
 
 		io.On("world-update", (SocketIOEvent e) => {
-			Debug.Log("Update received");
+			//Debug.Log("Update received");
 
 			WorldUpdate(e.data);
 		});

@@ -10,17 +10,7 @@ public class PlayerController : MonoBehaviour
 	private float startTime;
 	private Vector3 currPosition;
 	private Vector3 nextPosition;
-
-	// Used to avoid laggy movement.
-	private Queue<Vector3> positionsQueue;
-
-	// This is needed to make the updates of the score coherent with
-	// the movement.
-	private Queue<int> scoresQueue;
-
-	// Player state.
-	private int health;
-	private int score;
+	private int nextScore;
 
 	// Initialisation.
 	void Awake()
@@ -28,8 +18,7 @@ public class PlayerController : MonoBehaviour
 		startTime = Time.time;
 		currPosition = transform.position;
 		nextPosition = transform.position;
-		positionsQueue = new Queue<Vector3>();
-		scoresQueue = new Queue<int>();
+		nextScore = 0; // This is not right but keep it for now.
 	}
 
 	// Move the player to next position.
@@ -48,36 +37,23 @@ public class PlayerController : MonoBehaviour
 			transform.position = nextPosition;
 			currPosition = nextPosition;
 
-			// Only ask for a next position if there is one. Stay still otherwise.
-			if (positionsQueue.Count > 0) 
-			{
-				nextPosition = positionsQueue.Dequeue();
+			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
 
-				int nextScore = scoresQueue.Dequeue();
-				transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
-
-				startTime = Time.time;
-			}
+			startTime = Time.time;
 		}
 	}
 
 	// Set next destination.
 	public void SetNextState(PlayerData playerData)
 	{
-		positionsQueue.Enqueue(new Vector3(playerData.x, 0.5f, playerData.y));
-		scoresQueue.Enqueue(playerData.score);
-
-		// TODO: Health and rotation. We can potentially enqueue player data instead
-		// of enqueing the individual parameters.
+		nextPosition = new Vector3(playerData.x, 0.5f, playerData.y);
+		nextScore = playerData.score;
 	}
 
-	public void SetCurrentScore(int score)
-	{
-		scoresQueue.Enqueue(score);
-	}
 
-	// Detect focus
-	void OnApplicationFocus(bool hasFocus)
+
+	// Detect focus - Use this in world controls
+	/*void OnApplicationFocus(bool hasFocus)
 	{
 		if (hasFocus) 
 		{
@@ -95,5 +71,5 @@ public class PlayerController : MonoBehaviour
 			int nextScore = scoresQueue.Dequeue();
 			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
 		}
-	}
+	}*/
 }

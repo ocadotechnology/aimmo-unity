@@ -37,8 +37,8 @@ public class Player : MonoBehaviour
 		{
 			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 			plane.GetComponent<Renderer>().material.color = Color.green;
-			plane.transform.localPosition = new Vector3(0.0f, 0.01f, 0.0f);
-			plane.transform.localScale = new Vector3(0.4f, 1.0f, 0.4f);
+			plane.transform.localPosition = new Vector3(0.0f, -0.45f, 0.0f);
+			plane.transform.localScale = new Vector3(0.6f, 1.0f, 0.6f);
 			plane.transform.parent = player.transform;
 		}
 
@@ -91,6 +91,8 @@ public class Player : MonoBehaviour
 
 		// The controller will change the position, score and health.
 		controller.SetNextState(playerData);
+
+
 
 		return true;	
 	}
