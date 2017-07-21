@@ -23,10 +23,24 @@ public class Player : MonoBehaviour
 {
 	public static bool Create(int id, PlayerData playerData)
 	{
+		// It might have already been created.
+		if (GameObject.Find(PlayerId(id)) != null)
+			return true;
+
 		// Generate sphere.
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		if (player == null)
 			return false;
+
+		// DEBUG
+		if (id == 1) 
+		{
+			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
+			plane.GetComponent<Renderer>().material.color = Color.green;
+			plane.transform.localPosition = new Vector3(0.0f, 0.01f, 0.0f);
+			plane.transform.localScale = new Vector3(0.4f, 1.0f, 0.4f);
+			plane.transform.parent = player.transform;
+		}
 
 		player.transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
 		player.name = PlayerId(id);
@@ -46,7 +60,7 @@ public class Player : MonoBehaviour
 
 		text.AddComponent<TextMesh>();
 		text.AddComponent<MeshRenderer>();
-		text.GetComponent<TextMesh>().text = "0";
+		text.GetComponent<TextMesh>().text = Convert.ToString(playerData.score);
 		text.GetComponent<TextMesh>().fontSize = 80;
 
 		text.transform.parent = player.transform;

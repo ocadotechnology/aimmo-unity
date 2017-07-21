@@ -22,7 +22,7 @@ public class ScorePoint : MapFeature
 			return false;
 
 		scorePoint.transform.position = new Vector3(x, 0.0f, y);
-		scorePoint.transform.localScale = new Vector3(1.0f, 0.01f, 1.0f);
+		scorePoint.transform.localScale = new Vector3(1.0f, 0.2f, 1.0f);
 		scorePoint.transform.name = MapFeatureId(id);
 		scorePoint.GetComponent<Renderer>().material.color = Color.magenta;
 	

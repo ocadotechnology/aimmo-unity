@@ -23,14 +23,13 @@ public class PlayerController : MonoBehaviour
 	private int score;
 
 	// Initialisation.
-	void Start()
+	void Awake()
 	{
 		startTime = Time.time;
 		currPosition = transform.position;
 		nextPosition = transform.position;
 		positionsQueue = new Queue<Vector3>();
 		scoresQueue = new Queue<int>();
-		scoresQueue.Enqueue(0);
 	}
 
 	// Move the player to next position.
@@ -70,6 +69,11 @@ public class PlayerController : MonoBehaviour
 
 		// TODO: Health and rotation. We can potentially enqueue player data instead
 		// of enqueing the individual parameters.
+	}
+
+	public void SetCurrentScore(int score)
+	{
+		scoresQueue.Enqueue(score);
 	}
 
 	// Detect focus
