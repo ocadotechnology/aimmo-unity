@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 			plane.GetComponent<Renderer>().material.color = Color.green;
 			plane.transform.localPosition = new Vector3(0.0f, -0.45f, 0.0f);
-			plane.transform.localScale = new Vector3(0.6f, 1.0f, 0.6f);
+			plane.transform.localScale = new Vector3(0.8f, 1.0f, 0.8f);
 			plane.transform.parent = player.transform;
 		}
 
