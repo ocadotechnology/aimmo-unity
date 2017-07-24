@@ -7,6 +7,7 @@ public struct PlayerData
 {
 	public float x, y, rotation;
 	public int score, health;
+	public string colour;
 
 	// Construct from json
 	public PlayerData(SimpleJSON.JSONNode json)
@@ -16,6 +17,7 @@ public struct PlayerData
 		this.rotation = json["rotation"].AsFloat;
 		this.score = json["score"].AsInt;
 		this.health = json["health"].AsInt;
+		this.colour = json["colour"];
 	}
 }
 
@@ -46,8 +48,10 @@ public class Player : MonoBehaviour
 		player.name = PlayerId(id);
 		player.AddComponent<PlayerController>();
 
-		// Assign random colour.
-		player.GetComponent<Renderer>().material.color = UnityEngine.Random.ColorHSV();
+		// Assign colour.
+		Color playerColour;
+		ColorUtility.TryParseHtmlString(playerData.colour, out playerColour);
+		player.GetComponent<Renderer>().material.color = playerColour;
 
 		// Add score text.
 		GameObject text = new GameObject();
