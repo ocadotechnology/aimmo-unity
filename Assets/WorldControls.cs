@@ -169,6 +169,16 @@ public class WorldControls : MonoBehaviour
 	void WorldUpdate(string updatesString)
 	{
 		JSONNode updates = JSON.Parse(updatesString);
-		dataQueue.Enqueue(updates);
+
+		Debug.Log ("Here");
+		Debug.Log ("Hello: " + updates ["main_player"]);
+		Debug.Log ("User id: " + userId.ToString ());
+		//We only subscribe to the relevant updates.
+		if ( userId.ToString ().Equals(updates ["main_player"].ToString ()) ) 
+		{
+			Debug.Log ("Enqueueing");
+
+			dataQueue.Enqueue(updates);
+		}
 	}
 }
