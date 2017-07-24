@@ -12,6 +12,7 @@ public class WorldControls : MonoBehaviour
 	private Queue<JSONNode> dataQueue;
 
 	public SocketIOController io;
+	private int userId = 1;
 
 	void Start()
 	{
@@ -112,6 +113,11 @@ public class WorldControls : MonoBehaviour
 		io.settings.url = url;
 	}
 
+	public void SetUserId(int userId)
+	{
+		this.userId = userId;
+	}
+
 	public void SetGamePort(int port)
 	{
 		Debug.Log("Game port set:" + port);
@@ -135,8 +141,9 @@ public class WorldControls : MonoBehaviour
 
 			// So that the server knows that requests have started
 			// being processed.
-			io.Emit("client-ready");
-		
+			//io.Emit("client-ready", userId);
+			io.Emit("client-ready", userId.ToString());
+
 			Debug.Log("Emitted response.");
 		});
 
