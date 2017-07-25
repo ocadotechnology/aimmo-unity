@@ -56,7 +56,7 @@ public class Player : MonoBehaviour
 		player.GetComponent<Renderer>().material.color = playerColour;
 
 		// Add score text.
-		GameObject text = new GameObject();
+		GameObject text = new GameObject("Text");
 		Vector3 textPosition = player.transform.position;
 		textPosition.y += 1.5f;
 		textPosition.z += 0.25f;
@@ -72,24 +72,33 @@ public class Player : MonoBehaviour
 		text.transform.parent = player.transform;
 
 		// Add health bar.
+		GameObject healthBar = new GameObject("Health bar");
+		GameObject redBar = new GameObject("Red bar");
+		GameObject greenBar = new GameObject("Green bar");
+
 		Texture2D greenTexture = new Texture2D(1, 1);
 		greenTexture.SetPixel(0, 0, Color.green);
 		Texture2D redTexture = new Texture2D(1, 1);
 		redTexture.SetPixel(0, 0, Color.red);
 
-		Sprite greenBar = Sprite.Create (greenTexture, 
+		Sprite greenBarSprite = Sprite.Create(greenTexture, 
 			new Rect(0.0f, 0.0f, 1.0f, 0.1f),
 			new Vector2(0.5f, 0.5f),
 			100.0f);
-		Sprite redBar = Sprite.Create (redTexture, 
+		Sprite redBarSprite = Sprite.Create(redTexture, 
 			new Rect(0.0f, 0.0f, 1.0f, 0.1f),
 			new Vector2(0.5f, 0.5f),
 			100.0f);
-		
-		SpriteRenderer greenBarRenderer = player.AddComponent<SpriteRenderer>();
-		greenBarRenderer.sprite = greenBar;
-		SpriteRenderer redBarRenderer = player.AddComponent<SpriteRenderer>();
-		redBarRenderer.sprite = redBar;
+
+		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
+		greenBarRenderer.sprite = greenBarSprite;
+		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
+		redBarRenderer.sprite = redBarSprite;
+
+		greenBar.transform.parent = healthBar.transform;
+		redBar.transform.parent = healthBar.transform;
+
+		healthBar.transform.parent = player.transform;
 
 		return true;
 	}
