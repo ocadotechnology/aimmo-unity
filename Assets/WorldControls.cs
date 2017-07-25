@@ -182,6 +182,12 @@ public class WorldControls : MonoBehaviour
 			Obstacle.Delete(obstacle["id"]);
 	}
 
+	// Tell the server when we get out of the game.
+	void OnApplicationQuit()
+	{
+		io.Emit("exit-game", userId.ToString());
+	}
+
 	// Detect focus. If there is focus, process everything fast.
 	/*void OnApplicationFocus(bool hasFocus)
 	{
