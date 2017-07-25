@@ -76,11 +76,6 @@ public class Player : MonoBehaviour
 		GameObject redBar = new GameObject("Red bar");
 		GameObject greenBar = new GameObject("Green bar");
 
-		healthBar.transform.rotation = Quaternion.Euler(0.0f, 45.0f, 0.0f);
-		healthBar.transform.position = new Vector3 (-0.75f, 0.25f, -0.75f);
-		redBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
-		greenBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
-
 		Texture2D greenTexture = new Texture2D(100, 25);
 		Texture2D redTexture = new Texture2D(100, 25);
 		for (int x = 0; x < 100; x++)
@@ -110,7 +105,17 @@ public class Player : MonoBehaviour
 		greenBar.transform.parent = healthBar.transform;
 		redBar.transform.parent = healthBar.transform;
 
+		redBar.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
+		redBar.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+		redBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
+		greenBar.transform.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
+		greenBar.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+		greenBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
+
 		healthBar.transform.parent = player.transform;
+
+		healthBar.transform.localRotation = Quaternion.Euler(0.0f, 45.0f, 0.0f);
+		healthBar.transform.localPosition = new Vector3 (-0.45f, 0.25f, -0.45f);
 
 		return true;
 	}
