@@ -76,23 +76,35 @@ public class Player : MonoBehaviour
 		GameObject redBar = new GameObject("Red bar");
 		GameObject greenBar = new GameObject("Green bar");
 
-		Texture2D greenTexture = new Texture2D(1, 1);
-		greenTexture.SetPixel(0, 0, Color.green);
-		Texture2D redTexture = new Texture2D(1, 1);
-		redTexture.SetPixel(0, 0, Color.red);
+		healthBar.transform.rotation = Quaternion.Euler(0.0f, 45.0f, 0.0f);
+		healthBar.transform.position = new Vector3 (-0.75f, 0.25f, -0.75f);
+		redBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
+		greenBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
+
+		Texture2D greenTexture = new Texture2D(100, 25);
+		Texture2D redTexture = new Texture2D(100, 25);
+		for (int x = 0; x < 100; x++)
+			for (int y = 0; y < 25; y++) 
+				{
+					greenTexture.SetPixel(x, y, Color.green);
+					redTexture.SetPixel(x, y, Color.red);
+				}
 
 		Sprite greenBarSprite = Sprite.Create(greenTexture, 
-			new Rect(0.0f, 0.0f, 1.0f, 0.1f),
+			new Rect(0.0f, 0.0f, 10.0f, 1.0f),
 			new Vector2(0.5f, 0.5f),
 			100.0f);
 		Sprite redBarSprite = Sprite.Create(redTexture, 
-			new Rect(0.0f, 0.0f, 1.0f, 0.1f),
+			new Rect(0.0f, 0.0f, 10.0f, 1.0f),
 			new Vector2(0.5f, 0.5f),
 			100.0f);
 
 		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
+		greenBarRenderer.color = Color.green;
 		greenBarRenderer.sprite = greenBarSprite;
+		greenBarRenderer.sortingOrder = 1;
 		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
+		redBarRenderer.color = Color.red;
 		redBarRenderer.sprite = redBarSprite;
 
 		greenBar.transform.parent = healthBar.transform;
