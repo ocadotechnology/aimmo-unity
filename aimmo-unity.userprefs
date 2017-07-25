@@ -2,15 +2,15 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/WorldControls.cs">
     <Files>
-      <File FileName="Assets/WorldControls.cs" Line="45" Column="4" />
-      <File FileName="Assets/Players/PlayerController.cs" Line="38" Column="32" />
+      <File FileName="Assets/WorldControls.cs" Line="1" Column="1" />
+      <File FileName="Assets/Players/PlayerController.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/HealthPoint.cs" Line="1" Column="1" />
       <File FileName="Assets/Plugins/UnitySocketIO/Scripts/SocketIOController.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/Pickup.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/Obstacle.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/MapFeature.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/ScorePoint.cs" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets/Players/Player.cs" Line="31" Column="39" NotebookId="1" />
+      <File FileName="Assets/Players/Player.cs" Line="1" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

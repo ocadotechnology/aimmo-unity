@@ -26,35 +26,31 @@ public class PlayerController : MonoBehaviour
 	{
 		// TODO: Rotation transition. Maybe an animation?
 
-		/*float step = (Time.time - startTime) * speed;
+		float step = (Time.time - startTime) * speed;
 
-		if (step < 1.0f) 
-		{
-			transform.position = Vector3.Lerp(currPosition, nextPosition, step);
-		} 
+		if (step < 0.3f) 
+			transform.position = Vector3.Lerp (currPosition, nextPosition, step);
 		else 
 		{
 			transform.position = nextPosition;
 			currPosition = nextPosition;
 
-			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
+			transform.GetComponentInChildren<TextMesh> ().text = Convert.ToString (nextScore);
 
 			startTime = Time.time;
-		}*/
+		}
 	}
 
 	// Set next destination.
 	public void SetNextState(PlayerData playerData)
 	{
-		//nextPosition = new Vector3(playerData.x, 0.5f, playerData.y);
-		//nextScore = playerData.score;
+		nextPosition = new Vector3(playerData.x, 0.5f, playerData.y);
+		nextScore = playerData.score;
 
-		transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
-		transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(playerData.score);
+		//transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
+		//transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(playerData.score);
 
 	}
-
-
 
 	// Detect focus - Use this in world controls
 	/*void OnApplicationFocus(bool hasFocus)

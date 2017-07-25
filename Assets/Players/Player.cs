@@ -34,7 +34,7 @@ public class Player : MonoBehaviour
 		if (player == null)
 			return false;
 
-		// DEBUG
+		// DEBUG !!!
 		if (id == 1) 
 		{
 			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
 			plane.transform.localPosition = new Vector3(0.0f, -0.45f, 0.0f);
 			plane.transform.localScale = new Vector3(0.8f, 1.0f, 0.8f);
 			plane.transform.parent = player.transform;
+		
+			Camera.main.GetComponent<FollowAvatar>().target = player;
 		}
 
 		player.transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
@@ -95,8 +97,6 @@ public class Player : MonoBehaviour
 
 		// The controller will change the position, score and health.
 		controller.SetNextState(playerData);
-
-
 
 		return true;	
 	}
