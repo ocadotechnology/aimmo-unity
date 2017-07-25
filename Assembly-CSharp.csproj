@@ -54,6 +54,7 @@
      <Compile Include="Assets\MapFeatures\ScorePoint.cs" />
      <Compile Include="Assets\Players\Player.cs" />
      <Compile Include="Assets\Players\PlayerController.cs" />
+     <Compile Include="Assets\Players\PlayerHealthBar.cs" />
      <Compile Include="Assets\WorldControls.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

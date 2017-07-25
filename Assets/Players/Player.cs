@@ -71,6 +71,26 @@ public class Player : MonoBehaviour
 
 		text.transform.parent = player.transform;
 
+		// Add health bar.
+		Texture2D greenTexture = new Texture2D(1, 1);
+		greenTexture.SetPixel(0, 0, Color.green);
+		Texture2D redTexture = new Texture2D(1, 1);
+		redTexture.SetPixel(0, 0, Color.red);
+
+		Sprite greenBar = Sprite.Create (greenTexture, 
+			new Rect(0.0f, 0.0f, 1.0f, 0.1f),
+			new Vector2(0.5f, 0.5f),
+			100.0f);
+		Sprite redBar = Sprite.Create (redTexture, 
+			new Rect(0.0f, 0.0f, 1.0f, 0.1f),
+			new Vector2(0.5f, 0.5f),
+			100.0f);
+		
+		SpriteRenderer greenBarRenderer = player.AddComponent<SpriteRenderer>();
+		greenBarRenderer.sprite = greenBar;
+		SpriteRenderer redBarRenderer = player.AddComponent<SpriteRenderer>();
+		redBarRenderer.sprite = redBar;
+
 		return true;
 	}
 
