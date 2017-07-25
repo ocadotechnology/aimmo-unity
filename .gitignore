@@ -1,8 +1,15 @@
-*.bin
+#=============#
+# Directories #
+#=============#
 Library/
 Temp/
 Build/
-git_key
+ProjectSettings/
+
+#=======#
+# Files #
+#=======#
+*.bin
 *.pyc
 *.swp
 *.userprefs
