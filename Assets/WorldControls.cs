@@ -72,13 +72,15 @@ public class WorldControls : MonoBehaviour
 	{
 		io.ResetSettings();
 
-		io.On("connect", (SocketIOEvent e) => {
+		io.On("connect", (SocketIOEvent e) => 
+		{
 			Debug.Log("SocketIO Connected.");
 		});
 
 		io.Connect();
 
-		io.On("world-init", (SocketIOEvent e) => {
+		io.On("world-init", (SocketIOEvent e) => 
+		{
 			Debug.Log("World init.");
 
 			// So that the server knows that requests have started
@@ -88,9 +90,8 @@ public class WorldControls : MonoBehaviour
 			Debug.Log("Emitted response.");
 		});
 
-		io.On("world-update", (SocketIOEvent e) => {
-			//Debug.Log("Update received");
-
+		io.On("world-update", (SocketIOEvent e) => 
+		{
 			WorldUpdate(e.data);
 		});
 	}
@@ -110,10 +111,6 @@ public class WorldControls : MonoBehaviour
 	void WorldUpdate(string updatesString)
 	{
 		JSONNode updates = JSON.Parse(updatesString);
-
-		Debug.Log ("Here");
-		Debug.Log ("Hello: " + updates ["main_player"]);
-		Debug.Log ("User id: " + userId.ToString ());
 
 		// TEMPORARY. We only subscribe to the relevant updates.
 		if (userId.ToString().Equals(updates["main_player"].ToString()))

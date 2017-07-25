@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
 			plane.transform.localScale = new Vector3(0.8f, 1.0f, 0.8f);
 			plane.transform.parent = player.transform;
 		
-			Camera.main.GetComponent<FollowAvatar>().target = player;
+			//Camera.main.GetComponent<FollowAvatar>().target = player;
 		}
 
 		player.transform.position = new Vector3(playerData.x, 0.5f, playerData.y);

@@ -33,6 +33,8 @@ public class Pickup : MapFeature
 
 	public static bool Delete(string id)
 	{
+		Debug.Log ("Pickup deleteeedddd");
+
 		GameObject pickupToDestroy = GameObject.Find(MapFeatureId(id));
 		if (pickupToDestroy == null)
 			return false;

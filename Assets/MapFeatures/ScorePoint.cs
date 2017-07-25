@@ -40,7 +40,6 @@ public class ScorePoint : MapFeature
 		return true;
 	}
 
-
 	private static string MapFeatureId(string id)
 	{
 		return "scorepoint" + id;
