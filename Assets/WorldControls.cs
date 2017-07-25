@@ -8,6 +8,8 @@ using SimpleJSON;
 
 public class WorldControls : MonoBehaviour
 {
+	public bool debug;
+
 	private const float processingInterval = 0.75f;
 
 	private float startTime;
@@ -40,6 +42,9 @@ public class WorldControls : MonoBehaviour
 	void Update()
 	{
 		float step = Time.time - startTime;
+
+		if (dataQueue == null)
+			return;
 
 		if (step >= processingInterval && dataQueue.Count > 0)
 			ProcessUpdate();
@@ -115,7 +120,7 @@ public class WorldControls : MonoBehaviour
 			dataQueue.Enqueue(updates);
 	}
 
-	// 
+	// Manage the changes in the scene.
 	void ProcessUpdate()
 	{
 		startTime = Time.time;
@@ -125,7 +130,7 @@ public class WorldControls : MonoBehaviour
 		JSONNode players = updates["players"];
 
 		foreach (JSONNode player in players["create"].AsArray) 
-			Player.Create(player["id"].AsInt, new PlayerData(player));
+			Player.Create(player["id"].AsInt, new PlayerData(player), debug);
 
 		foreach (JSONNode player in players["delete"].AsArray)
 			Player.Delete(player["id"].AsInt);
@@ -153,9 +158,9 @@ public class WorldControls : MonoBehaviour
 		// Score points.
 		foreach (JSONNode scorePoint in scorePoints["create"].AsArray) {
 			ScorePoint.Create (
-				scorePoint ["id"], 
-				scorePoint ["x"].AsFloat, 
-				scorePoint ["y"].AsFloat);
+				scorePoint["id"], 
+				scorePoint["x"].AsFloat, 
+				scorePoint["y"].AsFloat);
 		}
 
 		foreach (JSONNode scorePoint in scorePoints["delete"].AsArray)

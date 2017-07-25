@@ -23,7 +23,7 @@ public struct PlayerData
 
 public class Player : MonoBehaviour
 {
-	public static bool Create(int id, PlayerData playerData)
+	public static bool Create(int id, PlayerData playerData, bool debug)
 	{
 		// It might have already been created.
 		if (GameObject.Find(PlayerId(id)) != null)
@@ -34,8 +34,8 @@ public class Player : MonoBehaviour
 		if (player == null)
 			return false;
 
-		// DEBUG !!!
-		if (id == 1) 
+		// TEMPORARY
+		if (id == 1 && debug) 
 		{
 			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 			plane.GetComponent<Renderer>().material.color = Color.green;
