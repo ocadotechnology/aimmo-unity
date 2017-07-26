@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 		float step = (Time.time - startTime) * speed;
 
 		if (step < moveInterval) 
-			transform.position = Vector3.Lerp (currPosition, nextPosition, step);
+			transform.position = Vector3.Lerp(currPosition, nextPosition, step);
 		else 
 		{
 			transform.position = nextPosition;
