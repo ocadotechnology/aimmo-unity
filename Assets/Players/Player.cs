@@ -9,7 +9,18 @@ public struct PlayerData
 	public int score, health;
 	public string colour;
 
-	// Construct from json
+	// Construct with just position.
+	public PlayerData(Vector3 position)
+	{
+		this.x = position.x;
+		this.y = position.z;
+		this.rotation = 0;
+		this.score = 0;
+		this.health = 5; 
+		this.colour = "";
+	}
+
+	// Construct from json.
 	public PlayerData(SimpleJSON.JSONNode json)
 	{
 		this.x = json["x"].AsFloat;
@@ -72,50 +83,7 @@ public class Player : MonoBehaviour
 		text.transform.parent = player.transform;
 
 		// Add health bar.
-		GameObject healthBar = new GameObject("Health bar");
-		GameObject redBar = new GameObject("Red bar");
-		GameObject greenBar = new GameObject("Green bar");
-
-		Texture2D greenTexture = new Texture2D(100, 25);
-		Texture2D redTexture = new Texture2D(100, 25);
-		for (int x = 0; x < 100; x++)
-			for (int y = 0; y < 25; y++) 
-				{
-					greenTexture.SetPixel(x, y, Color.green);
-					redTexture.SetPixel(x, y, Color.red);
-				}
-
-		Sprite greenBarSprite = Sprite.Create(greenTexture, 
-			new Rect(0.0f, 0.0f, 10.0f, 1.0f),
-			new Vector2(0.5f, 0.5f),
-			100.0f);
-		Sprite redBarSprite = Sprite.Create(redTexture, 
-			new Rect(0.0f, 0.0f, 10.0f, 1.0f),
-			new Vector2(0.5f, 0.5f),
-			100.0f);
-
-		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
-		greenBarRenderer.color = Color.green;
-		greenBarRenderer.sprite = greenBarSprite;
-		greenBarRenderer.sortingOrder = 1;
-		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
-		redBarRenderer.color = Color.red;
-		redBarRenderer.sprite = redBarSprite;
-
-		greenBar.transform.parent = healthBar.transform;
-		redBar.transform.parent = healthBar.transform;
-
-		redBar.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-		redBar.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-		redBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
-		greenBar.transform.localPosition = new Vector3 (0.0f, 0.0f, 0.0f);
-		greenBar.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
-		greenBar.transform.localScale = new Vector3(10.0f, 10.0f, 1.0f);
-
-		healthBar.transform.parent = player.transform;
-
-		healthBar.transform.localRotation = Quaternion.Euler(0.0f, 45.0f, 0.0f);
-		healthBar.transform.localPosition = new Vector3 (-0.45f, 0.25f, -0.45f);
+		player.AddComponent<PlayerHealthBar>();
 
 		return true;
 	}

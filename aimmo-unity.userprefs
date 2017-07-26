@@ -1,6 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Players/Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Players/PlayerHealthBar.cs">
     <Files>
       <File FileName="Assets/WorldControls.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/HealthPoint.cs" Line="1" Column="1" />
@@ -9,9 +9,8 @@
       <File FileName="Assets/MapFeatures/Obstacle.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/MapFeature.cs" Line="1" Column="1" />
       <File FileName="Assets/MapFeatures/ScorePoint.cs" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets/Players/Player.cs" Line="118" Column="71" NotebookId="1" />
+      <File FileName="Assets/Players/Player.cs" Line="1" Column="1" NotebookId="1" />
       <File FileName="Assets/Players/PlayerController.cs" Line="1" Column="1" NotebookId="1" />
-      <File FileName="Assets/FollowAvatar.cs" Line="1" Column="1" NotebookId="1" />
       <File FileName="Assets/Players/PlayerHealthBar.cs" Line="1" Column="1" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>

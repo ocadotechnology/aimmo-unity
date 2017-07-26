@@ -10,7 +10,7 @@ public class WorldControls : MonoBehaviour
 {
 	public bool debug;
 
-	private const float processingInterval = 0.75f;
+	private const float ProcessingInterval = 0.75f;
 
 	private float startTime;
 	private Queue<JSONNode> dataQueue;
@@ -46,7 +46,7 @@ public class WorldControls : MonoBehaviour
 		if (dataQueue == null)
 			return;
 
-		if (step >= processingInterval && dataQueue.Count > 0)
+		if (step >= ProcessingInterval && dataQueue.Count > 0)
 			ProcessUpdate();
 	}
 

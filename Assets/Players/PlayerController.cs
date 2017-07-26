@@ -10,17 +10,17 @@ public class PlayerController : MonoBehaviour
 	private const float moveInterval = 0.5f;
 
 	private float startTime;
+
+	private PlayerData nextState;
 	private Vector3 currPosition;
 	private Vector3 nextPosition;
-	private int nextScore;
 
 	// Initialisation.
 	void Awake()
 	{
 		startTime = Time.time;
 		currPosition = transform.position;
-		nextPosition = transform.position;
-		nextScore = 0; // This is not right but keep it for now.
+		nextState = new PlayerData(transform.position);
 	}
 
 	// Move the player to next position.
@@ -37,7 +37,8 @@ public class PlayerController : MonoBehaviour
 			transform.position = nextPosition;
 			currPosition = nextPosition;
 
-			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextScore);
+			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
+			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(nextState.health);
 
 			startTime = Time.time;
 		}
@@ -46,11 +47,11 @@ public class PlayerController : MonoBehaviour
 	// Set next destination.
 	public void SetNextState(PlayerData playerData)
 	{
-		transform.position = nextPosition;
-		nextPosition = new Vector3(playerData.x, 0.5f, playerData.y);
-		nextScore = playerData.score;
+		nextState = playerData;
 
-		//transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
-		//transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(playerData.score);
+		transform.position = nextPosition;
+		nextPosition = new Vector3(nextState.x, 0.5f, nextState.y);
+
+
 	}
 }
