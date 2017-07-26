@@ -91,7 +91,7 @@ public class PlayerHealthBar : MonoBehaviour
 	public void SetHealthPoints(float hp)
 	{
 		Debug.Log(hp);
-		hp = hp / 5.0f; // TEMPORARY
+		hp = hp / 7.0f; // TEMPORARY
 
 		// Bound hp from 0 to 10.
 		float actualHP = hp > MaxHP ? MaxHP : (hp < MinHP ? MinHP : hp);
