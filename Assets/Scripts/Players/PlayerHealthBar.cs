@@ -26,6 +26,8 @@ public class PlayerHealthBar : MonoBehaviour
 
 	private const float MinHP = 0.0f;
 	private const float MaxHP = 10.0f; // = BarMaxScaleX
+	private const float MinHPFromBackend = 0.0f;
+	private const float MaxHPFromBackend = 100.0f; 
 	private const float InitialHP = 5.0f; // = BarInitialScaleX
 	private const float GreenBarPositionZeroHP = -0.5f;
 	private const float GreenBarIncrementOneHP = 0.05f;
@@ -90,8 +92,7 @@ public class PlayerHealthBar : MonoBehaviour
 	// Called from player controller.
 	public void SetHealthPoints(float hp)
 	{
-		Debug.Log(hp);
-		hp = hp / 7.0f; // TEMPORARY
+		hp *= (MaxHP - MinHP) / (MaxHPFromBackend - MinHPFromBackend);
 
 		// Bound hp from 0 to 10.
 		float actualHP = hp > MaxHP ? MaxHP : (hp < MinHP ? MinHP : hp);
