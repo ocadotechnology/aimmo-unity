@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Experimental\SpriteCreator.cs" />
      <Compile Include="Assets\Scripts\FollowAvatar.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\HealthPoint.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\MapFeature.cs" />

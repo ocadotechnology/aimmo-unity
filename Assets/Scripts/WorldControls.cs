@@ -85,7 +85,7 @@ public class WorldControls : MonoBehaviour
 
 			// So that the server knows that requests have started
 			// being processed.
-			io.Emit("client-ready", userId.ToString());
+			io.Emit("client-ready", Convert.ToString(userId));
 
 			Debug.Log("Emitted response.");
 		});
@@ -113,7 +113,7 @@ public class WorldControls : MonoBehaviour
 		JSONNode updates = JSON.Parse(updatesString);
 
 		// TEMPORARY. We only subscribe to the relevant updates.
-		if (userId.ToString().Equals(updates["main_player"].ToString()))
+		if (userId == updates["main_player"].AsInt)
 			dataQueue.Enqueue(updates);
 	}
 
@@ -187,7 +187,7 @@ public class WorldControls : MonoBehaviour
 	// Tell the server when we get out of the game.
 	void OnApplicationQuit()
 	{
-		io.Emit("exit-game", userId.ToString());
+		io.Emit("exit-game", Convert.ToString(userId));
 	}
 
 	// Detect focus. If there is focus, process everything fast.
