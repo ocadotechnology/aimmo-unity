@@ -78,7 +78,7 @@ public class PlayerHealthBar : MonoBehaviour
 
 		// Move green bar a bit left. And make it a bit smaller. 
 		// Startig health value is 5/10. 
-		greenBar.transform.localPosition = new Vector3(-0.25f, BarVerticalPosition, 0.0f);
+		greenBar.transform.localPosition = new Vector3(GetGreenBarX(InitialHP), BarVerticalPosition, 0.0f);
 		greenBar.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 		greenBar.transform.localScale = new Vector3(BarInitialScaleX, BarMaxScaleY, 1.0f);
 
