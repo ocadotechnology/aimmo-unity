@@ -100,10 +100,10 @@ public class WorldControls : MonoBehaviour
 	void WorldInit()
 	{
 		// TEMPORARY! For now we'll just have a massive plane. 
-		GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
+		/*GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
 		floor.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
 		floor.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
-		floor.GetComponent<Renderer>().material.color = Color.gray;
+		floor.GetComponent<Renderer>().material.color = Color.gray;*/
 	}
 
 	// Receive updates from the backend, parse them and delegate to the 
