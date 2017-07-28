@@ -14,14 +14,21 @@ public class Obstacle : MapFeature
 		if (GameObject.Find(MapFeatureId(id)) != null)
 			return true;
 
-		// Create new cube.
-		GameObject obstacle = GameObject.CreatePrimitive(PrimitiveType.Cube);
-		if (obstacle == null) 
-			return false;
+		// Create an obstacle.
+		GameObject obstacle = new GameObject(MapFeatureId(id));
+		obstacle.transform.position = new Vector3(x, 0.0f, y);
+		obstacle.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
+		obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);
+		Texture2D obstacleTexture = Resources.Load<Texture2D>("Obstacle-512x1024-isometric-top");
+		Sprite obstacleSprite = Sprite.Create(obstacleTexture, 
+			new Rect(0.0f, 0.0f, 512.0f, 1024.0f),
+			new Vector2(0.5f, 0.5f),
+			100.0f);
+		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
+		obstacleRenderer.sprite = obstacleSprite;
 
-		obstacle.transform.position = new Vector3(x, 0.5f, y);
-		obstacle.name = MapFeatureId(id);
-		obstacle.GetComponent<Renderer>().material.color = Color.black;
+		obstacleRenderer.sortingLayerName = "Layer";
+		obstacleRenderer.sortingOrder = 2;
 
 		return true;
 	}

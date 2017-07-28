@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Experimental\SpriteCreator.cs" />
      <Compile Include="Assets\Scripts\FollowAvatar.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\HealthPoint.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\MapFeature.cs" />
@@ -155,6 +154,15 @@
      <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\WebSocketFrame.cs" />
      <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\WebSocketState.cs" />
      <Compile Include="Assets\Scripts\WorldControls.cs" />
+     <Compile Include="Assets\UnityToolbag\CacheBehaviour\CacheBehaviour.cs" />
+     <Compile Include="Assets\UnityToolbag\Dispatcher\Dispatcher.cs" />
+     <Compile Include="Assets\UnityToolbag\DrawTitleSafeArea\DrawTitleSafeArea.cs" />
+     <Compile Include="Assets\UnityToolbag\Future\Future.cs" />
+     <Compile Include="Assets\UnityToolbag\SimpleSpriteAnimation\SpriteFrameAnimation.cs" />
+     <Compile Include="Assets\UnityToolbag\SimpleSpriteAnimation\SpriteFrameAnimator.cs" />
+     <Compile Include="Assets\UnityToolbag\SortingLayer\SortingLayerAttribute.cs" />
+     <Compile Include="Assets\UnityToolbag\SortingLayer\SortingLayerExposed.cs" />
+     <Compile Include="Assets\UnityToolbag\StandardPaths\StandardPaths.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

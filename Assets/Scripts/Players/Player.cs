@@ -45,6 +45,9 @@ public class Player : MonoBehaviour
 		if (player == null)
 			return false;
 
+		player.GetComponent<Renderer> ().sortingLayerName = "Layer";
+		player.GetComponent<Renderer> ().sortingOrder = -2;
+
 		// TEMPORARY
 		if (id == 1 && debug) 
 		{
@@ -65,6 +68,7 @@ public class Player : MonoBehaviour
 		Color playerColour;
 		ColorUtility.TryParseHtmlString(playerData.colour, out playerColour);
 		player.GetComponent<Renderer>().material.color = playerColour;
+		player.GetComponent<Renderer>().material.SetInt("_ZWrite", 0);
 
 		// Add score text.
 		GameObject text = new GameObject("Text");
