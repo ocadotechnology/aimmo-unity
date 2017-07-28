@@ -28,7 +28,7 @@ public class Obstacle : MapFeature
 		obstacleRenderer.sprite = obstacleSprite;
 
 		int layerNumber = (int)(x + y);
-		obstacle.layer = 9 + layerNumber;
+		obstacle.layer = 8 + layerNumber;
 
 		return true;
 	}

@@ -37,8 +37,8 @@ public class PlayerController : MonoBehaviour
 			transform.position = nextPosition;
 			currPosition = nextPosition;
 
-			int layerNumber = (int)(transform.position.x + transform.position.y);
-			transform.gameObject.layer = 9 + layerNumber;
+			int layerNumber = (int)(transform.position.x + transform.position.z);
+			transform.gameObject.layer = 8 + layerNumber;
 
 			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
 			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(nextState.health);
