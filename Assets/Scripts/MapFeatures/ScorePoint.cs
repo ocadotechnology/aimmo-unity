@@ -29,6 +29,9 @@ public class ScorePoint : MapFeature
 		SpriteRenderer grassRenderer = grass.AddComponent<SpriteRenderer>();
 		grassRenderer.sprite = grassSprite;
 
+		int layerNumber = (int)(x + y);
+		grass.layer = 9 + layerNumber;
+
 		return true;
 	}
 

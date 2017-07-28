@@ -27,8 +27,8 @@ public class Obstacle : MapFeature
 		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 		obstacleRenderer.sprite = obstacleSprite;
 
-		obstacleRenderer.sortingLayerName = "Layer";
-		obstacleRenderer.sortingOrder = 2;
+		int layerNumber = (int)(x + y);
+		obstacle.layer = 9 + layerNumber;
 
 		return true;
 	}
