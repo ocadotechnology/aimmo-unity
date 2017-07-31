@@ -14,9 +14,11 @@ public class FollowAvatar : MonoBehaviour
 
 	private GameObject target = null;
 
-	private const float xOffset = -5.0f;
-	private const float yOffset = 5.0f;
-	private const float zOffset = -5.0f;
+
+	private const float xOffset = -5.0f - 100.0f;
+	private const float yOffset = 5.0f + 100.0f * 1.41421356237f;
+	private const float zOffset = -5.0f - 100.0f;
+
 
 	private const float dampTime = 0.2f;
 	private Vector3 velocity = Vector3.zero;

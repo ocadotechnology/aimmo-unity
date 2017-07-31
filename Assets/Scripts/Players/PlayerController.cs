@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
 		}
 		else 
 		{
-			transform.position = nextPosition;
+			transform.GetComponent<IsometricPosition>().Set(nextPosition);
 			currPosition = nextPosition;
 
 			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
@@ -51,9 +51,7 @@ public class PlayerController : MonoBehaviour
 	{
 		nextState = playerData;
 
-		transform.position = nextPosition;
-		nextPosition = new Vector3(nextState.x, 0.5f, nextState.y);
-
-
+		transform.GetComponent<IsometricPosition>().Set(nextPosition);
+		nextPosition = new Vector2(nextState.x, nextState.y);
 	}
 }

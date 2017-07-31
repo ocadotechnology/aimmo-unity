@@ -61,13 +61,12 @@ public class PlayerHealthBar : MonoBehaviour
 			new Vector2(SpritePivotCoordX, SpritePivotCoordY),
 			SpritePixelsPerUnit);
 
-		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
-		greenBarRenderer.color = Color.green;
-		greenBarRenderer.sprite = greenBarSprite;
-		greenBarRenderer.sortingOrder = 1;
 		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
 		redBarRenderer.color = Color.red;
 		redBarRenderer.sprite = redBarSprite;
+		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
+		greenBarRenderer.color = Color.green;
+		greenBarRenderer.sprite = greenBarSprite;
 
 		greenBar.transform.parent = healthBar.transform;
 		redBar.transform.parent = healthBar.transform;

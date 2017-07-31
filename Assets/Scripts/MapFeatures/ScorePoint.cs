@@ -22,7 +22,7 @@ public class ScorePoint : MapFeature
 			return false;
 
 		grass.tag = "FlatMapFeature";
-		grass.AddComponent<IsometricPosition>().Set(x, y);
+		grass.AddComponent<IsometricPosition>().Set(x, y, true);
 		grass.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		grass.transform.localScale = new Vector3(0.35f, 0.35f, 0.0f);
 		Texture2D grassTexture = Resources.Load<Texture2D>("Grass-400x400-isometric-top");
