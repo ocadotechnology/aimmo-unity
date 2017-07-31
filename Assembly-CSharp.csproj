@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Scripts\FollowAvatar.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\HealthPoint.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\MapFeature.cs" />
      <Compile Include="Assets\Scripts\MapFeatures\Obstacle.cs" />
@@ -55,114 +54,9 @@
      <Compile Include="Assets\Scripts\Players\Player.cs" />
      <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
      <Compile Include="Assets\Scripts\Players\PlayerHealthBar.cs" />
-     <Compile Include="Assets\Scripts\Plugins\SimpleJSON.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\Data\SocketOpenData.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\Events\Ack.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\Events\SocketIOEvent.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\IO\Decoder.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\IO\Encoder.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\IO\Parser.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\Packet\EnginePacketType.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\Packet\SocketPacket.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\Packet\SocketPacketType.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\SocketIO\BaseSocketIO.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\SocketIO\NativeSocketIO.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\SocketIO\SocketIOSettings.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\SocketIO\WebGLSocketIO.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\SocketIOController.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\WebGL\AckJson.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Scripts\WebGL\EventJson.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Test\SocketTest.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\Test\TestObject.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\AssemblyInfo.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\ByteOrder.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\CloseEventArgs.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\CloseStatusCode.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\CompressionMethod.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\ErrorEventArgs.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Ext.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Fin.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\HttpBase.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\HttpRequest.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\HttpResponse.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\LogData.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\LogLevel.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Logger.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Mask.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\MessageEventArgs.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\AuthenticationBase.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\AuthenticationChallenge.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\AuthenticationResponse.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\AuthenticationSchemes.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\Chunk.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\ChunkStream.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\ChunkedRequestStream.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\ClientSslConfiguration.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\Cookie.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\CookieCollection.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\CookieException.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\EndPointListener.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\EndPointManager.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpBasicIdentity.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpConnection.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpDigestIdentity.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpHeaderInfo.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpHeaderType.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListener.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerAsyncResult.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerContext.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerException.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerPrefix.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerPrefixCollection.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerRequest.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpListenerResponse.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpRequestHeader.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpResponseHeader.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpStatusCode.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpStreamAsyncResult.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpUtility.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\HttpVersion.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\InputChunkState.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\InputState.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\LineState.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\NetworkCredential.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\QueryStringCollection.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\ReadBufferState.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\RequestStream.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\ResponseStream.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\ServerSslConfiguration.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\SslConfiguration.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\WebHeaderCollection.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\WebSockets\HttpListenerWebSocketContext.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\WebSockets\TcpListenerWebSocketContext.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Net\WebSockets\WebSocketContext.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Opcode.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\PayloadData.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Rsv.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\HttpRequestEventArgs.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\HttpServer.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\IWebSocketSession.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\ServerState.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\WebSocketBehavior.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\WebSocketServer.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\WebSocketServiceHost.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\WebSocketServiceHost`1.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\WebSocketServiceManager.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\Server\WebSocketSessionManager.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\WebSocket.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\WebSocketException.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\WebSocketFrame.cs" />
-     <Compile Include="Assets\Scripts\Plugins\UnitySocketIO\WebSocketSharp\WebSocketState.cs" />
-     <Compile Include="Assets\Scripts\WorldControls.cs" />
-     <Compile Include="Assets\UnityToolbag\CacheBehaviour\CacheBehaviour.cs" />
-     <Compile Include="Assets\UnityToolbag\Dispatcher\Dispatcher.cs" />
-     <Compile Include="Assets\UnityToolbag\DrawTitleSafeArea\DrawTitleSafeArea.cs" />
-     <Compile Include="Assets\UnityToolbag\Future\Future.cs" />
-     <Compile Include="Assets\UnityToolbag\SimpleSpriteAnimation\SpriteFrameAnimation.cs" />
-     <Compile Include="Assets\UnityToolbag\SimpleSpriteAnimation\SpriteFrameAnimator.cs" />
-     <Compile Include="Assets\UnityToolbag\SortingLayer\SortingLayerAttribute.cs" />
-     <Compile Include="Assets\UnityToolbag\SortingLayer\SortingLayerExposed.cs" />
-     <Compile Include="Assets\UnityToolbag\StandardPaths\StandardPaths.cs" />
+     <Compile Include="Assets\Scripts\SceneView\CamerasManager.cs" />
+     <Compile Include="Assets\Scripts\SceneView\FollowAvatar.cs" />
+     <Compile Include="Assets\Scripts\SceneView\WorldControls.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -181,6 +75,10 @@
  <Reference Include="UnityEngine.VR">
  <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
+      <Project>{B2123A48-FE02-1C0F-C299-41F8B3002309}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
