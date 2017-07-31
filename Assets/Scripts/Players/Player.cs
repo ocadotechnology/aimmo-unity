@@ -45,8 +45,8 @@ public class Player : MonoBehaviour
 		if (player == null)
 			return false;
 
-		player.GetComponent<Renderer> ().sortingLayerName = "Layer";
-		player.GetComponent<Renderer> ().sortingOrder = -2;
+		//player.GetComponent<Renderer> ().sortingLayerName = "Layer";
+		//player.GetComponent<Renderer> ().sortingOrder = -2;
 
 		// TEMPORARY
 		if (id == 1 && debug) 
