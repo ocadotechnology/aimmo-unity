@@ -32,6 +32,7 @@ public class ScorePoint : MapFeature
 			100.0f);
 		SpriteRenderer grassRenderer = grass.AddComponent<SpriteRenderer>();
 		grassRenderer.sprite = grassSprite;
+		grassRenderer.sortingLayerName = "ScorePoint";
 
 		return true;
 	}

@@ -64,9 +64,13 @@ public class PlayerHealthBar : MonoBehaviour
 		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
 		redBarRenderer.color = Color.red;
 		redBarRenderer.sprite = redBarSprite;
+		redBarRenderer.sortingLayerName = "HealthBar";
+		redBarRenderer.sortingOrder = 0;
 		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
 		greenBarRenderer.color = Color.green;
 		greenBarRenderer.sprite = greenBarSprite;
+		greenBarRenderer.sortingLayerName = "HealthBar";
+		greenBarRenderer.sortingOrder = 1;
 
 		greenBar.transform.parent = healthBar.transform;
 		redBar.transform.parent = healthBar.transform;

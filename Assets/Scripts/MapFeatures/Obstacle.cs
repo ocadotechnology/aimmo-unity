@@ -30,6 +30,7 @@ public class Obstacle : MapFeature
 			100.0f);
 		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 		obstacleRenderer.sprite = obstacleSprite;
+		obstacleRenderer.sortingLayerName = "Obstacle";
 
 		return true;
 	}
