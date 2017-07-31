@@ -3,8 +3,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
+    <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
+    <RootNamespace></RootNamespace>
     <ProjectGuid>{8507D6D9-6320-D342-44BF-CEE5618C4B70}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -33,52 +34,51 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.XML" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>/opt/Unity/Editor/Data/Managed/UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+      <HintPath>/opt/Unity/Editor/Data/Managed/UnityEditor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\MapFeatures\HealthPoint.cs" />
-    <Compile Include="Assets\Scripts\MapFeatures\MapFeature.cs" />
-    <Compile Include="Assets\Scripts\MapFeatures\Obstacle.cs" />
-    <Compile Include="Assets\Scripts\MapFeatures\Pickup.cs" />
-    <Compile Include="Assets\Scripts\MapFeatures\ScorePoint.cs" />
-    <Compile Include="Assets\Scripts\Players\Player.cs" />
-    <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\Players\PlayerHealthBar.cs" />
-    <Compile Include="Assets\Scripts\SceneView\FollowAvatar.cs" />
-    <Compile Include="Assets\Scripts\SceneView\WorldControls.cs" />
-    <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\UnityExtensions\Unity\Networking\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PlaymodeTestsRunner">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\UnityExtensions\Unity\PlaymodeTestsRunner\UnityEngine.PlaymodeTestsRunner.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.Analytics">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\UnityExtensions\Unity\UnityAnalytics\UnityEngine.Analytics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.HoloLens">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\UnityExtensions\Unity\UnityHoloLens\RuntimeEditor\UnityEngine.HoloLens.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.VR">
-      <HintPath>..\..\..\..\opt\Unity\Editor\Data\UnityExtensions\Unity\UnityVR\RuntimeEditor\UnityEngine.VR.dll</HintPath>
-    </Reference>
+     <Compile Include="Assets\Scripts\MapFeatures\HealthPoint.cs" />
+     <Compile Include="Assets\Scripts\MapFeatures\MapFeature.cs" />
+     <Compile Include="Assets\Scripts\MapFeatures\Obstacle.cs" />
+     <Compile Include="Assets\Scripts\MapFeatures\Pickup.cs" />
+     <Compile Include="Assets\Scripts\MapFeatures\ScorePoint.cs" />
+     <Compile Include="Assets\Scripts\Players\Player.cs" />
+     <Compile Include="Assets\Scripts\Players\PlayerController.cs" />
+     <Compile Include="Assets\Scripts\Players\PlayerHealthBar.cs" />
+     <Compile Include="Assets\Scripts\SceneView\FollowAvatar.cs" />
+     <Compile Include="Assets\Scripts\SceneView\IsometricPosition.cs" />
+     <Compile Include="Assets\Scripts\SceneView\WorldControls.cs" />
+ <Reference Include="UnityEngine.UI">
+ <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Networking">
+ <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.PlaymodeTestsRunner">
+ <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.Analytics">
+ <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.HoloLens">
+ <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.VR">
+ <HintPath>/opt/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{B2123A48-FE02-1C0F-C299-41F8B3002309}</Project>
-      <Name>Assembly-CSharp-firstpass</Name>
-    </ProjectReference>
+      <Project>{B2123A48-FE02-1C0F-C299-41F8B3002309}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -88,4 +88,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  
 </Project>

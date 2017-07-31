@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
 	private float startTime;
 
 	private PlayerData nextState;
-	private Vector3 currPosition;
-	private Vector3 nextPosition;
+	private Vector2 currPosition;
+	private Vector2 nextPosition;
 
 	// Initialisation.
 	void Awake()
@@ -31,15 +31,13 @@ public class PlayerController : MonoBehaviour
 		float step = (Time.time - startTime) * speed;
 
 		if (step < moveInterval) 
-			transform.position = Vector3.Lerp(currPosition, nextPosition, step);
+		{
+			transform.GetComponent<IsometricPosition>().Set(Vector2.Lerp(currPosition, nextPosition, step));
+		}
 		else 
 		{
 			transform.position = nextPosition;
 			currPosition = nextPosition;
-
-			GameObject parentCamera = GameObject.FindGameObjectWithTag("MainCamera");
-			int layer = parentCamera.GetComponent<CamerasManager>().LayerFromPosition(transform.position);
-			transform.gameObject.layer = layer;
 
 			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
 			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(nextState.health);

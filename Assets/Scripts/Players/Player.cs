@@ -10,10 +10,10 @@ public struct PlayerData
 	public string colour;
 
 	// Construct with just position.
-	public PlayerData(Vector3 position)
+	public PlayerData(Vector2 position)
 	{
 		this.x = position.x;
-		this.y = position.z;
+		this.y = position.y;
 		this.rotation = 0;
 		this.score = 0;
 		this.health = 5; 
