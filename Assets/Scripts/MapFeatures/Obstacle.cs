@@ -31,9 +31,6 @@ public class Obstacle : MapFeature
 		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 		obstacleRenderer.sprite = obstacleSprite;
 
-		int layerNumber = (int)(x + y);
-		obstacle.layer = 8 + layerNumber;
-
 		return true;
 	}
 

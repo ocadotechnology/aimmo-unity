@@ -37,8 +37,9 @@ public class PlayerController : MonoBehaviour
 			transform.position = nextPosition;
 			currPosition = nextPosition;
 
-			int layerNumber = (int)(transform.position.x + transform.position.z);
-			transform.gameObject.layer = 8 + layerNumber;
+			GameObject parentCamera = GameObject.FindGameObjectWithTag("MainCamera");
+			int layer = parentCamera.GetComponent<CamerasManager>().LayerFromPosition(transform.position);
+			transform.gameObject.layer = layer;
 
 			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
 			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(nextState.health);

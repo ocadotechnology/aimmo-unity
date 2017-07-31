@@ -18,9 +18,8 @@ public class FollowAvatar : MonoBehaviour
 	private const float yOffset = 5.0f;
 	private const float zOffset = -5.0f;
 
-	private const float dampTime = 0.3f;
+	private const float dampTime = 0.2f;
 	private Vector3 velocity = Vector3.zero;
-	private bool updatedLayers = false;
 
 	void Update() 
 	{
@@ -43,12 +42,6 @@ public class FollowAvatar : MonoBehaviour
 				destination, 
 				ref velocity, 
 				dampTime);
-			updatedLayers = false;
-		}
-		else if (!updatedLayers)
-		{
-			transform.GetComponent<CamerasManager>().UpdateCameraLayerOffset();
-			updatedLayers = true;
 		}
 	}
 

@@ -21,7 +21,7 @@ public class ScorePoint : MapFeature
 		if (grass == null)
 			return false;
 
-		grass.tag = "MapFeature";
+		grass.tag = "FlatMapFeature";
 		grass.transform.position = new Vector3(x, 0.0f, y);
 		grass.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		grass.transform.localScale = new Vector3(0.35f, 0.35f, 0.0f);
@@ -32,9 +32,6 @@ public class ScorePoint : MapFeature
 			100.0f);
 		SpriteRenderer grassRenderer = grass.AddComponent<SpriteRenderer>();
 		grassRenderer.sprite = grassSprite;
-
-		int layerNumber = (int)(x + y);
-		grass.layer = 9 + layerNumber;
 
 		return true;
 	}
