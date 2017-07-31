@@ -22,11 +22,16 @@ public class CamerasManager : MonoBehaviour
 		for (int i = 1; i <= numberOfCameras; i++)
 		{
 			GameObject cameraGameObject = new GameObject("camera" + Convert.ToString(i));
-			Camera camera = cameraGameObject.AddComponent<Camera>();
 			cameraGameObject.transform.parent = parentCamera.transform;
+			cameraGameObject.transform.localPosition = Vector3.zero;
+			cameraGameObject.transform.localRotation = Quaternion.Euler(Vector3.zero);
+
+			Camera camera = cameraGameObject.AddComponent<Camera>();
+			camera.orthographic = true;
+			camera.clearFlags = CameraClearFlags.Depth;
 
 			// Assign the layer to render.
-			camera.cullingMask = firstUserLayer + i - 1;
+			camera.cullingMask = 1 << (firstUserLayer + i - 1);
 
 			// The layer in the back is rendered first.
 			// The layer in the front is rendered last.
@@ -40,8 +45,8 @@ public class CamerasManager : MonoBehaviour
 
 		foreach (GameObject mapFeature in GameObject.FindGameObjectsWithTag("MapFeature")) 
 		{
-			int layer = LayerFromPosition (mapFeature.transform.position);
-			mapFeature.GetComponent<MapFeature>().UpdateLayer(layer);
+			int layer = LayerFromPosition(mapFeature.transform.position);
+			mapFeature.layer = layer;
 		}
 	}
 

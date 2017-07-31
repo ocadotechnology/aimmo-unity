@@ -1,12 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Players/Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/SceneView/CamerasManager.cs">
     <Files>
-      <File FileName="Assets/Scripts/MapFeatures/Obstacle.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/Players/Player.cs" Line="49" Column="5" />
-      <File FileName="Assets/Scripts/MapFeatures/Pickup.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SceneView/CamerasManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/SceneView/FollowAvatar.cs" Line="16" Column="7" />
+      <File FileName="Assets/Scripts/SceneView/FollowAvatar.cs" Line="50" Column="42" />
+      <File FileName="Assets/Scripts/SceneView/WorldControls.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/SceneView/CamerasManager.cs" Line="39" Column="3" />
+      <File FileName="Assets/Scripts/MapFeatures/MapFeature.cs" Line="30" Column="9" NotebookId="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
