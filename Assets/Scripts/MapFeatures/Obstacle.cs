@@ -20,7 +20,7 @@ public class Obstacle : MapFeature
 			return false;
 
 		obstacle.tag = "MapFeature";
-		obstacle.transform.position = new Vector3(x, 0.0f, y);
+		obstacle.AddComponent<IsometricPosition>().Set(x, y);
 		obstacle.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);
 		Texture2D obstacleTexture = Resources.Load<Texture2D>("Obstacle-512x1024-isometric-top");

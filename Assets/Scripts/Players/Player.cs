@@ -60,7 +60,7 @@ public class Player : MonoBehaviour
 			//Camera.main.GetComponent<FollowAvatar>().target = player;
 		}
 
-		player.transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
+		player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
 		player.name = PlayerId(id);
 		player.AddComponent<PlayerController>();
 
@@ -68,7 +68,6 @@ public class Player : MonoBehaviour
 		Color playerColour;
 		ColorUtility.TryParseHtmlString(playerData.colour, out playerColour);
 		player.GetComponent<Renderer>().material.color = playerColour;
-		player.GetComponent<Renderer>().material.SetInt("_ZWrite", 0);
 
 		// Add score text.
 		GameObject text = new GameObject("Text");
