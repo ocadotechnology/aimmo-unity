@@ -18,6 +18,10 @@ public class ScorePoint : MapFeature
 
 		// Create a grass tile.
 		GameObject grass = new GameObject(MapFeatureId(id));
+		if (grass == null)
+			return false;
+
+		grass.tag = "MapFeature";
 		grass.transform.position = new Vector3(x, 0.0f, y);
 		grass.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		grass.transform.localScale = new Vector3(0.35f, 0.35f, 0.0f);

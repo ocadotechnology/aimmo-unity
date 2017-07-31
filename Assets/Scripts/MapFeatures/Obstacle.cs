@@ -16,6 +16,10 @@ public class Obstacle : MapFeature
 
 		// Create an obstacle.
 		GameObject obstacle = new GameObject(MapFeatureId(id));
+		if (obstacle == null)
+			return false;
+
+		obstacle.tag = "MapFeature";
 		obstacle.transform.position = new Vector3(x, 0.0f, y);
 		obstacle.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);

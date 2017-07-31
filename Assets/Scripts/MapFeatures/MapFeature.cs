@@ -25,4 +25,10 @@ public class MapFeature : MonoBehaviour
 	// Helps identify the different map features by each having their
 	// name in their game object id.
 	string MapFeatureId(string id) { return ""; }
+
+	// Update layer.
+	public void UpdateLayer(int layer)
+	{
+		transform.gameObject.layer = layer;
+	}
 }
