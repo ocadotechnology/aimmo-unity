@@ -8,22 +8,12 @@ using UnityEngine;
 
 public class Obstacle : MapFeature 
 {
-	public static bool Create(string id, float x, float y)
+	public override void Draw(GameObject obstacle)
 	{
-		// It might have already been created
-		if (GameObject.Find(MapFeatureId(id)) != null)
-			return true;
+		string spriteName = "Obstacle-512x1024-isometric-top";
 
-		// Create an obstacle.
-		GameObject obstacle = new GameObject(MapFeatureId(id));
-		if (obstacle == null)
-			return false;
-
-		obstacle.tag = "MapFeature";
-		obstacle.AddComponent<IsometricPosition>().Set(x, y);
-		obstacle.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);
-		Texture2D obstacleTexture = Resources.Load<Texture2D>("Obstacle-512x1024-isometric-top");
+		Texture2D obstacleTexture = Resources.Load<Texture2D>(spriteName);
 		Sprite obstacleSprite = Sprite.Create(obstacleTexture, 
 			new Rect(0.0f, 0.0f, 512.0f, 1024.0f),
 			new Vector2(0.5f, 0.5f),
@@ -31,22 +21,9 @@ public class Obstacle : MapFeature
 		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 		obstacleRenderer.sprite = obstacleSprite;
 		obstacleRenderer.sortingLayerName = "Obstacle";
-
-		return true;
-	}
-
-	public static bool Delete(string id)
-	{
-		GameObject obstacleToDestroy = GameObject.Find(MapFeatureId(id));
-		if (obstacleToDestroy == null)
-			return false;
-
-		Destroy(obstacleToDestroy);
-
-		return true;
 	}
 		
-	private static string MapFeatureId(string id)
+	public override string MapFeatureId(string id)
 	{
 		return "obstacle" + id;
 	}
