@@ -50,6 +50,37 @@ public class WorldControls : MonoBehaviour
 			ProcessUpdate();
 	}
 
+	public void Cleanup()
+	{
+		// Telling the backend I am quitting
+		OnApplicationQuit ();
+
+		LinkedList<GameObject> objects_to_keep = new LinkedList<GameObject>();
+
+		objects_to_keep.AddLast(GameObject.Find("World Manager"));
+		objects_to_keep.AddLast(GameObject.Find("Directional Light"));
+		objects_to_keep.AddLast(GameObject.Find("Main Camera"));
+		objects_to_keep.AddLast(GameObject.Find("World Manager/VIC"));
+		objects_to_keep.AddLast(GameObject.Find("World Manager/SocketIOController"));
+
+		// TODO: From this point no other method should run at the same time
+		GameObject[] all_objects = (FindObjectsOfType<GameObject>() as GameObject[]);
+		foreach (GameObject curr in all_objects) 
+		{
+			bool to_delete = true;
+			foreach (GameObject keep in objects_to_keep) 
+			{
+				if (curr == keep) 
+				{
+					to_delete = false;
+				}
+			}
+			if (to_delete) {
+				Destroy (curr);
+			}
+		}
+	}
+
 	// Socket setup.
 	public void SetGameURL(string url)
 	{
