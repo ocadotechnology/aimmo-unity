@@ -21,7 +21,7 @@ public class ScorePoint : MapFeature
 		if (grass == null)
 			return false;
 
-		grass.tag = "FlatMapFeature";
+		grass.tag = "MapFeature";
 		grass.AddComponent<IsometricPosition>().Set(x, y, true);
 		grass.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 		grass.transform.localScale = new Vector3(0.35f, 0.35f, 0.0f);
