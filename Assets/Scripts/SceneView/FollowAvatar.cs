@@ -13,13 +13,18 @@ public class FollowAvatar : MonoBehaviour
 {
 	private GameObject target = null;
 
-	private const float xOffset = -5.0f - 100.0f;
-	private const float yOffset = 5.0f + 100.0f * 1.41421356237f;
-	private const float zOffset = -5.0f - 100.0f;
+	// The offsets determine how far the camera is with respect to the target.
+	private const float offset = -100.0f;
 
-
+	// Used for SmoothDamp.
 	private const float dampTime = 0.2f;
-	private Vector3 velocity = Vector3.zero;
+	private Vector2 velocity = Vector2.zero;
+	private IsometricPosition cameraPosition;
+
+	void Awake()
+	{
+		cameraPosition = transform.GetComponent<IsometricPosition>();
+	}
 
 	void Update() 
 	{
@@ -30,18 +35,20 @@ public class FollowAvatar : MonoBehaviour
 			return;
 		}
 
-		Vector3 destination = new Vector3(
-			target.transform.position.x + xOffset,
-			target.transform.position.y + yOffset,
-			target.transform.position.z + zOffset);
+		// Your avatar's position.
+		IsometricPosition targetPosition = target.GetComponent<IsometricPosition>();
 
-		if (destination != transform.position) 
+		// Move the camera accordingly.
+		if (targetPosition.Vector() != cameraPosition.Vector()) 
 		{
-			transform.position = Vector3.SmoothDamp (
-				transform.position, 
-				destination, 
+			Vector2 gridPosition = Vector2.SmoothDamp(
+				cameraPosition.Vector(), 
+				targetPosition.Vector(), 
 				ref velocity, 
-				dampTime);
+				dampTime,
+				Mathf.Infinity,
+				Time.deltaTime);
+			cameraPosition.Set(gridPosition.x, gridPosition.y, offset);
 		}
 	}
 

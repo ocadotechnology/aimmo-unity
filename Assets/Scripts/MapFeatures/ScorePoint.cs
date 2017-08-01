@@ -22,8 +22,6 @@ public class ScorePoint : MapFeature
 		SpriteRenderer scorePointRenderer = scorePoint.AddComponent<SpriteRenderer>();
 		scorePointRenderer.sprite = scorePointSprite;
 		scorePointRenderer.sortingLayerName = "ScorePoint";
-
-		return true;
 	}
 
 	public override string MapFeatureId(string id)

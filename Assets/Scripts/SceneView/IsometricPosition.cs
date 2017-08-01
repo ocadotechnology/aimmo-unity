@@ -35,11 +35,11 @@ public class IsometricPosition : MonoBehaviour
 	private const float shiftZ =  1.00000000000f;
 
 	// Setters.
-	public void Set(float x, float y, float extraDepth)
+	public void Set(float x, float y, float relativeDepth)
 	{
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
 
-		float depth = (x + y + extraDepth);
+		float depth = (x + y + relativeDepth);
 		Vector3 shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
 		Vector3 depthShift = depth * shiftScale * shiftDirection;
 	
@@ -56,15 +56,15 @@ public class IsometricPosition : MonoBehaviour
 		Set(position.x, position.y);
 	}
 
-	// Push back a sprite (useful for floor tiles).
-	public void PushBack(float extraDepth)
+	// Getter.
+	public Vector2 Vector()
 	{
-		if (extraDepth < 0) 
-		{
-			throw new Exception(
-				"Invalid argument, 'extraDepth' must be positive.");
-		}
+		return new Vector2(x, y);
+	}
 
-		Set (x, y, extraDepth);
+	// Push back a sprite (useful for floor tiles).
+	public void ChangeRelativeDepth(float relativeDepth)
+	{
+		Set(x, y, relativeDepth);
 	}
 }

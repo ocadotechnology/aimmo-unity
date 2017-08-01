@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Handles the avatar movement. This script is attached to each of the players.
+ */
+
 public class PlayerController : MonoBehaviour 
 {
 	// General movement variables.
@@ -32,15 +35,26 @@ public class PlayerController : MonoBehaviour
 
 		if (step < moveInterval) 
 		{
-			transform.GetComponent<IsometricPosition>().Set(Vector2.Lerp(currPosition, nextPosition, step));
+			// Player is moving.
+			transform.GetComponent<IsometricPosition>().Set(
+				Vector2.Lerp(
+					currPosition, 
+					nextPosition, 
+					step));
 		}
 		else 
 		{
+			// Player has reached the destination. We reset it to be safe.
 			transform.GetComponent<IsometricPosition>().Set(nextPosition);
 			currPosition = nextPosition;
 
-			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
-			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(nextState.health);
+			// Update score label.
+			string scoreText = Convert.ToString(nextState.score);
+			transform.GetComponentInChildren<TextMesh>().text = scoreText;
+
+			// Update healthbar.
+			int hp = nextState.health;
+			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(hp);
 
 			startTime = Time.time;
 		}

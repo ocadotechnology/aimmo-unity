@@ -17,7 +17,7 @@ using UnityEngine;
 public abstract class MapFeature : MonoBehaviour
 {
 	// Create map feature with given id and location.
-	public static bool Create(string id, float x, float y) 
+	public bool Create(string id, float x, float y) 
 	{  
 		// It might have already been created.
 		if (GameObject.Find(MapFeatureId(id)) != null)
@@ -33,10 +33,12 @@ public abstract class MapFeature : MonoBehaviour
 		mapFeature.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 
 		Draw(mapFeature);
+
+		return true;
 	}
 
 	// Delete map feature with given id.
-	public static bool Delete(string id) 
+	public bool Delete(string id) 
 	{
 		GameObject mapFeatureToDestroy = GameObject.Find(MapFeatureId(id));
 		if (mapFeatureToDestroy == null)
