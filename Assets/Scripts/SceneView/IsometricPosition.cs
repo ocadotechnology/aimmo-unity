@@ -2,21 +2,30 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsometricPosition : MonoBehaviour {
+/* Every element in the scene has its standard position as well as its isometric
+ * position, handled by this script. It translate 2D coordinates as sent by the
+ * backend to 3D coordinates in our isometric space, which basically means that 
+ * it makes sure that each object is in the correct depth.
+ */
 
+public class IsometricPosition : MonoBehaviour 
+{
 	public float x;
 	public float y;
 
 	private const float scale = 1.0f;
-	private const float xDirection = 1.0f;
-	private const float yDirection = -1.41421356237f; // -sqrt(2)
-	private const float zDirection = 1.0f;
+
+	// Position transformation.
+	private const float xDirection =  1.00000000000f;
+	private const float yDirection = -1.41421356237f;
+	private const float zDirection =  1.00000000000f;
 
 	public void Set(float x, float y, bool floor)
 	{
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
 
-		float depth = (x + y + (floor ? 3.0f : 0.0f)) * scale;
+		// Floor tiles need to be sent behind.
+		float depth = (x + y + (floor ? 2.0f : 0.0f)) * scale;
 		Vector3 depthDisplacement = depth * new Vector3(xDirection, yDirection, zDirection);
 	
 		transform.position = realPosition + depthDisplacement;

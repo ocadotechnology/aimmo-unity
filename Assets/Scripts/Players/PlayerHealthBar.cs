@@ -19,9 +19,11 @@ public class PlayerHealthBar : MonoBehaviour
 	private const float BarMaxScaleY = 10.0f;
 	private const float BarInitialScaleX = 5.0f;
 
+	private const float HealthBarRotationX =  0.0f;
 	private const float HealthBarRotationY = 45.0f;
+	private const float HealthBarRotationZ =  0.0f;
 	private const float HealthBarPositionX = -0.45f;
-	private const float HealthBarPositionY = 0.25f;
+	private const float HealthBarPositionY =  0.25f;
 	private const float HealthBarPositionZ = -0.45f;
 
 	private const float MinHP = 0.0f;
@@ -37,7 +39,7 @@ public class PlayerHealthBar : MonoBehaviour
 	private GameObject redBar;
 	private GameObject greenBar;
 
-	void Start () 
+	void Start() 
 	{
 		healthBar = new GameObject("Health bar");
 		redBar = new GameObject("Red bar");
@@ -45,21 +47,26 @@ public class PlayerHealthBar : MonoBehaviour
 
 		Texture2D greenTexture = new Texture2D(TextureWidth, TextureHeight);
 		Texture2D redTexture = new Texture2D(TextureWidth, TextureHeight);
-		for (int x = 0; x < TextureWidth; x++)
+		for (int x = 0; x < TextureWidth; x++) 
+		{
 			for (int y = 0; y < TextureHeight; y++) 
 			{
 				greenTexture.SetPixel(x, y, Color.green);
 				redTexture.SetPixel(x, y, Color.red);
 			}
-				
-		Sprite greenBarSprite = Sprite.Create(greenTexture, 
+		}
+
+		Sprite greenBarSprite = Sprite.Create(
+			greenTexture, 
 			new Rect(0.0f, 0.0f, SpriteRectWidth, SpriteRectHeight),
 			new Vector2(SpritePivotCoordX, SpritePivotCoordY),
 			SpritePixelsPerUnit);
-		Sprite redBarSprite = Sprite.Create(redTexture, 
+		Sprite redBarSprite = Sprite.Create(
+			redTexture, 
 			new Rect(0.0f, 0.0f, SpriteRectWidth, SpriteRectHeight),
 			new Vector2(SpritePivotCoordX, SpritePivotCoordY),
 			SpritePixelsPerUnit);
+
 
 		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
 		redBarRenderer.color = Color.red;
@@ -87,9 +94,14 @@ public class PlayerHealthBar : MonoBehaviour
 
 		healthBar.transform.parent = transform;
 
-		healthBar.transform.localRotation = Quaternion.Euler(0.0f, HealthBarRotationY, 0.0f);
-		healthBar.transform.localPosition 
-		= new Vector3 (HealthBarPositionX, HealthBarPositionY, HealthBarPositionZ);		
+		healthBar.transform.localRotation = Quaternion.Euler(
+			HealthBarRotationX, 
+			HealthBarRotationY, 
+			HealthBarRotationZ);
+		healthBar.transform.localPosition = new Vector3(
+			HealthBarPositionX, 
+			HealthBarPositionY, 
+			HealthBarPositionZ);		
 	}
 	
 	// Called from player controller.

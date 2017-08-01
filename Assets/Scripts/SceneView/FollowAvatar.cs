@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Script attached to the partent camera. It follows the main
+ * player with a bit of a delay that makes it look more 
+ * natural. Also, when it has stopped moving, it notifies 
+ * the cameras manager to update the layers offset used to 
+ * calculate the layer fo each game object. 
+ */
+
 public class FollowAvatar : MonoBehaviour 
 {
-	/*
-	 * Script attached to the partent camera. It follows the main
-	 * player with a bit of a delay that makes it look more 
-	 * natural. Also, when it has stopped moving, it notifies 
-	 * the cameras manager to update the layers offset used to 
-	 * calculate the layer fo each game object. 
-	 */
-
 	private GameObject target = null;
-
 
 	private const float xOffset = -5.0f - 100.0f;
 	private const float yOffset = 5.0f + 100.0f * 1.41421356237f;
