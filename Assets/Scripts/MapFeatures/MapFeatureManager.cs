@@ -22,8 +22,8 @@ public struct MapFeatureData
 
 		JSONNode spriteJSON = json["sprite"];
 		this.spritePath = spriteJSON["path"];
-		this.spriteWidth = spriteJSON["width"];
-		this.spriteHeight = spriteJSON["height"];
+		this.spriteWidth = spriteJSON["width"].AsFloat;
+		this.spriteHeight = spriteJSON["height"].AsFloat;
 	}
 }
 
@@ -60,7 +60,20 @@ public abstract class MapFeatureManager : MonoBehaviour
 		mapFeature.AddComponent<IsometricPosition>().Set(x, y);
 		mapFeature.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 
-		Draw(mapFeature);
+		// Create sprite.
+		Texture2D mapFeatureTexture = Resources.Load<Texture2D>(
+			mapFeatureData.spritePath);
+		Sprite mapFeatureSprite = Sprite.Create(
+			mapFeatureTexture, 
+			new Rect(
+				0.0f, 
+				0.0f, 
+				mapFeatureData.spriteWidth, 
+				mapFeatureData.spriteHeight),
+			new Vector2(0.5f, 0.5f),
+			100.0f);
+
+		Draw(mapFeature, mapFeatureSprite);
 
 		return true;
 	}
@@ -82,5 +95,5 @@ public abstract class MapFeatureManager : MonoBehaviour
 	public abstract string MapFeatureId(string id);
 
 	// Sprite initialisation.
-	public abstract void Draw(GameObject mapFeature);
+	public abstract void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
 }
