@@ -8,16 +8,10 @@ using UnityEngine;
 
 public class ObstacleManager : MapFeatureManager 
 {
-	public override void Draw(GameObject obstacle)
+	public override void Draw(GameObject obstacle, Sprite obstacleSprite)
 	{
-		string spriteName = "Obstacle-512x1024-isometric-top";
-
 		obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);
-		Texture2D obstacleTexture = Resources.Load<Texture2D>(spriteName);
-		Sprite obstacleSprite = Sprite.Create(obstacleTexture, 
-			new Rect(0.0f, 0.0f, 512.0f, 1024.0f),
-			new Vector2(0.5f, 0.5f),
-			100.0f);
+
 		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 		obstacleRenderer.sprite = obstacleSprite;
 	}

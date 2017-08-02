@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class PickupManager : MapFeatureManager
 {
-	public override void Draw(GameObject pickup)
+	public override void Draw(GameObject pickup, Sprite pickupSprite)
 	{
 		// TEMPORARY.
 		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);

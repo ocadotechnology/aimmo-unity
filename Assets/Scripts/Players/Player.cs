@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimpleJSON;
 
 /* The struct PlayerData holds all the necessary information to create or update
  * a player in the scene. 
@@ -27,7 +28,7 @@ public struct PlayerData
 	}
 
 	// Construct from JSON.
-	public PlayerData(SimpleJSON.JSONNode json)
+	public PlayerData(JSONNode json)
 	{
 		this.x = json["x"].AsFloat;
 		this.y = json["y"].AsFloat;

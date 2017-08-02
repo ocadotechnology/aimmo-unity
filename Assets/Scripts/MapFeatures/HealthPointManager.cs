@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class HealthPointManager : MapFeatureManager 
 {	
-	public override void Draw(GameObject healthPoint)
+	public override void Draw(GameObject healthPoint, Sprite healhtPointSprite)
 	{
 		// TEMPORARY.
 		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);

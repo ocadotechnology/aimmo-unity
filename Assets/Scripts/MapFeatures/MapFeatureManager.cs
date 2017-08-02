@@ -1,13 +1,37 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SimpleJSON;
+
+/* The struct MapFeatureData holds all the necessary information to create a 
+ * map feature in the scene.
+ */
+
+public struct MapFeatureData
+{
+	public float x, y;
+	public float spriteWidth, spriteHeight;
+	public string spritePath;
+
+	// Construct from JSON.
+	public MapFeatureData(JSONNode json)
+	{
+		this.x = json["x"].AsFloat;
+		this.y = json["y"].AsFloat;
+
+		JSONNode spriteJSON = json["sprite"];
+		this.spritePath = spriteJSON["path"];
+		this.spriteWidth = spriteJSON["width"].AsFloat;
+		this.spriteHeight = spriteJSON["height"].AsFloat;
+	}
+}
 
 /* Every object that appears in the scene apart from avatars and the floor is 
- * considered a MapFeature. All map features must implement this interface so 
- * that game objects can be created or deleted with calls of the form 
- * Obstacle.Create(id). For this reason, although it is not enforced, the 
- * definitions of these methods in the classes that implement them should be 
- * static.
+ * considered a map feature. An object inheriting from MapFeatureManager can 
+ * create and delete the map features with the corresponding identifier. This 
+ * objects must specify how this identifier is built as well as how the map
+ * feature is drawn on the scene.
  * 
  * It is important to note that we are NOT concerned about the game logic. For 
  * instance we don't detect if an avatar is in a health point. All of that is 
@@ -17,7 +41,7 @@ using UnityEngine;
 public abstract class MapFeatureManager : MonoBehaviour
 {
 	// Create map feature with given id and location.
-	public bool Create(string id, float x, float y) 
+	public bool Create(string id, MapFeatureData mapFeatureData) 
 	{  
 		// It might have already been created.
 		if (GameObject.Find(MapFeatureId(id)) != null)
@@ -31,10 +55,25 @@ public abstract class MapFeatureManager : MonoBehaviour
 		mapFeature.tag = "MapFeature";
 
 		// Add to scene in the correct position and angle.
+		float x = mapFeatureData.x;
+		float y = mapFeatureData.y;
 		mapFeature.AddComponent<IsometricPosition>().Set(x, y);
 		mapFeature.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 
-		Draw(mapFeature);
+		// Create sprite.
+		Texture2D mapFeatureTexture = Resources.Load<Texture2D>(
+			mapFeatureData.spritePath);
+		Sprite mapFeatureSprite = Sprite.Create(
+			mapFeatureTexture, 
+			new Rect(
+				0.0f, 
+				0.0f, 
+				mapFeatureData.spriteWidth, 
+				mapFeatureData.spriteHeight),
+			new Vector2(0.5f, 0.5f),
+			100.0f);
+
+		Draw(mapFeature, mapFeatureSprite);
 
 		return true;
 	}
@@ -56,5 +95,5 @@ public abstract class MapFeatureManager : MonoBehaviour
 	public abstract string MapFeatureId(string id);
 
 	// Sprite initialisation.
-	public abstract void Draw(GameObject mapFeature);
+	public abstract void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
 }
