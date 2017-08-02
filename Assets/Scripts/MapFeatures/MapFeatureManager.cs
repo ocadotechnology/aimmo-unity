@@ -41,7 +41,7 @@ public struct MapFeatureData
 public abstract class MapFeatureManager : MonoBehaviour
 {
 	// Create map feature with given id and location.
-	public bool Create(string id, float x, float y) 
+	public bool Create(string id, MapFeatureData mapFeatureData) 
 	{  
 		// It might have already been created.
 		if (GameObject.Find(MapFeatureId(id)) != null)
@@ -55,6 +55,8 @@ public abstract class MapFeatureManager : MonoBehaviour
 		mapFeature.tag = "MapFeature";
 
 		// Add to scene in the correct position and angle.
+		float x = mapFeatureData.x;
+		float y = mapFeatureData.y;
 		mapFeature.AddComponent<IsometricPosition>().Set(x, y);
 		mapFeature.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
 

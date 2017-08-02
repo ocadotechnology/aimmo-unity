@@ -172,14 +172,19 @@ public class WorldControls : MonoBehaviour
 		JSONNode players = updates["players"];
 
 		foreach (JSONNode player in players["create"].AsArray) 
+		{
 			Player.Create(player["id"].AsInt, new PlayerData(player), debug);
+		}
 
-		foreach (JSONNode player in players["delete"].AsArray)
+		foreach (JSONNode player in players["delete"].AsArray) 
+		{
 			Player.Delete(player["id"].AsInt);
+		}
 
-		foreach (JSONNode player in players["update"].AsArray)
-			Player.Update(player["id"].AsInt, new PlayerData(player));
-
+		foreach (JSONNode player in players["update"].AsArray) 
+		{
+			Player.Update (player["id"].AsInt, new PlayerData(player));
+		}
 		// Map features updates.
 		JSONNode mapFeatures = updates["map_features"];
 
@@ -189,15 +194,16 @@ public class WorldControls : MonoBehaviour
 			JSONNode mapFeatureJSON = mapFeatures[mapFeatureName];
 
 			// Create.
-			foreach (JSONNode mapFeature in mapFeatureJSON["create"].AsArray)
-				mapFeatureManager.Create(
-					mapFeature["id"], 
-					mapFeature["x"].AsFloat, 
-					mapFeature["y"].AsFloat);
+			foreach (JSONNode mapFeature in mapFeatureJSON["create"].AsArray) 
+			{
+				mapFeatureManager.Create(mapFeature["id"], new MapFeatureData(mapFeature));
+			}
 
 			// Delete.
-			foreach (JSONNode mapFeature in mapFeatureJSON["delete"].AsArray)
+			foreach (JSONNode mapFeature in mapFeatureJSON["delete"].AsArray) 
+			{
 				mapFeatureManager.Delete(mapFeature["id"]);
+			}
 		}
 	}
 
