@@ -18,6 +18,13 @@ public class WorldControls : MonoBehaviour
 	public SocketIOController io;
 	private int userId = 1;
 
+	void Awake() 
+	{
+		#if !UNITY_EDITOR && UNITY_WEBGL
+			WebGLInput.captureAllKeyboardInput = false;
+		#endif
+	}
+
 	void Start()
 	{
 		if (Application.platform == RuntimePlatform.WebGLPlayer) 
