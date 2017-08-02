@@ -11,10 +11,14 @@ public class HealthPointManager : MapFeatureManager
 {	
 	public override void Draw(GameObject healthPoint)
 	{
-		healthPoint = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		// TEMPORARY.
+		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
-		healthPoint.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-		healthPoint.GetComponent<Renderer>().material.color = Color.green;
+		sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+		sphere.GetComponent<Renderer>().material.color = Color.green;
+
+		sphere.transform.parent = healthPoint.transform;
+		sphere.transform.position = healthPoint.transform.position;
 	}
 
 	public override string MapFeatureId(string id)
