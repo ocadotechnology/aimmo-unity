@@ -43,6 +43,8 @@ public class IsometricPosition : MonoBehaviour
 		this.y = y;
 		this.depth = (x + y + relativeDepth);
 
+		ChangeAllSpriteRenderersSortingOrder();
+
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
 		Vector3 depthShift = this.depth * shiftScale * shiftDirection;
 	
@@ -69,5 +71,25 @@ public class IsometricPosition : MonoBehaviour
 	public void ChangeRelativeDepth(float relativeDepth)
 	{
 		Set(x, y, relativeDepth);
+	}
+
+	// Change the sorting order of every sprite renderer in the game object and
+	// its children in the case that the game object just acts as a wrapper of
+	// sprites or contains sprites inside.
+	public void ChangeAllSpriteRenderersSortingOrder()
+	{
+		int sortingOrder = Convert.ToInt32(-this.depth);
+
+		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+		if (spriteRenderer != null) 
+		{
+			spriteRenderer.sortingOrder = sortingOrder;
+		} 
+
+		SpriteRenderer[] childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+		foreach (SpriteRenderer childSpriteRenderer in childSpriteRenderers)
+		{
+			childSpriteRenderer.sortingOrder = sortingOrder;
+		}
 	}
 }

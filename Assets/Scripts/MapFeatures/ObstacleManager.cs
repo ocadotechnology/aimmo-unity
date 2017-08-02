@@ -20,11 +20,6 @@ public class ObstacleManager : MapFeatureManager
 			100.0f);
 		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 		obstacleRenderer.sprite = obstacleSprite;
-
-		// Assign order inversely proportional to depth as well. This is 
-		// importat so that the moving sprites render in the correct order.
-		float depth = obstacle.GetComponent<IsometricPosition>().depth;
-		obstacleRenderer.sortingOrder = Convert.ToInt32(-depth);
 	}
 		
 	public override string MapFeatureId(string id)

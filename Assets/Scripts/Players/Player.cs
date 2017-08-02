@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
 
 		player.tag = "Avatar";
 
-		// TEMPORARY
+		// TEMPORARY.
 		if (id == 1 && debug) 
 		{
 			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
