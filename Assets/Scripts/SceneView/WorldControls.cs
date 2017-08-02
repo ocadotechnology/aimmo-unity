@@ -219,18 +219,4 @@ public class WorldControls : MonoBehaviour
 			Destroy(avatar);
 		}
 	}
-
-	// Tell the server when we get out of the game.
-	/*void OnApplicationQuit()
-	{
-		io.Emit("exit-game", Convert.ToString(userId));
-	}*/
-
-	// Detect focus. If there is focus, process everything fast.
-	/*void OnApplicationFocus(bool hasFocus)
-	{
-		if (hasFocus && dataQueue != null) 
-			while (dataQueue.Count > 1)
-				ProcessUpdate();
-	}*/
 }

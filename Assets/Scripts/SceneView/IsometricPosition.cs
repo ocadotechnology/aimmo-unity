@@ -9,12 +9,12 @@ using UnityEngine;
  * it makes sure that each object is in the correct depth. The following diagram
  * gives a rough idea of how the different levels of depth work in Unity:
  * 
- *  			   Camera 
- *                          \ --- depth 0
- *   					 \   \ --- depth 1
- *    					  \   \ --- depth 2
- *     					   /   O --- depth 3
- *      					\   / --- depth 4
+ *  				Camera 
+ * 						\ --- depth 0
+ * 						 \   \ --- depth 1
+ * 						  \   \ --- depth 2
+ * 						   /   O --- depth 3
+ * 						    \   / --- depth 4
  *
  * In this example we would have a sprite, '/', on front (depth 2) and then the
  * avatar, 'O', sitting on depth 3, on top another sprite in depth 4.
