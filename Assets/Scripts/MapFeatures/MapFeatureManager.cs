@@ -2,6 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/* The struct MapFeatureData holds all the necessary information to create a 
+ * map feature in the scene.
+ */
+
+public struct MapFeatureData
+{
+	public float x, y;
+	public string sprite;
+
+	// Construct from JSON.
+	public MapFeatureData(SimpleJSON.JSONNode json)
+	{
+		this.x = json["x"].AsFloat;
+		this.y = json["y"].AsFloat;
+		this.sprite = json["sprite"];
+	}
+}
+
 /* Every object that appears in the scene apart from avatars and the floor is 
  * considered a MapFeature. All map features must implement this interface so 
  * that game objects can be created or deleted with calls of the form 
