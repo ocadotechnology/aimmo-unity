@@ -7,7 +7,7 @@ using UnityEngine;
  * player gets an extra health point every iteration he or she stays there.
  */
 
-public class HealthPoint : MapFeature 
+public class HealthPointManager : MapFeatureManager 
 {	
 	public override void Draw(GameObject healthPoint)
 	{

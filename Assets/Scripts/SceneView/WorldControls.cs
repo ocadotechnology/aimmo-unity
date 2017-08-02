@@ -6,18 +6,46 @@ using UnitySocketIO;
 using UnitySocketIO.Events;
 using SimpleJSON;
 
+/* Main class of the game. It has the following responsibilities:
+ *  - Handle the first communication with the backend to setup the world.
+ *  - Receive the updates from the backend.
+ *  - Delegate the tasks from these updates to the respective objects.
+ *  - Tell the backend when the game is closed (OnApplicationQuit).
+ */
 public class WorldControls : MonoBehaviour
 {
+	// Marking this as true will make a plane appear around the main game object
+	// representing its view.
 	public bool debug;
 
-	private const float ProcessingInterval = 0.75f;
-
-	private float startTime;
+	// We use the dataQueue to process the request at our desired rate, i.e.
+	// every ProcessingInterval seconds.
 	private Queue<JSONNode> dataQueue;
+	private const float ProcessingInterval = 0.75f;
+	private float startTime;
 
+	// Socket used to receive data from the backend.
 	public SocketIOController io;
+
+	// TEMPORARY. Main user id.
 	private int userId = 1;
 
+	// Map feature managers.
+	private ObstacleManager obstacleManager;
+	private ScorePointManager scorePointManager;
+	private HealthPointManager healthPointManager;
+	private PickupManager pickupManager;
+
+	// Where all the managers will be put with the respective keys that match
+	// with the JSON sent from the backend.
+	private Dictionary<string, MapFeatureManager> mapFeatureManagers;
+	private static readonly string[] mapFeatureNames = 
+		{"obstacle", 
+		 "score_point", 
+		 "health_point",
+		 "pickup"};
+
+	// Called at the very beginning. 
 	void Start()
 	{
 		if (Application.platform == RuntimePlatform.WebGLPlayer) 
@@ -39,6 +67,7 @@ public class WorldControls : MonoBehaviour
 		WorldInit();
 	}
 
+	// Calls ProcessUpdate every ProcessingInterval seconds.
 	void Update()
 	{
 		float step = Time.time - startTime;
@@ -96,14 +125,21 @@ public class WorldControls : MonoBehaviour
 		});
 	}
 
-	// Handle initial request and build the map.
+	// Handle initial request.
 	void WorldInit()
 	{
-		// TEMPORARY! For now we'll just have a massive plane. 
-		/*GameObject floor = GameObject.CreatePrimitive(PrimitiveType.Plane);
-		floor.transform.position = new Vector3(0.0f, 0.0f, 0.0f);
-		floor.transform.localScale = new Vector3(10.0f, 10.0f, 10.0f);
-		floor.GetComponent<Renderer>().material.color = Color.gray;*/
+		// Initialise map feature managers.
+		obstacleManager = new ObstacleManager();
+		scorePointManager = new ScorePointManager();
+		healthPointManager = new HealthPointManager();
+		pickupManager = new PickupManager();
+
+		// Initialise dictionary.
+		mapFeatureManagers = new Dictionary<string, MapFeatureManager>();
+		mapFeatureManagers.Add(mapFeatureNames[0], obstacleManager);
+		mapFeatureManagers.Add(mapFeatureNames[1], scorePointManager);
+		mapFeatureManagers.Add(mapFeatureNames[2], healthPointManager);
+		mapFeatureManagers.Add(mapFeatureNames[3], pickupManager);
 	}
 
 	// Receive updates from the backend, parse them and delegate to the 
@@ -137,51 +173,23 @@ public class WorldControls : MonoBehaviour
 
 		// Map features updates.
 		JSONNode mapFeatures = updates["map_features"];
-		JSONNode healthPoints = mapFeatures["health_point"];
-		JSONNode scorePoints = mapFeatures["score_point"];
-		JSONNode pickups = mapFeatures ["pickup"];
-		JSONNode obstacles = mapFeatures ["obstacle"];
 
-		// Health points.
-		foreach (JSONNode healthPoint in healthPoints["create"].AsArray)
-			HealthPoint.Create(
-				healthPoint["id"], 
-				healthPoint["x"].AsFloat, 
-				healthPoint["y"].AsFloat);
+		foreach (string mapFeatureName in mapFeatureNames)
+		{
+			MapFeatureManager mapFeatureManager = mapFeatureManagers[mapFeatureName];
+			JSONNode mapFeatureJSON = mapFeatures[mapFeatureName];
 
-		foreach (JSONNode healthPoint in healthPoints["delete"].AsArray)
-			HealthPoint.Delete(healthPoint["id"]);
+			// Create.
+			foreach (JSONNode mapFeature in mapFeatureJSON["create"].AsArray)
+				mapFeatureManager.Create(
+					mapFeature["id"], 
+					mapFeature["x"].AsFloat, 
+					mapFeature["y"].AsFloat);
 
-		// Score points.
-		foreach (JSONNode scorePoint in scorePoints["create"].AsArray) {
-			ScorePoint.Create (
-				scorePoint["id"], 
-				scorePoint["x"].AsFloat, 
-				scorePoint["y"].AsFloat);
+			// Delete.
+			foreach (JSONNode mapFeature in mapFeatureJSON["delete"].AsArray)
+				mapFeatureManager.Delete(mapFeature["id"]);
 		}
-
-		foreach (JSONNode scorePoint in scorePoints["delete"].AsArray)
-			ScorePoint.Delete(scorePoint["id"]);
-
-		// Pickups.
-		foreach (JSONNode pickup in pickups["create"].AsArray)
-			Pickup.Create(
-				pickup["id"], 
-				pickup["x"].AsFloat, 
-				pickup["y"].AsFloat);
-
-		foreach (JSONNode pickup in pickups["delete"].AsArray)
-			Pickup.Delete(pickup["id"]);
-
-		// Obstacles.
-		foreach (JSONNode obstacle in obstacles["create"].AsArray)
-			Obstacle.Create(
-				obstacle["id"], 
-				obstacle["x"].AsFloat, 
-				obstacle["y"].AsFloat);
-
-		foreach (JSONNode obstacle in obstacles["delete"].AsArray)
-			Obstacle.Delete(obstacle["id"]);
 	}
 
 	// Tell the server when we get out of the game.

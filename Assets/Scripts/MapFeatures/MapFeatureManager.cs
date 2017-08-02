@@ -14,7 +14,7 @@ using UnityEngine;
  * implemented in the backend.
  */
 
-public abstract class MapFeature : MonoBehaviour
+public abstract class MapFeatureManager : MonoBehaviour
 {
 	// Create map feature with given id and location.
 	public bool Create(string id, float x, float y) 
@@ -27,6 +27,8 @@ public abstract class MapFeature : MonoBehaviour
 		GameObject mapFeature = new GameObject(MapFeatureId(id));
 		if (mapFeature == null)
 			return false;
+
+		mapFeature.tag = "MapFeature";
 
 		// Add to scene in the correct position and angle.
 		mapFeature.AddComponent<IsometricPosition>().Set(x, y);

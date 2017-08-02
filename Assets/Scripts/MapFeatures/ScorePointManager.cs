@@ -7,7 +7,7 @@ using UnityEngine;
  * score is incremented by one every iteration.
  */
 
-public class ScorePoint : MapFeature 
+public class ScorePointManager : MapFeatureManager 
 {
 	public override void Draw(GameObject scorePoint)
 	{

@@ -6,7 +6,7 @@ using UnityEngine;
 /* This class manages obstacles, i.e. the walls in the scene.
  */
 
-public class Obstacle : MapFeature 
+public class ObstacleManager : MapFeatureManager 
 {
 	public override void Draw(GameObject obstacle)
 	{
