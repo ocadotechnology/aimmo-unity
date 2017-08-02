@@ -22,9 +22,10 @@ using UnityEngine;
 
 public class IsometricPosition : MonoBehaviour 
 {
-	// Coordinates the object is meant to be at.
-	public float x;// {get {return this.x;} set {Set(this.x, this.y);}}
-	public float y;// {get {return this.y;} set {Set(this.x, this.y);}}
+	// Coordinates the object is meant to be at and depth.
+	public float x;
+	public float y;
+	public float depth;
 
 	// Distance between depth layers.
 	private const float shiftScale = 1.0f;
@@ -33,18 +34,17 @@ public class IsometricPosition : MonoBehaviour
 	private const float shiftX =  1.00000000000f;
 	private const float shiftY = -1.41421356237f;
 	private const float shiftZ =  1.00000000000f;
+	private Vector3 shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
 
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
 	{
 		this.x = x;
 		this.y = y;
+		this.depth = (x + y + relativeDepth);
 
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
-
-		float depth = (x + y + relativeDepth);
-		Vector3 shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
-		Vector3 depthShift = depth * shiftScale * shiftDirection;
+		Vector3 depthShift = this.depth * shiftScale * shiftDirection;
 	
 		transform.position = realPosition + depthShift;
 	}

@@ -21,7 +21,11 @@ public class ScorePointManager : MapFeatureManager
 			100.0f);
 		SpriteRenderer scorePointRenderer = scorePoint.AddComponent<SpriteRenderer>();
 		scorePointRenderer.sprite = scorePointSprite;
-		scorePointRenderer.sortingLayerName = "ScorePoint";
+
+		// Assign order inversely proportional to depth as well. This is 
+		// importat so that the moving sprites render in the correct order.
+		float depth = scorePoint.GetComponent<IsometricPosition>().depth;
+		scorePointRenderer.sortingOrder = Convert.ToInt32(-depth);
 	}
 
 	public override string MapFeatureId(string id)
