@@ -46,7 +46,15 @@ public class WorldControls : MonoBehaviour
 		 "health_point",
 		 "pickup"};
 
-	// Called at the very beginning. 
+	// Tell WebGL too ignore keyboard input.
+	void Awake() 
+	{
+		#if !UNITY_EDITOR && UNITY_WEBGL
+			WebGLInput.captureAllKeyboardInput = false;
+		#endif
+	}
+
+	// Initial connection
 	void Start()
 	{
 		if (Application.platform == RuntimePlatform.WebGLPlayer) 
@@ -193,11 +201,30 @@ public class WorldControls : MonoBehaviour
 		}
 	}
 
+	public void Cleanup()
+	{
+		// Telling the backend I am quitting
+		io.Emit("exit-game", Convert.ToString(userId));
+
+		// Delete all map features and avatars.
+		GameObject[] allMapFeatures = GameObject.FindGameObjectsWithTag("MapFeature");
+		GameObject[] allAvatars = GameObject.FindGameObjectsWithTag("Avatar");
+
+		foreach (GameObject mapFeature in allMapFeatures) 
+		{
+			Destroy(mapFeature);
+		}
+		foreach (GameObject avatar in allAvatars) 
+		{
+			Destroy(avatar);
+		}
+	}
+
 	// Tell the server when we get out of the game.
-	void OnApplicationQuit()
+	/*void OnApplicationQuit()
 	{
 		io.Emit("exit-game", Convert.ToString(userId));
-	}
+	}*/
 
 	// Detect focus. If there is focus, process everything fast.
 	/*void OnApplicationFocus(bool hasFocus)
