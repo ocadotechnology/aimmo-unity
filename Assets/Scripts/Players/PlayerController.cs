@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* Handles the avatar movement. This script is attached to each of the players.
+ */
+
 public class PlayerController : MonoBehaviour 
 {
 	// General movement variables.
@@ -12,8 +15,8 @@ public class PlayerController : MonoBehaviour
 	private float startTime;
 
 	private PlayerData nextState;
-	private Vector3 currPosition;
-	private Vector3 nextPosition;
+	private Vector2 currPosition;
+	private Vector2 nextPosition;
 
 	// Initialisation.
 	void Awake()
@@ -31,14 +34,27 @@ public class PlayerController : MonoBehaviour
 		float step = (Time.time - startTime) * speed;
 
 		if (step < moveInterval) 
-			transform.position = Vector3.Lerp(currPosition, nextPosition, step);
+		{
+			// Player is moving.
+			transform.GetComponent<IsometricPosition>().Set(
+				Vector2.Lerp(
+					currPosition, 
+					nextPosition, 
+					step));
+		}
 		else 
 		{
-			transform.position = nextPosition;
+			// Player has reached the destination. We reset it to be safe.
+			transform.GetComponent<IsometricPosition>().Set(nextPosition);
 			currPosition = nextPosition;
 
-			transform.GetComponentInChildren<TextMesh>().text = Convert.ToString(nextState.score);
-			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(nextState.health);
+			// Update score label.
+			string scoreText = Convert.ToString(nextState.score);
+			transform.GetComponentInChildren<TextMesh>().text = scoreText;
+
+			// Update healthbar.
+			int hp = nextState.health;
+			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(hp);
 
 			startTime = Time.time;
 		}
@@ -49,9 +65,7 @@ public class PlayerController : MonoBehaviour
 	{
 		nextState = playerData;
 
-		transform.position = nextPosition;
-		nextPosition = new Vector3(nextState.x, 0.5f, nextState.y);
-
-
+		transform.GetComponent<IsometricPosition>().Set(nextPosition);
+		nextPosition = new Vector2(nextState.x, nextState.y);
 	}
 }

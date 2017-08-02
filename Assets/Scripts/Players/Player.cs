@@ -3,24 +3,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* The struct PlayerData holds all the necessary information to create or update
+ * a player in the scene. 
+ * 
+ * The appearance will probably change in the future.
+ */
+
 public struct PlayerData
 {
 	public float x, y, rotation;
 	public int score, health;
 	public string colour;
 
-	// Construct with just position.
-	public PlayerData(Vector3 position)
+	// Construct from just position.
+	public PlayerData(Vector2 position)
 	{
 		this.x = position.x;
-		this.y = position.z;
-		this.rotation = 0;
+		this.y = position.y;
+		this.rotation = 0.0f;
 		this.score = 0;
 		this.health = 5; 
 		this.colour = "";
 	}
 
-	// Construct from json.
+	// Construct from JSON.
 	public PlayerData(SimpleJSON.JSONNode json)
 	{
 		this.x = json["x"].AsFloat;
@@ -31,6 +37,10 @@ public struct PlayerData
 		this.colour = json["colour"];
 	}
 }
+
+/* Holds the methods to Create / Delete / Update players in a similar fashion to
+ * MapFeautre.
+ */
 
 public class Player : MonoBehaviour
 {
@@ -45,7 +55,9 @@ public class Player : MonoBehaviour
 		if (player == null)
 			return false;
 
-		// TEMPORARY
+		player.tag = "Avatar";
+
+		// TEMPORARY.
 		if (id == 1 && debug) 
 		{
 			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
@@ -53,11 +65,9 @@ public class Player : MonoBehaviour
 			plane.transform.localPosition = new Vector3(0.0f, -0.45f, 0.0f);
 			plane.transform.localScale = new Vector3(0.8f, 1.0f, 0.8f);
 			plane.transform.parent = player.transform;
-		
-			//Camera.main.GetComponent<FollowAvatar>().target = player;
 		}
 
-		player.transform.position = new Vector3(playerData.x, 0.5f, playerData.y);
+		player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
 		player.name = PlayerId(id);
 		player.AddComponent<PlayerController>();
 

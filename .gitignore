@@ -1,15 +1,34 @@
-#=============#
-# Directories #
-#=============#
-Library/
+=============== 
+Unity generated
+===============
 Temp/
+Library/
 Build/
-ProjectSettings/
 
-#=======#
-# Files #
-#=======#
-*.bin
-*.pyc
-*.swp
+=====================================
+Visual Studio / MonoDevelop generated
+=====================================
+ExportedObj/
+obj/
+*.svd
 *.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+
+============
+OS generated
+============
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.vscode
+/Build
