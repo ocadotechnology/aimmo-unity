@@ -41,6 +41,7 @@ public struct PlayerData
 /* Holds the methods to Create / Delete / Update players in a similar fashion to
  * MapFeautre.
  */
+
 public class Player : MonoBehaviour
 {
 	public static bool Create(int id, PlayerData playerData, bool debug)
@@ -53,6 +54,8 @@ public class Player : MonoBehaviour
 		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		if (player == null)
 			return false;
+
+		player.tag = "Avatar";
 
 		// TEMPORARY
 		if (id == 1 && debug) 

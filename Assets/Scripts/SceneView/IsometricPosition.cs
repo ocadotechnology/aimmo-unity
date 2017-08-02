@@ -23,8 +23,8 @@ using UnityEngine;
 public class IsometricPosition : MonoBehaviour 
 {
 	// Coordinates the object is meant to be at.
-	public float x;
-	public float y;
+	public float x;// {get {return this.x;} set {Set(this.x, this.y);}}
+	public float y;// {get {return this.y;} set {Set(this.x, this.y);}}
 
 	// Distance between depth layers.
 	private const float shiftScale = 1.0f;
@@ -37,6 +37,9 @@ public class IsometricPosition : MonoBehaviour
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
 	{
+		this.x = x;
+		this.y = y;
+
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
 
 		float depth = (x + y + relativeDepth);

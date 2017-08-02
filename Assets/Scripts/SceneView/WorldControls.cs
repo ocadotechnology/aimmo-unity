@@ -12,6 +12,7 @@ using SimpleJSON;
  *  - Delegate the tasks from these updates to the respective objects.
  *  - Tell the backend when the game is closed (OnApplicationQuit).
  */
+
 public class WorldControls : MonoBehaviour
 {
 	// Marking this as true will make a plane appear around the main game object

@@ -19,7 +19,10 @@ public class FollowAvatar : MonoBehaviour
 	// Used for SmoothDamp.
 	private const float dampTime = 0.2f;
 	private Vector2 velocity = Vector2.zero;
+
+	// Positions.
 	private IsometricPosition cameraPosition;
+	private IsometricPosition targetPosition;
 
 	void Awake()
 	{
@@ -36,19 +39,24 @@ public class FollowAvatar : MonoBehaviour
 		}
 
 		// Your avatar's position.
-		IsometricPosition targetPosition = target.GetComponent<IsometricPosition>();
+		targetPosition = target.GetComponent<IsometricPosition>();
 
 		// Move the camera accordingly.
 		if (targetPosition.Vector() != cameraPosition.Vector()) 
 		{
 			Vector2 gridPosition = Vector2.SmoothDamp(
-				cameraPosition.Vector(), 
-				targetPosition.Vector(), 
-				ref velocity, 
-				dampTime,
-				Mathf.Infinity,
-				Time.deltaTime);
+               cameraPosition.Vector(), 
+               targetPosition.Vector(), 
+               ref velocity, 
+               dampTime,
+               Mathf.Infinity,
+               Time.deltaTime);
 			cameraPosition.Set(gridPosition.x, gridPosition.y, offset);
+		} 
+		else 
+		{
+			cameraPosition.x = targetPosition.x;
+			cameraPosition.y = targetPosition.y;
 		}
 	}
 

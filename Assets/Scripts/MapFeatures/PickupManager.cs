@@ -18,6 +18,7 @@ public class PickupManager : MapFeatureManager
 		sphere.GetComponent<Renderer>().material.color = Color.blue;
 	
 		sphere.transform.parent = pickup.transform;
+		sphere.transform.position = pickup.transform.position;
 	}
 
 	public override string MapFeatureId(string id)
