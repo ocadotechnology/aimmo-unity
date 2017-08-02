@@ -15,6 +15,8 @@ public class ScorePointManager : MapFeatureManager
 
 		SpriteRenderer scorePointRenderer = scorePoint.AddComponent<SpriteRenderer>();
 		scorePointRenderer.sprite = scorePointSprite;
+
+		scorePoint.GetComponent<IsometricPosition>().ChangeRelativeDepth(2.0f);
 	}
 
 	public override string MapFeatureId(string id)
