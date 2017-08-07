@@ -173,17 +173,17 @@ public class WorldControls : MonoBehaviour
 
 		foreach (JSONNode player in players["create"].AsArray) 
 		{
-			Player.Create(player["id"].AsInt, new PlayerData(player), debug);
+			PlayerManager.Create(player["id"].AsInt, new PlayerData(player), debug);
 		}
 
 		foreach (JSONNode player in players["delete"].AsArray) 
 		{
-			Player.Delete(player["id"].AsInt);
+			PlayerManager.Delete(player["id"].AsInt);
 		}
 
 		foreach (JSONNode player in players["update"].AsArray) 
 		{
-			Player.Update (player["id"].AsInt, new PlayerData(player));
+			PlayerManager.Update (player["id"].AsInt, new PlayerData(player));
 		}
 		// Map features updates.
 		JSONNode mapFeatures = updates["map_features"];
@@ -210,9 +210,9 @@ public class WorldControls : MonoBehaviour
 	public void Cleanup()
 	{
 		// Telling the backend I am quitting
-		io.Emit("exit-game", Convert.ToString(userId));
-
 		// Delete all map features and avatars.
+		io.Emit("exit-game", Convert.ToString(userId));
+		
 		GameObject[] allMapFeatures = GameObject.FindGameObjectsWithTag("MapFeature");
 		GameObject[] allAvatars = GameObject.FindGameObjectsWithTag("Avatar");
 
@@ -224,5 +224,11 @@ public class WorldControls : MonoBehaviour
 		{
 			Destroy(avatar);
 		}
+	}
+
+	void OnApplicationQuit()
+	{
+		Debug.Log("Application Quit.");
+		io.Emit("exit-game", Convert.ToString(userId));
 	}
 }

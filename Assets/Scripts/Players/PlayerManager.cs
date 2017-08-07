@@ -43,7 +43,7 @@ public struct PlayerData
  * MapFeautre.
  */
 
-public class Player : MonoBehaviour
+public class PlayerManager : MonoBehaviour
 {
 	public static bool Create(int id, PlayerData playerData, bool debug)
 	{
@@ -87,7 +87,6 @@ public class Player : MonoBehaviour
 		text.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
 		text.AddComponent<TextMesh>();
-		text.AddComponent<MeshRenderer>();
 		text.GetComponent<TextMesh>().text = Convert.ToString(playerData.score);
 		text.GetComponent<TextMesh>().fontSize = 80;
 
