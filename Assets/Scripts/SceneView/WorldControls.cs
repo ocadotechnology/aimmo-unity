@@ -10,7 +10,6 @@ using SimpleJSON;
  *  - Handle the first communication with the backend to setup the world.
  *  - Receive the updates from the backend.
  *  - Delegate the tasks from these updates to the respective objects.
- *  - Tell the backend when the game is closed (OnApplicationQuit).
  */
 
 public class WorldControls : MonoBehaviour
@@ -28,7 +27,7 @@ public class WorldControls : MonoBehaviour
 	// Socket used to receive data from the backend.
 	public SocketIOController io;
 
-	// TEMPORARY. Main user id.
+	// User identifier.
 	private int userId = 1;
 
 	// Map feature managers.
@@ -49,6 +48,8 @@ public class WorldControls : MonoBehaviour
 	// Tell WebGL too ignore keyboard input.
 	void Awake() 
 	{
+		//DontDestroyOnLoad(transform.gameObject);
+
 		#if !UNITY_EDITOR && UNITY_WEBGL
 			WebGLInput.captureAllKeyboardInput = false;
 		#endif
@@ -211,7 +212,7 @@ public class WorldControls : MonoBehaviour
 	{
 		// Telling the backend I am quitting
 		// Delete all map features and avatars.
-		io.Emit("exit-game", Convert.ToString(userId));
+		//io.Emit("client-exit", Convert.ToString(userId));
 		
 		GameObject[] allMapFeatures = GameObject.FindGameObjectsWithTag("MapFeature");
 		GameObject[] allAvatars = GameObject.FindGameObjectsWithTag("Avatar");
@@ -225,10 +226,5 @@ public class WorldControls : MonoBehaviour
 			Destroy(avatar);
 		}
 	}
-
-	void OnApplicationQuit()
-	{
-		Debug.Log("Application Quit.");
-		io.Emit("exit-game", Convert.ToString(userId));
-	}
 }
+	
