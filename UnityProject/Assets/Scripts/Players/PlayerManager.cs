@@ -43,9 +43,16 @@ public struct PlayerData
  * MapFeautre.
  */
 
-public class PlayerManager : MonoBehaviour
+public interface IPlayerManager
 {
-	public static bool Create(int id, PlayerData playerData, bool debug)
+	bool CreatePlayer(int id, PlayerData playerData, bool debug);
+	bool DeletePlayer(int id);
+	bool UpdatePlayer(int id, PlayerData playerData);
+}
+
+public class PlayerManager : MonoBehaviour, IPlayerManager
+{
+	public bool CreatePlayer(int id, PlayerData playerData, bool debug)
 	{
 		// It might have already been created.
 		if (GameObject.Find(PlayerId(id)) != null)
@@ -98,7 +105,7 @@ public class PlayerManager : MonoBehaviour
 		return true;
 	}
 
-	public static bool Delete(int id)
+	public bool DeletePlayer(int id)
 	{
 		GameObject playerToDestroy = GameObject.Find(PlayerId(id));
 		if (playerToDestroy == null)
@@ -109,7 +116,7 @@ public class PlayerManager : MonoBehaviour
 		return true;
 	}
 
-	public static bool Update(int id, PlayerData playerData)
+	public bool UpdatePlayer(int id, PlayerData playerData)
 	{
 		GameObject playerToUpdate = GameObject.Find(PlayerId(id));
 		if (playerToUpdate == null)
@@ -125,7 +132,7 @@ public class PlayerManager : MonoBehaviour
 		return true;	
 	}
 
-	private static string PlayerId(int id)
+	private string PlayerId(int id)
 	{
 		return "player" + Convert.ToString(id);
 	}

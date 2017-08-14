@@ -45,6 +45,9 @@ public class WorldControls : MonoBehaviour
 		 "health_point",
 		 "pickup"};
 
+	// Player manager.
+	private PlayerManager playerManager;
+
 	// Tell WebGL too ignore keyboard input.
 	void Awake() 
 	{
@@ -150,6 +153,9 @@ public class WorldControls : MonoBehaviour
 		mapFeatureManagers.Add(mapFeatureNames[1], scorePointManager);
 		mapFeatureManagers.Add(mapFeatureNames[2], healthPointManager);
 		mapFeatureManagers.Add(mapFeatureNames[3], pickupManager);
+
+		// Initialise player manager.
+		playerManager = new PlayerManager();
 	}
 
 	// Receive updates from the backend, parse them and delegate to the 
@@ -174,17 +180,17 @@ public class WorldControls : MonoBehaviour
 
 		foreach (JSONNode player in players["create"].AsArray) 
 		{
-			PlayerManager.Create(player["id"].AsInt, new PlayerData(player), debug);
+			playerManager.CreatePlayer(player["id"].AsInt, new PlayerData(player), debug);
 		}
 
 		foreach (JSONNode player in players["delete"].AsArray) 
 		{
-			PlayerManager.Delete(player["id"].AsInt);
+			playerManager.DeletePlayer(player["id"].AsInt);
 		}
 
 		foreach (JSONNode player in players["update"].AsArray) 
 		{
-			PlayerManager.Update (player["id"].AsInt, new PlayerData(player));
+			playerManager.UpdatePlayer(player["id"].AsInt, new PlayerData(player));
 		}
 		// Map features updates.
 		JSONNode mapFeatures = updates["map_features"];

@@ -48,7 +48,7 @@ public interface IMapFeatureManager
 	void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
 }
 
-public abstract class MapFeatureManager : IMapFeatureManager, MonoBehaviour
+public abstract class MapFeatureManager : MonoBehaviour, IMapFeatureManager
 {
 	// Create map feature with given id and location.
 	public bool Create(string id, MapFeatureData mapFeatureData) 
