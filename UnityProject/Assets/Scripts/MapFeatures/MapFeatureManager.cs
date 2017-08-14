@@ -38,7 +38,17 @@ public struct MapFeatureData
  * implemented in the backend.
  */
 
-public abstract class MapFeatureManager : MonoBehaviour
+public interface IMapFeatureManager
+{
+	bool Create(string id, MapFeatureData mapFeatureData);
+	bool Delete(string id);
+
+	string MapFeatureId(string id);
+
+	void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
+}
+
+public abstract class MapFeatureManager : IMapFeatureManager, MonoBehaviour
 {
 	// Create map feature with given id and location.
 	public bool Create(string id, MapFeatureData mapFeatureData) 
