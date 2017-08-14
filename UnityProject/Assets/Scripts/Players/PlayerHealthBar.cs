@@ -84,8 +84,8 @@ public class PlayerHealthBar : MonoBehaviour
 		greenBarRenderer.color = Color.green;
 		greenBarRenderer.sprite = greenBarSprite;
 
-		greenBar.transform.parent = healthBar.transform;
 		redBar.transform.parent = healthBar.transform;
+		greenBar.transform.parent = healthBar.transform;
 
 		// Red bar game object positioning. This wont change.
 		redBar.transform.localPosition = new Vector3(

@@ -13,6 +13,7 @@ public class Constants
 	public const float CameraRotationXDeg = 45.0f; 
 	public const float CameraRotationYDeg = 45.0f;
 	public const float CameraRotationZDeg = 0.0f;
+
 	public const float CameraRotationX = Mathf.Deg2Rad * CameraRotationXDeg;
 	public const float CameraRotationY = Mathf.Deg2Rad * CameraRotationYDeg;
 	public const float CameraRotationZ = Mathf.Deg2Rad * CameraRotationZDeg;
