@@ -119,7 +119,7 @@ namespace AIMMOUnityTest
 			Assert.IsTrue(mapFeatureManager.Delete (wrapper.id));
 
 			go = GameObject.Find(wrapper.id);
-			Assert.IsTrue(go == null || go.active);
+			Assert.IsTrue(go == null);
 		}
 	}
 }
