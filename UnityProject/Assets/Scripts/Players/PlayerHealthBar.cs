@@ -35,11 +35,9 @@ public class PlayerHealthBar : MonoBehaviour
 
 	// Constants to handle changes in the health poitns.
 	private const float MinHP = 0.0f;
-	private const float MaxHP = 10.0f; // = BarMaxScaleX
+	private const float MaxHP = 10.0f;
 	private const float MinHPFromBackend = 0.0f;
-	private const float MaxHPFromBackend = 100.0f; 
-	private const float InitialHP = 5.0f; // = GreenBarInitialScaleX
-	private const float GreenBarInitialScaleX = 5.0f;
+	private const float MaxHPFromBackend = 10.0f; 
 	private const float GreenBarPositionZeroHP = -0.5f;
 	private const float GreenBarIncrementOneHP = 0.05f;
 
@@ -48,7 +46,7 @@ public class PlayerHealthBar : MonoBehaviour
 	private GameObject redBar;
 	private GameObject greenBar;
 
-	void Start() 
+	void Awake() 
 	{
 		healthBar = new GameObject("Health bar");
 		redBar = new GameObject("Red bar");
@@ -104,12 +102,12 @@ public class PlayerHealthBar : MonoBehaviour
 		// it is rescaled. When the healht points change, we move the green
 		// bar accordingly.
 		greenBar.transform.localPosition = new Vector3(
-			GetGreenBarX(InitialHP), 
+			0.0f, 
 			BarVerticalPosition, 
 			0.0f);
 		greenBar.transform.localRotation = Quaternion.Euler(Vector3.zero);
 		greenBar.transform.localScale = new Vector3(
-			GreenBarInitialScaleX, 
+			BarMaxScaleX, 
 			BarMaxScaleY, 
 			1.0f);
 

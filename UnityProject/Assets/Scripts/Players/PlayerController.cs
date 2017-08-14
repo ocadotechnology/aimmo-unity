@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
 			// Update score label.
 			string scoreText = Convert.ToString(nextState.score);
-			transform.GetComponentInChildren<TextMesh>().text = scoreText;
+			transform.GetComponent<PlayerScoreText>().SetScore(scoreText);
 
 			// Update healthbar.
 			int hp = nextState.health;

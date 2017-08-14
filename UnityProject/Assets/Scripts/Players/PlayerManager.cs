@@ -64,9 +64,8 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 			return false;
 
 		player.tag = "Avatar";
-
-		player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
 		player.name = PlayerId(id);
+		player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
 		player.AddComponent<PlayerController>();
 
 		// Assign colour.
@@ -75,22 +74,11 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 		player.GetComponent<Renderer>().material.color = playerColour;
 
 		// Add score text.
-		GameObject text = new GameObject("Text");
-		Vector3 textPosition = player.transform.position;
-		textPosition.y += 1.5f;
-		textPosition.z += 0.25f;
-		text.transform.position = textPosition;
-		text.transform.rotation = Quaternion.Euler(0.0f, 45.0f, 0.0f);
-		text.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-
-		text.AddComponent<TextMesh>();
-		text.GetComponent<TextMesh>().text = Convert.ToString(playerData.score);
-		text.GetComponent<TextMesh>().fontSize = 80;
-
-		text.transform.parent = player.transform;
+		string initialScore = Convert.ToString(playerData.score);
+		player.AddComponent<PlayerScoreText>().SetScore(initialScore);
 
 		// Add health bar.
-		player.AddComponent<PlayerHealthBar>();
+		player.AddComponent<PlayerHealthBar>().SetHealthPoints(playerData.health);
 
 		return true;
 	}
