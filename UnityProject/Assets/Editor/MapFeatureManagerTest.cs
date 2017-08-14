@@ -2,6 +2,9 @@
 using UnityEditor;
 using NUnit.Framework;
 using SimpleJSON;
+using System;  
+using UnityEngine;
+using System.Collections;
 
 namespace AIMMOUnityTest
 {
@@ -17,68 +20,106 @@ namespace AIMMOUnityTest
 				""height"" : ""6""
     		}
 		}";
+		
 		private static MapFeatureData mfd 
 			= new MapFeatureData(JSON.Parse(mapFeatureDataJson));
 
 		public class ConcreteMapFeatureManager : MapFeatureManager
 		{
 			public bool drawCalled = false;
-			public string id;
 
-			public ConcreteMapFeatureManager(string id)
-			{
-				this.id = id;
-			}
-
-			override
-			public string MapFeatureId(string id)
+			public override string MapFeatureId(string id)
 			{
 				return id;
 			}
-
-			override
-			public void Draw(GameObject mapFeature, Sprite mapFeatureSprite)
+				
+			public override void Draw(GameObject mapFeature, Sprite mapFeatureSprite)
 			{	
 				drawCalled = true;
 			}
 		}
 
-		[Test]
-		public void TestCreatingMapFeatureCallsDraw() {
-			var mapFeatureManager = new ConcreteMapFeatureManager ("id1");
+		public class MapFeatureManagerWrapper 
+		{
+			public string id;
+			private GameObject context = new GameObject();
+			public ConcreteMapFeatureManager mapFeatureManager;
 
-			Assert.IsFalse (mapFeatureManager.drawCalled);
-			mapFeatureManager.Create (mapFeatureManager.id, mfd);
-			Assert.IsTrue (mapFeatureManager.drawCalled);
+			public MapFeatureManagerWrapper(string id)
+			{
+				this.id = id;
+				mapFeatureManager = context.AddComponent<ConcreteMapFeatureManager>();
+			}
 		}
 
 		[Test]
-		public void TestCreatingMapFeatureAddsGameObject() {
-			var mapFeatureManager = new ConcreteMapFeatureManager ("id2");
+		public void TestCreatingMapFeatureCallsDraw() 
+		{
+			var wrapper = new MapFeatureManagerWrapper ("id1");
+			var mapFeatureManager = wrapper.mapFeatureManager;
 
-			GameObject go = GameObject.Find(mapFeatureManager.id);
-			Assert.IsNull (go);
+			Assert.IsFalse(mapFeatureManager.drawCalled);
+			Assert.IsTrue(mapFeatureManager.Create(wrapper.id, mfd));
+			Assert.IsTrue(mapFeatureManager.drawCalled);
+		}
 
-			mapFeatureManager.Create (mapFeatureManager.id, mfd);
+		[Test]
+		public void TestCreatingMapFeatureAddsGameObject() 
+		{
+			var wrapper = new MapFeatureManagerWrapper ("id2");
+			var mapFeatureManager = wrapper.mapFeatureManager;
 
-			go = GameObject.Find(mapFeatureManager.id);
-			Assert.IsNotNull (go);
+			GameObject go = GameObject.Find(wrapper.id);
+			Assert.IsNull(go);
+
+			Assert.IsTrue(mapFeatureManager.Create(wrapper.id, mfd));
+
+			go = GameObject.Find(wrapper.id);
+			Assert.IsNotNull(go);
 		}
 			
 		[Test]
-		public void TestCreatingMapFeatureAddsComponents() {
-			var mapFeatureManager = new ConcreteMapFeatureManager ("id3");
-		
-			mapFeatureManager.Create (mapFeatureManager.id, mfd);
-			GameObject go = GameObject.Find(mapFeatureManager.id);
+		public void TestCreatingMapFeatureAddsComponents() 
+		{
+			var wrapper = new MapFeatureManagerWrapper ("id3");
+			var mapFeatureManager = wrapper.mapFeatureManager;
 
-			Assert.IsNotNull (go.GetComponent<IsometricPosition>());
-			Assert.AreEqual (go.transform.rotation, Quaternion.Euler(45.0f, 45.0f, 0.0f));
+			Assert.IsTrue(mapFeatureManager.Create (wrapper.id, mfd));
+			GameObject go = GameObject.Find (wrapper.id);
+
+			Assert.IsNotNull(go.GetComponent<IsometricPosition>());
+			Assert.AreEqual(go.transform.rotation, Quaternion.Euler(45.0f, 45.0f, 0.0f));
 
 			IsometricPosition component = go.GetComponent<IsometricPosition> ();
 			Vector2 position = new Vector2(1.0f, 2.0f);
 
-			Assert.AreEqual (component.Vector(), position);
+			Assert.AreEqual(component.Vector(), position);
+		}
+
+		[Test]
+		public void TestCreatingAMapFeatureWithTheSameIdReturnsTrue()
+		{
+			var wrapper = new MapFeatureManagerWrapper ("id3");
+			var mapFeatureManager = wrapper.mapFeatureManager;
+
+			Assert.IsTrue(mapFeatureManager.Create (wrapper.id, mfd));
+			Assert.IsTrue(mapFeatureManager.Create (wrapper.id, mfd));
+		}
+
+		[Test]
+		public void TestDeleteDestroysMapFeature()
+		{
+			var wrapper = new MapFeatureManagerWrapper ("id3");
+			var mapFeatureManager = wrapper.mapFeatureManager;
+
+			Assert.IsTrue(mapFeatureManager.Create (wrapper.id, mfd));
+			GameObject go = GameObject.Find (wrapper.id);
+			Assert.IsNotNull(go);
+
+			Assert.IsTrue(mapFeatureManager.Delete (wrapper.id));
+
+			go = GameObject.Find(wrapper.id);
+			Assert.IsTrue(go == null || go.active);
 		}
 	}
 }
