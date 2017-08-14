@@ -9,7 +9,7 @@ namespace AIMMOUnityTest
 	internal class IsometricPositionTests
 	{
 		[Test]
-		public void ZeroPositionDoesntChange()
+		public void TestZeroPositionDoesntChange()
 		{
 			GameObject empty = new GameObject();
 			IsometricPosition position = empty.AddComponent<IsometricPosition>();

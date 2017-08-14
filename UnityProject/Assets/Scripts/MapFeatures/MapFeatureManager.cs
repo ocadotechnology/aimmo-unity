@@ -95,7 +95,7 @@ public abstract class MapFeatureManager : MonoBehaviour, IMapFeatureManager
 		if (mapFeatureToDestroy == null)
 			return false;
 
-		Destroy(mapFeatureToDestroy);
+		DestroyImmediate(mapFeatureToDestroy);
 
 		return true;
 	}
