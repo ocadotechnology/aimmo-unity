@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using NUnit.Framework;
 
-namespace UnityTest
+namespace AIMMOUnityTest
 {
 	[TestFixture]
 	internal class IsometricPositionTests

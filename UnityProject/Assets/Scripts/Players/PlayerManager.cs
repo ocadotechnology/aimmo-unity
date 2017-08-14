@@ -45,14 +45,14 @@ public struct PlayerData
 
 public interface IPlayerManager
 {
-	bool CreatePlayer(int id, PlayerData playerData, bool debug);
+	bool CreatePlayer(int id, PlayerData playerData);
 	bool DeletePlayer(int id);
 	bool UpdatePlayer(int id, PlayerData playerData);
 }
 
 public class PlayerManager : MonoBehaviour, IPlayerManager
 {
-	public bool CreatePlayer(int id, PlayerData playerData, bool debug)
+	public bool CreatePlayer(int id, PlayerData playerData)
 	{
 		// It might have already been created.
 		if (GameObject.Find(PlayerId(id)) != null)
@@ -64,16 +64,6 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 			return false;
 
 		player.tag = "Avatar";
-
-		// TEMPORARY.
-		if (id == 1 && debug) 
-		{
-			GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
-			plane.GetComponent<Renderer>().material.color = Color.green;
-			plane.transform.localPosition = new Vector3(0.0f, -0.45f, 0.0f);
-			plane.transform.localScale = new Vector3(0.8f, 1.0f, 0.8f);
-			plane.transform.parent = player.transform;
-		}
 
 		player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
 		player.name = PlayerId(id);

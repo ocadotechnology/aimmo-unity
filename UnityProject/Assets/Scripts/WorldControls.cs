@@ -14,10 +14,6 @@ using SimpleJSON;
 
 public class WorldControls : MonoBehaviour
 {
-	// Marking this as true will make a plane appear around the main game object
-	// representing its view.
-	public bool debug;
-
 	// We use the dataQueue to process the request at our desired rate, i.e.
 	// every ProcessingInterval seconds.
 	private Queue<JSONNode> dataQueue;
@@ -180,7 +176,7 @@ public class WorldControls : MonoBehaviour
 
 		foreach (JSONNode player in players["create"].AsArray) 
 		{
-			playerManager.CreatePlayer(player["id"].AsInt, new PlayerData(player), debug);
+			playerManager.CreatePlayer(player["id"].AsInt, new PlayerData(player));
 		}
 
 		foreach (JSONNode player in players["delete"].AsArray) 
@@ -192,6 +188,7 @@ public class WorldControls : MonoBehaviour
 		{
 			playerManager.UpdatePlayer(player["id"].AsInt, new PlayerData(player));
 		}
+
 		// Map features updates.
 		JSONNode mapFeatures = updates["map_features"];
 
