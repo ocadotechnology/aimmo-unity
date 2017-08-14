@@ -61,7 +61,9 @@ namespace AIMMOUnityTest
 			GameObject socketIOController = GameObject.Find("SocketIOController");
 			Assert.IsNotNull(socketIOController);
 			Assert.IsNotNull(socketIOController.GetComponent<SocketIOController>());
-			Assert.AreEqual(socketIOController, worldControls.io);
+
+			SocketIOController ioc = socketIOController.GetComponent<SocketIOController> ();
+			Assert.IsTrue (ioc == worldControls.io);
 		}
 	}
 }
