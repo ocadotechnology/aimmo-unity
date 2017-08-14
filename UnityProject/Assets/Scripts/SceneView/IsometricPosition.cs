@@ -28,25 +28,31 @@ public class IsometricPosition : MonoBehaviour
 	public float depth;
 
 	// Distance between depth layers.
-	private const float shiftScale = 1.0f;
+	private const float ShiftScale = 1.0f;
 
-	// Constants for position transformation.
-	private const float shiftX =  1.00000000000f;
-	private const float shiftY = -1.41421356237f;
-	private const float shiftZ =  1.00000000000f;
-	private Vector3 shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
+	// The key to calculate the isometric position with respect to the real one.
+	private Vector3 shiftDirection;
+
+	void Awake()
+	{
+		float shiftX = Mathf.Cos(Constants.CameraRotationY);
+		float shiftY = -Mathf.Tan(Constants.CameraRotationX);
+		float shiftZ = Mathf.Sin(Constants.CameraRotationY);
+
+		shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
+	}
 
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
 	{
 		this.x = x;
 		this.y = y;
-		this.depth = (x + y + relativeDepth);
+		this.depth = x + y + relativeDepth;
 
 		ChangeAllSpriteRenderersSortingOrder();
 
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
-		Vector3 depthShift = this.depth * shiftScale * shiftDirection;
+		Vector3 depthShift = this.depth * ShiftScale * shiftDirection;
 	
 		transform.position = realPosition + depthShift;
 	}
@@ -82,14 +88,11 @@ public class IsometricPosition : MonoBehaviour
 
 		SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 		if (spriteRenderer != null) 
-		{
 			spriteRenderer.sortingOrder = sortingOrder;
-		} 
 
 		SpriteRenderer[] childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		foreach (SpriteRenderer childSpriteRenderer in childSpriteRenderers)
-		{
 			childSpriteRenderer.sortingOrder = sortingOrder;
-		}
+
 	}
 }

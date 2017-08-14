@@ -122,7 +122,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 		return true;	
 	}
 
-	private string PlayerId(int id)
+	public string PlayerId(int id)
 	{
 		return "player" + Convert.ToString(id);
 	}

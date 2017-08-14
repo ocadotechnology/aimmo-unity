@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,18 +12,24 @@ using UnityEngine;
 
 public class FollowAvatar : MonoBehaviour 
 {
-	private GameObject target = null;
+	private string userId;
 
 	// The offsets determine how far the camera is with respect to the target.
-	private const float offset = -100.0f;
+	private const float Offset = -100.0f;
 
 	// Used for SmoothDamp.
-	private const float dampTime = 0.2f;
+	private const float DampTime = 0.2f;
 	private Vector2 velocity = Vector2.zero;
 
 	// Positions.
 	private IsometricPosition cameraPosition;
 	private IsometricPosition targetPosition;
+
+	// Set user to follow.
+	public void FollowUserWithId(string userId)
+	{
+		this.userId = userId;
+	}
 
 	void Awake()
 	{
@@ -31,15 +38,15 @@ public class FollowAvatar : MonoBehaviour
 
 	void Update() 
 	{
-		if (target == null) 
+		if (targetPosition == null) 
 		{
-			// TEMPORARY
-			target = GameObject.Find("player1");
+			GameObject target = GameObject.Find(userId);
+			if (target == null)
+				return;
+			
+			targetPosition = target.GetComponent<IsometricPosition>();
 			return;
 		}
-
-		// Your avatar's position.
-		targetPosition = target.GetComponent<IsometricPosition>();
 
 		// Move the camera accordingly.
 		if (targetPosition.Vector() != cameraPosition.Vector()) 
@@ -48,10 +55,10 @@ public class FollowAvatar : MonoBehaviour
                cameraPosition.Vector(), 
                targetPosition.Vector(), 
                ref velocity, 
-               dampTime,
+               DampTime,
                Mathf.Infinity,
                Time.deltaTime);
-			cameraPosition.Set(gridPosition.x, gridPosition.y, offset);
+			cameraPosition.Set(gridPosition.x, gridPosition.y, Offset);
 		} 
 		else 
 		{

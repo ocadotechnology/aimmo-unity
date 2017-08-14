@@ -24,7 +24,7 @@ public class WorldControls : MonoBehaviour
 	public SocketIOController io;
 
 	// User identifier.
-	private int userId = 1;
+	private int userId;
 
 	// Map feature managers.
 	private ObstacleManager obstacleManager;
@@ -35,28 +35,42 @@ public class WorldControls : MonoBehaviour
 	// Where all the managers will be put with the respective keys that match
 	// with the JSON sent from the backend.
 	private Dictionary<string, MapFeatureManager> mapFeatureManagers;
-	private static readonly string[] mapFeatureNames = 
-		{"obstacle", 
-		 "score_point", 
-		 "health_point",
-		 "pickup"};
+	private static readonly string[] mapFeatureNames = {
+		"obstacle", 
+		"score_point", 
+		"health_point",
+		"pickup"};
 
 	// Player manager.
 	private PlayerManager playerManager;
 
-	// Tell WebGL too ignore keyboard input.
+	// Tell WebGL to ignore keyboard input.
 	void Awake() 
 	{
-		
-
 		#if !UNITY_EDITOR && UNITY_WEBGL
 			WebGLInput.captureAllKeyboardInput = false;
 		#endif
 	}
 
-	// Initial connection
+	// Initial connection.
 	void Start()
 	{
+		// Initialise map feature managers.
+		obstacleManager = new ObstacleManager();
+		scorePointManager = new ScorePointManager();
+		healthPointManager = new HealthPointManager();
+		pickupManager = new PickupManager();
+
+		// Initialise dictionary.
+		mapFeatureManagers = new Dictionary<string, MapFeatureManager>();
+		mapFeatureManagers.Add(mapFeatureNames[0], obstacleManager);
+		mapFeatureManagers.Add(mapFeatureNames[1], scorePointManager);
+		mapFeatureManagers.Add(mapFeatureNames[2], healthPointManager);
+		mapFeatureManagers.Add(mapFeatureNames[3], pickupManager);
+
+		// Initialise player manager.
+		playerManager = new PlayerManager();
+
 		if (Application.platform == RuntimePlatform.WebGLPlayer) 
 		{
 			// Ask the browsers for setup calls.
@@ -64,16 +78,15 @@ public class WorldControls : MonoBehaviour
 			Debug.Log("Sending message to WebGLPlayer.");
 			Application.ExternalCall("SendAllConnect");
 		}
-		else 
+		else
 		{
-			// TEMPORARY: Otherwise connect directly. Just for testing.
+			// TEMPORARY. Just for testing. Connect directly. Assume id = 1.
 			EstablishConnection();
+			SetUserId(1);
 		} 
 
 		startTime = Time.time;
 		dataQueue = new Queue<JSONNode>();
-
-		WorldInit();
 	}
 
 	// Calls ProcessUpdate every ProcessingInterval seconds.
@@ -99,9 +112,15 @@ public class WorldControls : MonoBehaviour
 		io.settings.port = port;
 	}
 
+	// Set main user.
 	public void SetUserId(int userId)
 	{
 		this.userId = userId;
+
+		// Now the camera knows who to follow.
+		GameObject cameraGameObject = Camera.main.transform.gameObject;
+		FollowAvatar followAvatar = cameraGameObject.AddComponent<FollowAvatar>();
+		followAvatar.FollowUserWithId(playerManager.PlayerId(userId));
 	}
 
 	// The backend calls this function to open a socket connection.
@@ -134,26 +153,6 @@ public class WorldControls : MonoBehaviour
 		});
 	}
 
-	// Handle initial request.
-	void WorldInit()
-	{
-		// Initialise map feature managers.
-		obstacleManager = new ObstacleManager();
-		scorePointManager = new ScorePointManager();
-		healthPointManager = new HealthPointManager();
-		pickupManager = new PickupManager();
-
-		// Initialise dictionary.
-		mapFeatureManagers = new Dictionary<string, MapFeatureManager>();
-		mapFeatureManagers.Add(mapFeatureNames[0], obstacleManager);
-		mapFeatureManagers.Add(mapFeatureNames[1], scorePointManager);
-		mapFeatureManagers.Add(mapFeatureNames[2], healthPointManager);
-		mapFeatureManagers.Add(mapFeatureNames[3], pickupManager);
-
-		// Initialise player manager.
-		playerManager = new PlayerManager();
-	}
-
 	// Receive updates from the backend, parse them and delegate to the 
 	// classes in charge of creating, deleting and updating game objects.
 	void WorldUpdate(string updatesString)
@@ -175,19 +174,13 @@ public class WorldControls : MonoBehaviour
 		JSONNode players = updates["players"];
 
 		foreach (JSONNode player in players["create"].AsArray) 
-		{
 			playerManager.CreatePlayer(player["id"].AsInt, new PlayerData(player));
-		}
 
 		foreach (JSONNode player in players["delete"].AsArray) 
-		{
 			playerManager.DeletePlayer(player["id"].AsInt);
-		}
 
-		foreach (JSONNode player in players["update"].AsArray) 
-		{
+		foreach (JSONNode player in players["update"].AsArray)
 			playerManager.UpdatePlayer(player["id"].AsInt, new PlayerData(player));
-		}
 
 		// Map features updates.
 		JSONNode mapFeatures = updates["map_features"];
@@ -198,36 +191,27 @@ public class WorldControls : MonoBehaviour
 			JSONNode mapFeatureJSON = mapFeatures[mapFeatureName];
 
 			// Create.
-			foreach (JSONNode mapFeature in mapFeatureJSON["create"].AsArray) 
-			{
+			foreach (JSONNode mapFeature in mapFeatureJSON["create"].AsArray)
 				mapFeatureManager.Create(mapFeature["id"], new MapFeatureData(mapFeature));
-			}
 
 			// Delete.
 			foreach (JSONNode mapFeature in mapFeatureJSON["delete"].AsArray) 
-			{
 				mapFeatureManager.Delete(mapFeature["id"]);
-			}
 		}
 	}
 
+	// Delete all map features and avatars.
 	public void Cleanup()
 	{
-		// Telling the backend I am quitting
-		// Delete all map features and avatars.
-		//io.Emit("client-exit", Convert.ToString(userId));
-		
 		GameObject[] allMapFeatures = GameObject.FindGameObjectsWithTag("MapFeature");
 		GameObject[] allAvatars = GameObject.FindGameObjectsWithTag("Avatar");
 
 		foreach (GameObject mapFeature in allMapFeatures) 
-		{
 			Destroy(mapFeature);
-		}
+		
 		foreach (GameObject avatar in allAvatars) 
-		{
 			Destroy(avatar);
-		}
+		
 	}
 }
 	
