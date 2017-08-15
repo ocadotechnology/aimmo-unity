@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 	private Vector2 nextPosition;
 
 	// Initialisation.
-	void Awake()
+	public void Awake()
 	{
 		startTime = Time.time;
 		currPosition = transform.position;
@@ -27,10 +27,9 @@ public class PlayerController : MonoBehaviour
 	}
 
 	// Move the player to next position.
-	void Update() 
+	public void Update() 
 	{
 		// TODO: Rotation transition. Maybe an animation?
-
 		float step = (Time.time - startTime) * speed;
 
 		if (step < moveInterval) 
@@ -48,6 +47,8 @@ public class PlayerController : MonoBehaviour
 			transform.GetComponent<IsometricPosition>().Set(nextPosition);
 			currPosition = nextPosition;
 
+			startTime = Time.time;
+
 			// Update score label.
 			string scoreText = Convert.ToString(nextState.score);
 			transform.GetComponent<PlayerScoreText>().SetScore(scoreText);
@@ -55,9 +56,7 @@ public class PlayerController : MonoBehaviour
 			// Update healthbar.
 			int hp = nextState.health;
 			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(hp);
-
-			startTime = Time.time;
-		}
+		}	
 	}
 
 	// Set next destination.

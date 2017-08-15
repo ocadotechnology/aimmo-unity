@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace AIMMOUnityTest
 {
 	[TestFixture]
-	internal class IsometricPositionTests
+	internal class IsometricPositionTest
 	{
 		[Test]
 		public void TestZeroPositionDoesntChange()
