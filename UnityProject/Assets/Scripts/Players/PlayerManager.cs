@@ -89,7 +89,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 		if (playerToDestroy == null)
 			return false;
 
-		Destroy(playerToDestroy);
+		DestroyImmediate(playerToDestroy);
 
 		return true;
 	}

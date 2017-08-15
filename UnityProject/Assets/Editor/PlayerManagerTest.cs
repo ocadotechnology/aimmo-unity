@@ -54,5 +54,19 @@ namespace AIMMOUnityTest
 			Assert.IsNotNull (go.GetComponent<PlayerScoreText>());
 			Assert.IsNotNull (go.GetComponent<PlayerHealthBar>());
 		}
+
+
+		[Test]
+		public void TestDeletePlayerDeletesPlayerGameObject() 
+		{
+			PlayerManagerWrapper wrapper = new PlayerManagerWrapper(2);
+			PlayerManager manager = wrapper.playerManager;
+
+			manager.CreatePlayer(wrapper.id, playerData); 
+			Assert.IsNotNull (GameObject.Find(manager.PlayerId(wrapper.id)));
+
+			manager.DeletePlayer (wrapper.id);
+			Assert.IsNull (GameObject.Find(manager.PlayerId(wrapper.id)));
+		}
 	}
 }
