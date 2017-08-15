@@ -31,15 +31,18 @@ public class FollowAvatar : MonoBehaviour
 		this.userId = userId;
 	}
 
-	void Awake()
+	public void Awake()
 	{
 		cameraPosition = transform.GetComponent<IsometricPosition>();
 	}
 
-	void Update() 
+	public void Update() 
 	{
+		Debug.Log ("in");
+
 		if (targetPosition == null) 
 		{
+			Debug.Log ("here");
 			GameObject target = GameObject.Find(userId);
 			if (target == null)
 				return;
@@ -48,9 +51,12 @@ public class FollowAvatar : MonoBehaviour
 			return;
 		}
 
+		Debug.Log (targetPosition.Vector());
+		Debug.Log (cameraPosition.Vector ());
 		// Move the camera accordingly.
 		if (targetPosition.Vector() != cameraPosition.Vector()) 
 		{
+			Debug.Log ("here2");
 			Vector2 gridPosition = Vector2.SmoothDamp(
                cameraPosition.Vector(), 
                targetPosition.Vector(), 
@@ -62,6 +68,7 @@ public class FollowAvatar : MonoBehaviour
 		} 
 		else 
 		{
+			Debug.Log ("here3");
 			cameraPosition.x = targetPosition.x;
 			cameraPosition.y = targetPosition.y;
 		}
