@@ -99,7 +99,7 @@ namespace AIMMOUnityTest
 		[Test]
 		public void TestCreatingPlayerTwiceRefersSameGameObject() 
 		{
-			PlayerManagerWrapper wrapper = new PlayerManagerWrapper(1);
+			PlayerManagerWrapper wrapper = new PlayerManagerWrapper(4);
 			PlayerManager manager = wrapper.playerManager;
 
 			manager.CreatePlayer(wrapper.id, playerData); 
