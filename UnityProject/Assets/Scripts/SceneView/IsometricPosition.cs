@@ -31,9 +31,9 @@ public class IsometricPosition : MonoBehaviour
 	private const float ShiftScale = 1.0f;
 
 	// The key to calculate the isometric position with respect to the real one.
-	private Vector3 shiftDirection;
+	private Vector3 shiftDirection = Vector3.zero;
 
-	void Awake()
+	private void InitialiseShiftDirection()
 	{
 		float shiftX = Mathf.Cos(Constants.CameraRotationY);
 		float shiftY = -Mathf.Tan(Constants.CameraRotationX);
@@ -45,6 +45,9 @@ public class IsometricPosition : MonoBehaviour
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
 	{
+		if (shiftDirection == Vector3.zero)
+			InitialiseShiftDirection();
+
 		this.x = x;
 		this.y = y;
 		this.depth = x + y + relativeDepth;
@@ -53,7 +56,9 @@ public class IsometricPosition : MonoBehaviour
 
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
 		Vector3 depthShift = this.depth * ShiftScale * shiftDirection;
-	
+
+		Debug.Log (shiftDirection);
+
 		transform.position = realPosition + depthShift;
 	}
 
