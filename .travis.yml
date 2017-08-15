@@ -1,23 +1,17 @@
-# do not install anything extra onto the image
+sudo: required
+
 language: generic
 
-# use a Mac OSX image
 os: osx
 
-# only run builds on pushes to the master branch
 branches:
   only:
-  - master
+  - travis
 
-# send email notifications when the build changes from succeeding to broken
-notifications:
-  email:
-    on_success: never
-    on_failure: change
-
-# decrypt the encrypted SSH key file so it can be used for scp auth in post_build.sh
-before_install:
-- openssl aes-256-cbc -k "$KEYFILE_PASS" -in "${UPLOAD_KEYPATH}.enc" -out "${UPLOAD_KEYPATH}" -d
+cache:
+  directories:
+  - .autoconf
+  - $HOME/UnityDownloads
 
 # run the script to download and install Unity editor
 install:
@@ -28,8 +22,8 @@ script:
 - sudo -E sh ./Scripts/build.sh
 
 # run the script to upload the builds as tarballs
-after_success:
-- sudo -E sh ./Scripts/post_build.sh
+#after_success:
+#- sudo -E sh ./Scripts/post_build.sh
 
 # environment variables used in bash scripts
 env:
