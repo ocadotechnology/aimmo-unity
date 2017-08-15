@@ -42,12 +42,12 @@ namespace AIMMOUnityTest
 
 			Vector3 cameraRotation = parentCamera.transform.rotation.eulerAngles;
 
-			Assert.IsTrue(
-				Mathf.Abs(cameraRotation.x - Constants.CameraRotationXDeg) < epsilon);
-			Assert.IsTrue(
-				Mathf.Abs(cameraRotation.y - Constants.CameraRotationYDeg) < epsilon);
-			Assert.IsTrue(
-				Mathf.Abs(cameraRotation.z - Constants.CameraRotationZDeg) < epsilon);
+			float diffX = cameraRotation.x - Constants.CameraRotationXDeg;
+			float diffY = cameraRotation.y - Constants.CameraRotationYDeg;
+			float diffZ = cameraRotation.z - Constants.CameraRotationZDeg;
+			Assert.IsTrue(Math.Abs(diffX) < epsilon);
+			Assert.IsTrue(Math.Abs(diffY) < epsilon);
+			Assert.IsTrue(Math.Abs(diffZ) < epsilon);
 		}
 
 		[Test]
@@ -55,13 +55,17 @@ namespace AIMMOUnityTest
 		{
 			Assert.IsNotNull(worldController);
 
-			WorldControls worldControls = worldController.GetComponent<WorldControls>();
+			WorldControls worldControls = 
+				worldController.GetComponent<WorldControls>();
 			Assert.IsNotNull(worldControls);
 
 			GameObject socketIOController = GameObject.Find("SocketIOController");
 			Assert.IsNotNull(socketIOController);
-			Assert.IsNotNull(socketIOController.GetComponent<SocketIOController>());
-			Assert.AreEqual(socketIOController, worldControls.io);
+
+			SocketIOController socketIOScript = 
+				socketIOController.GetComponent<SocketIOController>();
+			Assert.IsNotNull(socketIOScript);
+			Assert.AreEqual(socketIOScript, worldControls.io);
 		}
 	}
 }
