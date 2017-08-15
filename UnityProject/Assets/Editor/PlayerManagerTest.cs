@@ -67,7 +67,6 @@ namespace AIMMOUnityTest
 			Assert.IsNotNull (go.GetComponent<PlayerHealthBar>());
 		}
 
-
 		[Test]
 		public void TestDeletePlayerDeletesPlayerGameObject() 
 		{
@@ -82,7 +81,7 @@ namespace AIMMOUnityTest
 		}
 
 		[Test]
-		public void UpdatePlayerToUpdateCallsSetNextState()
+		public void TestUpdatePlayerToUpdateCallsSetNextState()
 		{
 			PlayerManagerWrapper wrapper = new PlayerManagerWrapper(3);
 			PlayerManager manager = wrapper.playerManager;
@@ -95,6 +94,23 @@ namespace AIMMOUnityTest
 
 			manager.UpdatePlayer (wrapper.id, playerDataUpdated);
 			Assert.AreEqual (GetNextPosition(pc), new Vector2 (playerDataUpdated.x, playerDataUpdated.y));
+		}
+
+		[Test]
+		public void TestCreatingPlayerTwiceRefersSameGameObject() 
+		{
+			PlayerManagerWrapper wrapper = new PlayerManagerWrapper(1);
+			PlayerManager manager = wrapper.playerManager;
+
+			manager.CreatePlayer(wrapper.id, playerData); 
+			GameObject goBefore = GameObject.Find(manager.PlayerId(wrapper.id));
+			Assert.IsNotNull (goBefore);
+
+			manager.CreatePlayer(wrapper.id, playerData); 
+			GameObject goAfter = GameObject.Find(manager.PlayerId(wrapper.id));
+			Assert.IsNotNull (goAfter);
+
+			Assert.AreEqual (goBefore, goAfter);
 		}
 	}
 }
