@@ -6,6 +6,7 @@ using UnityEngine;
 /* Creates the text on top of each avatar with the score.
  */
 
+[ExecuteInEditMode]
 public class PlayerScoreText : MonoBehaviour
 {
 	// Text positioning.
@@ -21,7 +22,7 @@ public class PlayerScoreText : MonoBehaviour
 
 	private GameObject text;
 
-	void Awake()
+	public void Awake()
 	{
 		text = new GameObject("Text");
 		Vector3 textPosition = transform.position;

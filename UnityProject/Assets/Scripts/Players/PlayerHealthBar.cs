@@ -7,6 +7,7 @@ using UnityEngine;
  * SetHealthPoints() and this class will do the rest.ss
  */
 
+[ExecuteInEditMode]
 public class PlayerHealthBar : MonoBehaviour 
 {
 	// Texture constants.
