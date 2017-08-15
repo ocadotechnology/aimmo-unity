@@ -1,10 +1,9 @@
-﻿using UnityEditor;
-using UnityEngine;
-using NUnit.Framework;
-
-using System;  
+﻿using System;  
 using System.Collections;
 using System.Threading;
+using UnityEditor;
+using UnityEngine;
+using NUnit.Framework;
 
 namespace AIMMOUnityTest
 {
@@ -18,31 +17,31 @@ namespace AIMMOUnityTest
 
 			public PlayerControllerWrapper(float x, float y)
 			{
-				IsometricPosition pos = context.AddComponent<IsometricPosition>();
-				pos.Set(new Vector2(x, y));
+				IsometricPosition position = context.AddComponent<IsometricPosition>();
+				position.Set(x, y);
 
 				playerController = context.AddComponent<PlayerController>();
-				playerController.transform.position = new Vector3(pos.Vector().x, pos.Vector().y, 0);
-				playerController.Awake();
 			}
 
 			public Vector2 GetPosition() 
 			{
-				return playerController.transform.GetComponent<IsometricPosition> ().Vector();
+				IsometricPosition position = context.GetComponent<IsometricPosition>();
+
+				return position.Vector();
 			}
 
-			public void SetNextPosition (float x, float y)
+			public void SetNextPosition(float x, float y)
 			{	
-				PlayerData playerData = new PlayerData (new Vector2 (x, y));
-				playerController.SetNextState (playerData);
-				playerController.transform.position = new Vector3(x, y, 0);
+				PlayerData playerData = new PlayerData(new Vector2(x, y));
+				playerController.SetNextState(playerData);
 			}
 
 			public void PassTime(float time) 
 			{
-				var prop = playerController.GetType().GetField("startTime", 
-					  System.Reflection.BindingFlags.NonPublic
-					| System.Reflection.BindingFlags.Instance);
+				var prop = playerController.GetType().GetField(
+					"startTime", 
+					System.Reflection.BindingFlags.NonPublic |
+					System.Reflection.BindingFlags.Instance);
 				prop.SetValue(playerController, Time.time - time);
 			}
 		}
@@ -53,35 +52,32 @@ namespace AIMMOUnityTest
 		[TestCase(0.0f, 0.0f, 0.0f, 10.0f)]
 		public void TestPlayerMovesToNextState(float x, float y, float x2, float y2) 
 		{
-			var wrapper = new PlayerControllerWrapper(x, y);
-			wrapper.SetNextPosition (x, y);
-			wrapper.playerController.Update();
+			PlayerControllerWrapper wrapper = new PlayerControllerWrapper(x, y);
 
 			wrapper.SetNextPosition(x2, y2);
-			wrapper.PassTime (1.0f);
+			wrapper.PassTime(1.0f);
 
-			try { wrapper.playerController.Update();} 
+			try { wrapper.playerController.Update(); } 
 			catch (Exception) {}
 
-			Assert.IsTrue(wrapper.GetPosition() == new Vector2(x2, y2));
+			Assert.AreEqual(wrapper.GetPosition(), new Vector2(x2, y2));
 		}
 			
 		[TestCase(1.0f, 2.0f, 2.0f, 3.0f)]
 		[TestCase(0.0f, 0.0f, 10.0f, 10.0f)]
 		[TestCase(0.0f, 0.0f, 0.0f, 10.0f)]
-		public void TestPlayerLurps(float x, float y, float x2, float y2)
+		public void TestPlayerLerps(float x, float y, float x2, float y2)
 		{
-			var wrapper = new PlayerControllerWrapper(x, y);
-			wrapper.SetNextPosition (x, y);
-			wrapper.playerController.Update();
+			PlayerControllerWrapper wrapper = new PlayerControllerWrapper(x, y);
 
 			wrapper.SetNextPosition(x2, y2);
-			wrapper.PassTime (0.05f);
+			wrapper.PassTime(0.05f);
 
-			try { wrapper.playerController.Update();} 
+			try { wrapper.playerController.Update(); } 
 			catch (Exception) {}
 
-			Assert.IsTrue(wrapper.GetPosition() != new Vector2(x2, y2));
+			Assert.AreNotEqual(wrapper.GetPosition(), new Vector2(x, y));
+			Assert.AreNotEqual(wrapper.GetPosition(), new Vector2(x2, y2));
 		}
 
 	}
