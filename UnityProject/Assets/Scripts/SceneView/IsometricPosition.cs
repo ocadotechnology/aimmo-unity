@@ -20,7 +20,7 @@ using UnityEngine;
  * avatar, 'O', sitting on depth 3, on top another sprite in depth 4.
  */
 
-public class IsometricPosition : MonoBehaviour 
+public class IsometricPosition : MonoBehaviour
 {
 	// Coordinates the object is meant to be at and depth.
 	public float x;
@@ -56,8 +56,6 @@ public class IsometricPosition : MonoBehaviour
 
 		Vector3 realPosition = new Vector3(x, 0.0f, y);
 		Vector3 depthShift = this.depth * ShiftScale * shiftDirection;
-
-		Debug.Log (shiftDirection);
 
 		transform.position = realPosition + depthShift;
 	}
@@ -99,5 +97,20 @@ public class IsometricPosition : MonoBehaviour
 		foreach (SpriteRenderer childSpriteRenderer in childSpriteRenderers)
 			childSpriteRenderer.sortingOrder = sortingOrder;
 
+	}
+		
+	public override bool Equals(object obj)
+	{
+		var position = obj as IsometricPosition;
+
+		if (position == null)
+			return false;
+
+		return this.x == position.x && this.y == position.y;
+	}
+
+	public override int GetHashCode()
+	{
+		return this.GetHashCode();
 	}
 }
