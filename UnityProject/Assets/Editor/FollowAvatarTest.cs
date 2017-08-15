@@ -10,12 +10,14 @@ namespace AIMMOUnityTest
 	[TestFixture]
 	internal class FollowAvatarTest
 	{
+		public const float eps = 0.001f;
+
 		public class FollowAvatarWrapper 
 		{
 			private GameObject context = new GameObject();
 			private GameObject user = new GameObject();
 			public FollowAvatar followAvatar;
-			private const int fps = 25;
+			public const int fps = 5;
 
 			public FollowAvatarWrapper(float x, float y)
 			{
@@ -48,10 +50,11 @@ namespace AIMMOUnityTest
 			}
 		}
 			
-		[TestCase(1.0f, 2.0f, 2.0f, 3.0f)]
 		[TestCase(0.0f, 0.0f, 10.0f, 10.0f)]
-		[TestCase(1.0f, 1.0f, 1.0f, 1.0f)]
-		[TestCase(0.0f, 0.0f, 0.0f, 10.0f)]
+		[TestCase(0.0f, 0.0f, 100.0f, 100.0f)]
+		[TestCase(0.0f, 0.0f, 100.0f, 0.0f)]
+		[TestCase(0.0f, 0.0f, 0.0f, 100.0f)]
+		[TestCase(50.0f, 50.0f, 100.0f, 100.0f)]
 		public void TestCameraMovesToTargetPosition(float x, float y, float x2, float y2) 
 		{
 			FollowAvatarWrapper wrapper = new FollowAvatarWrapper(x, y);
@@ -62,7 +65,7 @@ namespace AIMMOUnityTest
 				wrapper.followAvatar.Update();
 			}
 
-			Assert.AreEqual(wrapper.GetPosition(), new Vector2(x2, y2));
+			Assert.IsTrue (Vector2.Distance(wrapper.GetPosition(), new Vector2(x2, y2)) < eps);
 		}
 	}
 }

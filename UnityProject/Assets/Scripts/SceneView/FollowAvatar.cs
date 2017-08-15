@@ -48,8 +48,6 @@ public class FollowAvatar : MonoBehaviour
 			return;
 		}
 
-		Debug.Log (targetPosition.Vector());
-		Debug.Log (cameraPosition.Vector ());
 		// Move the camera accordingly.
 		if (targetPosition.Vector() != cameraPosition.Vector()) 
 		{
