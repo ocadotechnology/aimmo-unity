@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using NUnit.Framework;
+
 using SimpleJSON;
 using System;  
-using UnityEngine;
 using System.Collections;
 
 namespace AIMMOUnityTest
@@ -20,10 +20,12 @@ namespace AIMMOUnityTest
 		}";
 
 		private static PlayerData playerData = new PlayerData(JSON.Parse(playerDataJson));
+		private static PlayerData playerDataUpdated = new PlayerData(new Vector2(2.0f,3.0f));
 
 		public class PlayerManagerWrapper
 		{
 			private GameObject context = new GameObject();
+			private GameObject mockery = new GameObject();
 
 			public int id;
 			public PlayerManager playerManager;
@@ -35,6 +37,16 @@ namespace AIMMOUnityTest
 			}
 		}
 
+		// We use reflection here rather than exposing the field or using Mockery
+		public Vector2 GetNextPosition(PlayerController playerController) 
+		{
+			var prop = playerController.GetType().GetField(
+				"nextPosition", 
+				System.Reflection.BindingFlags.NonPublic |
+				System.Reflection.BindingFlags.Instance);
+			return (Vector2) prop.GetValue(playerController);
+		}
+			
 		[Test]
 		public void TestCreatingPlayerCreatesPlayerGameObject() 
 		{
@@ -67,6 +79,22 @@ namespace AIMMOUnityTest
 
 			manager.DeletePlayer (wrapper.id);
 			Assert.IsNull (GameObject.Find(manager.PlayerId(wrapper.id)));
+		}
+
+		[Test]
+		public void UpdatePlayerToUpdateCallsSetNextState()
+		{
+			PlayerManagerWrapper wrapper = new PlayerManagerWrapper(3);
+			PlayerManager manager = wrapper.playerManager;
+
+			manager.CreatePlayer(wrapper.id, playerData); 
+			Assert.IsNotNull (GameObject.Find(manager.PlayerId(wrapper.id)));
+
+			GameObject go = GameObject.Find (manager.PlayerId (wrapper.id));
+			PlayerController pc = go.GetComponent<PlayerController> ();
+
+			manager.UpdatePlayer (wrapper.id, playerDataUpdated);
+			Assert.AreEqual (GetNextPosition(pc), new Vector2 (playerDataUpdated.x, playerDataUpdated.y));
 		}
 	}
 }

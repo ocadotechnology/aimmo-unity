@@ -6,6 +6,7 @@ using UnityEngine;
 /* Handles the avatar movement. This script is attached to each of the players.
  */
 
+[ExecuteInEditMode]
 public class PlayerController : MonoBehaviour 
 {
 	// General movement variables.
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
 	private PlayerData nextState;
 	private Vector2 currPosition;
-	private Vector2 nextPosition;
+	private Vector2 nextPosition; 
 
 	// Initialisation.
 	public void Awake()
