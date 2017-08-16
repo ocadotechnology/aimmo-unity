@@ -1,9 +1,10 @@
-=============== 
+===============
 Unity generated
 ===============
 Temp/
 Library/
 Build/
+WebGL-Dist/
 
 =====================================
 Visual Studio / MonoDevelop generated

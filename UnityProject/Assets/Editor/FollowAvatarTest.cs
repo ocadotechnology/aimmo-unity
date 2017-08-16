@@ -24,6 +24,7 @@ namespace AIMMOUnityTest
 				IsometricPosition position = context.AddComponent<IsometricPosition>();
 				position.Set(x, y);
 
+				context.SetActive(false);
 				followAvatar = context.AddComponent<FollowAvatar>();
 				followAvatar.Awake();
 			}
@@ -58,6 +59,7 @@ namespace AIMMOUnityTest
 		public void TestCameraMovesToTargetPosition(float x, float y, float x2, float y2) 
 		{
 			FollowAvatarWrapper wrapper = new FollowAvatarWrapper(x, y);
+
 
 			wrapper.SetNextPosition(x2, y2);
 			for (int i = 1; i <= wrapper.Frames(x, y, x2, y2); ++i) 
