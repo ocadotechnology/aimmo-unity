@@ -54,10 +54,10 @@ public class IsometricPosition : MonoBehaviour
 
 		ChangeAllSpriteRenderersSortingOrder();
 
-		Vector3 realPosition = new Vector3(x, 0.0f, y);
-		Vector3 depthShift = this.depth * ShiftScale * shiftDirection;
-
-		transform.position = realPosition + depthShift;
+		transform.position = new Vector3(
+			(x - y) * Mathf.Cos(Mathf.PI / 4) * ShiftScale,
+			(y + x) * Mathf.Sin(Mathf.PI / 6) * ShiftScale,
+			x + y + relativeDepth);
 	}
 
 	public void Set(float x, float y)

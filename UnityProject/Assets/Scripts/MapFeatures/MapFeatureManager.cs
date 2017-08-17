@@ -68,7 +68,7 @@ public abstract class MapFeatureManager : MonoBehaviour, IMapFeatureManager
 		float x = mapFeatureData.x;
 		float y = mapFeatureData.y;
 		mapFeature.AddComponent<IsometricPosition>().Set(x, y);
-		mapFeature.transform.rotation = Quaternion.Euler(45.0f, 45.0f, 0.0f);
+		mapFeature.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
 		// Create sprite.
 		Texture2D mapFeatureTexture = Resources.Load<Texture2D>(

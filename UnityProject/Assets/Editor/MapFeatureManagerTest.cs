@@ -90,7 +90,7 @@ namespace AIMMOUnityTest
 			Assert.IsNotNull(go.GetComponent<IsometricPosition>());
 			Assert.AreEqual(
 				go.transform.rotation, 
-				Quaternion.Euler(45.0f, 45.0f, 0.0f));
+				Quaternion.Euler(0.0f, 0.0f, 0.0f));
 
 			IsometricPosition component = go.GetComponent<IsometricPosition>();
 			Vector2 position = new Vector2(1.0f, 2.0f);
