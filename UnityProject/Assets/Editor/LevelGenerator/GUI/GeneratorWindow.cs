@@ -15,19 +15,13 @@ public class GeneratorWindow : EditorWindow
 		windowInstace.Show ();
 	}
 
-	private void CreateLevel()
-	{
-		SceneController.CreateLevel (sceneName);
-	}
-
 	private void CreateButton() 
 	{
-		GUILayout.Label("Select an object in the hierarchy view");
-		sceneName = EditorGUILayout.TextField("Scene Name: ", sceneName);
+		sceneName = EditorGUILayout.TextField("Level Name: ", sceneName);
 
 		if (GUILayout.Button (new GUIContent ("Create Level", ""))) 
 		{
-			CreateLevel ();
+			SceneController.CreateLevel (sceneName);
 		}
 	}
 
@@ -39,9 +33,24 @@ public class GeneratorWindow : EditorWindow
 		}
 	}
 
+	private void LevelButton(string level)
+	{
+		if (GUILayout.Button (new GUIContent ("Level: " + level, ""))) 
+		{
+			SceneController.WorkOnLevel (level);
+		}
+	}
+
 	public void OnGUI()
 	{
 		CreateButton ();
+
+		GUILayout.Label("Select a level below to work on.");
+		foreach (string level in SceneController.GetLevels()) 
+		{
+			LevelButton (level);
+		}
+
 		CloseButton ();
 	}
 }
