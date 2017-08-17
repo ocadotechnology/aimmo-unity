@@ -57,10 +57,10 @@ namespace AIMMOUnityTest
 		}
 
 		[TestCase(0.0f, 0.0f, 0.0f, 0.0f, 0.0f)]
-		[TestCase(3.0f, 0.0f, 5.12132f, -3.0f, 2.12132f)]
-		[TestCase(0.0f, 2.0f, 1.414214f, -2.0f, 3.414214f)]
-		[TestCase(4.0f, 7.0f, 11.77817f, -11.0f, 14.77817f)]
-		[TestCase(-1.0f, -3.0f, -3.828427f, 4.0f, -5.828427f)]
+		[TestCase(3.0f, 0.0f, 2.12132f, 1.224745f, 3.0f)]
+		[TestCase(0.0f, 2.0f, -1.414214f, 0.8164966f, 2.0f)]
+		[TestCase(4.0f, 7.0f, -2.12132f, 4.490731f, 11.0f)]
+		[TestCase(-1.0f, -3.0f, 1.414214f, -1.632993f, -4.0f)]
 		public void TestIsometricCalculation(
 			float isometricX, 
 			float isometricY,
