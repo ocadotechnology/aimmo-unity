@@ -31,6 +31,13 @@ public class GeneratorWindow : EditorWindow
 		}
 	}
 
+	private void ObjectMenu()
+	{
+		GameObject go = ObjectController.GetGameObject ();
+
+		GUILayout.Label("Current selected object: " + go.name);
+	}
+
 	public void OnGUI()
 	{
 		// TODO: Replace with drop-down
@@ -38,6 +45,11 @@ public class GeneratorWindow : EditorWindow
 		foreach (string level in SceneController.GetLevels()) 
 		{
 			LevelButton (level);
+		}
+
+		if (ObjectController.SelectedGameObject ()) 
+		{
+			ObjectMenu ();
 		}
 
 		CloseButton ();
