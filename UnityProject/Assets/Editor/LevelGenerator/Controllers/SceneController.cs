@@ -7,24 +7,16 @@ using System.IO;
 
 public class SceneController
 {
-	private static SceneController controllerInstace = new SceneController();
-
-	public static void CreateLevel (string levelName)
-	{
-		if (!controllerInstace.IsScenePresent (levelName)) 
-		{
-			Debug.Log ("Creating new level " + levelName);	
-		}
-	}
-
 	public static void WorkOnLevel (string levelName)
 	{
-		if (!controllerInstace.IsScenePresent (levelName)) 
+		if (!IsScenePresent (levelName)) 
 		{
 			throw new UnityException("The levelname" + levelName + "seems not to be present");
 		}
 
 		Debug.Log ("Working on level " + levelName);
+
+		EditorApplication.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Scenes/" + levelName + ".unity");
 	}
 
 	public static LinkedList<string> GetLevels()
@@ -32,7 +24,7 @@ public class SceneController
 		return GetSceneNames ();
 	}
 
-	private bool IsScenePresent(string sceneName) 
+	private static bool IsScenePresent(string sceneName) 
 	{
 		foreach (string name in GetSceneNames()) 
 		{
