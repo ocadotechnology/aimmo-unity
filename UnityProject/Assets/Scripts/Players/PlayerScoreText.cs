@@ -15,7 +15,7 @@ public class PlayerScoreText : MonoBehaviour
 
 	private const float OffsetX = 0.0f;
 	private const float OffsetY = 1.5f;
-	private const float OffsetZ = 0.25f;
+	private const float OffsetZ = 0.0f;
 
 	private const int fontSize = 80;
 
