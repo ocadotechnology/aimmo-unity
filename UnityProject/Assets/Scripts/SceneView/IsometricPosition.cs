@@ -31,14 +31,8 @@ public class IsometricPosition : MonoBehaviour
 	private const float ShiftScale = 1.0f;
 
 	// The key to calculate the isometric position with respect to the real one.
-	private float shiftX;
-	private float shiftY;
-
-	private void InitialiseShiftDirection()
-	{
-		shiftX = Mathf.Cos(Constants.SceneRotationX);
-		shiftY = Mathf.Sin(Constants.SceneRotationY);
-	}
+	private float shiftX = Mathf.Cos(Constants.SceneRotationX);
+	private float shiftY = Mathf.Sin(Constants.SceneRotationY) / Mathf.Sqrt(3.0f);
 
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
