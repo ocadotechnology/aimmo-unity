@@ -3,7 +3,6 @@ using UnityEditor;
 using NUnit.Framework;
 using SimpleJSON;
 using System;  
-using UnityEngine;
 using System.Collections;
 
 namespace AIMMOUnityTest
