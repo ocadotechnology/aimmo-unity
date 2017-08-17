@@ -81,7 +81,7 @@ namespace AIMMOUnityTest
 		[Test]
 		public void TestCreatingMapFeatureAddsComponents() 
 		{
-			var wrapper = new MapFeatureManagerWrapper ("id3");
+			var wrapper = new MapFeatureManagerWrapper("id3");
 			var mapFeatureManager = wrapper.mapFeatureManager;
 
 			Assert.IsTrue(mapFeatureManager.Create(wrapper.id, mapFeatureData));
@@ -104,8 +104,8 @@ namespace AIMMOUnityTest
 			var wrapper = new MapFeatureManagerWrapper("id3");
 			var mapFeatureManager = wrapper.mapFeatureManager;
 
-			Assert.IsTrue(mapFeatureManager.Create (wrapper.id, mapFeatureData));
-			Assert.IsTrue(mapFeatureManager.Create (wrapper.id, mapFeatureData));
+			Assert.IsTrue(mapFeatureManager.Create(wrapper.id, mapFeatureData));
+			Assert.IsTrue(mapFeatureManager.Create(wrapper.id, mapFeatureData));
 		}
 
 		[Test]
@@ -120,7 +120,7 @@ namespace AIMMOUnityTest
 
 			Assert.IsTrue(mapFeatureManager.Delete(wrapper.id));
 
-			Assert.IsNull(GameObject.Find (wrapper.id));
+			Assert.IsNull(GameObject.Find(wrapper.id));
 		}
 	}
 }

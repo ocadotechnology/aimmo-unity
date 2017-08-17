@@ -29,10 +29,7 @@ public class PlayerScoreText : MonoBehaviour
 		textPosition.y += OffsetY;
 		textPosition.z += OffsetZ;
 		text.transform.position = textPosition;
-		text.transform.rotation = Quaternion.Euler(
-			0.0f, 
-			Constants.CameraRotationYDeg, 
-			0.0f);
+		text.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 		text.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
 
 		text.AddComponent<TextMesh>();

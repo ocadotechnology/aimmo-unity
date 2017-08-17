@@ -31,23 +31,18 @@ public class IsometricPosition : MonoBehaviour
 	private const float ShiftScale = 1.0f;
 
 	// The key to calculate the isometric position with respect to the real one.
-	private Vector3 shiftDirection = Vector3.zero;
+	private float shiftX;
+	private float shiftY;
 
 	private void InitialiseShiftDirection()
 	{
-		float shiftX = Mathf.Cos(Constants.CameraRotationY);
-		float shiftY = -Mathf.Tan(Constants.CameraRotationX);
-		float shiftZ = Mathf.Sin(Constants.CameraRotationY);
-
-		shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
+		shiftX = Mathf.Cos(Constants.SceneRotationX);
+		shiftY = Mathf.Sin(Constants.SceneRotationY);
 	}
 
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
 	{
-		if (shiftDirection == Vector3.zero)
-			InitialiseShiftDirection();
-
 		this.x = x;
 		this.y = y;
 		this.depth = x + y + relativeDepth;
@@ -55,9 +50,9 @@ public class IsometricPosition : MonoBehaviour
 		ChangeAllSpriteRenderersSortingOrder();
 
 		transform.position = new Vector3(
-			(x - y) * Mathf.Cos(Mathf.PI / 4) * ShiftScale,
-			(y + x) * Mathf.Sin(Mathf.PI / 6) * ShiftScale,
-			x + y + relativeDepth);
+			(x - y) * shiftX * ShiftScale,
+			(x + y) * shiftY * ShiftScale,
+			this.depth);
 	}
 
 	public void Set(float x, float y)
