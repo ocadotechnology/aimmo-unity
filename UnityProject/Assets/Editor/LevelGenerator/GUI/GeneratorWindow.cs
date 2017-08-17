@@ -52,6 +52,11 @@ public class GeneratorWindow : EditorWindow
 			ObjectMenu ();
 		}
 
+		if (GUILayout.Button (new GUIContent ("Gen sphere"))) 
+		{
+			Generators.GenerateSphere ("S", 0.0f, 0.0f, 0.0f);
+		}
+
 		CloseButton ();
 	}
 }
