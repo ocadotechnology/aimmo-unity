@@ -25,7 +25,7 @@ echo "Attempting build of ${UNITYCI_PROJECT_NAME} for WebGL"
 	-batchmode \
 	-logFile $(pwd)/unity.log \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
-	-executeMethod WebGLBuild.build
+	-executeMethod WebGLBuilder.build
 
 rc1=$?
 echo "Build logs (Windows)"
