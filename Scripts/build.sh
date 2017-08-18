@@ -23,12 +23,9 @@ if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
 echo "Attempting build of ${UNITYCI_PROJECT_NAME} for WebGL"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-batchmode \
-	-nographics \
-	-silent-crashes \
 	-logFile $(pwd)/unity.log \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
-	-executeMethod WebGLBuild.build \
-	-quit
+	-executeMethod WebGLBuild.build
 
 rc1=$?
 echo "Build logs (Windows)"
