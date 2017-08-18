@@ -19,5 +19,10 @@ public class Generators
 	{
 		new ObstacleGenerator (x, y).Build (name);
 	}
+
+	public static void GenerateHealthPoint(string name, float x, float y)
+	{
+		new  HealthPointGenerator (x, y).Build (name);
+	}
 }
 

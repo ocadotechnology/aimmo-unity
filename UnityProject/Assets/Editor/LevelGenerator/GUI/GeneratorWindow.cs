@@ -65,6 +65,11 @@ public class GeneratorWindow : EditorWindow
 		{
 			Generators.GenerateObstacle ("tst", 0.0f, 0.0f);
 		}
+			
+		if (GUILayout.Button (new GUIContent ("Gen health point"))) 
+		{
+			Generators.GenerateHealthPoint ("tst", 0.0f, 0.0f);
+		}
 
 		SaveButton ();
 

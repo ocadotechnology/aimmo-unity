@@ -11,7 +11,7 @@ public class SceneController
 	{
 		if (!IsScenePresent (levelName)) 
 		{
-			throw new UnityException("The levelname" + levelName + "seems not to be present");
+			throw new UnityException("The level name" + levelName + "seems not to be present");
 		}
 
 		Debug.Log ("Working on level " + levelName);
