@@ -4,6 +4,7 @@ using NUnit.Framework;
 using SimpleJSON;
 using System;  
 using System.Collections;
+using MapFeatures;
 
 namespace AIMMOUnityTest
 {

@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using GeneratorNS;
 
 public class Generators
 {
@@ -12,6 +13,11 @@ public class Generators
 		GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		sphere.transform.position = new Vector3(0, 1.5F, 0);
 		sphere.name = name;
+	}
+
+	public static void GenerateObstacle(string name, float x, float y)
+	{
+		new ObstacleGenerator (x, y).Build (name);
 	}
 }
 

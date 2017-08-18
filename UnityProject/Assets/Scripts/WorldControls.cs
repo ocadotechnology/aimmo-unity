@@ -5,6 +5,7 @@ using UnityEngine;
 using UnitySocketIO;
 using UnitySocketIO.Events;
 using SimpleJSON;
+using MapFeatures;
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.

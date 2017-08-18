@@ -38,6 +38,10 @@ public class GeneratorWindow : EditorWindow
 		GUILayout.Label("Current selected object: " + go.name);
 	}
 
+	private void SaveButton()
+	{
+	}
+
 	public void OnGUI()
 	{
 		// TODO: Replace with drop-down
@@ -56,6 +60,13 @@ public class GeneratorWindow : EditorWindow
 		{
 			Generators.GenerateSphere ("S", 0.0f, 0.0f, 0.0f);
 		}
+
+		if (GUILayout.Button (new GUIContent ("Gen obstacle"))) 
+		{
+			Generators.GenerateObstacle ("tst", 0.0f, 0.0f);
+		}
+
+		SaveButton ();
 
 		CloseButton ();
 	}
