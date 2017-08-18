@@ -8,7 +8,7 @@ using MapFeatures;
 using SimpleJSON;
 
 namespace GeneratorNS {
-	public abstract class MapFeatureGenerator : MonoBehaviour, Generator
+	public abstract class MapFeatureGenerator : Generator
 	{
 		public string ToJson()
 		{
