@@ -8,11 +8,10 @@ using MapFeatures;
 using SimpleJSON;
 
 namespace GeneratorNS {
-	public abstract class MapFeatureGenerator : Generator
+	public abstract class MapFeatureGenerator: Generator 
 	{
 		public string ToJson()
 		{
-			// Need to decorete it
 			string incompleteJson = MapFeatureToJson();
 
 			string fullJson =  @"{
@@ -33,6 +32,6 @@ namespace GeneratorNS {
 		}
 
 		public abstract string MapFeatureToJson();
-		public abstract IMapFeatureManager GetManager();
+		public abstract IMapFeatureManager GetManager ();
 	}
 }

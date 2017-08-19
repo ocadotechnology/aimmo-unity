@@ -1,38 +1,17 @@
-﻿using UnityEngine;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
+﻿using UnityEditor;
+using UnityEngine;
 using MapFeatures;
 
 namespace GeneratorNS {
-	public class HealthPointGenerator : MapFeatureGenerator
+	public class HealthPointGenerator : SpriteGenerator
 	{
-		private float x;
-		private float y;
-		private GameObject context; // This has to somehow be shared
-
-		public HealthPointGenerator(float x, float y)
+		public HealthPointGenerator (float x, float y) : base (x, y, @"""sprite"": {}") 
 		{
-			this.x = x;
-			this.y = y;
-			this.context = new GameObject("healthPointGeneratorContextObject");
 		}
 
-		public override string MapFeatureToJson() 
+		public override IMapFeatureManager GetManager ()
 		{
-			return @"
-				""x"": " + this.x.ToString("0.0000") + @", 
-				""y"": " + this.y.ToString("0.0000") + @", 
-				""type"" : ""health"",
-				""sprite"" : {
-				}";
-		}
-
-		public override IMapFeatureManager GetManager()
-		{
-			HealthPointManager hpm = context.AddComponent<HealthPointManager>();
-			return (IMapFeatureManager) hpm;
+			return new GameObject ().AddComponent<HealthPointManager> ();
 		}
 	}
 }
