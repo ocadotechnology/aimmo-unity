@@ -7,9 +7,9 @@ using System.IO;
 using MapFeatures;
 
 namespace GeneratorNS {
-	public interface Generator
+	public interface IGenerator
 	{
 		string ToJson();
-		GameObject Build(string id);
+		GameObject GenerateObject(string id);
 	}
 }

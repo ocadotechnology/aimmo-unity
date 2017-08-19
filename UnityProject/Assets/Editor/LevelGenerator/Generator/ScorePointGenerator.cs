@@ -11,7 +11,11 @@ namespace GeneratorNS {
 			""path"" : ""Grass-400x400-isometric-top""
 		}";
 		
-		public ScorePointGenerator (float x, float y, string sprite = defaultSprite) : base (x, y, sprite) 
+		public ScorePointGenerator (float x, float y, string sprite) : base (x, y, sprite) 
+		{
+		}
+
+		public ScorePointGenerator (float x, float y) : base (x, y, defaultSprite) 
 		{
 		}
 

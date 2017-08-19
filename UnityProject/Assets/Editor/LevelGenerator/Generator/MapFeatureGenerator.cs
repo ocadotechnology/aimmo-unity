@@ -8,7 +8,7 @@ using MapFeatures;
 using SimpleJSON;
 
 namespace GeneratorNS {
-	public abstract class MapFeatureGenerator: Generator 
+	public abstract class MapFeatureGenerator: IGenerator 
 	{
 		public string ToJson()
 		{
@@ -21,7 +21,7 @@ namespace GeneratorNS {
 			return fullJson;
 		}
 
-		public GameObject Build(string id)
+		public GameObject GenerateObject(string id)
 		{
 			IMapFeatureManager manager = GetManager ();
 			MapFeatureData mfd = new MapFeatureData (JSON.Parse (ToJson ()));

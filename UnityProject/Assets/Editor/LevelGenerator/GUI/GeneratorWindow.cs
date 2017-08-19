@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using GeneratorNS;
 
 public class GeneratorWindow : EditorWindow
 {
@@ -56,19 +57,14 @@ public class GeneratorWindow : EditorWindow
 			ObjectMenu ();
 		}
 
-		if (GUILayout.Button (new GUIContent ("Gen sphere"))) 
-		{
-			Generators.GenerateSphere ("S", 0.0f, 0.0f, 0.0f);
-		}
-
 		if (GUILayout.Button (new GUIContent ("Gen obstacle"))) 
 		{
-			Generators.GenerateObstacle ("tst", 0.0f, 0.0f);
+			new SpriteGeneratorBuilder(typeof(ObstacleGenerator)).Build().GenerateObject("id1");
 		}
 			
 		if (GUILayout.Button (new GUIContent ("Gen health point"))) 
-		{
-			Generators.GenerateHealthPoint ("tst", 0.0f, 0.0f);
+		{			
+			new SpriteGeneratorBuilder(typeof(HealthPointGenerator)).Build().GenerateObject("hp1");
 		}
 
 		SaveButton ();
