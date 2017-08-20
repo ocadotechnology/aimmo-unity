@@ -58,18 +58,17 @@ public class GeneratorWindow : EditorWindow
 
 	private void GeneratorMenu()
 	{
-		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-		GUILayout.Label("Create an object using the GUI below");
-		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
+		GUILayout.Label ("Create an object using the GUI below");
+		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 
 		GeneratorGUI (typeof(ObstacleGenerator), "Gen obstacle", obstacleData);
 		GeneratorGUI (typeof(HealthPointGenerator), "Gen health point", healthData);
-
 	}
 
 	private void GeneratorGUI(Type generatorType, string buttonName, GenData data)
 	{
-		SpriteGeneratorBuilder builder = new SpriteGeneratorBuilder (typeof(ObstacleGenerator));
+		SpriteGeneratorBuilder builder = new SpriteGeneratorBuilder (generatorType);
 
 		GUILayout.BeginHorizontal ();
 		GUILayout.Label ("Name:"); data.name = GUILayout.TextField (data.name);

@@ -26,7 +26,7 @@ public class AssetController
 
 	public static LinkedList<string> GetLevels()
 	{
-		return GetResurceNames ("Assets/Scenes", ".meta");
+		return GetResurceNames ("Assets/Scenes", ".unity");
 	}
 
 	private static bool IsScenePresent(string sceneName) 
@@ -46,7 +46,7 @@ public class AssetController
 		LinkedList<string> names = new LinkedList<string>();
 		foreach (string path in GetPaths(resPath)) 
 		{
-			if (path.EndsWith (extension))
+			if (!path.EndsWith (extension))
 			{
 				continue;
 			}
@@ -58,7 +58,7 @@ public class AssetController
 	private static string GetName(string path, string extension)
 	{
 		string name = path.Substring(path.LastIndexOf('/') + 1);
-		name = name.Substring(0, name.Length - extension.Length - 1);
+		name = name.Substring(0, name.Length - extension.Length);
 
 		return name;
 	}
