@@ -11,7 +11,7 @@ namespace GeneratorNS {
 
 		public override IMapFeatureManager GetManager ()
 		{
-			return new GameObject ().AddComponent<PickupManager> ();
+			return ObjectController.GetContext().AddComponent<PickupManager> ();
 		}
 	}
 }

@@ -7,6 +7,24 @@ using System.IO;
 
 public class ObjectController
 {
+	private static string contextName = "levelGeneratorContext";
+	private static KeyListener keyListener = new KeyListener();
+
+	public static GameObject GetContext()
+	{
+		GameObject go = GameObject.Find (contextName);
+		if (go == null) 
+		{
+			return new GameObject (contextName);
+		}
+		return go;
+	}
+		
+	public static KeyListener GetKeyListener()
+	{
+		return keyListener;
+	}
+
 	public static GameObject GetGameObject()
 	{
 		return Selection.activeGameObject;
@@ -23,11 +41,6 @@ public class ObjectController
 			return false;
 		}
 		return true;
-	}
-
-	public static void GetKeys()
-	{
-		Debug.Log ("here");
 	}
 }
 

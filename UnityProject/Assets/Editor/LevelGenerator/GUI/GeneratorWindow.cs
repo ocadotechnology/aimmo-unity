@@ -46,14 +46,35 @@ public class GeneratorWindow : EditorWindow
 		}
 	}
 
+	private void ClearKeyListeners()
+	{
+		KeyListener keyListener = ObjectController.GetKeyListener ();
+		keyListener.ClearKeys ();
+	}
+
+	private void RegisterKeyListeners()
+	{
+		KeyListener keyListener = ObjectController.GetKeyListener ();
+		keyListener.ClearKeys ();
+		keyListener.RegisterKey (KeyCode.W, () => {
+			Debug.Log("Up");
+		});
+		keyListener.RegisterKey (KeyCode.A, () => {
+			Debug.Log("Left");
+		});
+		keyListener.RegisterKey (KeyCode.S, () => {
+			Debug.Log("Down");
+		});
+		keyListener.RegisterKey (KeyCode.D, () => {
+			Debug.Log("Right");
+		});
+	}
+
 	private void ObjectMenu()
 	{
 		GameObject go = ObjectController.GetGameObject ();
 
-		ObjectController.GetKeys ();
-
 		GUILayout.Label("Current selected object: " + go.name);
-
 	}
 
 	private GenData obstacleData = new GenData();
@@ -126,10 +147,15 @@ public class GeneratorWindow : EditorWindow
 
 		GeneratorMenu ();
 
-		if (ObjectController.SelectedGameObject ()) 
-		{
-			EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+		if (ObjectController.SelectedGameObject ()) {
+			EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
+
 			ObjectMenu ();
+			RegisterKeyListeners ();
+		} 
+		else 
+		{
+			ClearKeyListeners ();
 		}
 
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

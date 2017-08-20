@@ -21,7 +21,7 @@ namespace GeneratorNS {
 
 		public override IMapFeatureManager GetManager ()
 		{
-			return new GameObject ().AddComponent<ScorePointManager> ();
+			return ObjectController.GetContext().AddComponent<ScorePointManager> ();
 		}
 	}
 }

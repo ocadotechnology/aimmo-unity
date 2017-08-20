@@ -4,26 +4,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-public class KeyListener : MonoBehaviour
+public class KeyListener 
 {
-	private SortedDictionary<string, Action> actions = new SortedDictionary<String, Action>();
+	private SortedDictionary<KeyCode, Action> actions = new SortedDictionary<KeyCode, Action>();
 
-	public void RegisterKey(string key, Action action)
+	public void RegisterKey(KeyCode key, Action action)
 	{
 		actions.Add (key, action);
 	}
 
-	void Update() 
+	public void ClearKeys()
 	{
-		foreach (KeyValuePair<string, Action> listener in actions)
+		actions = new SortedDictionary<KeyCode, Action>();
+	}
+
+	public void Receive(KeyCode keyCode) 
+	{
+		if (actions.ContainsKey (keyCode)) 
 		{
-			string key = listener.Key;
-			Action action = listener.Value;
-		
-			if (Input.GetKeyDown (key)) 
-			{
-				action ();
-			}
+			actions[keyCode] ();
 		}
 	}
 }
