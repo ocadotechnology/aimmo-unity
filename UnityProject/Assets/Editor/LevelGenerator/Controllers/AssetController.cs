@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-public class SceneController
+public class AssetController
 {
 	public static void WorkOnLevel (string levelName)
 	{
@@ -19,14 +19,19 @@ public class SceneController
 		EditorApplication.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Scenes/" + levelName + ".unity");
 	}
 
+	public static LinkedList<string> GetSprites()
+	{
+		return GetResurceNames ("Assets/Resources", ".png");
+	}
+
 	public static LinkedList<string> GetLevels()
 	{
-		return GetSceneNames ();
+		return GetResurceNames ("Assets/Scenes", ".meta");
 	}
 
 	private static bool IsScenePresent(string sceneName) 
 	{
-		foreach (string name in GetSceneNames()) 
+		foreach (string name in GetLevels()) 
 		{
 			if (name == sceneName) 
 			{
@@ -36,22 +41,26 @@ public class SceneController
 		return false;
 	}
 
-	private static LinkedList<string> GetSceneNames()
+	private static LinkedList<string> GetResurceNames(string resPath, string extension)
 	{
 		LinkedList<string> names = new LinkedList<string>();
-		foreach (string path in GetPaths("Assets/Scenes")) 
+		foreach (string path in GetPaths(resPath)) 
 		{
-			if (path.EndsWith (".meta"))
+			if (path.EndsWith (extension))
 			{
 				continue;
 			}
-
-			string name = path.Substring(path.LastIndexOf('/') + 1);
-			name = name.Substring(0, name.Length - 6);
-
-			names.AddLast (name);
+			names.AddLast (GetName(path, extension));
 		}
 		return names;
+	}
+
+	private static string GetName(string path, string extension)
+	{
+		string name = path.Substring(path.LastIndexOf('/') + 1);
+		name = name.Substring(0, name.Length - extension.Length - 1);
+
+		return name;
 	}
 
 	private static LinkedList<string> GetPaths(string directory)

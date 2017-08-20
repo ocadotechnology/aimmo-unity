@@ -63,12 +63,20 @@ public class SpriteGeneratorBuilder
 	public SpriteGeneratorBuilder ByWidth(int width)
 	{
 		this.width = width;
+		if (height == 0) 
+		{
+			height = width; 
+		}
 		return this;
 	}
 
 	public SpriteGeneratorBuilder ByHeight(int height)
 	{
 		this.height = height;
+		if (width == 0) 
+		{
+			width = height; 
+		}
 		return this;
 	}
 
