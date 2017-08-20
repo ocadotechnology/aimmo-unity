@@ -24,5 +24,10 @@ public class ObjectController
 		}
 		return true;
 	}
+
+	public static void GetKeys()
+	{
+		Debug.Log ("here");
+	}
 }
 

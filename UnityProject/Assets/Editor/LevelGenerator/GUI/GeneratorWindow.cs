@@ -50,7 +50,10 @@ public class GeneratorWindow : EditorWindow
 	{
 		GameObject go = ObjectController.GetGameObject ();
 
+		ObjectController.GetKeys ();
+
 		GUILayout.Label("Current selected object: " + go.name);
+
 	}
 
 	private GenData obstacleData = new GenData();
