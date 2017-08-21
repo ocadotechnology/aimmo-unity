@@ -134,8 +134,14 @@ public class GeneratorWindow : EditorWindow
 		}
 	}
 
-	private void SaveButton()
+	private void CameraMenu()
 	{
+		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+
+		if (GUILayout.Button (new GUIContent ("Orthographic Projection")))
+		{
+			CameraController.SetOrthographicCamera ();
+		}
 	}
 
 	public void OnGUI()
@@ -147,7 +153,7 @@ public class GeneratorWindow : EditorWindow
 			LevelButton (level);
 		}
 
-		SaveButton ();
+		CameraMenu ();
 
 		GeneratorMenu ();
 
