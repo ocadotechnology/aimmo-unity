@@ -1,6 +1,6 @@
 #! /bin/sh
 
-## Run the editor unit tests
+# Run the editor unit tests.
 echo "Running editor unit tests for ${UNITYCI_PROJECT_NAME}"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-batchmode \
@@ -16,10 +16,10 @@ rc0=$?
 echo "Unit test logs"
 cat $(pwd)/test.xml
 
-# exit if tests failed
+# Exit if tests failed.
 if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
 
-## This will build to webGL and put the binaries in WebGL-Dist.
+# This will build to webGL and put the binaries in WebGL-Dist.
 echo "Attempting build of ${UNITYCI_PROJECT_NAME} for WebGL"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
 	-logFile $(pwd)/unity.log \
@@ -30,7 +30,10 @@ rc1=$?
 echo "Build logs (Windows)"
 cat $(pwd)/unity.log
 
-# exit if build failed
+# Exit if build failed.
 if [ $rc1 -ne 0 ]; then { echo "Failed build"; exit $rc0; } fi
+
+# Compress.
+zip WebGL-Dist.zip WebGL-Dist
 
 exit $(($rc0|$rc1))
