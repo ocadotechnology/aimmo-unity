@@ -1,21 +1,18 @@
 ﻿using UnityEditor;
 
-/*
- Run from unity installation folder:
+/* Run from Unity installation folder:
   $  ./Unity -batchmode -projectPath <projectPath> -logfile -executeMethod WebGLBuilder.build
- e.g:
+  e.g:
   $ ./Unity -batchmode -projectPath ~/aimmo-unity/UnityProject/ -logfile -executeMethod WebGLBuilder.build
 */
 
-class WebGLBuilder {
-	static void build() {
-		string[] scenes = {
-			"Assets/Scenes/Main.unity"
-		};
+public class WebGLBuilder 
+{
+	[MenuItem("Edit/BuildWebGL")]
+	public static void build() 
+	{
+		string[] scenes = {"Assets/Scenes/Main.unity"};
 
-		/*
-			Asset Bundles gives an error for the momment.
-		*/
 		BuildPipeline.BuildPlayer(scenes, "WebGL-Dist", BuildTarget.WebGL,
 			BuildOptions.Development |
 			BuildOptions.AllowDebugging |

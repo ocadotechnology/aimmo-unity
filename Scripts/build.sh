@@ -22,7 +22,6 @@ if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
 ## This will build to webGL and put the binaries in WebGL-Dist.
 echo "Attempting build of ${UNITYCI_PROJECT_NAME} for WebGL"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-	-batchmode \
 	-logFile $(pwd)/unity.log \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-executeMethod WebGLBuilder.build

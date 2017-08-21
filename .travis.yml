@@ -19,6 +19,8 @@ deploy:
     secure: FMAFf66OZNzuNuNlKj3tt2ROI1h2LHnz6t8rEi15zLyxAWFYtaSEKonn9Fjp7Mhe4B9rOPanEa2rlGsWEobJ1uDIEshabpm/zaR0612+1FJfKLDixxELrtvDuwLf6+753HS+OQrnDBkpTf3YGB4f/7gmQpOFyzUyt5ZVM/wUjS59GHBPJowV9NEUgMhMEtvI9rDH8B9PKTzsJxeZmk2PNaicYl2hFTrjadZ+8oQbdNk6sNV8gUGVaGrVDgiIAbPR2VJDJaNrOhRihyMbTK9DJhHOOVoKqZ//h++kl45UCU+3A6eW9sbutuza07iT1HHbTnlP6GMjCrAlVvOozBoVfDD04f3IM7zsJWVY03Gxe2K8kX4bX0ZSkhsrqMMknRQyMcLXZeH/6ZSrxcXSWfZfailAvA2lP2P6vJM+xOKXnyGVj71mS25/V8ARe0mAdk5gGfHlPMetj2mU2a1kZ+ODcamvNWIRh4e6TWm5y8Un/kHoat5uOaga1kvEw2m/QzYMYfl/zk4mT68Nxs+k5oHEX+yeiUsBp7IjpU1f3ZK635w5lgyXutJnnG0gbMyMw/1oCJ1x9mQ3YKv7EAyIryoxdqhIgYhW6EIkV4QOSxWi67OoCRLH6DBpPp1Wk68fwjD7H71ps2R+K5AVPo8/qIwMYWZchgNBoQbAdkoJiYxC7Vs=
   bucket: staging.decent-digit-629.appspot.com
   skip_cleanup: true
+  acl: public-read
+  local-dir: WebGL-Dist
 env:
   global:
   - UNITYCI_PROJECT_NAME="UnityProject"
