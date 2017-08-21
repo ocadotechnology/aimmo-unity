@@ -44,20 +44,28 @@ public class SpriteGeneratorBuilder
 	{
 		this.path = path;
 
-		if (CanInferDim ()) 
-		{
-			InferDim ();
-		}
+		TryInferDim ();
 		return this;
 	}
 
-	private bool CanInferDim()
+	// Infers sprite dimesion if they are specified in the file name as "FileName-300x300-tst.png"
+	private bool TryInferDim()
 	{
+		string[] scv = path.Split ('-');
+		foreach (string dimensionTry in scv) 
+		{
+			string[] dim = dimensionTry.Split ('x');
+			if (dim.Length == 2) 
+			{
+				bool widthSucceded = int.TryParse(dim[0], out this.width);
+				bool heightSucceded = int.TryParse(dim[1], out this.height);
+				if (widthSucceded && heightSucceded) 
+				{
+					return true;
+				}
+			}
+		}
 		return false;
-	}
-
-	private void InferDim()
-	{
 	}
 
 	public SpriteGeneratorBuilder ByWidth(int width)

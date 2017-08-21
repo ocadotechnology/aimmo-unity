@@ -28,7 +28,7 @@ public class CameraController
 	{
 		Camera camera = GetCamera ();
 
-	camera.transform.position.Set (0, 0, -100);
+		camera.transform.position.Set (0, 0, -100);
 		camera.transform.rotation.Set (0, 0, 0, 0);
 
 		camera.orthographic = true;

@@ -85,14 +85,20 @@ public class GeneratorWindow : EditorWindow
 		GUILayout.BeginHorizontal ();
 		IsometricPosition pos = ObjectController.GetPosition ();
 
-		float X = pos.x;
-		float Y = pos.y;
-
 		GUILayout.Label("Current selected object: " + go.name);
-		GUILayout.Label ("X:"); X = EditorGUILayout.FloatField (X, GUILayout.MaxWidth(30));
-		GUILayout.Label ("Y:"); Y = EditorGUILayout.FloatField (Y, GUILayout.MaxWidth(30));
 
-		pos.Set (X, Y);
+		if (pos != null) 
+		{
+			float X = pos.x;
+			float Y = pos.y;
+
+			GUILayout.Label ("X:");
+			X = EditorGUILayout.FloatField (X, GUILayout.MaxWidth (30));
+			GUILayout.Label ("Y:");
+			Y = EditorGUILayout.FloatField (Y, GUILayout.MaxWidth (30));
+
+			pos.Set (X, Y);
+		}
 
 		GUILayout.EndHorizontal ();
 	}
@@ -120,7 +126,7 @@ public class GeneratorWindow : EditorWindow
 		GUILayout.Label ("Y:"); data.y = GUILayout.TextField (data.y, GUILayout.MaxWidth(30));
 
 		LinkedList<string> spriteList = AssetController.GetSprites ();
-		spriteList.AddFirst ("Use Default Sprite");
+		spriteList.AddFirst ("Default Sprite");
 
 		string[] sprites = spriteList.ToArray<string> ();
 		GUILayout.Label ("Sprite:"); 
@@ -146,7 +152,11 @@ public class GeneratorWindow : EditorWindow
 			{
 				builder = builder.ByHeight (int.Parse(data.height));
 			}
-			builder.Build ().GenerateObject (data.name);
+
+			string finalName = data.name;
+			finalName += "-" + sprites [data.idx].Replace(" ", "-");
+
+			builder.Build ().GenerateObject (finalName);
 		}
 	}
 
@@ -173,7 +183,8 @@ public class GeneratorWindow : EditorWindow
 
 		GeneratorMenu ();
 
-		if (ObjectController.SelectedGameObject ()) {
+		if (ObjectController.SelectedGameObject ()) 
+		{
 			ObjectMenu ();
 			RegisterKeyListeners ();
 		} 
