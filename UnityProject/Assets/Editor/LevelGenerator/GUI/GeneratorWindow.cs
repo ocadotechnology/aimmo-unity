@@ -162,13 +162,29 @@ public class GeneratorWindow : EditorWindow
 		}
 	}
 
-	private void CameraMenu()
+	private int exportedLevelIdx = 0;
+
+	private void UtilityMenu()
 	{
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
+		GUILayout.Label("Click on the camera you want to choose.");
 		if (GUILayout.Button (new GUIContent ("Orthographic Projection")))
 		{
 			CameraController.SetOrthographicCamera ();
+		}
+			
+		IList<string> levelList = AssetController.GetLevels ();
+		levelList.Insert (0, "Default Level");
+		string[] levels = levelList.ToArray ();
+
+		exportedLevelIdx = EditorGUILayout.Popup(exportedLevelIdx, levels);
+		if (GUILayout.Button (new GUIContent ("Export Level")))
+		{
+			string exportJson = ExportController.GetExportJSON ();
+			Debug.Log (exportJson);
+
+			ExportController.ExportFile (exportJson);
 		}
 	}
 
@@ -181,7 +197,7 @@ public class GeneratorWindow : EditorWindow
 			LevelButton (level);
 		}
 
-		CameraMenu ();
+		UtilityMenu ();
 
 		GeneratorMenu ();
 
@@ -194,7 +210,7 @@ public class GeneratorWindow : EditorWindow
 		{
 			ClearKeyListeners ();
 		}
-
+			
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
 		CloseButton ();
