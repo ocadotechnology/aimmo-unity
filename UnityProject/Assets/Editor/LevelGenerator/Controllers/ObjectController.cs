@@ -19,6 +19,14 @@ public class ObjectController
 		}
 		return go;
 	}
+
+	public static void Move(int x, int y)
+	{
+		GameObject go = GetGameObject ();
+		IsometricPosition pos = go.GetComponent<IsometricPosition> ();
+
+		pos.Set (pos.x + x, pos.y + y);
+	}
 		
 	public static KeyListener GetKeyListener()
 	{

@@ -58,15 +58,19 @@ public class GeneratorWindow : EditorWindow
 		keyListener.ClearKeys ();
 		keyListener.RegisterKey (KeyCode.W, () => {
 			Debug.Log("Up");
+			ObjectController.Move(-1, 0);
 		});
 		keyListener.RegisterKey (KeyCode.A, () => {
 			Debug.Log("Left");
+			ObjectController.Move(0, -1);
 		});
 		keyListener.RegisterKey (KeyCode.S, () => {
 			Debug.Log("Down");
+			ObjectController.Move(+1, 0);
 		});
 		keyListener.RegisterKey (KeyCode.D, () => {
 			Debug.Log("Right");
+			ObjectController.Move(0, +1);
 		});
 	}
 
