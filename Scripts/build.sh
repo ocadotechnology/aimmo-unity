@@ -22,13 +22,13 @@ if [ $rc0 -ne 0 ]; then { echo "Failed unit tests"; exit $rc0; } fi
 # This will build to webGL and put the binaries in WebGL-Dist.
 echo "Attempting build of ${UNITYCI_PROJECT_NAME} for WebGL"
 /Applications/Unity/Unity.app/Contents/MacOS/Unity \
-	-logFile $(pwd)/unity.log \
+	-logFile \
 	-projectPath "$(pwd)/${UNITYCI_PROJECT_NAME}" \
 	-executeMethod WebGLBuilder.build
 
 rc1=$?
-echo "Build logs (Windows)"
-cat $(pwd)/unity.log
+#echo "Build logs (WebGL)"
+#cat $(pwd)/unity.log
 
 # Exit if build failed.
 if [ $rc1 -ne 0 ]; then { echo "Failed build"; exit $rc0; } fi
