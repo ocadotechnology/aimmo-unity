@@ -16,7 +16,7 @@ namespace Serializers
 			sceneName = sceneName;
 		}
 
-		public override string Serialize()
+		public string Serialize()
 		{
 			if (sceneName != null) 
 			{
@@ -24,16 +24,17 @@ namespace Serializers
 			}
 		
 			LinkedList<GameObject> objects = GetSceneObjects ();
-			serializeObjects (objects);
+			return serializeObjects (objects);
 		}
 
 		private LinkedList<GameObject> GetSceneObjects()
 		{
-			return new LinkedList<> ();
+			return new LinkedList<GameObject> ();
 		}
 
-		private void serializeObjects(LinkedList<GameObject> obejcts)
+		private string serializeObjects(LinkedList<GameObject> obejcts)
 		{
+			return "";
 		}
 	}
 }

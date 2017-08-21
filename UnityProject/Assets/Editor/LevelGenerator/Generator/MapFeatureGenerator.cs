@@ -28,7 +28,15 @@ namespace GeneratorNS {
 			manager.Create (id, mfd);
 
 			GameObject gameObject = GameObject.Find (manager.MapFeatureId (id));
+			injectGenerator (gameObject);
+
 			return gameObject;
+		}
+
+		private void injectGenerator (GameObject gameObject)
+		{
+			WrapperIGenerator wrapper = gameObject.AddComponent<WrapperIGenerator> ();
+			wrapper.Generator = this;
 		}
 
 		public abstract string MapFeatureToJson();
