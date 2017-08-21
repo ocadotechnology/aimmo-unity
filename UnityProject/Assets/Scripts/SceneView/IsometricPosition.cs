@@ -25,6 +25,7 @@ public class IsometricPosition : MonoBehaviour
 	// Coordinates the object is meant to be at and depth.
 	public float x;
 	public float y;
+	public float height;
 	public float depth;
 
 	// Distance between depth layers.
@@ -35,7 +36,7 @@ public class IsometricPosition : MonoBehaviour
 	private float shiftY = Mathf.Sin(Constants.SceneRotationY) / Mathf.Sqrt(3.0f);
 
 	// Setters.
-	public void Set(float x, float y, float relativeDepth)
+	public void Set(float x, float y, float height, float relativeDepth)
 	{
 		this.x = x;
 		this.y = y;
@@ -45,18 +46,23 @@ public class IsometricPosition : MonoBehaviour
 
 		transform.position = new Vector3(
 			(x - y) * shiftX * ShiftScale,
-			(x + y) * shiftY * ShiftScale,
+			(x + y + height) * shiftY * ShiftScale,
 			this.depth);
+	}
+
+	public void Set(float x, float y, float relativeDepth)
+	{
+		Set(x, y, 0.0f, relativeDepth);
 	}
 
 	public void Set(float x, float y)
 	{
-		Set(x, y, 0.0f);
+		Set(x, y, 0.0f, 0.0f);
 	}
 
 	public void Set(Vector2 position)
 	{
-		Set(position.x, position.y);
+		Set(position.x, position.y, 0.0f, 0.0f);
 	}
 
 	// Getter.
@@ -87,7 +93,7 @@ public class IsometricPosition : MonoBehaviour
 			childSpriteRenderer.sortingOrder = sortingOrder;
 
 	}
-		
+
 	public override bool Equals(object obj)
 	{
 		var position = obj as IsometricPosition;
