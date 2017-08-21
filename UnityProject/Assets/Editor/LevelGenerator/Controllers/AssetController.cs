@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 public class AssetController
 {
@@ -19,14 +20,14 @@ public class AssetController
 		EditorApplication.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Scenes/" + levelName + ".unity");
 	}
 
-	public static LinkedList<string> GetSprites()
+	public static IList<string> GetSprites()
 	{
 		return GetResurceNames ("Assets/Resources", ".png");
 	}
 
-	public static LinkedList<string> GetLevels()
+	public static IList<string> GetLevels()
 	{
-		return GetResurceNames ("Assets/Scenes", ".unity");
+		return GetResurceNames ("Assets/Scenes", ".unity").Where(name => name != "Main").ToList();
 	}
 
 	private static bool IsScenePresent(string sceneName) 
@@ -41,16 +42,16 @@ public class AssetController
 		return false;
 	}
 
-	private static LinkedList<string> GetResurceNames(string resPath, string extension)
+	private static List<string> GetResurceNames(string resPath, string extension)
 	{
-		LinkedList<string> names = new LinkedList<string>();
+		List<string> names = new List<string>();
 		foreach (string path in GetPaths(resPath)) 
 		{
 			if (!path.EndsWith (extension))
 			{
 				continue;
 			}
-			names.AddLast (GetName(path, extension));
+			names.Add (GetName(path, extension));
 		}
 		return names;
 	}
@@ -63,15 +64,15 @@ public class AssetController
 		return name;
 	}
 
-	private static LinkedList<string> GetPaths(string directory)
+	private static List<string> GetPaths(string directory)
 	{
-		LinkedList<string> paths = new LinkedList<string>();
+		List<string> paths = new List<string>();
 
 		var info = new DirectoryInfo(directory);
 		var fileInfo = info.GetFiles();
 		foreach (FileInfo file in fileInfo) 
 		{
-			paths.AddLast (file.FullName);
+			paths.Add(file.FullName);
 		}
 
 		return paths;

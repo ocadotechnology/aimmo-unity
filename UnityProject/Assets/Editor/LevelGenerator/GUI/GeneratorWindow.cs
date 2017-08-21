@@ -105,6 +105,7 @@ public class GeneratorWindow : EditorWindow
 
 	private GenData obstacleData = new GenData();
 	private GenData healthData = new GenData();
+	private GenData scorePointData = new GenData();
 
 	private void GeneratorMenu()
 	{
@@ -114,6 +115,7 @@ public class GeneratorWindow : EditorWindow
 
 		GeneratorGUI (typeof(ObstacleGenerator), "Gen obstacle", obstacleData);
 		GeneratorGUI (typeof(HealthPointGenerator), "Gen health point", healthData);
+		GeneratorGUI (typeof(ScorePointGenerator), "Gen score point", scorePointData);
 	}
 
 	private void GeneratorGUI(Type generatorType, string buttonName, GenData data)
@@ -125,8 +127,8 @@ public class GeneratorWindow : EditorWindow
 		GUILayout.Label ("X:"); data.x = GUILayout.TextField (data.x, GUILayout.MaxWidth(30));
 		GUILayout.Label ("Y:"); data.y = GUILayout.TextField (data.y, GUILayout.MaxWidth(30));
 
-		LinkedList<string> spriteList = AssetController.GetSprites ();
-		spriteList.AddFirst ("Default Sprite");
+		IList<string> spriteList = AssetController.GetSprites ();
+		spriteList.Insert (0, "Default Sprite");
 
 		string[] sprites = spriteList.ToArray<string> ();
 		GUILayout.Label ("Sprite:"); 
