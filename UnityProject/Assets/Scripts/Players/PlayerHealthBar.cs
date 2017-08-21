@@ -26,11 +26,11 @@ public class PlayerHealthBar : MonoBehaviour
 	private const float BarMaxScaleY = 10.0f;
 
 	// Health bar game object positioning constants.
-	private const float HealthBarRotationX =  0.0f;
-	private const float HealthBarRotationY = 45.0f;
-	private const float HealthBarRotationZ =  0.0f;
-	private const float HealthBarPositionX = -0.45f;
-	private const float HealthBarPositionY =  0.25f;
+	private const float HealthBarRotationX = 0.0f;
+	private const float HealthBarRotationY = 0.0f;
+	private const float HealthBarRotationZ = 0.0f;
+	private const float HealthBarPositionX = 0.0f;
+	private const float HealthBarPositionY = 0.0f;
 	private const float HealthBarPositionZ = -0.45f;
 
 	// Constants to handle changes in the health poitns.

@@ -42,12 +42,10 @@ namespace AIMMOUnityTest
 
 			Vector3 cameraRotation = parentCamera.transform.rotation.eulerAngles;
 
-			float diffX = cameraRotation.x - Constants.CameraRotationXDeg;
-			float diffY = cameraRotation.y - Constants.CameraRotationYDeg;
-			float diffZ = cameraRotation.z - Constants.CameraRotationZDeg;
-			Assert.IsTrue(Math.Abs(diffX) < epsilon);
-			Assert.IsTrue(Math.Abs(diffY) < epsilon);
-			Assert.IsTrue(Math.Abs(diffZ) < epsilon);
+			// We want them to be zero.
+			Assert.IsTrue(Math.Abs(cameraRotation.x) < epsilon);
+			Assert.IsTrue(Math.Abs(cameraRotation.y) < epsilon);
+			Assert.IsTrue(Math.Abs(cameraRotation.z) < epsilon);
 		}
 
 		[Test]
