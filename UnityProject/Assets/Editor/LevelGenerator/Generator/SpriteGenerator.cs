@@ -19,6 +19,11 @@ namespace GeneratorNS {
 			this.sprite = sprite;
 		}
 
+		public string GetSprite()
+		{
+			return sprite;
+		}
+
 		public override string MapFeatureToJson() 
 		{
 			return @"

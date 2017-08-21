@@ -3,7 +3,8 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
+using GeneratorNS;
 
 namespace Serializers
 {
@@ -13,7 +14,7 @@ namespace Serializers
 
 		public JSONSerializer(string sceneName)
 		{
-			sceneName = sceneName;
+			this.sceneName = sceneName;
 		}
 
 		public string Serialize()
@@ -24,17 +25,52 @@ namespace Serializers
 			}
 		
 			LinkedList<GameObject> objects = GetSceneObjects ();
-			return serializeObjects (objects);
+			string serializedObjects = serializeObjects (objects);
+			Debug.Log (serializedObjects);
+
+			return serializedObjects;
 		}
 
 		private LinkedList<GameObject> GetSceneObjects()
 		{
-			return new LinkedList<GameObject> ();
+			GameObject[] allObjects = UnityEngine.Object.FindObjectsOfType<GameObject>() ;
+			LinkedList<GameObject> serializableObjects = new LinkedList<GameObject>();
+			foreach (GameObject obj in allObjects)
+			{
+				if (obj.GetComponent<WrapperIGenerator> ()) 
+				{
+					serializableObjects.AddLast (obj);
+				}
+			}
+			return serializableObjects;
 		}
 
-		private string serializeObjects(LinkedList<GameObject> obejcts)
+		private string serializeObjects(LinkedList<GameObject> serializableObjects)
 		{
-			return "";
+			List<string> jsonSerializedObjectList = new List<string>();
+			foreach (GameObject obj in serializableObjects) 
+			{
+				IGenerator generator = obj.GetComponent<WrapperIGenerator> ().Generator;
+				string exportString = null;
+
+				if (generator is SpriteGenerator) 
+				{
+					SpriteGenerator spriteGenerator = (SpriteGenerator) generator;
+
+					IsometricPosition pos = obj.GetComponent<IsometricPosition> ();
+					float x = pos.x;
+					float y = pos.y;
+
+					string sprite = spriteGenerator.GetSprite();
+
+					IGenerator exportGenerator = (IGenerator) Activator.CreateInstance(generator.GetType(), new object[] { x, y, sprite });
+					exportString = exportGenerator.ToJson ();
+				}
+
+				jsonSerializedObjectList.Add (exportString);
+			}
+
+			return "[" + String.Join(",", jsonSerializedObjectList.ToArray()) +  "]";
 		}
 	}
 }

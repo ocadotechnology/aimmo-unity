@@ -5,7 +5,7 @@ using System;
 namespace GeneratorNS {
 	public class WrapperIGenerator : MonoBehaviour
 	{
-		public WrapperIGenerator Generator { get; set; }
+		public IGenerator Generator { get; set; }
 
 		public void Awake()
 		{

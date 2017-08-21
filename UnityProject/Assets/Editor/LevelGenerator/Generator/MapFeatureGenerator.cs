@@ -36,7 +36,7 @@ namespace GeneratorNS {
 		private void injectGenerator (GameObject gameObject)
 		{
 			WrapperIGenerator wrapper = gameObject.AddComponent<WrapperIGenerator> ();
-			wrapper.Generator = this;
+			wrapper.Generator = (IGenerator) this;
 		}
 
 		public abstract string MapFeatureToJson();
