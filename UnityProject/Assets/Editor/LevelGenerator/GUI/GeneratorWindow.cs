@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Serializers;
 
 public class GeneratorWindow : EditorWindow
 {
@@ -181,7 +182,9 @@ public class GeneratorWindow : EditorWindow
 		exportedLevelIdx = EditorGUILayout.Popup(exportedLevelIdx, levels);
 		if (GUILayout.Button (new GUIContent ("Export Level")))
 		{
-			string exportJson = ExportController.GetExportJSON ();
+			string exportJson = ExportController.GetExportFromSerializer (
+				new JSONSerializer(exportedLevelIdx != 0 ? levels[exportedLevelIdx] : null)
+			);
 			Debug.Log (exportJson);
 
 			ExportController.ExportFile (exportJson);

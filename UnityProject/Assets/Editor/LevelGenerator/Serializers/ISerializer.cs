@@ -2,7 +2,7 @@
 
 namespace Serializers
 {
-	interface ISerializer
+	public interface ISerializer
 	{
 		string Serialize();
 	}

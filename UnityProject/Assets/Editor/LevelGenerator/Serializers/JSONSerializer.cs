@@ -5,10 +5,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorNS;
+using InjectorNS;
 
 namespace Serializers
 {
-	class JSONSerializer : ISerializer
+	public class JSONSerializer : ISerializer
 	{
 		private string sceneName;
 
@@ -26,7 +27,6 @@ namespace Serializers
 		
 			LinkedList<GameObject> objects = GetSceneObjects ();
 			string serializedObjects = serializeObjects (objects);
-			Debug.Log (serializedObjects);
 
 			return serializedObjects;
 		}
@@ -37,8 +37,9 @@ namespace Serializers
 			LinkedList<GameObject> serializableObjects = new LinkedList<GameObject>();
 			foreach (GameObject obj in allObjects)
 			{
-				if (obj.GetComponent<WrapperIGenerator> ()) 
+				if (obj.GetComponent<Injector> ()) 
 				{
+					Debug.Log (obj.ToString());
 					serializableObjects.AddLast (obj);
 				}
 			}
@@ -50,10 +51,13 @@ namespace Serializers
 			List<string> jsonSerializedObjectList = new List<string>();
 			foreach (GameObject obj in serializableObjects) 
 			{
-				IGenerator generator = obj.GetComponent<WrapperIGenerator> ().Generator;
+				Injector injector = obj.GetComponent<Injector> ();
+				IGenerator generator = injector.Get<IGenerator>();
 				string exportString = null;
 
-				if (generator is SpriteGenerator) 
+				Debug.Log (generator.GetType().ToString());
+
+				if (typeof(SpriteGenerator).IsAssignableFrom(generator.GetType())) 
 				{
 					SpriteGenerator spriteGenerator = (SpriteGenerator) generator;
 
@@ -67,7 +71,10 @@ namespace Serializers
 					exportString = exportGenerator.ToJson ();
 				}
 
-				jsonSerializedObjectList.Add (exportString);
+				if (exportString != null) 
+				{
+					jsonSerializedObjectList.Add (exportString);
+				}
 			}
 
 			return "[" + String.Join(",", jsonSerializedObjectList.ToArray()) +  "]";
