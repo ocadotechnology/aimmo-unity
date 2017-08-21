@@ -1,0 +1,39 @@
+﻿using UnityEditor;
+using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+
+namespace Serializers
+{
+	class JSONSerializer : ISerializer
+	{
+		private string sceneName;
+
+		public JSONSerializer(string sceneName)
+		{
+			sceneName = sceneName;
+		}
+
+		public override string Serialize()
+		{
+			if (sceneName != null) 
+			{
+				AssetController.WorkOnLevel (sceneName);
+			}
+		
+			LinkedList<GameObject> objects = GetSceneObjects ();
+			serializeObjects (objects);
+		}
+
+		private LinkedList<GameObject> GetSceneObjects()
+		{
+			return new LinkedList<> ();
+		}
+
+		private void serializeObjects(LinkedList<GameObject> obejcts)
+		{
+		}
+	}
+}
