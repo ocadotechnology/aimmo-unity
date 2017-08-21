@@ -76,9 +76,25 @@ public class GeneratorWindow : EditorWindow
 
 	private void ObjectMenu()
 	{
+		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
+
 		GameObject go = ObjectController.GetGameObject ();
 
+		GUILayout.Label("Use W, A, S, D to move objects once they are selected.");
+
+		GUILayout.BeginHorizontal ();
+		IsometricPosition pos = ObjectController.GetPosition ();
+
+		float X = pos.x;
+		float Y = pos.y;
+
 		GUILayout.Label("Current selected object: " + go.name);
+		GUILayout.Label ("X:"); X = EditorGUILayout.FloatField (X, GUILayout.MaxWidth(30));
+		GUILayout.Label ("Y:"); Y = EditorGUILayout.FloatField (Y, GUILayout.MaxWidth(30));
+
+		pos.Set (X, Y);
+
+		GUILayout.EndHorizontal ();
 	}
 
 	private GenData obstacleData = new GenData();
@@ -158,8 +174,6 @@ public class GeneratorWindow : EditorWindow
 		GeneratorMenu ();
 
 		if (ObjectController.SelectedGameObject ()) {
-			EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
-
 			ObjectMenu ();
 			RegisterKeyListeners ();
 		} 

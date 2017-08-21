@@ -33,6 +33,11 @@ public class ObjectController
 		return keyListener;
 	}
 
+	public static IsometricPosition GetPosition()
+	{
+		return GetGameObject ().GetComponent<IsometricPosition> ();
+	}
+
 	public static GameObject GetGameObject()
 	{
 		return Selection.activeGameObject;
