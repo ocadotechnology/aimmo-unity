@@ -25,7 +25,7 @@ public static class EventTracker
 				}
 				case EventType.mouseDown:
 				{
-					Debug.Log("Click event.");
+					GeneratorWindow.RefreshGUI();
 					break;
 				}
 			}

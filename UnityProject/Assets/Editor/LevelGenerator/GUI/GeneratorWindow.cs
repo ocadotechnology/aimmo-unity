@@ -10,7 +10,39 @@ using MonoNS;
 
 public class GeneratorWindow : EditorWindow
 {
-	private static GeneratorWindow windowInstace;
+	private static GeneratorWindow windowInstance = null;
+
+	private static GeneratorWindow GetWindow()
+	{
+		if (windowInstance == null) 
+		{
+			windowInstance = GetWindow<GeneratorWindow>(false, "Unity Level Generator");
+		}
+		return windowInstance;
+	}
+
+	[MenuItem("Level Generator/Create Level")]
+	public static void OpenWindow()	
+	{
+		GetWindow ();
+		GetWindow ().OnOpen();
+	}
+
+	public static void RefreshGUI()
+	{
+	}
+
+	private Menu[] menus = {
+		new UtilityMenu(),
+		new GeneratorMenu(),
+		new ObjectMenu()
+	};
+
+	private void OnOpen()
+	{
+		Focus ();
+		Show ();
+	}
 
 	private void BuildButton(string name, Action action)
 	{
@@ -19,21 +51,6 @@ public class GeneratorWindow : EditorWindow
 			action ();
 		}
 	}
-
-	[MenuItem("Level Generator/Create Level")]
-	public static void OpenWindow()	
-	{
-		windowInstace = GetWindow<GeneratorWindow>(false, "Unity Level Generator");
-
-		windowInstace.Focus ();
-		windowInstace.Show ();
-	}
-
-	private Menu[] menus = {
-		new UtilityMenu(),
-		new GeneratorMenu(),
-		new ObjectMenu()
-	};
 
 	public void OnGUI()
 	{
@@ -47,8 +64,8 @@ public class GeneratorWindow : EditorWindow
 		{
 			menu.Display ();
 		}
-			
+
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-		BuildButton ("Close", () => windowInstace.Close ());
+		BuildButton ("Close", () => Close ());
 	}
 }
