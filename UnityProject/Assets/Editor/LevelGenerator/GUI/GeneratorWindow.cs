@@ -23,7 +23,7 @@ public class GeneratorWindow : EditorWindow
 		public string height = "";
 	}
 
-	[MenuItem("Window/Create Level")]
+	[MenuItem("Level Generator/Create Level")]
 	public static void OpenWindow()	
 	{
 		windowInstace = GetWindow<GeneratorWindow>(false, "Unity Level Generator");

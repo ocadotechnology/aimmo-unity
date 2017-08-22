@@ -53,26 +53,18 @@ namespace Serializers
 			List<string> jsonSerializedObjectList = new List<string>();
 			foreach (GameObject obj in serializableObjects) 
 			{
-				IGenerator generator = obj.GetComponent<SpriteGeneratorBuilder> ().Build ();
+				var builder = obj.GetComponent<SpriteGeneratorBuilder> ();
+				var generator = builder.Build ();
 				string exportString = null;
 
 				if (typeof(SpriteGenerator).IsAssignableFrom(generator.GetType())) 
 				{
-					Debug.Log ("Here");
-
-					SpriteGenerator spriteGenerator = (SpriteGenerator) generator;
-					GameObject temporaryExportObject = generator.GenerateObject (temporaryExportName);
-
-					IsometricPosition pos = temporaryExportObject.GetComponent<IsometricPosition> ();
+					IsometricPosition pos = obj.GetComponent<IsometricPosition> ();
 					float x = pos.x;
 					float y = pos.y;
 
-					string sprite = spriteGenerator.GetSprite();
-
-					IGenerator exportGenerator = (IGenerator) Activator.CreateInstance(generator.GetType(), new object[] { x, y, sprite });
+					IGenerator exportGenerator = (IGenerator) builder.ByCoord(x, y).Build();
 					exportString = exportGenerator.ToJson ();
-
-					UnityEngine.Object.DestroyImmediate(temporaryExportObject);
 				}
 
 				if (exportString != null) 

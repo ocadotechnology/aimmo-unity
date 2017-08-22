@@ -25,7 +25,6 @@ namespace MonoNS {
 			height = 0;
 			path = null;
 
-			// Debug.Log (type);
 			this.typeName = type == null ? null : type.AssemblyQualifiedName.ToString();
 
 			return this;
@@ -46,9 +45,7 @@ namespace MonoNS {
 
 		public IGenerator Build()
 		{
-			Debug.Log (typeName);
 			Type type = Type.GetType (typeName);
-			Debug.Log (type);
 			if (path == null) 
 			{
 				return (IGenerator) Activator.CreateInstance(type, new object[] { x, y });

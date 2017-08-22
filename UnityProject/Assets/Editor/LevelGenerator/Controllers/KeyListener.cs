@@ -27,29 +27,5 @@ public class KeyListener
 			actions[keyCode] ();
 		}
 	}
-
-	// Ctrl + H
-	[MenuItem("Level Generator/Save Level %h")]
-	static void PlayGame()
-	{
-		EditorSceneManager.SaveScene (EditorSceneManager.GetActiveScene());
-	}
-
-	// Ctrl + J
-	[MenuItem("Level Generator/Copy Selected Object %j")]
-	static void CopyCurrentObject()
-	{
-		if (ObjectController.SelectedGameObject ()) 
-		{
-			GameObject beforeSelectedObject = ObjectController.GetGameObject();
-
-			EditorApplication.ExecuteMenuItem("Edit/Copy");
-			EditorApplication.ExecuteMenuItem("Edit/Paste");
-
-			GameObject currentlySelectedObject = ObjectController.GetGameObject ();
-
-
-		}
-	}
 }
 	
