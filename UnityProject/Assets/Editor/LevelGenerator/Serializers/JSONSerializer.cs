@@ -41,7 +41,8 @@ namespace Serializers
 				if (obj.GetComponent<SpriteGeneratorBuilder> ()) 
 				{
 					Debug.Log (obj.ToString());
-					serializableObjects.AddLast (obj);
+					if (obj != ObjectController.GetContext())
+						serializableObjects.AddLast (obj);
 				}
 			}
 			return serializableObjects;
@@ -57,6 +58,8 @@ namespace Serializers
 
 				if (typeof(SpriteGenerator).IsAssignableFrom(generator.GetType())) 
 				{
+					Debug.Log ("Here");
+
 					SpriteGenerator spriteGenerator = (SpriteGenerator) generator;
 					GameObject temporaryExportObject = generator.GenerateObject (temporaryExportName);
 
