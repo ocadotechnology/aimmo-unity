@@ -9,7 +9,7 @@ fi
 
 if [ ! -f "$HOME/UnityDownloads/Unity.pkg" ]; then
 	echo 'Downloading Unity 5.5.0 pkg:'
-	curl --retry 5 -m 600 -o $HOME/UnityDownloads/Unity.pkg http://download.unity3d.com/download_unity/38b4efef76f0/MacEditorInstaller/Unity.pkg
+	curl --retry 5 -m 600 -o $HOME/UnityDownloads/Unity.pkg http://download.unity3d.com/download_unity/38b4efef76f0/MacEditorInstaller/Unity-5.5.0f3.pkg
 	if [ $? -ne 0 ]; then { echo "Download failed"; exit $?; } fi
 else
 	echo 'Unity package found in cache.'

@@ -71,7 +71,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 		// Assign colour.
 		Color playerColour;
 		ColorUtility.TryParseHtmlString(playerData.colour, out playerColour);
-		player.GetComponent<Renderer>().material.color = playerColour;
+		player.GetComponent<Renderer>().sharedMaterial.color = playerColour;
 
 		// Add score text.
 		string initialScore = Convert.ToString(playerData.score);

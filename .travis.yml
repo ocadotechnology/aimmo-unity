@@ -1,13 +1,14 @@
 sudo: required
-language: generic
+language: csharp
+solution: unity.sln
 os: osx
 branches:
   only:
   - travis
-cache:
-  directories:
-  - ".autoconf"
-  - "$HOME/UnityDownloads"
+before_install:
+- npm install unity-solution-2 -g
+- unitysolution ./UntyProject Standalone
+- brew install mono
 install:
 - sudo -E sh ./Scripts/install.sh
 script:
@@ -20,7 +21,7 @@ deploy:
   bucket: staging.decent-digit-629.appspot.com
   skip_cleanup: true
   acl: public-read
-  local-dir: WebGL-Dist
+  local-dir: WebGL-Dist-Compressed
 env:
   global:
   - UNITYCI_PROJECT_NAME="UnityProject"
