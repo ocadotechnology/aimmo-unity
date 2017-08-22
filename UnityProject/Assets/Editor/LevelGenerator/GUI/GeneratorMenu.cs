@@ -10,9 +10,19 @@ using MonoNS;
 
 class GeneratorMenu : Menu
 {
-	private GenData obstacleData = new GenData();
-	private GenData healthData = new GenData();
-	private GenData scorePointData = new GenData();
+	private class GenData
+	{
+		public string name = "name";
+		public string x = "0";
+		public string y = "0";
+		public int idx = 0;
+		public string width = "";
+		public string height = "";
+	}
+
+	private GenData obstacleData;
+	private GenData healthData;
+	private GenData scorePointData;
 
 	public GeneratorMenu()
 	{
@@ -21,7 +31,7 @@ class GeneratorMenu : Menu
 		scorePointData = new GenData();
 	}
 		
-	public void Menu()
+	public void Display()
 	{
 		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 		GUILayout.Label ("Create an object using the GUI below");

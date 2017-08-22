@@ -17,7 +17,7 @@ class UtilityMenu : Menu
 		exportedLevelIdx = 0;
 	}
 
-	public void Menu()
+	public void Display()
 	{
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
