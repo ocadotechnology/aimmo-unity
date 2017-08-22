@@ -14,7 +14,7 @@ namespace MonoNS {
 		private int height;
 		private string path;
 
-		// this has to be serializable
+		[SerializeField]
 		private string typeName;
 
 		public SpriteGeneratorBuilder CreateBuilder(Type type)
@@ -25,7 +25,8 @@ namespace MonoNS {
 			height = 0;
 			path = null;
 
-			this.typeName = type.FullName;
+			// Debug.Log (type);
+			this.typeName = type == null ? null : type.AssemblyQualifiedName.ToString();
 
 			return this;
 		}
@@ -38,18 +39,23 @@ namespace MonoNS {
 			this.height = builder.height;
 			this.path = builder.path;
 			this.typeName = builder.typeName;
+
 			return this;
 		}
 
+
 		public IGenerator Build()
 		{
+			Debug.Log (typeName);
+			Type type = Type.GetType (typeName);
+			Debug.Log (type);
 			if (path == null) 
 			{
-				return (IGenerator) Activator.CreateInstance(Type.GetType(typeName), new object[] { x, y });
+				return (IGenerator) Activator.CreateInstance(type, new object[] { x, y });
 			} 
 			else 
 			{
-				return (IGenerator) Activator.CreateInstance(Type.GetType(typeName), new object[] { x, y, GetSprite() });
+				return (IGenerator) Activator.CreateInstance(type, new object[] { x, y, GetSprite() });
 			}
 		}
 

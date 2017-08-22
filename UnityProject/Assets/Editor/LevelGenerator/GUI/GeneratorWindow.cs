@@ -142,28 +142,26 @@ public class GeneratorWindow : EditorWindow
 
 		GUILayout.EndHorizontal ();
 
-		if (GUILayout.Button (new GUIContent (buttonName))) 
-		{
-			builder = builder.ByCoord (float.Parse(data.x), float.Parse(data.y));
-			if (data.idx != 0) 
-			{
-				builder = builder.ByPath (sprites[data.idx]);
+		if (GUILayout.Button (new GUIContent (buttonName))) {
+			builder = builder.ByCoord (float.Parse (data.x), float.Parse (data.y));
+			if (data.idx != 0) {
+				builder = builder.ByPath (sprites [data.idx]);
 			}
-			if (data.width != "") 
-			{
-				builder = builder.ByWidth (int.Parse(data.width));
+			if (data.width != "") {
+				builder = builder.ByWidth (int.Parse (data.width));
 			}
-			if (data.height != "") 
-			{
-				builder = builder.ByHeight (int.Parse(data.height));
+			if (data.height != "") {
+				builder = builder.ByHeight (int.Parse (data.height));
 			}
 
 			string finalName = data.name;
-			finalName += "-" + sprites [data.idx].Replace(" ", "-");
+			finalName += "-" + sprites [data.idx].Replace (" ", "-");
 
 			GameObject gameObject = builder.Build ().GenerateObject (finalName);
-			gameObject.AddComponent<SpriteGeneratorBuilder> ().ByBuilder(builder);
+			gameObject.AddComponent<SpriteGeneratorBuilder> ().ByBuilder (builder);
 		}
+
+		UnityEngine.Object.DestroyImmediate(builder);
 	}
 
 	private int exportedLevelIdx = 0;
