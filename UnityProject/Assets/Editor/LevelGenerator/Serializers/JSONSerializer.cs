@@ -5,13 +5,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorNS;
-using InjectorNS;
+using MonoNS;
 
 namespace Serializers
 {
 	public class JSONSerializer : ISerializer
 	{
 		private string sceneName;
+		private string temporaryExportName;
 
 		public JSONSerializer(string sceneName)
 		{
@@ -37,7 +38,7 @@ namespace Serializers
 			LinkedList<GameObject> serializableObjects = new LinkedList<GameObject>();
 			foreach (GameObject obj in allObjects)
 			{
-				if (obj.GetComponent<Injector> ()) 
+				if (obj.GetComponent<SpriteGeneratorBuilder> ()) 
 				{
 					Debug.Log (obj.ToString());
 					serializableObjects.AddLast (obj);
@@ -51,17 +52,15 @@ namespace Serializers
 			List<string> jsonSerializedObjectList = new List<string>();
 			foreach (GameObject obj in serializableObjects) 
 			{
-				Injector injector = obj.GetComponent<Injector> ();
-				IGenerator generator = injector.Get<IGenerator>();
+				IGenerator generator = obj.GetComponent<SpriteGeneratorBuilder> ().Build ();
 				string exportString = null;
-
-				Debug.Log (generator.GetType().ToString());
 
 				if (typeof(SpriteGenerator).IsAssignableFrom(generator.GetType())) 
 				{
 					SpriteGenerator spriteGenerator = (SpriteGenerator) generator;
+					GameObject temporaryExportObject = generator.GenerateObject (temporaryExportName);
 
-					IsometricPosition pos = obj.GetComponent<IsometricPosition> ();
+					IsometricPosition pos = temporaryExportObject.GetComponent<IsometricPosition> ();
 					float x = pos.x;
 					float y = pos.y;
 
@@ -69,6 +68,8 @@ namespace Serializers
 
 					IGenerator exportGenerator = (IGenerator) Activator.CreateInstance(generator.GetType(), new object[] { x, y, sprite });
 					exportString = exportGenerator.ToJson ();
+
+					UnityEngine.Object.DestroyImmediate(temporaryExportObject);
 				}
 
 				if (exportString != null) 

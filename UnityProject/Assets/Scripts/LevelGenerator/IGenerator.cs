@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using MapFeatures;
 
-namespace GeneratorNS {
+namespace MonoNS {
 	public interface IGenerator
 	{
 		string ToJson();

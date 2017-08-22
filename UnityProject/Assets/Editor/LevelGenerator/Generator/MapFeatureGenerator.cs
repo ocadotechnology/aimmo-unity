@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using MapFeatures;
 using SimpleJSON;
-using InjectorNS;
+using MonoNS;
 
 namespace GeneratorNS {
 	public abstract class MapFeatureGenerator: IGenerator 
@@ -29,15 +29,8 @@ namespace GeneratorNS {
 			manager.Create (id, mfd);
 
 			GameObject gameObject = GameObject.Find (manager.MapFeatureId (id));
-			injectGenerator (gameObject);
 
 			return gameObject;
-		}
-
-		private void injectGenerator (GameObject gameObject)
-		{
-			Injector wrapper = gameObject.AddComponent<Injector>();
-			wrapper.Set<IGenerator> ((IGenerator) this);
 		}
 
 		public abstract string MapFeatureToJson();

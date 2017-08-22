@@ -6,6 +6,7 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Serializers;
+using MonoNS;
 
 public class GeneratorWindow : EditorWindow
 {
@@ -121,7 +122,8 @@ public class GeneratorWindow : EditorWindow
 
 	private void GeneratorGUI(Type generatorType, string buttonName, GenData data)
 	{
-		SpriteGeneratorBuilder builder = new SpriteGeneratorBuilder (generatorType);
+		SpriteGeneratorBuilder builder = ObjectController.GetContext().
+			AddComponent<SpriteGeneratorBuilder>().CreateBuilder(generatorType);
 
 		GUILayout.BeginHorizontal ();
 		GUILayout.Label ("Name:"); data.name = GUILayout.TextField (data.name);
@@ -159,7 +161,8 @@ public class GeneratorWindow : EditorWindow
 			string finalName = data.name;
 			finalName += "-" + sprites [data.idx].Replace(" ", "-");
 
-			builder.Build ().GenerateObject (finalName);
+			GameObject gameObject = builder.Build ().GenerateObject (finalName);
+			gameObject.AddComponent<SpriteGeneratorBuilder> ().ByBuilder(builder);
 		}
 	}
 
