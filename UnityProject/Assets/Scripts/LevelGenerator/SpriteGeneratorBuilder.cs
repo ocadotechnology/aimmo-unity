@@ -5,7 +5,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 
-namespace MonoNS {
+namespace MonoNS 
+{
 	public class SpriteGeneratorBuilder : MonoBehaviour
 	{
 		private float x;
@@ -47,13 +48,13 @@ namespace MonoNS {
 		{
 			Type type = Type.GetType (typeName);
 			if (path == null) 
-			{
-				return (IGenerator) Activator.CreateInstance(type, new object[] { x, y });
-			} 
+				return (IGenerator) Activator.CreateInstance(
+					type, 
+					new object[] { x, y });
 			else 
-			{
-				return (IGenerator) Activator.CreateInstance(type, new object[] { x, y, GetSprite() });
-			}
+				return (IGenerator) Activator.CreateInstance(
+					type, 
+					new object[] { x, y, GetSprite() });
 		}
 
 		public SpriteGeneratorBuilder ByCoord(float x, float y)
