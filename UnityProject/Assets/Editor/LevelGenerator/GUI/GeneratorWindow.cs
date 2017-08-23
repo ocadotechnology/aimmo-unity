@@ -10,6 +10,18 @@ using MapFeatures;
 
 public class GeneratorWindow : EditorWindow
 {
+	/***
+	 * The UI Window from Level Generator/Create Level. 
+	 * 
+	 * The Window is split in Menu components. Each Menu component is a class 
+	 * that drows on the currently selected UI using the GUILayout and GUIEditorLayout 
+	 * static methods.
+	 * 
+	 * OnGUI looks for events that are applied on the surface of the UI each time.
+	 * We use the Singleton pattern in this situation as there should be only one 
+	 * object of this type: i.e. the open window.
+	 * 
+	 */ 
 	private static GeneratorWindow windowInstance = null;
 
 	private static GeneratorWindow GetWindow()
@@ -42,7 +54,7 @@ public class GeneratorWindow : EditorWindow
 		Focus ();
 		Show ();
 
-		// TEMPORARY
+		// TEMPORARY -- this is only to see the grid
 		GameObject parent = new GameObject("Grid");
 		for (int x = -10; x <= 10; x++)
 			for (int y = -10; y <= 10; y++) 
