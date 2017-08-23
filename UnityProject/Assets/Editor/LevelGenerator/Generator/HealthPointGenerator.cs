@@ -9,7 +9,7 @@ namespace GeneratorNS {
 		{
 		}
 
-		public override IMapFeatureManager GetManager ()
+		public override IMapFeatureManager GetManager()
 		{
 			return ObjectController.GetContext().AddComponent<HealthPointManager> ();
 		}

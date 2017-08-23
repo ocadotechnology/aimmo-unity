@@ -22,10 +22,8 @@ public class KeyListener
 
 	public void Receive(KeyCode keyCode) 
 	{
-		if (actions.ContainsKey (keyCode)) 
-		{
-			actions[keyCode] ();
-		}
+		if (actions.ContainsKey(keyCode)) 
+			actions[keyCode]();
 	}
 }
 	
