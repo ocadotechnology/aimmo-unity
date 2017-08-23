@@ -7,6 +7,14 @@ using System.IO;
 
 public class ObjectController
 {
+	/**
+	 * An object controller responsible for providing a Singleton
+	 * instance for KeyListener and Context. The Context is used to 
+	 * attach objects to it; the Context can be used as:
+	 *   ObjectController.GetContext.AddComponent<*component-class-name*>();
+	 * 
+	 * It also provides a way to get the currently selected game object.
+	 */
 	private static string contextName = "Level Generator Context";
 	private static KeyListener keyListener = new KeyListener();
 
@@ -27,6 +35,8 @@ public class ObjectController
 		pos.Set(pos.x + x, pos.y + y);
 	}
 		
+	// There is only one static key listener on ObjectController,
+	// but more can be registered.
 	public static KeyListener GetKeyListener()
 	{
 		return keyListener;

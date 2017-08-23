@@ -4,6 +4,11 @@ using UnityEngine;
 [InitializeOnLoad]
 public static class EventTracker
 {
+	/**
+     * This is a function that runs at the loading of the 
+     * Editor Assembly. This should register send all the events
+     * to the specific Controller. 
+	 */
 	private static void OnAllEvents()
 	{
 	}
@@ -20,6 +25,8 @@ public static class EventTracker
 			{
 				case EventType.keyDown:
 				{
+					// This delivers keys to the key listener. The
+					// key listeners dispaches the events to the correct action.
 					ObjectController.GetKeyListener ().Receive (Event.current.keyCode);
 					break;
 				}

@@ -8,6 +8,16 @@ using System.Linq;
 
 public class AssetController
 {
+	/**
+	 * The "Controllers" are mostly designed as static libraries that 
+	 * provide mostly Editor-releated functionality.
+	 * 
+	 * A Library used for accessing scenes and assets.
+	 * 
+	 * The functionality is implemented using mostly the System.IO functions 
+	 * and it works only on Linux and Mac for the moment.
+	 * 
+	 */
 	public static void WorkOnLevel (string levelName)
 	{
 		if (!IsScenePresent (levelName)) 

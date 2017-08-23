@@ -7,6 +7,13 @@ using System.IO;
 
 public class CameraController
 {
+	/**
+     * The "Controllers" are mostly designed as static libraries that 
+	 * provide mostly Editor-releated functionality.
+	 * 
+	 * The Camera controller generates a new camera object. 
+	 * The OrthograpicCamera can be used in both 2D and 3D modes.
+	 */
 	private static Camera GetCamera()
 	{
 		GameObject context = ObjectController.GetContext ();
