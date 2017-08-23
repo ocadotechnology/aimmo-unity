@@ -9,12 +9,32 @@ namespace MonoNS
 {
 	public class SpriteGeneratorBuilder : MonoBehaviour
 	{
+		/**
+		 * A Builder pattern that is used to build Generators. A generators 
+		 * is a method that generates an object using a Manager. For more 
+		 * details see Editor/LevelGenerator/Generator and the managers 
+		 * from Scripts/MapFeatures.
+		 * 
+		 * The SpriteGeneratorBuilder *has* to be attached to an object.
+		 * 
+		 * To keep the state of the scene once the scene is close, we *need to keep 
+		 * a serializable object* that encasulates the state that describes how an 
+		 * object should be generated.
+		 * 
+		 * The most of design is kept generic-less as Unity does not support adding 
+		 * generic components.
+		 */
 		private float x;
 		private float y;
 		private int width;
 		private int height;
 		private string path;
 
+		/**
+		 * The type is kept a type name that also refences also the assembly in which the
+		 * type is found. Using a type is harder in this context as the Type may not be
+		 * loaded inside the Assembly-CSharp(as the types are in Assembly-CSharp-Editor).
+		 */
 		[SerializeField]
 		private string typeName;
 
@@ -47,6 +67,16 @@ namespace MonoNS
 		{
 			Type type = Type.GetType(typeName);
 
+			/**
+			 * All the generators have only this 2 kinds of contructors.
+			 * 
+			 * We create the instances using Reflection rather than using 
+			 * generics as we do not know the type at runtime. For refence look 
+			 * at Activator documentation.
+			 * 
+			 * The only 2 constructors for the classes present so far inside the 
+			 * Generator module have only the constructors (float, float) and (float, float, string).
+			 */
 			if (path == null) 
 				return (IGenerator) Activator.CreateInstance(type, new object[] {x, y});
 			else 
