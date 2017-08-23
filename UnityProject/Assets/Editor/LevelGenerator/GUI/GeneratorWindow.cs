@@ -15,17 +15,16 @@ public class GeneratorWindow : EditorWindow
 	private static GeneratorWindow GetWindow()
 	{
 		if (windowInstance == null) 
-		{
 			windowInstance = GetWindow<GeneratorWindow>(false, "Unity Level Generator");
-		}
+
 		return windowInstance;
 	}
 
 	[MenuItem("Level Generator/Create Level")]
 	public static void OpenWindow()	
 	{
-		GetWindow ();
-		GetWindow ().OnOpen();
+		GetWindow();
+		GetWindow().OnOpen();
 	}
 
 	public static void RefreshGUI()
@@ -85,12 +84,12 @@ public class GeneratorWindow : EditorWindow
 		GUILayout.Label("Select a level below to work on.");
 		foreach (string level in AssetController.GetLevels()) 
 		{
-			BuildButton ("Level: " + level, () => AssetController.WorkOnLevel (level));
+			BuildButton("Level: " + level, () => AssetController.WorkOnLevel (level));
 		}
 
 		foreach (Menu menu in menus) 
 		{
-			menu.Display ();
+			menu.Display();
 		}
 
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
