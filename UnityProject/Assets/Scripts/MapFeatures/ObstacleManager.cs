@@ -11,7 +11,8 @@ namespace MapFeatures {
 	{
 		public override void Draw(GameObject obstacle, Sprite obstacleSprite)
 		{
-			obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);
+			float scale = 2.0f * Mathf.Cos(Constants.SceneRotationX) * obstacleSprite.pixelsPerUnit / obstacleSprite.rect.width;
+			obstacle.transform.localScale = new Vector3(scale, scale, 0.0f);
 
 			SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
 			obstacleRenderer.sprite = obstacleSprite;

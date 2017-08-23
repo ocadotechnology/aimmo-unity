@@ -66,6 +66,7 @@ namespace MapFeatures {
 			// Add to scene in the correct position and angle.
 			float x = mapFeatureData.x;
 			float y = mapFeatureData.y;
+
 			mapFeature.AddComponent<IsometricPosition>().Set(x, y);
 			mapFeature.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
@@ -79,7 +80,7 @@ namespace MapFeatures {
 					0.0f,
 					mapFeatureData.spriteWidth,
 					mapFeatureData.spriteHeight),
-				new Vector2(0.5f, 0.5f),
+				new Vector2(0.5f, 148.5f / mapFeatureData.spriteWidth),
 				100.0f);
 
 			Draw(mapFeature, mapFeatureSprite);
