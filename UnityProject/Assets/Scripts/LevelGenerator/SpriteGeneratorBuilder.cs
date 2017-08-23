@@ -14,6 +14,8 @@ namespace MonoNS
 		private int width;
 		private int height;
 		private string path;
+
+		[SerializeField]
 		private string typeName;
 
 		public SpriteGeneratorBuilder CreateBuilder(Type type)
