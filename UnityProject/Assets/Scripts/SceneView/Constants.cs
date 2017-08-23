@@ -7,9 +7,6 @@ using UnityEngine;
 
 public class Constants
 {
-	public const float SceneRotationXDeg = 45.0f; 
-	public const float SceneRotationYDeg = 45.0f;
-
-	public const float SceneRotationX = Mathf.Deg2Rad * SceneRotationXDeg;
-	public const float SceneRotationY = Mathf.Deg2Rad * SceneRotationYDeg;
+	public static readonly float IsometricShiftX = Mathf.Sqrt(2.0f) / 2.0f;
+	public static readonly float IsometricShiftY = Mathf.Sqrt(2.0f / 3.0f) / 2.0f;
 }

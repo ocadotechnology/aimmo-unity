@@ -8,7 +8,8 @@ using SimpleJSON;
  * map feature in the scene.
  */
 
-namespace MapFeatures {
+namespace MapFeatures 
+{
 	public struct MapFeatureData
 	{
 		public float x, y;
@@ -82,6 +83,10 @@ namespace MapFeatures {
 					mapFeatureData.spriteHeight),
 				new Vector2(0.5f, 148.5f / mapFeatureData.spriteWidth),
 				100.0f);
+
+			float tileWidth = 2.0f * Constants.IsometricShiftX;
+			float scale = tileWidth * mapFeatureSprite.pixelsPerUnit / mapFeatureSprite.rect.width;
+			mapFeature.transform.localScale = new Vector3(scale, scale, 0.0f);
 
 			Draw(mapFeature, mapFeatureSprite);
 

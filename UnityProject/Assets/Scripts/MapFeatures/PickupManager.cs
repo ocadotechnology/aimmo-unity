@@ -7,7 +7,8 @@ using UnityEngine;
  * types, so that will need to be taken care of.
  */
 
-namespace MapFeatures {
+namespace MapFeatures 
+{
 	public class PickupManager : MapFeatureManager
 	{
 		public override void Draw(GameObject pickup, Sprite pickupSprite)
