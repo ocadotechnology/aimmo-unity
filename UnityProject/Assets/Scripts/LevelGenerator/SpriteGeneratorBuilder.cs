@@ -14,19 +14,16 @@ namespace MonoNS
 		private int width;
 		private int height;
 		private string path;
-
-		[SerializeField]
 		private string typeName;
 
 		public SpriteGeneratorBuilder CreateBuilder(Type type)
 		{
-			x = 0;
-			y = 0;
-			width = 0;
-			height = 0;
-			path = null;
-
-			this.typeName = type == null ? null : type.AssemblyQualifiedName.ToString();
+			this.x = 0.0f;
+			this.y = 0.0f;
+			this.width = 0;
+			this.height = 0;
+			this.path = null;
+			this.typeName = type == null ? null : Convert.ToString(type.AssemblyQualifiedName);
 
 			return this;
 		}
@@ -46,21 +43,19 @@ namespace MonoNS
 
 		public IGenerator Build()
 		{
-			Type type = Type.GetType (typeName);
+			Type type = Type.GetType(typeName);
+
 			if (path == null) 
-				return (IGenerator) Activator.CreateInstance(
-					type, 
-					new object[] { x, y });
+				return (IGenerator) Activator.CreateInstance(type, new object[] {x, y});
 			else 
-				return (IGenerator) Activator.CreateInstance(
-					type, 
-					new object[] { x, y, GetSprite() });
+				return (IGenerator) Activator.CreateInstance(type, new object[] {x, y, GetSprite()});
 		}
 
 		public SpriteGeneratorBuilder ByCoord(float x, float y)
 		{
 			this.x = x;
 			this.y = y;
+
 			return this;
 		}
 
