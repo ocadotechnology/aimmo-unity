@@ -7,25 +7,24 @@ using System.IO;
 
 public class ObjectController
 {
-	private static string contextName = "levelGeneratorContext";
+	private static string contextName = "Level Generator Context";
 	private static KeyListener keyListener = new KeyListener();
 
 	public static GameObject GetContext()
 	{
-		GameObject go = GameObject.Find (contextName);
+		GameObject go = GameObject.Find(contextName);
 		if (go == null) 
-		{
-			return new GameObject (contextName);
-		}
+			return new GameObject(contextName);
+		
 		return go;
 	}
 
 	public static void Move(int x, int y)
 	{
-		GameObject go = GetGameObject ();
+		GameObject go = GetGameObject();
 		IsometricPosition pos = go.GetComponent<IsometricPosition> ();
 
-		pos.Set (pos.x + x, pos.y + y);
+		pos.Set(pos.x + x, pos.y + y);
 	}
 		
 	public static KeyListener GetKeyListener()
@@ -35,7 +34,7 @@ public class ObjectController
 
 	public static IsometricPosition GetPosition()
 	{
-		return GetGameObject ().GetComponent<IsometricPosition> ();
+		return GetGameObject().GetComponent<IsometricPosition> ();
 	}
 
 	public static GameObject GetGameObject()

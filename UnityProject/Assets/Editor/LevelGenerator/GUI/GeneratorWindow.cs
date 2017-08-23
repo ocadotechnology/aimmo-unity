@@ -73,24 +73,18 @@ public class GeneratorWindow : EditorWindow
 
 	private void BuildButton(string name, Action action)
 	{
-		if (GUILayout.Button (new GUIContent (name, ""))) 
-		{
-			action ();
-		}
+		if (GUILayout.Button(new GUIContent(name, ""))) 
+			action();
 	}
 
 	public void OnGUI()
 	{
 		GUILayout.Label("Select a level below to work on.");
 		foreach (string level in AssetController.GetLevels()) 
-		{
-			BuildButton("Level: " + level, () => AssetController.WorkOnLevel (level));
-		}
+			BuildButton("Level: " + level, () => AssetController.WorkOnLevel(level));
 
 		foreach (Menu menu in menus) 
-		{
 			menu.Display();
-		}
 
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 		BuildButton ("Close", () => Close ());
