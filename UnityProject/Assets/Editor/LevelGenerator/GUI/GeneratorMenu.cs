@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
-class GeneratorMenu : Menu
+class GeneratorMenu : IMenu
 {
 	private bool showGrid = true;
 	private GameObject grid = null;

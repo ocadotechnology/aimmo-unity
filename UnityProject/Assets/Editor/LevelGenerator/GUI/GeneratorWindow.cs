@@ -43,7 +43,7 @@ public class GeneratorWindow : EditorWindow
 	{
 	}
 
-	private Menu[] menus = {
+	private IMenu[] menus = {
 		new UtilityMenu(),
 		new GeneratorMenu(),
 		new ObjectMenu()
@@ -132,7 +132,7 @@ public class GeneratorWindow : EditorWindow
 		foreach (string level in AssetController.GetLevels()) 
 			BuildButton("Level: " + level, () => AssetController.WorkOnLevel(level));
 
-		foreach (Menu menu in menus) 
+		foreach (IMenu menu in menus) 
 			menu.Display();
 
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);

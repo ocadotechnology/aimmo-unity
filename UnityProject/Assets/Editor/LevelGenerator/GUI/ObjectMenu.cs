@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
-class ObjectMenu : Menu
+class ObjectMenu : IMenu
 {
 	/**
 	 * ObjectMenu:
