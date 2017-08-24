@@ -10,6 +10,9 @@ using MonoNS;
 
 class GeneratorMenu : Menu
 {
+	private bool showGrid = true;
+	private GameObject grid = null;
+
 	/**
 	 * GeneratorMenu:
 	 *   a menu used for generating different types of objects in the same 
@@ -44,7 +47,13 @@ class GeneratorMenu : Menu
 	public void Display()
 	{
 		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
-		GUILayout.Label ("Create an object using the GUI below");
+
+		showGrid = EditorGUILayout.Toggle("Grid", showGrid);
+		if (grid == null)
+			grid = GameObject.Find ("Grid");
+		else if (grid.activeSelf != showGrid)
+			grid.SetActive(showGrid);
+			
 		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 
 		GeneratorGUI (typeof(ObstacleGenerator), "Gen obstacle", obstacleData);

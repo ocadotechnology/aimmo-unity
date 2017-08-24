@@ -57,9 +57,12 @@ public class GeneratorWindow : EditorWindow
 		// TEMPORARY
 		float shiftX = Mathf.Sqrt(2.0f) / 2;
 		float shiftY = Mathf.Sqrt(2.0f / 3.0f) / 2;
-		GameObject points = new GameObject("Points");
-		GameObject lines = new GameObject ("Lines");
 
+		GameObject grid = new GameObject("Grid");
+		GameObject points = new GameObject("Points");
+		GameObject lines = new GameObject("Lines");
+		points.transform.parent = grid.transform;
+		lines.transform.parent = grid.transform;
 		for (int x = -5; x <= 5; x++) 
 		{
 			float depth = x + 1;
