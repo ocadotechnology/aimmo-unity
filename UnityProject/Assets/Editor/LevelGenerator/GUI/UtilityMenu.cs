@@ -15,6 +15,8 @@ class UtilityMenu : Menu
 	 */
 
 	private int exportedLevelIdx;
+	private bool isPlaying;
+	private bool buttonPressed;
 
 	public UtilityMenu()
 	{
@@ -69,8 +71,11 @@ class UtilityMenu : Menu
 		});
 
 		BuildButton ("Stop Level", () => {
-			EditorApplication.ExecuteMenuItem("Edit/Play");
-			AvatarController.RemoveAvatar();
+			if (Application.isPlaying)
+			{
+				EditorApplication.ExecuteMenuItem("Edit/Play");
+			}
+			AvatarController.RemoveAvatar ();
 		});
 	}
 }
