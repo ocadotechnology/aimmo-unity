@@ -5,7 +5,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorNS;
-using MonoNS;
 
 namespace Serializers
 {
@@ -45,7 +44,7 @@ namespace Serializers
 			{
 				if (obj.GetComponent<SpriteGeneratorBuilder> ()) 
 				{
-					Debug.Log (obj.ToString());
+					// Debug.Log (obj.ToString());
 					if (obj != ObjectController.GetContext())
 						serializableObjects.AddLast (obj);
 				}

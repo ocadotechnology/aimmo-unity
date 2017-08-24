@@ -6,7 +6,6 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Serializers;
-using MonoNS;
 
 class UtilityMenu : Menu
 {
@@ -45,7 +44,10 @@ class UtilityMenu : Menu
 		GUILayout.Label("Choose the level you want to export.");
 		exportedLevelIdx = EditorGUILayout.Popup(exportedLevelIdx, levels);
 
-		BuildButton ("Export Level", () => ExportController.ExportFile (GetExportJson (levels)));
+		BuildButton ("Export Level", () => {
+			Debug.Log (GetExportJson (levels));
+			ExportController.ExportFile (GetExportJson (levels));
+		});
 
 		TryLevel (levels);
 	}
@@ -55,6 +57,7 @@ class UtilityMenu : Menu
 		string exportJson = ExportController.GetExportFromSerializer (
 			new JSONSerializer(exportedLevelIdx != 0 ? levels[exportedLevelIdx] : null)
 		);
+
 		return exportJson;
 	}
 

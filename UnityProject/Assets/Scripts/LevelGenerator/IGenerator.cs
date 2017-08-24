@@ -6,11 +6,9 @@ using System.Collections.Generic;
 using System.IO;
 using MapFeatures;
 
-namespace MonoNS 
+[ExecuteInEditMode]
+public interface IGenerator
 {
-	public interface IGenerator
-	{
-		string ToJson();
-		GameObject GenerateObject(string id);
-	}
+	string ToJson();
+	GameObject GenerateObject(string id);
 }

@@ -7,17 +7,9 @@ using System.IO;
 
 public class AvatarController
 {
-	private static bool running = false;
-
-	public static bool Running()
-	{
-		return running;
-	}
-
 	public static void CreateAvatar(float x, float y)
 	{
 		Debug.Log ("Creating avatar");
-		running = true;
 	}
 
 	public static void RemoveAvatar()
