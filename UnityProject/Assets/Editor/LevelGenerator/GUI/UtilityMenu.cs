@@ -36,7 +36,9 @@ class UtilityMenu : Menu
 		levelList.Insert (0, "Default Level");
 		string[] levels = levelList.ToArray ();
 
+		GUILayout.Label("Choose the level you want to export.");
 		exportedLevelIdx = EditorGUILayout.Popup(exportedLevelIdx, levels);
+
 		if (GUILayout.Button (new GUIContent ("Export Level")))
 		{
 			string exportJson = ExportController.GetExportFromSerializer (
