@@ -38,13 +38,30 @@ namespace MapFeatures
 			this.intensity = 1.0f;
 			this.range = 4.0f;
 		}
+
+		public string ToJson()
+		{
+			return @" lights : {  
+				""x"" : " + x.ToString("0.000") + @",
+				""y"" : " + y.ToString("0.000") + @",
+				""intensity"" : " + intensity.ToString("0.000") + @",
+				""color"" : " + color + @",
+				""range"" : " + range.ToString("0.000") + @"
+			}";
+		}
 	}
 		
 	class LightManager : MonoBehaviour
 	{
-		public void Draw(Vector3 position, LightData lightData)
+		public void Draw(GameObject mapFeature, LightData lightData)
 		{
-			GameObject lightGameObject = new GameObject ("The Light");
+			Debug.Log ("Light object is being built");
+
+			Vector3 position = mapFeature.transform.position;
+			string lightName = "light-" + mapFeature.name;
+
+			GameObject lightGameObject = new GameObject(lightName);
+			lightGameObject.transform.parent = mapFeature.transform;
 
 			Light lightComp = lightGameObject.AddComponent<Light> ();
 			lightComp.color = Color.white;

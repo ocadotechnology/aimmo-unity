@@ -22,6 +22,8 @@ namespace MapFeatures
 		// Construct from JSON.
 		public MapFeatureData(JSONNode json)
 		{
+			Debug.Log(json.ToString ());
+
 			this.x = json["x"].AsFloat;
 			this.y = json["y"].AsFloat;
 
@@ -33,9 +35,9 @@ namespace MapFeatures
 			this.lightData = new LightData(new Vector3(0, 0, 0));
 			this.hasLight = false;
 
-			if (spriteJSON ["light"] != null) 
+			if (spriteJSON ["lights"] != null) 
 			{
-				this.lightData = new LightData (spriteJSON ["light"]);
+				this.lightData = new LightData (spriteJSON ["lights"]);
 				this.hasLight = true;
 			} 
 		}
@@ -132,7 +134,7 @@ namespace MapFeatures
 		public void AttachLight (GameObject mapFeature, LightData lightData)
 		{
 			LightManager lightManager = mapFeature.AddComponent<LightManager>();
-			lightManager.Draw (mapFeature.transform.position, lightData);
+			lightManager.Draw (mapFeature, lightData);
 		}
 	}
 }

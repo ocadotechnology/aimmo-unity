@@ -32,8 +32,14 @@ class LightSubmenu : IMenu
 
 			GUILayout.EndHorizontal();
 		
-			lightData.x = float.Parse(lightX);
-			lightData.y = float.Parse(lightY);
+			try 
+			{
+				lightData.x = float.Parse(lightX);
+				lightData.y = float.Parse(lightY);
+			}
+			catch (FormatException e)
+			{
+			}
 		}
 	}
 }

@@ -30,6 +30,9 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	private int height;
 	private string path;
 
+	private bool hasLights;
+	private LightData lights;
+
 	/**
 	 * The type is kept a type name that also refences also the assembly in which the
 	 * type is found. Using a type is harder in this context as the Type may not be
@@ -46,6 +49,7 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		this.height = 0;
 		this.path = null;
 		this.typeName = type == null ? null : Convert.ToString(type.AssemblyQualifiedName);
+		this.hasLights = false;
 
 		return this;
 	}
@@ -58,6 +62,7 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		this.height = builder.height;
 		this.path = builder.path;
 		this.typeName = builder.typeName;
+		this.hasLights = false;
 
 		return this;
 	}
@@ -142,15 +147,28 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 
 	public SpriteGeneratorBuilder ByLightData(LightData data)
 	{
+		this.lights = data;
+		this.hasLights = true;
+
 		return this;
+	}
+
+	private string GetLights()
+	{
+		if (!hasLights) 
+		{
+			return "";
+		} 
+		return lights.ToJson () + ",";
 	}
 
 	private string GetSprite()
 	{
 		return @"""sprite"" : {
 				""width"" : " + width.ToString() + @",  
-				""height"" : " + height.ToString() + @",  
-				""path"" : " + path + @"
+				""height"" : " + height.ToString() + @",
+				" + GetLights() + @" 
+				""path"" : """ + path + @""",
 		}";
 	}
 }
