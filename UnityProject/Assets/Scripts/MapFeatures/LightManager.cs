@@ -6,6 +6,7 @@ using SimpleJSON;
 
 namespace MapFeatures 
 {
+	[Serializable]
 	public struct LightData
 	{
 		public float x;
