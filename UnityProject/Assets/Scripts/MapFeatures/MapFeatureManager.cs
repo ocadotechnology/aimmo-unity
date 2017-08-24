@@ -103,6 +103,9 @@ namespace MapFeatures
 
 			Draw(mapFeature, mapFeatureSprite);
 
+			if (mapFeatureData.hasLight)
+				AttachLight (mapFeature, mapFeatureData.lightData);
+
 			return true;
 		}
 
@@ -124,5 +127,12 @@ namespace MapFeatures
 
 		// Sprite initialisation.
 		public abstract void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
+	
+		// Attach Light
+		public void AttachLight (GameObject mapFeature, LightData lightData)
+		{
+			LightManager lightManager = mapFeature.AddComponent<LightManager>();
+			lightManager.Draw (mapFeature.transform.position, lightData);
+		}
 	}
 }
