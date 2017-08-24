@@ -43,32 +43,52 @@ public class GeneratorWindow : EditorWindow
 		Show ();
 
 		// TEMPORARY
+		float shiftX = Mathf.Sqrt(2.0f) / 2;
+		float shiftY = Mathf.Sqrt(2.0f / 3.0f) / 2;
+
 		GameObject parent = new GameObject("Grid");
-		for (int x = -10; x <= 10; x++)
-			for (int y = -10; y <= 10; y++) 
+		for (int x = -5; x <= 5; x++) 
+		{
+			float depth = x;
+			float isoX = ((float)x) - 0.5f;
+			float isoY = -0.5f;
+
+			GameObject lineH = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+			lineH.GetComponent<Renderer>().sharedMaterial.color = Color.green;
+			lineH.transform.position = new Vector3(
+				(isoX - isoY) * shiftX,
+				(isoX + isoY) * shiftY,
+				depth);
+
+			GameObject lineV = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+			lineV.GetComponent<Renderer>().sharedMaterial.color = Color.green;
+			lineV.transform.position = new Vector3(
+				(isoY - isoX) * shiftX,
+				(isoY + isoX) * shiftY,
+				depth);
+
+			for (int y = -5; y <= 5; y++) 
 			{
 				GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 				point.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
 				point.transform.localScale = new Vector3(0.07f, 0.07f, 0.07f);
 
-				float shiftX = Mathf.Sqrt(2.0f) / 2;
-				float shiftY = Mathf.Sqrt(2.0f / 3.0f) / 2;
+				depth = x + y;
+				isoX = ((float)x) - 0.5f;
+				isoY = ((float)y) - 0.5f;
 
-				float depth = x + y;
-				float isoX = ((float) x) - 0.5f;
-				float isoY = ((float) y) - 0.5f;
-
-				point.name = "point(" + 
+				point.name = "point(" +
 					Convert.ToString(isoX) + "," +
 					Convert.ToString(isoY) + ")";
 
-				point.transform.position = new Vector3(
+				point.transform.position = new Vector3 (
 					(isoX - isoY) * shiftX,
 					(isoX + isoY) * shiftY,
 					depth);
 
 				point.transform.parent = parent.transform;
 			}
+		}
 	}
 
 	private void BuildButton(string name, Action action)
