@@ -24,22 +24,20 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	 * The most of design is kept generic-less as Unity does not support adding 
 	 * generic components.
 	 */
-	private float x;
-	private float y;
-	private int width;
-	private int height;
-	private string path;
-
-	private bool hasLights;
-	private LightData lights;
+	[SerializeField] private float x;
+	[SerializeField] private float y;
+	[SerializeField] private int width;
+	[SerializeField] private int height;
+	[SerializeField] private string path;
+	[SerializeField] private bool hasLights;
+	[SerializeField] private LightData lights;
 
 	/**
 	 * The type is kept a type name that also refences also the assembly in which the
 	 * type is found. Using a type is harder in this context as the Type may not be
 	 * loaded inside the Assembly-CSharp(as the types are in Assembly-CSharp-Editor).
 	 */
-	[SerializeField]
-	private string typeName;
+	[SerializeField] private string typeName;
 
 	public SpriteGeneratorBuilder CreateBuilder(Type type)
 	{
