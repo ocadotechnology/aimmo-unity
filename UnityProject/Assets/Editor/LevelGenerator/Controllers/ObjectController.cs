@@ -29,10 +29,13 @@ public class ObjectController
 
 	public static void Move(int x, int y)
 	{
-		GameObject go = GetGameObject();
-		IsometricPosition pos = go.GetComponent<IsometricPosition> ();
+		GameObject[] gameObjects = GetGameObjects();
 
-		pos.Set(pos.x + x, pos.y + y);
+		foreach (GameObject gameObject in gameObjects) 
+		{
+			IsometricPosition position = gameObject.GetComponent<IsometricPosition>();
+			position.Set(position.x + x, position.y + y);
+		}
 	}
 		
 	// There is only one static key listener on ObjectController,
@@ -44,12 +47,12 @@ public class ObjectController
 
 	public static IsometricPosition GetPosition()
 	{
-		return GetGameObject().GetComponent<IsometricPosition> ();
+		return GetGameObjects()[0].GetComponent<IsometricPosition> ();
 	}
 
-	public static GameObject GetGameObject()
+	public static GameObject[] GetGameObjects()
 	{
-		return Selection.activeGameObject;
+		return Selection.gameObjects;
 	}
 
 	public static bool SelectedGameObject()

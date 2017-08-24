@@ -66,12 +66,12 @@ class ObjectMenu : Menu
 	{
 		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 
-		GameObject go = ObjectController.GetGameObject ();
+		GameObject go = ObjectController.GetGameObjects()[0];
 
 		GUILayout.Label("Use W, A, S, D to move objects once they are selected.");
 
 		GUILayout.BeginHorizontal ();
-		IsometricPosition pos = ObjectController.GetPosition ();
+		IsometricPosition pos = ObjectController.GetPosition();
 
 		GUILayout.Label("Current selected object: " + go.name);
 
