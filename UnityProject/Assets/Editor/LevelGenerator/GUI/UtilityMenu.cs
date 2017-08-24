@@ -22,6 +22,12 @@ class UtilityMenu : Menu
 		exportedLevelIdx = 0;
 	}
 
+	private void BuildButton(string name, Action action)
+	{
+		if (GUILayout.Button(new GUIContent(name, ""))) 
+			action();
+	}
+
 	public void Display()
 	{
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
@@ -39,14 +45,29 @@ class UtilityMenu : Menu
 		GUILayout.Label("Choose the level you want to export.");
 		exportedLevelIdx = EditorGUILayout.Popup(exportedLevelIdx, levels);
 
-		if (GUILayout.Button (new GUIContent ("Export Level")))
-		{
-			string exportJson = ExportController.GetExportFromSerializer (
-				new JSONSerializer(exportedLevelIdx != 0 ? levels[exportedLevelIdx] : null)
-			);
-			Debug.Log (exportJson);
+		BuildButton ("Export Level", () => ExportController.ExportFile (GetExportJson (levels)));
 
-			ExportController.ExportFile (exportJson);
-		}
+		TryLevel (levels);
+	}
+
+	private string GetExportJson(string[] levels)
+	{
+		string exportJson = ExportController.GetExportFromSerializer (
+			new JSONSerializer(exportedLevelIdx != 0 ? levels[exportedLevelIdx] : null)
+		);
+		return exportJson;
+	}
+
+	private void TryLevel(string[] levels)
+	{
+		BuildButton ("Start Level", () => {
+			AvatarController.CreateAvatar(0.0f, 0.0f);
+			EditorApplication.ExecuteMenuItem("Edit/Play");
+		});
+
+		BuildButton ("Stop Level", () => {
+			EditorApplication.ExecuteMenuItem("Edit/Play");
+			AvatarController.RemoveAvatar();
+		});
 	}
 }
