@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
-class UtilityMenu : Menu
+class UtilityMenu : IMenu
 {
 	/**
 	 * Utility Menu:
@@ -51,7 +51,7 @@ class UtilityMenu : Menu
 			ExportController.ExportFile (GetExportJson (levels));
 		});
 
-		TryLevel (levels);
+		TryLevel(levels);
 	}
 
 	private string GetExportJson(string[] levels)

@@ -11,13 +11,11 @@ public class AvatarController
 
 	public static void CreateAvatar(float x, float y)
 	{
-		Debug.Log ("Creating avatar");
-
-		GameObject avatarView = GameObject.CreatePrimitive (PrimitiveType.Sphere);
-		avatarView.name = avatarName;
+		Debug.Log("Creating avatar");
+		GameObject avatarView = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
 		Avatar avatar = avatarView.AddComponent<Avatar> ();
-		avatar.Init (x, y);
+		avatar.Init(x, y);
 	}
 
 	public static void RemoveAvatar()

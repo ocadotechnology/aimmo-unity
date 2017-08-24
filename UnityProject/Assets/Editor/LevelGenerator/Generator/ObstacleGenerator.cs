@@ -11,13 +11,9 @@ namespace GeneratorNS {
 			""path"" :  ""Obstacle-512x1024-isometric-top""
 		}";
 
-		public ObstacleGenerator(float x, float y, string sprite) : base(x, y, sprite) 
-		{
-		}
+		public ObstacleGenerator (float x, float y, string sprite) : base (x, y, sprite) {}
 
-		public ObstacleGenerator(float x, float y) : base(x, y, defaultSprite) 
-		{
-		}
+		public ObstacleGenerator(float x, float y) : base(x, y, defaultSprite) {}
 
 		public override IMapFeatureManager GetManager ()
 		{
