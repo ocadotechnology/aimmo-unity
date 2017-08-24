@@ -12,10 +12,6 @@ class GeneratorMenu : IMenu
 	private bool showGrid = true;
 	private GameObject grid = null;
 
-	private bool addLight = false;
-	string lightX = "x";
-	string lightY = "y";
-
 	/**
 	 * GeneratorMenu:
 	 *   a menu used for generating different types of objects in the same 
@@ -36,14 +32,16 @@ class GeneratorMenu : IMenu
 	private GenData obstacleData;
 	private GenData healthData;
 	private GenData scorePointData;
+	private LightSubmenu lightsUI;
 
 	public GeneratorMenu()
 	{
 		obstacleData = new GenData();
 		healthData = new GenData();
 		scorePointData = new GenData();
+		lightsUI = new LightSubmenu();
 	}
-		
+
 	public void Display()
 	{
 		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
@@ -62,13 +60,8 @@ class GeneratorMenu : IMenu
 		GeneratorGUI(typeof(HealthPointGenerator), "Generate health point", healthData);
 		GeneratorGUI(typeof(ScorePointGenerator), "Generate score point", scorePointData);
 
-		addLight = EditorGUILayout.Toggle("Add light to your sprite", addLight);
-		if (addLight) 
-		{
-			GUILayout.Label ("Relative position in the sprite: ");
-			lightX = GUILayout.TextField(lightX, GUILayout.MaxWidth(30));
-			lightY = GUILayout.TextField(lightY, GUILayout.MaxWidth(30));
-		}
+		// Light Data UI
+		lightsUI.Display ();
 	}
 
 	/**
@@ -105,6 +98,9 @@ class GeneratorMenu : IMenu
 			
 			if (data.height != "") 
 				builder = builder.ByHeight (int.Parse (data.height));
+
+			if (lightsUI.addLight)
+				builder = builder.ByLightData (lightsUI.lightData);
 
 			// We append the file name of the sprite at the end so the type of 
 			// the object is easily identifiable

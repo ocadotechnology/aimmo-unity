@@ -30,7 +30,7 @@ namespace MapFeatures
 			if (json["range"] != null) this.intensity = json["range"].AsFloat;
 		}
 
-		public LightData(Vector3 position)
+		public LightData(Vector2 position)
 		{
 			this.x = position.x;
 			this.y = position.y;

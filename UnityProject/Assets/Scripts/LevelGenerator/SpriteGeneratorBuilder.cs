@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using MapFeatures;
 
 [ExecuteInEditMode]
 public class SpriteGeneratorBuilder : MonoBehaviour
@@ -136,6 +137,11 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		{
 			width = height; 
 		}
+		return this;
+	}
+
+	public SpriteGeneratorBuilder ByLightData(LightData data)
+	{
 		return this;
 	}
 

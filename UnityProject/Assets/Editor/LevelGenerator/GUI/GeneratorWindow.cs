@@ -46,7 +46,7 @@ public class GeneratorWindow : EditorWindow
 	private IMenu[] menus = {
 		new UtilityMenu(),
 		new GeneratorMenu(),
-		new ObjectMenu()
+		new ObjectMenu()	
 	};
 
 	private void OnOpen()
