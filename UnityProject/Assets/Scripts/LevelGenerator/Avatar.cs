@@ -6,11 +6,10 @@ using UnityEngine;
 [ExecuteInEditMode]
 public class Avatar : MonoBehaviour
 {
-	private PlayerController playerController;
-
-	void Awake()
+	public void Init(float x, float y)
 	{
-		playerController = transform.gameObject.AddComponent<PlayerController> ();
+		IsometricPosition position = transform.gameObject.AddComponent<IsometricPosition>();
+		position.Set(x, y);
 	}
 
 	private void RegisterKeys()
@@ -31,12 +30,11 @@ public class Avatar : MonoBehaviour
 
 	private void RegisterNextPosition(float diffX, float diffY)
 	{
-		IsometricPosition pos = playerController.GetComponent<IsometricPosition> ();
-		float x = pos.x;
-		float y = pos.y;
+		IsometricPosition pos = transform.gameObject.GetComponent<IsometricPosition> ();
+		float x = pos.x + diffX;
+		float y = pos.y + diffY;
 
-		PlayerData playerData = new PlayerData(new Vector2(x + diffX, y + diffY));
-		playerController.SetNextState(playerData);
+		pos.Set (new Vector2 (x, y));
 	}
 
 	void Update()
