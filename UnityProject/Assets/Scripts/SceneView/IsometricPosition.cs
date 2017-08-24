@@ -30,34 +30,19 @@ public class IsometricPosition : MonoBehaviour
 	// Distance between depth layers.
 	private const float ShiftScale = 1.0f;
 
-	// The key to calculate the isometric position with respect to the real one.
-	private Vector3 shiftDirection = Vector3.zero;
-
-	private void InitialiseShiftDirection()
-	{
-		float shiftX = Mathf.Cos(Constants.CameraRotationY);
-		float shiftY = -Mathf.Tan(Constants.CameraRotationX);
-		float shiftZ = Mathf.Sin(Constants.CameraRotationY);
-
-		shiftDirection = new Vector3(shiftX, shiftY, shiftZ);
-	}
-
 	// Setters.
 	public void Set(float x, float y, float relativeDepth)
 	{
-		if (shiftDirection == Vector3.zero)
-			InitialiseShiftDirection();
-
 		this.x = x;
 		this.y = y;
 		this.depth = x + y + relativeDepth;
 
 		ChangeAllSpriteRenderersSortingOrder();
 
-		Vector3 realPosition = new Vector3(x, 0.0f, y);
-		Vector3 depthShift = this.depth * ShiftScale * shiftDirection;
-
-		transform.position = realPosition + depthShift;
+		transform.position = new Vector3(
+			(x - y) * Constants.IsometricShiftX * ShiftScale,
+			(x + y) * Constants.IsometricShiftY * ShiftScale,
+			this.depth);
 	}
 
 	public void Set(float x, float y)
@@ -67,7 +52,7 @@ public class IsometricPosition : MonoBehaviour
 
 	public void Set(Vector2 position)
 	{
-		Set(position.x, position.y);
+		Set(position.x, position.y, 0.0f);
 	}
 
 	// Getter.
@@ -98,7 +83,7 @@ public class IsometricPosition : MonoBehaviour
 			childSpriteRenderer.sortingOrder = sortingOrder;
 
 	}
-		
+
 	public override bool Equals(object obj)
 	{
 		var position = obj as IsometricPosition;

@@ -7,20 +7,21 @@ using UnityEngine;
  * score is incremented by one every iteration.
  */
 
-public class ScorePointManager : MapFeatureManager 
+namespace MapFeatures 
 {
-	public override void Draw(GameObject scorePoint, Sprite scorePointSprite)
+	public class ScorePointManager : MapFeatureManager 
 	{
-		scorePoint.transform.localScale = new Vector3(0.35f, 0.35f, 0.0f);
+		public override void Draw(GameObject scorePoint, Sprite scorePointSprite)
+		{
+			SpriteRenderer scorePointRenderer = scorePoint.AddComponent<SpriteRenderer>();
+			scorePointRenderer.sprite = scorePointSprite;
 
-		SpriteRenderer scorePointRenderer = scorePoint.AddComponent<SpriteRenderer>();
-		scorePointRenderer.sprite = scorePointSprite;
+			scorePoint.GetComponent<IsometricPosition>().ChangeRelativeDepth(2.0f);
+		}
 
-		scorePoint.GetComponent<IsometricPosition>().ChangeRelativeDepth(2.0f);
-	}
-
-	public override string MapFeatureId(string id)
-	{
-		return "scorepoint" + id;
+		public override string MapFeatureId(string id)
+		{
+			return "scorepoint" + id;
+		}
 	}
 }

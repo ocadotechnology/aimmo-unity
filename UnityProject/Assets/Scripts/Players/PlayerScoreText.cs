@@ -15,7 +15,7 @@ public class PlayerScoreText : MonoBehaviour
 
 	private const float OffsetX = 0.0f;
 	private const float OffsetY = 1.5f;
-	private const float OffsetZ = 0.25f;
+	private const float OffsetZ = 0.0f;
 
 	private const int fontSize = 80;
 
@@ -29,10 +29,7 @@ public class PlayerScoreText : MonoBehaviour
 		textPosition.y += OffsetY;
 		textPosition.z += OffsetZ;
 		text.transform.position = textPosition;
-		text.transform.rotation = Quaternion.Euler(
-			0.0f, 
-			Constants.CameraRotationYDeg, 
-			0.0f);
+		text.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 		text.transform.localScale = new Vector3(ScaleX, ScaleY, ScaleZ);
 
 		text.AddComponent<TextMesh>();

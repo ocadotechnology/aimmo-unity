@@ -6,18 +6,19 @@ using UnityEngine;
 /* This class manages obstacles, i.e. the walls in the scene.
  */
 
-public class ObstacleManager : MapFeatureManager 
+namespace MapFeatures 
 {
-	public override void Draw(GameObject obstacle, Sprite obstacleSprite)
+	public class ObstacleManager : MapFeatureManager 
 	{
-		obstacle.transform.localScale = new Vector3(0.27f, 0.27f, 0.0f);
-
-		SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
-		obstacleRenderer.sprite = obstacleSprite;
-	}
-		
-	public override string MapFeatureId(string id)
-	{
-		return "obstacle" + id;
+		public override void Draw(GameObject obstacle, Sprite obstacleSprite)
+		{
+			SpriteRenderer obstacleRenderer = obstacle.AddComponent<SpriteRenderer>();
+			obstacleRenderer.sprite = obstacleSprite;
+		}
+			
+		public override string MapFeatureId(string id)
+		{
+			return "obstacle" + id;
+		}
 	}
 }
