@@ -16,6 +16,9 @@ namespace MapFeatures
 		public float spriteWidth, spriteHeight;
 		public string spritePath;
 
+		public LightData lightData;
+		public bool hasLight;
+
 		// Construct from JSON.
 		public MapFeatureData(JSONNode json)
 		{
@@ -26,6 +29,15 @@ namespace MapFeatures
 			this.spritePath = spriteJSON["path"];
 			this.spriteWidth = spriteJSON["width"].AsFloat;
 			this.spriteHeight = spriteJSON["height"].AsFloat;
+
+			this.lightData = new LightData(new Vector3(0, 0, 0));
+			this.hasLight = false;
+
+			if (spriteJSON ["light"] != null) 
+			{
+				this.lightData = new LightData (spriteJSON ["light"]);
+				this.hasLight = true;
+			} 
 		}
 	}
 
