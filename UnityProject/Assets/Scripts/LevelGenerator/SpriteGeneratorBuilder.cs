@@ -62,7 +62,8 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		this.height = builder.height;
 		this.path = builder.path;
 		this.typeName = builder.typeName;
-		this.hasLights = false;
+		this.hasLights = builder.hasLights;
+		this.lights = builder.lights;
 
 		return this;
 	}
