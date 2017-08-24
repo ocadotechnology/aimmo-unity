@@ -71,6 +71,9 @@ namespace MapFeatures
 			mapFeature.AddComponent<IsometricPosition>().Set(x, y);
 			mapFeature.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
+			float tileWidth = 2.0f * Constants.IsometricShiftX;
+			float scale = tileWidth * 100.0f / mapFeatureData.spriteWidth;
+
 			// Create sprite.
 			Texture2D mapFeatureTexture = Resources.Load<Texture2D>(
 				mapFeatureData.spritePath);
@@ -81,11 +84,9 @@ namespace MapFeatures
 					0.0f,
 					mapFeatureData.spriteWidth,
 					mapFeatureData.spriteHeight),
-				new Vector2(0.5f, 148.5f / mapFeatureData.spriteWidth),
+				new Vector2(0.5f, Constants.IsometricShiftY * 100.0f / (mapFeatureData.spriteHeight * scale)),
 				100.0f);
 
-			float tileWidth = 2.0f * Constants.IsometricShiftX;
-			float scale = tileWidth * mapFeatureSprite.pixelsPerUnit / mapFeatureSprite.rect.width;
 			mapFeature.transform.localScale = new Vector3(scale, scale, 0.0f);
 
 			Draw(mapFeature, mapFeatureSprite);
