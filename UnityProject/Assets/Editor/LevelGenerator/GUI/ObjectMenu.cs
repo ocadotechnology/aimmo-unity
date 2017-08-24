@@ -10,6 +10,13 @@ using MonoNS;
 
 class ObjectMenu : Menu
 {
+	/**
+	 * ObjectMenu:
+	 *   a menu used for attaching and detaching key listeners 
+	 *   when an object is selected. It also provides a basic 
+	 *   "inspector" which shows the X and Y coordinates.
+	 */
+
 	public ObjectMenu()
 	{
 	}
@@ -33,7 +40,7 @@ class ObjectMenu : Menu
 		KeyListener keyListener = ObjectController.GetKeyListener ();
 		keyListener.ClearKeys ();
 	}
-
+		
 	private void RegisterKeyListeners()
 	{
 		KeyListener keyListener = ObjectController.GetKeyListener ();

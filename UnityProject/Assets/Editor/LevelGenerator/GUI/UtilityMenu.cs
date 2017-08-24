@@ -10,6 +10,11 @@ using MonoNS;
 
 class UtilityMenu : Menu
 {
+	/**
+	 * Utility Menu:
+	 *   a menu for setting cameras, exporting levels, etc.
+	 */
+
 	private int exportedLevelIdx;
 
 	public UtilityMenu()

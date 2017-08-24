@@ -8,6 +8,10 @@ using GeneratorNS;
 
 public class KeyListener 
 {
+	/**
+	 * A dictionary that maps a key code to an Action.
+	 * Can be used to register actions for key controlls.
+	 */
 	private SortedDictionary<KeyCode, Action> actions = new SortedDictionary<KeyCode, Action>();
 
 	public void RegisterKey(KeyCode key, Action action)

@@ -8,6 +8,9 @@ using Serializers;
 
 public class ExportController
 {
+	/** 
+	 * A class used for exprting the contents of a level. 
+	 */
 	public static string GetExportFromSerializer(ISerializer serializer)
 	{
 		return serializer.Serialize();
