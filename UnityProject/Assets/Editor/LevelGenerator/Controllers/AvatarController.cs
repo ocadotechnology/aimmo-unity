@@ -7,20 +7,24 @@ using System.IO;
 
 public class AvatarController
 {
-	private static GameObject avatarView;
+	private static string avatarName = "AvatarView";
 
 	public static void CreateAvatar(float x, float y)
 	{
 		Debug.Log("Creating avatar");
-		avatarView = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		GameObject avatarView = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+
 		Avatar avatar = avatarView.AddComponent<Avatar> ();
 		avatar.Init(x, y);
 	}
 
 	public static void RemoveAvatar()
 	{
-		Debug.Log("Removing avatar");
-		UnityEngine.Object.DestroyImmediate(avatarView);
+		if (UnityEngine.GameObject.Find (avatarName)) 
+		{
+			Debug.Log ("Removing Avatar");
+			UnityEngine.Object.DestroyImmediate (GameObject.Find (avatarName));	
+		}
 	}
 }
 
