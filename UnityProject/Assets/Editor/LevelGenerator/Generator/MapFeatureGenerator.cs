@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.IO;
 using MapFeatures;
 using SimpleJSON;
-using MonoNS;
 
 namespace GeneratorNS {
 	public abstract class MapFeatureGenerator: IGenerator 
