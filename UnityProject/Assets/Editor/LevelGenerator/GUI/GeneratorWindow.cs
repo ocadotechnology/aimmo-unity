@@ -57,34 +57,52 @@ public class GeneratorWindow : EditorWindow
 		// TEMPORARY
 		float shiftX = Mathf.Sqrt(2.0f) / 2;
 		float shiftY = Mathf.Sqrt(2.0f / 3.0f) / 2;
-		GameObject parent = new GameObject("Grid");
+
+		GameObject grid = new GameObject("Grid");
+		GameObject points = new GameObject("Points");
+		GameObject lines = new GameObject("Lines");
+		points.transform.parent = grid.transform;
+		lines.transform.parent = grid.transform;
 		for (int x = -5; x <= 5; x++) 
 		{
-			float depth = x;
+			float depth = x + 1;
 			float isoX = ((float)x) - 0.5f;
 			float isoY = -0.5f;
 
 			GameObject lineH = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			lineH.GetComponent<Renderer>().sharedMaterial.color = Color.green;
+			lineH.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
+			lineH.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
 			lineH.transform.position = new Vector3(
 				(isoX - isoY) * shiftX,
 				(isoX + isoY) * shiftY,
 				depth);
+			lineH.transform.localScale = new Vector3(0.02f, 5.0f * Mathf.Sqrt(2.0f), 0.02f);
+			lineH.transform.rotation = Quaternion.FromToRotation(
+				Vector3.up,
+				new Vector3(-shiftX, shiftY, 1.0f)) * lineH.transform.rotation;
+			lineH.transform.parent = lines.transform;
 
 			GameObject lineV = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			lineV.GetComponent<Renderer>().sharedMaterial.color = Color.green;
+			lineV.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
+			lineV.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
 			lineV.transform.position = new Vector3(
 				(isoY - isoX) * shiftX,
 				(isoY + isoX) * shiftY,
 				depth);
+			lineV.transform.localScale = new Vector3(0.02f, 5.0f * Mathf.Sqrt(2.0f), 0.02f);
+			lineV.transform.rotation = Quaternion.FromToRotation(
+				Vector3.up,
+				new Vector3(shiftX, shiftY, 1.0f)) * lineV.transform.rotation;
+			lineV.transform.parent = lines.transform;
 
 			for (int y = -5; y <= 5; y++) 
 			{
 				GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				point.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
-				point.transform.localScale = new Vector3(0.07f, 0.07f, 0.07f);
+				point.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
+				point.GetComponent<Renderer>().sharedMaterial.color = Color.green;
+				point.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
 
-				depth = x + y;
+				depth = x + y + 1;
 				isoX = ((float)x) - 0.5f;
 				isoY = ((float)y) - 0.5f;
 
@@ -97,7 +115,7 @@ public class GeneratorWindow : EditorWindow
 					(isoX + isoY) * shiftY,
 					depth);
 
-				point.transform.parent = parent.transform;
+				point.transform.parent = points.transform;
 			}
 		}
 	}
