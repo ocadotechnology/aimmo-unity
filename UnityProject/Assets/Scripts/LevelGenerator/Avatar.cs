@@ -1,8 +1,7 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
+using UnityEngine;
 
 [ExecuteInEditMode]
 public class Avatar : MonoBehaviour
@@ -11,7 +10,7 @@ public class Avatar : MonoBehaviour
 
 	void Awake()
 	{
-	//	playerController = transform.AddComponent<PlayerController> ();
+		playerController = transform.gameObject.AddComponent<PlayerController> ();
 	}
 
 	private void RegisterKeys()
