@@ -27,7 +27,7 @@ public class ObjectController
 		return go;
 	}
 
-	public static void Move(int x, int y)
+	public static void Move(float x, float y)
 	{
 		GameObject[] gameObjects = GetGameObjects();
 
@@ -35,6 +35,26 @@ public class ObjectController
 		{
 			IsometricPosition position = gameObject.GetComponent<IsometricPosition>();
 			position.Set(position.x + x, position.y + y);
+		}
+	}
+
+	public static void LightMove(float x, float y)
+	{
+		GameObject[] gameObjects = GetGameObjects();
+
+		foreach (GameObject gameObject in gameObjects) 
+		{
+			Light lightObject = gameObject.GetComponentInChildren<Light>();
+
+			if (lightObject == null) 
+			{
+				continue;
+			}
+
+			GameObject lightAttachedTo = lightObject.gameObject;
+
+			Vector3 position = gameObject.transform.position;
+			position.Set(position.x + x, position.y + y, position.z);
 		}
 	}
 		

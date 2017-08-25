@@ -39,26 +39,29 @@ class ObjectMenu : IMenu
 		KeyListener keyListener = ObjectController.GetKeyListener ();
 		keyListener.ClearKeys ();
 	}
-		
+
 	private void RegisterKeyListeners()
 	{
 		KeyListener keyListener = ObjectController.GetKeyListener ();
 		keyListener.ClearKeys ();
+
+		Action<float, float> moveAction = (x, y) => ObjectController.Move(x, y);
+
 		keyListener.RegisterKey (KeyCode.W, () => {
 			Debug.Log("Up");
-			ObjectController.Move(+1, 0);
+			moveAction(+1, 0);
 		});
 		keyListener.RegisterKey (KeyCode.A, () => {
 			Debug.Log("Left");
-			ObjectController.Move(0, +1);
+			moveAction(0, +1);
 		});
 		keyListener.RegisterKey (KeyCode.S, () => {
 			Debug.Log("Down");
-			ObjectController.Move(-1, 0);
+			moveAction(-1, 0);
 		});
 		keyListener.RegisterKey (KeyCode.D, () => {
 			Debug.Log("Right");
-			ObjectController.Move(0, -1);
+			moveAction(0, -1);
 		});
 	}
 
