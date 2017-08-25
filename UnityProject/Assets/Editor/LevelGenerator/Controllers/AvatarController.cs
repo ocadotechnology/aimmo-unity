@@ -13,6 +13,7 @@ public class AvatarController
 	{
 		Debug.Log("Creating avatar");
 		GameObject avatarView = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		avatarView.name = avatarName;
 
 		Avatar avatar = avatarView.AddComponent<Avatar> ();
 		avatar.Init(x, y);
