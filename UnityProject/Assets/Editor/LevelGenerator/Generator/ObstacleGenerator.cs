@@ -17,12 +17,7 @@ namespace GeneratorNS {
 
 		public override IMapFeatureManager GetManager ()
 		{
-			/*GameObject context = ObjectController.GetContext;
-
-			if (context.GetComponent<ObstacleManager>() != null)
-				return context.GetComponent<ObstacleManager>();
-			*/
-			return ObjectController.GetContext().AddComponent<ObstacleManager>();
+			return ObjectController.GetContext().AddComponent<ObstacleManager>() as IMapFeatureManager;
 		}
 	}
 }

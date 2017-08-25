@@ -39,6 +39,7 @@ namespace GeneratorNS {
 			manager.Create (id, mfd);
 
 			GameObject gameObject = GameObject.Find (manager.MapFeatureId (id));
+			UnityEngine.Object.DestroyImmediate((Component) manager);
 
 			return gameObject;
 		}
