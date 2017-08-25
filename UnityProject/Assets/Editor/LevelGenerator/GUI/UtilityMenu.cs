@@ -6,9 +6,8 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Serializers;
-using MonoNS;
 
-class UtilityMenu : Menu
+class UtilityMenu : IMenu
 {
 	/**
 	 * Utility Menu:
@@ -16,10 +15,18 @@ class UtilityMenu : Menu
 	 */
 
 	private int exportedLevelIdx;
+	private bool isPlaying;
+	private bool buttonPressed;
 
 	public UtilityMenu()
 	{
 		exportedLevelIdx = 0;
+	}
+
+	private void BuildButton(string name, Action action)
+	{
+		if (GUILayout.Button(new GUIContent(name, ""))) 
+			action();
 	}
 
 	public void Display()
@@ -36,15 +43,39 @@ class UtilityMenu : Menu
 		levelList.Insert (0, "Default Level");
 		string[] levels = levelList.ToArray ();
 
+		GUILayout.Label("Choose the level you want to export.");
 		exportedLevelIdx = EditorGUILayout.Popup(exportedLevelIdx, levels);
-		if (GUILayout.Button (new GUIContent ("Export Level")))
-		{
-			string exportJson = ExportController.GetExportFromSerializer (
-				new JSONSerializer(exportedLevelIdx != 0 ? levels[exportedLevelIdx] : null)
-			);
-			Debug.Log (exportJson);
 
-			ExportController.ExportFile (exportJson);
-		}
+		BuildButton ("Export Level", () => {
+			Debug.Log (GetExportJson (levels));
+			ExportController.ExportFile (GetExportJson (levels));
+		});
+
+		TryLevel(levels);
+	}
+
+	private string GetExportJson(string[] levels)
+	{
+		string exportJson = ExportController.GetExportFromSerializer (
+			new JSONSerializer(exportedLevelIdx != 0 ? levels[exportedLevelIdx] : null)
+		);
+
+		return exportJson;
+	}
+
+	private void TryLevel(string[] levels)
+	{
+		BuildButton ("Start Level", () => {
+			AvatarController.CreateAvatar(0.0f, 0.0f);
+			EditorApplication.ExecuteMenuItem("Edit/Play");
+		});
+
+		BuildButton ("Stop Level", () => {
+			if (Application.isPlaying)
+			{
+				EditorApplication.ExecuteMenuItem("Edit/Play");
+			}
+			AvatarController.RemoveAvatar ();
+		});
 	}
 }

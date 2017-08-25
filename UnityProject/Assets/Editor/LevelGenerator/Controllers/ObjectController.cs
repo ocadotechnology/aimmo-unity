@@ -17,6 +17,7 @@ public class ObjectController
 	 */
 	private static string contextName = "Level Generator Context";
 	private static KeyListener keyListener = new KeyListener();
+	private static bool lightSelection = false;
 
 	public static GameObject GetContext()
 	{
@@ -27,12 +28,48 @@ public class ObjectController
 		return go;
 	}
 
-	public static void Move(int x, int y)
+	public static void Move(float x, float y)
 	{
-		GameObject go = GetGameObject();
-		IsometricPosition pos = go.GetComponent<IsometricPosition> ();
+		GameObject[] gameObjects = GetGameObjects();
 
-		pos.Set(pos.x + x, pos.y + y);
+		foreach (GameObject gameObject in gameObjects) 
+		{
+			IsometricPosition position = gameObject.GetComponent<IsometricPosition>();
+			position.Set(position.x + x, position.y + y);
+		}
+	}
+
+	public static void SwitchLightSelection()
+	{
+		lightSelection = !lightSelection;
+	}
+
+	public static bool GetLightSelection()
+	{
+		return lightSelection;
+	}
+
+	public static void MoveLight(float x, float y)
+	{
+		GameObject[] gameObjects = GetGameObjects();
+
+		foreach (GameObject gameObject in gameObjects) 
+		{
+			Debug.Log (x.ToString ("0.00") + " " + y.ToString ("0.00"));
+			Light lightObject = gameObject.GetComponentInChildren<Light>();
+
+			Debug.Log (lightObject);
+			if (lightObject == null) 
+			{
+				continue;
+			}
+
+			GameObject lightAttachedTo = lightObject.gameObject;
+			Debug.Log (lightAttachedTo);
+
+			Vector3 position = lightAttachedTo.transform.position;
+			lightAttachedTo.transform.position = new Vector3(position.x + x, position.y + y, position.z);
+		}
 	}
 		
 	// There is only one static key listener on ObjectController,
@@ -44,12 +81,12 @@ public class ObjectController
 
 	public static IsometricPosition GetPosition()
 	{
-		return GetGameObject().GetComponent<IsometricPosition> ();
+		return GetGameObjects()[0].GetComponent<IsometricPosition> ();
 	}
 
-	public static GameObject GetGameObject()
+	public static GameObject[] GetGameObjects()
 	{
-		return Selection.activeGameObject;
+		return Selection.gameObjects;
 	}
 
 	public static bool SelectedGameObject()

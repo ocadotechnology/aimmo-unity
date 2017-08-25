@@ -6,9 +6,8 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using Serializers;
-using MonoNS;
 
-class ObjectMenu : Menu
+class ObjectMenu : IMenu
 {
 	/**
 	 * ObjectMenu:
@@ -40,26 +39,44 @@ class ObjectMenu : Menu
 		KeyListener keyListener = ObjectController.GetKeyListener ();
 		keyListener.ClearKeys ();
 	}
-		
+
 	private void RegisterKeyListeners()
 	{
 		KeyListener keyListener = ObjectController.GetKeyListener ();
 		keyListener.ClearKeys ();
+
+		// Switch the select mode to lights
+		keyListener.RegisterKey (KeyCode.L, () => {
+			Debug.Log("Switching light selection");
+			ObjectController.SwitchLightSelection();
+		});
+
+
+		Action<float, float> moveAction;
+		if (!ObjectController.GetLightSelection ()) 
+		{
+			moveAction = (x, y) => ObjectController.Move (x, y);
+		} 
+		else 
+		{
+			moveAction = (x, y) => ObjectController.MoveLight (- 0.1f * y, 0.1f * x);
+		}
+
 		keyListener.RegisterKey (KeyCode.W, () => {
 			Debug.Log("Up");
-			ObjectController.Move(+1, 0);
+			moveAction(+1, 0);
 		});
 		keyListener.RegisterKey (KeyCode.A, () => {
 			Debug.Log("Left");
-			ObjectController.Move(0, +1);
+			moveAction(0, +1);
 		});
 		keyListener.RegisterKey (KeyCode.S, () => {
 			Debug.Log("Down");
-			ObjectController.Move(-1, 0);
+			moveAction(-1, 0);
 		});
 		keyListener.RegisterKey (KeyCode.D, () => {
 			Debug.Log("Right");
-			ObjectController.Move(0, -1);
+			moveAction(0, -1);
 		});
 	}
 
@@ -67,12 +84,12 @@ class ObjectMenu : Menu
 	{
 		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 
-		GameObject go = ObjectController.GetGameObject ();
+		GameObject go = ObjectController.GetGameObjects()[0];
 
 		GUILayout.Label("Use W, A, S, D to move objects once they are selected.");
 
 		GUILayout.BeginHorizontal ();
-		IsometricPosition pos = ObjectController.GetPosition ();
+		IsometricPosition pos = ObjectController.GetPosition();
 
 		GUILayout.Label("Current selected object: " + go.name);
 

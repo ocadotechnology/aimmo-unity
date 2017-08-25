@@ -16,9 +16,14 @@ namespace MapFeatures
 		public float spriteWidth, spriteHeight;
 		public string spritePath;
 
+		public LightData lightData;
+		public bool hasLight;
+
 		// Construct from JSON.
 		public MapFeatureData(JSONNode json)
 		{
+			Debug.Log(json.ToString ());
+
 			this.x = json["x"].AsFloat;
 			this.y = json["y"].AsFloat;
 
@@ -26,6 +31,15 @@ namespace MapFeatures
 			this.spritePath = spriteJSON["path"];
 			this.spriteWidth = spriteJSON["width"].AsFloat;
 			this.spriteHeight = spriteJSON["height"].AsFloat;
+
+			this.lightData = new LightData(new Vector3(0, 0, 0));
+			this.hasLight = false;
+
+			if (spriteJSON ["lights"] != null) 
+			{
+				this.lightData = new LightData (spriteJSON ["lights"]);
+				this.hasLight = true;
+			} 
 		}
 	}
 
@@ -71,6 +85,9 @@ namespace MapFeatures
 			mapFeature.AddComponent<IsometricPosition>().Set(x, y);
 			mapFeature.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
 
+			float tileWidth = 2.0f * Constants.IsometricShiftX;
+			float scale = tileWidth * 100.0f / mapFeatureData.spriteWidth;
+
 			// Create sprite.
 			Texture2D mapFeatureTexture = Resources.Load<Texture2D>(
 				mapFeatureData.spritePath);
@@ -81,14 +98,15 @@ namespace MapFeatures
 					0.0f,
 					mapFeatureData.spriteWidth,
 					mapFeatureData.spriteHeight),
-				new Vector2(0.5f, 148.5f / mapFeatureData.spriteWidth),
+				new Vector2(0.5f, Constants.IsometricShiftY * 100.0f / (mapFeatureData.spriteHeight * scale)),
 				100.0f);
 
-			float tileWidth = 2.0f * Constants.IsometricShiftX;
-			float scale = tileWidth * mapFeatureSprite.pixelsPerUnit / mapFeatureSprite.rect.width;
 			mapFeature.transform.localScale = new Vector3(scale, scale, 0.0f);
 
 			Draw(mapFeature, mapFeatureSprite);
+
+			if (mapFeatureData.hasLight)
+				AttachLight (mapFeature, mapFeatureData.lightData);
 
 			return true;
 		}
@@ -111,5 +129,12 @@ namespace MapFeatures
 
 		// Sprite initialisation.
 		public abstract void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
+	
+		// Attach Light
+		public void AttachLight (GameObject mapFeature, LightData lightData)
+		{
+			LightManager lightManager = mapFeature.AddComponent<LightManager>();
+			lightManager.Draw (mapFeature, lightData);
+		}
 	}
 }
