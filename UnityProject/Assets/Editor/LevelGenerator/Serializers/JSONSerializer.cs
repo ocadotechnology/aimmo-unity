@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using GeneratorNS;
+using MapFeatures;
 
 namespace Serializers
 {
@@ -76,6 +77,17 @@ namespace Serializers
 					IsometricPosition pos = obj.GetComponent<IsometricPosition> ();
 					float x = pos.x;
 					float y = pos.y;
+
+					// We have to do the same thing for lights that are attached to the object
+					Light lightObject = obj.GetComponentInChildren<Light>();
+					if (lightObject != null) 
+					{
+						GameObject lightAttachedTo = lightObject.gameObject;
+						float lightX = lightAttachedTo.transform.position.x;
+						float lightY = lightAttachedTo.transform.position.y;
+
+						builder =  builder.ByLightCoord(lightX, lightY);
+					}
 
 					IGenerator exportGenerator = (IGenerator) builder.ByCoord(x, y).Build();
 					exportString = exportGenerator.ToJson ();
