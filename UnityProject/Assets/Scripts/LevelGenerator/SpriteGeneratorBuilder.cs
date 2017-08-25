@@ -95,6 +95,14 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		return this;
 	}
 
+	public SpriteGeneratorBuilder ByLightCoord(float x, float y)
+	{
+		this.lights.x = x;
+		this.lights.y = y;
+
+		return this;
+	}
+
 	// This should be called before ByWidth, ByHeight
 	public SpriteGeneratorBuilder ByPath(string path)
 	{
@@ -157,7 +165,8 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		if (!hasLights) 
 		{
 			return "";
-		} 
+		}
+
 		return lights.ToJson () + ",";
 	}
 
