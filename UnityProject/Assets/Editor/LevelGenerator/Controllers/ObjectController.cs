@@ -19,6 +19,8 @@ public class ObjectController
 	private static KeyListener keyListener = new KeyListener();
 	private static bool lightSelection = false;
 
+	private static List<GameObject> selectedGameObjects = new List<GameObject>();
+
 	public static GameObject GetContext()
 	{
 		GameObject go = GameObject.Find(contextName);
@@ -81,25 +83,52 @@ public class ObjectController
 
 	public static IsometricPosition GetPosition()
 	{
+		// TEMPORARY
 		return GetGameObjects()[0].GetComponent<IsometricPosition> ();
 	}
 
 	public static GameObject[] GetGameObjects()
 	{
+		List<GameObject> previousSelection = new List<GameObject>(selectedGameObjects);
+		selectedGameObjects.Clear();
+
+		foreach (GameObject gameObject in Selection.gameObjects) 
+		{
+			selectedGameObjects.Add(gameObject);
+			previousSelection.Remove(gameObject);
+
+			SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+
+			if (renderer != null) 
+			{
+				Color color = renderer.color;
+				color.a = 0.5f;
+
+				gameObject.GetComponent<SpriteRenderer>().color = color;
+			}
+
+		}
+
+		// Handle those not selected anymore.
+		foreach (GameObject gameObject in previousSelection) 
+			if (gameObject != null) 
+			{
+				SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+				if (renderer != null)
+				{
+					Color color = renderer.color;
+					color.a = 1.0f;
+
+					renderer.color = color;
+				}
+			}	
+				
 		return Selection.gameObjects;
 	}
 
 	public static bool SelectedGameObject()
 	{
-		try 
-		{
-			var t = Selection.activeGameObject.name;
-		}
-		catch (Exception e)
-		{
-			return false;
-		}
-		return true;
+		return Selection.gameObjects.Length > 0;
 	}
 }
 
