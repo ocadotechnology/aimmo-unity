@@ -19,6 +19,8 @@ public class ObjectController
 	private static KeyListener keyListener = new KeyListener();
 	private static bool lightSelection = false;
 
+	private static List<GameObject> selectedGameObjects = new List<GameObject>();
+
 	public static GameObject GetContext()
 	{
 		GameObject go = GameObject.Find(contextName);
@@ -81,25 +83,46 @@ public class ObjectController
 
 	public static IsometricPosition GetPosition()
 	{
+		// TEMPORARY
 		return GetGameObjects()[0].GetComponent<IsometricPosition> ();
 	}
 
 	public static GameObject[] GetGameObjects()
 	{
+		List<GameObject> previousSelection = new List<GameObject>(selectedGameObjects);
+		selectedGameObjects.Clear();
+
+		foreach (GameObject gameObject in Selection.gameObjects) 
+		{
+			selectedGameObjects.Add(gameObject);
+			previousSelection.Remove(gameObject);
+
+			ChangeSpriteRendererAlpha(gameObject, 0.5f);
+		}
+
+		// Handle those not selected anymore.
+		foreach (GameObject gameObject in previousSelection)
+			if (gameObject != null)
+				ChangeSpriteRendererAlpha(gameObject, 1.0f);
+				
 		return Selection.gameObjects;
 	}
 
 	public static bool SelectedGameObject()
 	{
-		try 
+		return Selection.gameObjects.Length > 0;
+	}
+
+	private static void ChangeSpriteRendererAlpha(GameObject gameObject, float alpha)
+	{
+		SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+		if (renderer != null)
 		{
-			var t = Selection.activeGameObject.name;
+			Color color = renderer.color;
+			color.a = alpha;
+
+			renderer.color = color;
 		}
-		catch (Exception e)
-		{
-			return false;
-		}
-		return true;
 	}
 }
 
