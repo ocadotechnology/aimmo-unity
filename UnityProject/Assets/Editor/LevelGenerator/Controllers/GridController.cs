@@ -11,7 +11,7 @@ public class GridController
 	private static float shiftX = Mathf.Sqrt(2.0f) / 2;
 	private static float shiftY = Mathf.Sqrt(2.0f / 3.0f) / 2;
 
-	private static GameObject grid = null;
+	private static GameObject grid = GameObject.Find ("Grid");
 	private static GameObject points = null;
 	private static GameObject lines = null;
 
