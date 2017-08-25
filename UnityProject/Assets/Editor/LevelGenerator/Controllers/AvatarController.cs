@@ -7,16 +7,18 @@ using System.IO;
 
 public class AvatarController
 {
-	private static string avatarName = "AvatarView";
+	private static string avatarName = "Avatar";
 
 	public static void CreateAvatar(float x, float y)
 	{
 		Debug.Log("Creating avatar");
-		GameObject avatarView = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		avatarView.name = avatarName;
+		GameObject avatar = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		avatar.name = avatarName;
+		avatar.GetComponent<Renderer>().material = new Material(Shader.Find("Diffuse"));
+		avatar.GetComponent<Renderer>().material.color = Color.cyan;
+		avatar.transform.localScale = new Vector3(0.3f, 1.0f, 0.3f);
 
-		Avatar avatar = avatarView.AddComponent<Avatar> ();
-		avatar.Init(x, y);
+		avatar.AddComponent<Avatar>().Init(x, y);
 	}
 
 	public static void RemoveAvatar()
