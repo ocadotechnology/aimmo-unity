@@ -17,6 +17,7 @@ public class ObjectController
 	 */
 	private static string contextName = "Level Generator Context";
 	private static KeyListener keyListener = new KeyListener();
+	private static bool lightSelection = false;
 
 	public static GameObject GetContext()
 	{
@@ -38,23 +39,36 @@ public class ObjectController
 		}
 	}
 
-	public static void LightMove(float x, float y)
+	public static void SwitchLightSelection()
+	{
+		lightSelection = !lightSelection;
+	}
+
+	public static bool GetLightSelection()
+	{
+		return lightSelection;
+	}
+
+	public static void MoveLight(float x, float y)
 	{
 		GameObject[] gameObjects = GetGameObjects();
 
 		foreach (GameObject gameObject in gameObjects) 
 		{
+			Debug.Log (x.ToString ("0.00") + " " + y.ToString ("0.00"));
 			Light lightObject = gameObject.GetComponentInChildren<Light>();
 
+			Debug.Log (lightObject);
 			if (lightObject == null) 
 			{
 				continue;
 			}
 
 			GameObject lightAttachedTo = lightObject.gameObject;
+			Debug.Log (lightAttachedTo);
 
-			Vector3 position = gameObject.transform.position;
-			position.Set(position.x + x, position.y + y, position.z);
+			Vector3 position = lightAttachedTo.transform.position;
+			lightAttachedTo.transform.position = new Vector3(position.x + x, position.y + y, position.z);
 		}
 	}
 		

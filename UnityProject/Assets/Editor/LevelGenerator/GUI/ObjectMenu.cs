@@ -45,7 +45,22 @@ class ObjectMenu : IMenu
 		KeyListener keyListener = ObjectController.GetKeyListener ();
 		keyListener.ClearKeys ();
 
-		Action<float, float> moveAction = (x, y) => ObjectController.Move(x, y);
+		// Switch the select mode to lights
+		keyListener.RegisterKey (KeyCode.L, () => {
+			Debug.Log("Switching light selection");
+			ObjectController.SwitchLightSelection();
+		});
+
+
+		Action<float, float> moveAction;
+		if (!ObjectController.GetLightSelection ()) 
+		{
+			moveAction = (x, y) => ObjectController.Move (x, y);
+		} 
+		else 
+		{
+			moveAction = (x, y) => ObjectController.MoveLight (- 0.1f * y, 0.1f * x);
+		}
 
 		keyListener.RegisterKey (KeyCode.W, () => {
 			Debug.Log("Up");
