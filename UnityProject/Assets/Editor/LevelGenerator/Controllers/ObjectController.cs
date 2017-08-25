@@ -97,31 +97,13 @@ public class ObjectController
 			selectedGameObjects.Add(gameObject);
 			previousSelection.Remove(gameObject);
 
-			SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-
-			if (renderer != null) 
-			{
-				Color color = renderer.color;
-				color.a = 0.5f;
-
-				gameObject.GetComponent<SpriteRenderer>().color = color;
-			}
-
+			ChangeSpriteRendererAlpha(gameObject, 0.5f);
 		}
 
 		// Handle those not selected anymore.
-		foreach (GameObject gameObject in previousSelection) 
-			if (gameObject != null) 
-			{
-				SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
-				if (renderer != null)
-				{
-					Color color = renderer.color;
-					color.a = 1.0f;
-
-					renderer.color = color;
-				}
-			}	
+		foreach (GameObject gameObject in previousSelection)
+			if (gameObject != null)
+				ChangeSpriteRendererAlpha(gameObject, 1.0f);
 				
 		return Selection.gameObjects;
 	}
@@ -129,6 +111,18 @@ public class ObjectController
 	public static bool SelectedGameObject()
 	{
 		return Selection.gameObjects.Length > 0;
+	}
+
+	private static void ChangeSpriteRendererAlpha(GameObject gameObject, float alpha)
+	{
+		SpriteRenderer renderer = gameObject.GetComponent<SpriteRenderer>();
+		if (renderer != null)
+		{
+			Color color = renderer.color;
+			color.a = alpha;
+
+			renderer.color = color;
+		}
 	}
 }
 
