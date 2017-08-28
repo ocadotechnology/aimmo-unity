@@ -176,7 +176,7 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 		string unqualifiedTypeName = typeName.Split(',')[0].Split('.')[1];
 
 		return @"
-			""type"" : " + unqualifiedTypeName  + @",
+			""type"" : """ + unqualifiedTypeName  + @""",
 			""sprite"" : {
 				""width"" : " + width.ToString() + @",  
 				""height"" : " + height.ToString() + @",
