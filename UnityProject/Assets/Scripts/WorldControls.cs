@@ -161,7 +161,7 @@ public class WorldControls : MonoBehaviour
 		JSONNode updates = JSON.Parse(updatesString);
 
 		// TEMPORARY. We only subscribe to the relevant updates.
-		//if (userId == updates["main_player"].AsInt)
+		if (userId == updates["main_player"].AsInt)
 			dataQueue.Enqueue(updates);
 	}
 
