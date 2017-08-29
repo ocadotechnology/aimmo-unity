@@ -52,6 +52,23 @@ class UtilityMenu : IMenu
 		});
 
 		TryLevel(levels);
+
+		GridToggle ();
+	}
+
+	private bool showGrid = true;
+
+	private void GridToggle ()
+	{
+		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
+
+		GridController.BuildGrid ();
+		showGrid = EditorGUILayout.Toggle("Grid", showGrid);
+
+		if (GridController.IsActive () != showGrid) 
+		{
+			GridController.SetActive (showGrid);
+		}
 	}
 
 	private string GetExportJson(string[] levels)
