@@ -16,23 +16,64 @@ public class ObjectMenu : IMenu
 	 *   "inspector" which shows the X and Y coordinates.
 	 */
 
-	private bool onInit;
-	private ActionListener actionListener;
+
+	private Action coroutine;
+
 
 	public ObjectMenu()
 	{
-		onInit = true;
+		RegisterCoroutineListeners ();
+	}
+
+	private class TimedAction
+	{
+		private Action action;
+		private float startTime;
+		private float timeInterval;
+
+		public TimedAction(Action action, float timeInteval)
+		{
+			this.action = action;
+			this.timeInterval = timeInterval;
+			this.startTime = Time.time;
+		}
+
+		private void Execute()
+		{
+			float now = Time.time;
+			Debug.Log (startTime);
+			Debug.Log (now - timeInterval);
+			if (now - timeInterval >= startTime) 
+			{
+				Debug.Log ("Execute");
+				startTime = now;
+				action ();
+			}
+		}
+
+		public Action Action()
+		{
+			return () => Execute ();
+		}
+	}
+
+	private void EditorCoroutine(Action action)
+	{
+		//coroutine = new TimedAction(action, 5.0f).Action();
+	
+		// Adding an acction to EditorApplication update
+		//EditorApplication.update += EditorUpdate;
+	}
+
+	private void EditorUpdate()
+	{	
+		coroutine ();
 	}
 
 	private void RegisterCoroutineListeners()
 	{
-		actionListener = ObjectController.GetContext ().GetComponent<ActionListener> ();
-		if (actionListener == null) 
-		{
-			actionListener = ObjectController.GetContext ().AddComponent<ActionListener> ();
-		}
-
-		actionListener.RegisterAction ("object movement", () => {
+		Debug.Log ("Register");
+		EditorCoroutine (() => {
 			if (ObjectController.SelectedGameObject ()) 
 			{
 				RegisterKeyListeners ();
@@ -46,8 +87,6 @@ public class ObjectMenu : IMenu
 
 	public void Display()
 	{
-		RegisterCoroutineListeners ();
-
 		if (ObjectController.SelectedGameObject ()) 
 		{
 			InternalObjectMenu ();
