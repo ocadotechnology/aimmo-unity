@@ -7,82 +7,31 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
+
 public class ObjectMenu : IMenu
 {
-	/**
+	/***
 	 * ObjectMenu:
 	 *   a menu used for attaching and detaching key listeners 
 	 *   when an object is selected. It also provides a basic 
 	 *   "inspector" which shows the X and Y coordinates.
 	 */
 
-
-	private Action coroutine;
-
-
 	public ObjectMenu()
 	{
-		RegisterCoroutineListeners ();
+		EditorApplication.update += Update;
 	}
 
-	private class TimedAction
+	private void Update()
 	{
-		private Action action;
-		private float startTime;
-		private float timeInterval;
-
-		public TimedAction(Action action, float timeInteval)
+		if (ObjectController.SelectedGameObject ()) 
 		{
-			this.action = action;
-			this.timeInterval = timeInterval;
-			this.startTime = Time.time;
-		}
-
-		private void Execute()
+			RegisterKeyListeners ();
+		} 
+		else 
 		{
-			float now = Time.time;
-			Debug.Log (startTime);
-			Debug.Log (now - timeInterval);
-			if (now - timeInterval >= startTime) 
-			{
-				Debug.Log ("Execute");
-				startTime = now;
-				action ();
-			}
+			ClearKeyListeners ();
 		}
-
-		public Action Action()
-		{
-			return () => Execute ();
-		}
-	}
-
-	private void EditorCoroutine(Action action)
-	{
-		//coroutine = new TimedAction(action, 5.0f).Action();
-	
-		// Adding an acction to EditorApplication update
-		//EditorApplication.update += EditorUpdate;
-	}
-
-	private void EditorUpdate()
-	{	
-		coroutine ();
-	}
-
-	private void RegisterCoroutineListeners()
-	{
-		Debug.Log ("Register");
-		EditorCoroutine (() => {
-			if (ObjectController.SelectedGameObject ()) 
-			{
-				RegisterKeyListeners ();
-			} 
-			else 
-			{
-				ClearKeyListeners ();
-			}
-		});
 	}
 
 	public void Display()
@@ -110,7 +59,6 @@ public class ObjectMenu : IMenu
 			Debug.Log("Switching light selection");
 			ObjectController.SwitchLightSelection();
 		});
-
 
 		Action<float, float> moveAction;
 		if (!ObjectController.GetLightSelection ()) 
