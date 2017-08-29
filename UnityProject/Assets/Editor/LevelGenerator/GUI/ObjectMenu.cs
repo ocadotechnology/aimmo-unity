@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
-class ObjectMenu : IMenu
+public class ObjectMenu : IMenu
 {
 	/**
 	 * ObjectMenu:
@@ -16,20 +16,41 @@ class ObjectMenu : IMenu
 	 *   "inspector" which shows the X and Y coordinates.
 	 */
 
+	private bool onInit;
+	private ActionListener actionListener;
+
 	public ObjectMenu()
 	{
+		onInit = true;
+	}
+
+	private void RegisterCoroutineListeners()
+	{
+		actionListener = ObjectController.GetContext ().GetComponent<ActionListener> ();
+		if (actionListener == null) 
+		{
+			actionListener = ObjectController.GetContext ().AddComponent<ActionListener> ();
+		}
+
+		actionListener.RegisterAction ("object movement", () => {
+			if (ObjectController.SelectedGameObject ()) 
+			{
+				RegisterKeyListeners ();
+			} 
+			else 
+			{
+				ClearKeyListeners ();
+			}
+		});
 	}
 
 	public void Display()
 	{
+		RegisterCoroutineListeners ();
+
 		if (ObjectController.SelectedGameObject ()) 
 		{
 			InternalObjectMenu ();
-			RegisterKeyListeners ();
-		} 
-		else 
-		{
-			ClearKeyListeners ();
 		}
 	}
 
