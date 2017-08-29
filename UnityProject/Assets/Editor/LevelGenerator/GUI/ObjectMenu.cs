@@ -22,11 +22,26 @@ public class ObjectMenu : IMenu
 	public ObjectMenu()
 	{
 		keysRegistered = false;
+
+		/**
+		 * This adds a callback to the editor application update.
+		 *
+		 * This allows us to register controlls using the key listener.
+		 * 
+		 * We use keysRegisterd to register the controlls only once as when
+		 * controlls are registred, the other hotkeys are temproarilly deactivated.
+		 * 
+		 * The original Unity hotkeys will not be overrided due to the += operator.
+		 */
 		EditorApplication.update += Update;
 	}
 
 	private void Update()
 	{
+		/**
+		 * Register the keys when an object or more are selected.
+		 * Disable them when nothing is selected.
+		 */
 		if (ObjectController.SelectedGameObject ()) 
 		{
 			if (!keysRegistered) 
@@ -47,6 +62,10 @@ public class ObjectMenu : IMenu
 
 	public void Display()
 	{
+		/**
+		 * The display is updated only on hover, while the keys
+		 * should be registed inside the update function.
+		 */
 		if (ObjectController.SelectedGameObject ()) 
 		{
 			InternalObjectMenu ();
