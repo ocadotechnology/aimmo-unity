@@ -22,7 +22,7 @@ public class ObjectMenu : IMenu
 	public ObjectMenu()
 	{
 		keysRegistered = false;
-		EditorApplication.update = Update;
+		EditorApplication.update += Update;
 	}
 
 	private void Update()
@@ -96,10 +96,6 @@ public class ObjectMenu : IMenu
 		keyListener.RegisterKey (KeyCode.D, () => {
 			Debug.Log("Right");
 			moveAction(0, -1);
-		});
-		keyListener.RegisterKey (KeyCode.C, () => {
-			EditorApplication.ExecuteMenuItem("Edit/Copy");
-			EditorApplication.ExecuteMenuItem("Edit/Paste");
 		});
 	}
 
