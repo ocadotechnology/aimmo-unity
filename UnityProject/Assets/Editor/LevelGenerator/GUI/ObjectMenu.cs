@@ -17,20 +17,31 @@ public class ObjectMenu : IMenu
 	 *   "inspector" which shows the X and Y coordinates.
 	 */
 
+	private bool keysRegistered;
+
 	public ObjectMenu()
 	{
-		EditorApplication.update += Update;
+		keysRegistered = false;
+		EditorApplication.update = Update;
 	}
 
 	private void Update()
 	{
 		if (ObjectController.SelectedGameObject ()) 
 		{
-			RegisterKeyListeners ();
+			if (!keysRegistered) 
+			{
+				keysRegistered = true;
+				RegisterKeyListeners ();
+			}
 		} 
 		else 
 		{
-			ClearKeyListeners ();
+			if (keysRegistered) 
+			{
+				keysRegistered = false;
+				ClearKeyListeners ();
+			}
 		}
 	}
 
@@ -86,6 +97,10 @@ public class ObjectMenu : IMenu
 			Debug.Log("Right");
 			moveAction(0, -1);
 		});
+		keyListener.RegisterKey (KeyCode.C, () => {
+			EditorApplication.ExecuteMenuItem("Edit/Copy");
+			EditorApplication.ExecuteMenuItem("Edit/Paste");
+		});
 	}
 
 	private void InternalObjectMenu()
@@ -95,6 +110,8 @@ public class ObjectMenu : IMenu
 		GameObject go = ObjectController.GetGameObjects()[0];
 
 		GUILayout.Label("Use W, A, S, D to move objects once they are selected.");
+		GUILayout.Label("Use C to copy objects.");
+		GUILayout.Label("Use L to switch to light selection.");
 
 		GUILayout.BeginHorizontal ();
 		IsometricPosition pos = ObjectController.GetPosition();
