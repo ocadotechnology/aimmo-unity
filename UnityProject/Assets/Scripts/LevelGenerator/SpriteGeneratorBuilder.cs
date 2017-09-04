@@ -172,7 +172,12 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 
 	private string GetSprite()
 	{
-		return @"""sprite"" : {
+		// TODO: The type should not be exported from here, to refactor
+		string unqualifiedTypeName = typeName.Split(',')[0].Split('.')[1];
+
+		return @"
+			""code"" : """ + unqualifiedTypeName  + @""",
+			""sprite"" : {
 				""width"" : " + width.ToString() + @",  
 				""height"" : " + height.ToString() + @",
 				" + GetLights() + @" 

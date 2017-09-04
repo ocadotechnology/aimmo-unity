@@ -42,11 +42,12 @@ namespace MapFeatures
 
 		public string ToJson()
 		{
-			return @" lights : {  
+			string formattedColor = @"""" + color + @"""";
+			return @" ""lights"" : {  
 				""x"" : " + x.ToString("0.000") + @",
 				""y"" : " + y.ToString("0.000") + @",
 				""intensity"" : " + intensity.ToString("0.000") + @",
-				""color"" : " + color + @",
+				""color"" : " + formattedColor + @",
 				""range"" : " + range.ToString("0.000") + @"
 			}";
 		}
