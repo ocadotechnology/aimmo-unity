@@ -7,29 +7,68 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
-class ObjectMenu : IMenu
+
+public class ObjectMenu : IMenu
 {
-	/**
+	/***
 	 * ObjectMenu:
 	 *   a menu used for attaching and detaching key listeners 
 	 *   when an object is selected. It also provides a basic 
 	 *   "inspector" which shows the X and Y coordinates.
 	 */
 
+	private bool keysRegistered;
+
 	public ObjectMenu()
 	{
+		keysRegistered = false;
+
+		/**
+		 * This adds a callback to the editor application update.
+		 *
+		 * This allows us to register controlls using the key listener.
+		 * 
+		 * We use keysRegisterd to register the controlls only once as when
+		 * controlls are registred, the other hotkeys are temproarilly deactivated.
+		 * 
+		 * The original Unity hotkeys will not be overrided due to the += operator.
+		 */
+		EditorApplication.update += Update;
+	}
+
+	private void Update()
+	{
+		/**
+		 * Register the keys when an object or more are selected.
+		 * Disable them when nothing is selected.
+		 */
+		if (ObjectController.SelectedGameObject ()) 
+		{
+			if (!keysRegistered) 
+			{
+				keysRegistered = true;
+				RegisterKeyListeners ();
+			}
+		} 
+		else 
+		{
+			if (keysRegistered) 
+			{
+				keysRegistered = false;
+				ClearKeyListeners ();
+			}
+		}
 	}
 
 	public void Display()
 	{
+		/**
+		 * The display is updated only on hover, while the keys
+		 * should be registed inside the update function.
+		 */
 		if (ObjectController.SelectedGameObject ()) 
 		{
 			InternalObjectMenu ();
-			RegisterKeyListeners ();
-		} 
-		else 
-		{
-			ClearKeyListeners ();
 		}
 	}
 
@@ -50,7 +89,6 @@ class ObjectMenu : IMenu
 			Debug.Log("Switching light selection");
 			ObjectController.SwitchLightSelection();
 		});
-
 
 		Action<float, float> moveAction;
 		if (!ObjectController.GetLightSelection ()) 
@@ -87,6 +125,8 @@ class ObjectMenu : IMenu
 		GameObject go = ObjectController.GetGameObjects()[0];
 
 		GUILayout.Label("Use W, A, S, D to move objects once they are selected.");
+		GUILayout.Label("Use C to copy objects.");
+		GUILayout.Label("Use L to switch to light selection.");
 
 		GUILayout.BeginHorizontal ();
 		IsometricPosition pos = ObjectController.GetPosition();
