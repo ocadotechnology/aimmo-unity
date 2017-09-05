@@ -38,6 +38,9 @@ public class ObjectMenu : IMenu
 
 	private void Update()
 	{
+		// TEMPORARY
+		ObjectController.GetGameObjects();
+
 		/**
 		 * Register the keys when an object or more are selected.
 		 * Disable them when nothing is selected.
@@ -68,7 +71,7 @@ public class ObjectMenu : IMenu
 		 */
 		if (ObjectController.SelectedGameObject ()) 
 		{
-			InternalObjectMenu ();
+			InternalObjectMenu();
 		}
 	}
 

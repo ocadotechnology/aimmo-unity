@@ -1,0 +1,1537 @@
+[{
+				
+				"x": 0.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 400,
+				 
+				"path" : "Frontdoor-red-400x400-isometric-left",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : 0.707,
+				"y" : -0.941,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : -3.536,
+				"y" : 2.325,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : 2.828,
+				"y" : -0.533,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : 0.707,
+				"y" : 2.325,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : -2.121,
+				"y" : 2.325,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : -0.707,
+				"y" : 2.325,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : -1.414,
+				"y" : -1.350,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-sidewall-left",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 625,
+				 "lights" : {  
+				"x" : -6.364,
+				"y" : 0.692,
+				"intensity" : 1.000,
+				"color" : "#000000",
+				"range" : 4.000
+			}, 
+				"path" : "Street-gaslamp-iso-right-on-512x625",
+		}
+	    		},{
+				
+				"x": 1.0000, 
+				"y": -5.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": 4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -2.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": -2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -1.0000, 
+				"y": 3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 0.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 2.0000, 
+				"y": 2.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": 1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -3.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 512,  
+				"height" : 1485,
+				 
+				"path" : "brick-512x1485-isometric-windows-left",
+		}
+	    		},{
+				
+				"x": -5.0000, 
+				"y": -1.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": -4.0000, 
+				"y": 0.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 4.0000, 
+				"y": -3.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		},{
+				
+				"x": 3.0000, 
+				"y": -4.0000, 
+				
+			"code" : "ObstacleGenerator",
+			"sprite" : {
+				"width" : 400,  
+				"height" : 317,
+				 
+				"path" : "Cobbles-400x317-Isometric-top",
+		}
+	    		}]
