@@ -49,7 +49,7 @@ class GeneratorMenu : IMenu
 		GeneratorGUI(typeof(ScorePointGenerator), "Generate score point", scorePointData);
 
 		// Light Data UI
-		lightsUI.Display ();
+		lightsUI.Display();
 	}
 
 	/**

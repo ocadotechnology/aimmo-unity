@@ -32,11 +32,6 @@ public static class EventTracker
 					ObjectController.GetKeyListener ().Receive (Event.current.keyCode);
 					break;
 				}
-				case EventType.mouseDown:
-				{
-					GeneratorWindow.RefreshGUI();
-					break;
-				}
 			}
 		};
 	}

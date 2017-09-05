@@ -32,9 +32,7 @@ public class ObjectController
 
 	public static void Move(float x, float y)
 	{
-		GameObject[] gameObjects = GetGameObjects();
-
-		foreach (GameObject gameObject in gameObjects) 
+		foreach (GameObject gameObject in Selection.gameObjects) 
 		{
 			IsometricPosition position = gameObject.GetComponent<IsometricPosition>();
 			position.Set(position.x + x, position.y + y);
@@ -53,21 +51,14 @@ public class ObjectController
 
 	public static void MoveLight(float x, float y)
 	{
-		GameObject[] gameObjects = GetGameObjects();
-
-		foreach (GameObject gameObject in gameObjects) 
+		foreach (GameObject gameObject in Selection.gameObjects) 
 		{
-			Debug.Log (x.ToString ("0.00") + " " + y.ToString ("0.00"));
 			Light lightObject = gameObject.GetComponentInChildren<Light>();
 
-			Debug.Log (lightObject);
 			if (lightObject == null) 
-			{
 				continue;
-			}
 
 			GameObject lightAttachedTo = lightObject.gameObject;
-			Debug.Log (lightAttachedTo);
 
 			Vector3 position = lightAttachedTo.transform.position;
 			lightAttachedTo.transform.position = new Vector3(position.x + x, position.y + y, position.z);
@@ -81,13 +72,7 @@ public class ObjectController
 		return keyListener;
 	}
 
-	public static IsometricPosition GetPosition()
-	{
-		// TEMPORARY
-		return GetGameObjects()[0].GetComponent<IsometricPosition> ();
-	}
-
-	public static GameObject[] GetGameObjects()
+	public static bool HighlightSelectedObjects()
 	{
 		List<GameObject> previousSelection = new List<GameObject>(selectedGameObjects);
 		selectedGameObjects.Clear();
@@ -105,11 +90,6 @@ public class ObjectController
 			if (gameObject != null)
 				ChangeSpriteRendererAlpha(gameObject, 1.0f);
 				
-		return Selection.gameObjects;
-	}
-
-	public static bool SelectedGameObject()
-	{
 		return Selection.gameObjects.Length > 0;
 	}
 

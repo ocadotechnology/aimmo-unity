@@ -24,6 +24,16 @@ public class GeneratorWindow : EditorWindow
 	 */ 
 	private static GeneratorWindow windowInstance = null;
 
+	// Displays directions.
+	Texture2D controlsTexture;
+
+	// Main menus
+	private IMenu[] menus = {
+		new UtilityMenu(),
+		new GeneratorMenu(),
+		new ObjectMenu()	
+	};
+
 	private static GeneratorWindow GetWindow()
 	{
 		if (windowInstance == null) 
@@ -39,22 +49,15 @@ public class GeneratorWindow : EditorWindow
 		GetWindow().OnOpen();
 	}
 
-	public static void RefreshGUI()
-	{
-	}
-
-	private IMenu[] menus = {
-		new UtilityMenu(),
-		new GeneratorMenu(),
-		new ObjectMenu()	
-	};
-
 	private void OnOpen()
 	{
-		Focus ();
-		Show ();
+		Focus();
+		Show();
 
 		GridController.BuildGrid ();
+	
+		// Load resource.
+		controlsTexture = Resources.Load("Images/controls") as Texture2D;
 	}
 
 	private void BuildButton(string name, Action action)
@@ -72,7 +75,23 @@ public class GeneratorWindow : EditorWindow
 		foreach (IMenu menu in menus) 
 			menu.Display();
 
+		// Close editor window.
 		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 		BuildButton ("Close", () => Close ());
+
+		// Directions to know how to move the objects.
+		if (controlsTexture) 
+		{
+			GUIContent content = new GUIContent();
+			content.image = controlsTexture;
+
+			GUIStyle style = new GUIStyle();
+			style.alignment = TextAnchor.MiddleCenter;
+			style.imagePosition = ImagePosition.ImageOnly;
+			style.stretchHeight = true;
+			style.stretchWidth = true;
+
+			GUILayout.Label(controlsTexture, style);
+		}
 	}
 }

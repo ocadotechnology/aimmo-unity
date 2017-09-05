@@ -38,14 +38,11 @@ public class ObjectMenu : IMenu
 
 	private void Update()
 	{
-		// TEMPORARY
-		ObjectController.GetGameObjects();
-
 		/**
 		 * Register the keys when an object or more are selected.
 		 * Disable them when nothing is selected.
 		 */
-		if (ObjectController.SelectedGameObject ()) 
+		if (ObjectController.HighlightSelectedObjects()) 
 		{
 			if (!keysRegistered) 
 			{
@@ -65,14 +62,7 @@ public class ObjectMenu : IMenu
 
 	public void Display()
 	{
-		/**
-		 * The display is updated only on hover, while the keys
-		 * should be registed inside the update function.
-		 */
-		if (ObjectController.SelectedGameObject ()) 
-		{
-			InternalObjectMenu();
-		}
+		//InternalObjectMenu();
 	}
 
 
@@ -123,7 +113,9 @@ public class ObjectMenu : IMenu
 
 	private void InternalObjectMenu()
 	{
-		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
+		
+
+		/*EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 
 		GameObject go = ObjectController.GetGameObjects()[0];
 
@@ -147,7 +139,7 @@ public class ObjectMenu : IMenu
 			Y = EditorGUILayout.FloatField (Y, GUILayout.MaxWidth (30));
 
 			pos.Set (X, Y);
-		}
+		}*/
 
 		GUILayout.EndHorizontal ();
 	}
