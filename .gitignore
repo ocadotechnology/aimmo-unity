@@ -1,9 +1,14 @@
+# Local unity versioning files. Best to ignore.
+*.meta
+UnityProject/ProjectSettings/ProjectSettings.asset
+UnityProject/ProjectSettings/ProjectVersion.txt
+
 =============== 
 Unity generated
 ===============
-Temp/
-Library/
-Build/
+UnityProject/Temp/
+UnityProject/Library/
+UnityProject/Build/
 
 =====================================
 Visual Studio / MonoDevelop generated
@@ -31,4 +36,3 @@ OS generated
 ehthumbs.db
 Thumbs.db
 .vscode
-/Build
