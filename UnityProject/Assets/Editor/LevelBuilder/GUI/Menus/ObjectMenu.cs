@@ -35,7 +35,7 @@ public class ObjectMenu : IMenu
 	{
 		// Register the keys when an object or more are selected.
 		// Disable them when nothing is selected.
-		if (ObjectController.HighlightSelectedObjects()) 
+		if (ObjectController.HighlightSelectedObjects ()) 
 		{
 			objectSelected = true;
 			if (!keysRegistered) 
@@ -99,7 +99,7 @@ public class ObjectMenu : IMenu
 		if (!ObjectController.GetLightSelection()) 
 			moveAction = (x, y) => ObjectController.Move(x, y);
 		else 
-			moveAction = (x, y) => ObjectController.MoveLight(- 0.1f * y, 0.1f * x);
+			moveAction = (x, y) => ObjectController.MoveLight(-0.1f * y, 0.1f * x);
 
 		// Either way the keys have a similar effect on both. It is important
 		// to point out though that in the case of the objects it moves them around

@@ -7,35 +7,33 @@ using System.Collections;
 using System.Collections.Generic;
 using Serializers;
 
+/* A menu used for generating different types of objects in the same 
+ * way objects are generated for the Main.unity scene.
+ */
+
 class GeneratorMenu : IMenu
 {
-	/**
-	 * GeneratorMenu:
-	 *   a menu used for generating different types of objects in the same 
-	 *   way objects are generated for the Main.unity scene
-	 */
-	private class GenData
+	/* GenData is a class that encapsulates all the values used by the UI interface.
+	 * All of the values get updated each time. We use this design as we have multiple 
+	 * chunks of data, each for different types of Generators.
+ 	 */ 
+	private class GenerationData
 	{
-		/**
-		 * GenData is a class that encapsulates all the values used by the UI interface.
-		 * All of the values get updated each time. We use this design as we have multiple 
-		 * chunks of data, each for different types of Generators.
-	 	*/
 		public int idx = 0;
 		public string width = "";
 		public string height = "";
 	}
 
-	private GenData obstacleData;
-	private GenData healthData;
-	private GenData scorePointData;
+	private GenerationData obstacleData;
+	private GenerationData healthData;
+	private GenerationData scorePointData;
 	private LightSubmenu lightsUI;
 
 	public GeneratorMenu()
 	{
-		obstacleData = new GenData();
-		healthData = new GenData();
-		scorePointData = new GenData();
+		obstacleData = new GenerationData();
+		healthData = new GenerationData();
+		scorePointData = new GenerationData();
 		lightsUI = new LightSubmenu();
 	}
 
@@ -45,8 +43,8 @@ class GeneratorMenu : IMenu
 
 		// Generators.
 		GeneratorGUI(typeof(ObstacleGenerator), "Generate obstacle", obstacleData);
-		GeneratorGUI(typeof(HealthPointGenerator), "Generate health point", healthData);
-		GeneratorGUI(typeof(ScorePointGenerator), "Generate score point", scorePointData);
+		//GeneratorGUI(typeof(HealthPointGenerator), "Generate health point", healthData);
+		//GeneratorGUI(typeof(ScorePointGenerator), "Generate score point", scorePointData);
 
 		// Light Data UI
 		lightsUI.Display();
@@ -56,7 +54,7 @@ class GeneratorMenu : IMenu
 	 * Generates GUI elements given a type of generator.
 	 * The GenData it points to should not be shared by multiple UI elements.
 	 */
-	private void GeneratorGUI(Type generatorType, string buttonName, GenData data)
+	private void GeneratorGUI(Type generatorType, string buttonName, GenerationData data)
 	{
 		SpriteGeneratorBuilder builder = ObjectController.GetContext().
 			AddComponent<SpriteGeneratorBuilder>().CreateBuilder(generatorType);

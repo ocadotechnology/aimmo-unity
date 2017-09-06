@@ -39,6 +39,9 @@ class LightSubmenu : IMenu
 			}
 			catch (FormatException e)
 			{
+				Debug.Log (
+					"Light x/y format exception." +
+					"Please make sure you write an integer.");
 			}
 		}
 	}
