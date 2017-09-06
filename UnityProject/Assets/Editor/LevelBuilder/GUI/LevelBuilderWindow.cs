@@ -59,34 +59,25 @@ public class LevelBuilderWindow : EditorWindow
 
 	private void OnOpen()
 	{
-		GridController.BuildGrid();
-	
 		// Load resource.
-		controlsTexture = Resources.Load("Images/controls") as Texture2D;
-	}
-
-	private void BuildButton(string name, Action action)
-	{
-		if (GUILayout.Button(new GUIContent(name, ""))) 
-			action();
+		controlsTexture = (Texture2D) Resources.Load("Images/controls");
 	}
 
 	public void OnGUI()
 	{
+		// Level buttons
 		GUILayout.Label("Select a level below to work on:");
 		foreach (string level in AssetController.GetLevels()) 
-			BuildButton(level, () => AssetController.WorkOnLevel(level));
-
+			if (GUILayout.Button(new GUIContent(level, ""))) 
+				AssetController.WorkOnLevel(level);
 		// Only
 		if (SceneManager.GetActiveScene().name.Equals("Main"))
 			return;
 
+		GridController.BuildGrid();
+
 		foreach (IMenu menu in menus) 
 			menu.Display();
-
-		// Close editor window.
-		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
-		BuildButton ("Close", () => Close ());
 
 		// Directions to know how to move the objects.
 		if (controlsTexture) 

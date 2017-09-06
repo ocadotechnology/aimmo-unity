@@ -41,7 +41,7 @@ public class AssetController
 
 	public static IList<string> GetLevels()
 	{
-		return GetResourceNames("Assets/Scenes", ".unity").ToList();
+		return GetResourceNames("Assets/Scenes/Levels", ".unity").ToList();
 	}
 
 	private static List<string> GetResourceNames(string resPath, string extension)

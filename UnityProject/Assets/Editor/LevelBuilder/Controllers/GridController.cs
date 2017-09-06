@@ -8,19 +8,21 @@ using System.Linq;
 
 public class GridController
 {
-	private static float shiftX = Mathf.Sqrt(2.0f) / 2;
-	private static float shiftY = Mathf.Sqrt(2.0f / 3.0f) / 2;
+	private const float pointScale = 0.1f;
+	private const float lineScale = 0.02f;
 
-	private static GameObject grid = GameObject.Find ("Grid");
-	private static GameObject points = null;
-	private static GameObject lines = null;
+	private static int height;
+	private static int width;
+
+	private static GameObject grid;
+	private static GameObject points;
+	private static GameObject lines;
 
 	public static void BuildGrid()
 	{
+		grid = GameObject.Find("Grid");
 		if (grid != null) 
-		{
 			return;
-		}
 
 		grid = new GameObject("Grid");
 		points = new GameObject("Points");
@@ -28,39 +30,25 @@ public class GridController
 
 		points.transform.parent = grid.transform;
 		lines.transform.parent = grid.transform;
-		for (int x = -5; x <= 5; x++) 
+
+		float maxX = Convert.ToSingle((width - 1) / 2);
+		float minX = Convert.ToSingle(-width / 2);
+		float maxY = Convert.ToSingle((width - 1) / 2);
+		float minY = Convert.ToSingle(-width / 2);
+
+		for (float x = minX; x <= maxX; x += 1.0f) 
 		{
-			float depth = x + 1;
-			float isoX = ((float)x) - 0.5f;
-			float isoY = -0.5f;
+			GameObject horizontalLine = GenerateLine(x - 0.5f, -0.5f, width, true);
+			horizontalLine.transform.parent = lines.transform;
+		}
 
-			GameObject lineH = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			lineH.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
-			lineH.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
-			lineH.transform.position = new Vector3(
-				(isoX - isoY) * shiftX,
-				(isoX + isoY) * shiftY,
-				depth);
-			lineH.transform.localScale = new Vector3(0.02f, 5.0f * Mathf.Sqrt(2.0f), 0.02f);
-			lineH.transform.rotation = Quaternion.FromToRotation(
-				Vector3.up,
-				new Vector3(-shiftX, shiftY, 1.0f)) * lineH.transform.rotation;
-			lineH.transform.parent = lines.transform;
+		for (float y = minY; y <= maxY; y += 1.0f) 
+		{
+			GameObject verticalLine = GenerateLine(-0.5f, y -0.5f, height, false);
+			verticalLine.transform.parent = lines.transform;
+		}
 
-			GameObject lineV = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-			lineV.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
-			lineV.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
-			lineV.transform.position = new Vector3(
-				(isoY - isoX) * shiftX,
-				(isoY + isoX) * shiftY,
-				depth);
-			lineV.transform.localScale = new Vector3(0.02f, 5.0f * Mathf.Sqrt(2.0f), 0.02f);
-			lineV.transform.rotation = Quaternion.FromToRotation(
-				Vector3.up,
-				new Vector3(shiftX, shiftY, 1.0f)) * lineV.transform.rotation;
-			lineV.transform.parent = lines.transform;
-
-			for (int y = -5; y <= 5; y++) 
+		/*for (int y = -5; y <= 5; y++) 
 			{
 				GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 				point.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
@@ -81,8 +69,37 @@ public class GridController
 					depth);
 
 				point.transform.parent = points.transform;
-			}
-		}
+			}*/
+	}
+
+	// Generate a long yellow cilinder representing a line.
+	private static GameObject GenerateLine(float x, float y, float length, bool xAxis)
+	{
+		GameObject line = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		line.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
+		line.GetComponent<Renderer>().sharedMaterial.color = Color.yellow;
+
+		// Pin the line.
+		line.AddComponent<IsometricPosition>().Set(x, y, 1.0f);
+
+		// Rescale it.
+		line.transform.localScale = new Vector3(
+			lineScale, 
+			width * Constants.IsometricShiftX, 
+			lineScale);
+
+		// Rotate it facing towards the nearest point up left or up right. To
+		// understand the maths better, go to the IsometricPosition class.
+		Vector3 finalDirection = new Vector3(
+             (xAxis ? 1.0f : -1.0f) * Constants.IsometricShiftX, 
+             Constants.IsometricShiftY, 
+             1.0f);
+		Quaternion requiredRotation = Quaternion.FromToRotation(
+        	Vector3.up,
+        	finalDirection);
+		line.transform.rotation = requiredRotation * line.transform.rotation;
+
+		return line;
 	}
 
 	public static bool IsActive()
