@@ -1,18 +1,18 @@
-﻿using UnityEditor;
-using UnityEngine;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
 public class GridController
 {
 	private const float pointScale = 0.1f;
 	private const float lineScale = 0.02f;
 
-	private static int height;
-	private static int width;
+	private static int height = 5;
+	private static int width = 5;
 
 	private static GameObject grid;
 	private static GameObject points;
@@ -33,47 +33,25 @@ public class GridController
 
 		float maxX = Convert.ToSingle((width - 1) / 2);
 		float minX = Convert.ToSingle(-width / 2);
-		float maxY = Convert.ToSingle((width - 1) / 2);
-		float minY = Convert.ToSingle(-width / 2);
+		float maxY = Convert.ToSingle((height - 1) / 2);
+		float minY = Convert.ToSingle(-height / 2);
 
-		for (float x = minX; x <= maxX; x += 1.0f) 
-		{
-			GameObject horizontalLine = GenerateLine(x - 0.5f, -0.5f, width, true);
-			horizontalLine.transform.parent = lines.transform;
-		}
+		// Horizontal lines.
+		for (float x = minX; x <= maxX; x++) 
+			GenerateLine(shiftCoordinate(0.0f), shiftCoordinate(x), width, true);
 
-		for (float y = minY; y <= maxY; y += 1.0f) 
-		{
-			GameObject verticalLine = GenerateLine(-0.5f, y -0.5f, height, false);
-			verticalLine.transform.parent = lines.transform;
-		}
+		// Vertical lines.
+		for (float y = minY; y <= maxY; y++) 
+			GenerateLine(shiftCoordinate(y), shiftCoordinate(0.0f), height, false);
 
-		/*for (int y = -5; y <= 5; y++) 
-			{
-				GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-				point.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
-				point.GetComponent<Renderer>().sharedMaterial.color = Color.green;
-				point.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-
-				depth = x + y + 1;
-				isoX = ((float)x) - 0.5f;
-				isoY = ((float)y) - 0.5f;
-
-				point.name = "point(" +
-					Convert.ToString(isoX) + "," +
-					Convert.ToString(isoY) + ")";
-
-				point.transform.position = new Vector3 (
-					(isoX - isoY) * shiftX,
-					(isoX + isoY) * shiftY,
-					depth);
-
-				point.transform.parent = points.transform;
-			}*/
+		// Points.
+		for (float x = minX; x <= maxX; x++)
+			for (float y = minY; y <= maxY; y += 1.0f)
+				GeneratePoint(shiftCoordinate(x), shiftCoordinate(y));
 	}
 
 	// Generate a long yellow cilinder representing a line.
-	private static GameObject GenerateLine(float x, float y, float length, bool xAxis)
+	private static void GenerateLine(float x, float y, float length, bool xAxis)
 	{
 		GameObject line = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
 		line.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
@@ -99,7 +77,28 @@ public class GridController
         	finalDirection);
 		line.transform.rotation = requiredRotation * line.transform.rotation;
 
-		return line;
+		line.transform.parent = lines.transform;
+	}
+
+	// Generate a green sphere representing a point.
+	private static void GeneratePoint(float x, float y)
+	{
+		GameObject point = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+		point.GetComponent<Renderer>().sharedMaterial = new Material(Shader.Find("Diffuse"));
+		point.GetComponent<Renderer>().sharedMaterial.color = Color.green;
+
+		// Change transform.
+		point.transform.localScale = new Vector3(pointScale, pointScale, pointScale);
+		point.AddComponent<IsometricPosition>().Set(x, y, 1.0f);
+
+		point.transform.parent = points.transform;
+	}
+
+	// Many coordinates are shifted half a unit so that the sprites are position 
+	// inside the tiles that the grid forms and not on top of the intersections.
+	private static float shiftCoordinate(float coordinate)
+	{
+		return coordinate - 0.5f;	
 	}
 
 	public static bool IsActive()
