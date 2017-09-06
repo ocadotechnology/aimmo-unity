@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,14 +9,12 @@ public class GridController
 	private const float pointScale = 0.1f;
 	private const float lineScale = 0.02f;
 
-	private static int height = 5;
-	private static int width = 5;
-
 	private static GameObject grid;
 	private static GameObject points;
 	private static GameObject lines;
 
-	public static void BuildGrid()
+	// Create the grid.
+	public static void BuildGrid(int width, int height)
 	{
 		grid = GameObject.Find("Grid");
 		if (grid != null) 
@@ -46,7 +42,7 @@ public class GridController
 
 		// Points.
 		for (float x = minX; x <= maxX; x++)
-			for (float y = minY; y <= maxY; y += 1.0f)
+			for (float y = minY; y <= maxY; y++)
 				GeneratePoint(shiftCoordinate(x), shiftCoordinate(y));
 	}
 
@@ -63,7 +59,7 @@ public class GridController
 		// Rescale it.
 		line.transform.localScale = new Vector3(
 			lineScale, 
-			width * Constants.IsometricShiftX, 
+			length * Constants.IsometricShiftX, 
 			lineScale);
 
 		// Rotate it facing towards the nearest point up left or up right. To
@@ -101,14 +97,11 @@ public class GridController
 		return coordinate - 0.5f;	
 	}
 
-	public static bool IsActive()
+	// Destroy grid.
+	public static void DestroyGrid()
 	{
-		return grid.activeSelf;
-	}
-
-	public static void SetActive(bool showGrid)
-	{
-		grid.SetActive (showGrid);
+		if (grid != null)
+			UnityEngine.Object.DestroyImmediate(grid);
 	}
 }
 

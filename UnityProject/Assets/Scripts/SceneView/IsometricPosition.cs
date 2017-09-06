@@ -81,9 +81,9 @@ public class IsometricPosition : MonoBehaviour
 		SpriteRenderer[] childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		foreach (SpriteRenderer childSpriteRenderer in childSpriteRenderers)
 			childSpriteRenderer.sortingOrder = sortingOrder;
-
 	}
 
+	// Isometric positions are comparable.
 	public override bool Equals(object obj)
 	{
 		var position = obj as IsometricPosition;
