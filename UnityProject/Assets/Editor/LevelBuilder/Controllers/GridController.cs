@@ -36,13 +36,13 @@ public class GridController
 		float maxY = Convert.ToSingle((height - 1) / 2);
 		float minY = Convert.ToSingle(-height / 2);
 
-		// Horizontal lines.
+		// Vertical lines, i.e. '\'.
 		for (float x = minX; x <= maxX; x++) 
-			GenerateLine(shiftCoordinate(0.0f), shiftCoordinate(x), width, true);
+			GenerateLine(shiftCoordinate(x), shiftCoordinate(0.0f), height, false);
 
-		// Vertical lines.
+		// Horizontal lines, i.e. '/'.
 		for (float y = minY; y <= maxY; y++) 
-			GenerateLine(shiftCoordinate(y), shiftCoordinate(0.0f), height, false);
+			GenerateLine(shiftCoordinate(0.0f), shiftCoordinate(y), width, true);
 
 		// Points.
 		for (float x = minX; x <= maxX; x++)
@@ -108,4 +108,3 @@ public class GridController
 			UnityEngine.Object.DestroyImmediate(grid);
 	}
 }
-

@@ -22,8 +22,6 @@ namespace MapFeatures
 		// Construct from JSON.
 		public MapFeatureData(JSONNode json)
 		{
-			Debug.Log(json.ToString ());
-
 			this.x = json["x"].AsFloat;
 			this.y = json["y"].AsFloat;
 
