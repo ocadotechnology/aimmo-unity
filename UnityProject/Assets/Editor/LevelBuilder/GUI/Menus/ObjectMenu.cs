@@ -35,46 +35,34 @@ public class ObjectMenu : IMenu
 	{
 		// Register the keys when an object or more are selected.
 		// Disable them when nothing is selected.
-		if (ObjectController.HighlightSelectedObjects ()) 
+		if (ObjectController.HighlightSelectedObjects() && !keysRegistered) 
 		{
-			objectSelected = true;
-			if (!keysRegistered) 
-			{
-				keysRegistered = true;
-				RegisterKeyListeners ();
-			}
+			keysRegistered = true;
+			RegisterKeyListeners();
 		} 
-		else 
+		else if (keysRegistered) 
 		{
-			objectSelected = false;
-			if (keysRegistered) 
-			{
-				keysRegistered = false;
-				ClearKeyListeners ();
-			}
+			keysRegistered = false;
+			ClearKeyListeners ();
 		}
 	}
 
 	public void Display()
 	{
-		if (objectSelected) 
-		{
-			// Also show controls image.
-			if (controlsTexture) 
-			{
-				GUIContent content = new GUIContent ();
-				content.image = controlsTexture;
+		EditorGUILayout.LabelField ("", GUI.skin.horizontalSlider);
 
-				GUIStyle style = new GUIStyle ();
-				style.alignment = TextAnchor.MiddleCenter;
-				style.imagePosition = ImagePosition.ImageOnly;
-				style.fixedHeight = 100.0f;
+		// Show controls image.
+		controlsTexture = (Texture2D) Resources.Load("Images/controls");
 
-				GUILayout.Label (controlsTexture, style);
-			} 
-			else
-				controlsTexture = (Texture2D)Resources.Load ("Images/controls");
-		}
+		GUIContent content = new GUIContent();
+		content.image = controlsTexture;
+
+		GUIStyle style = new GUIStyle();
+		style.alignment = TextAnchor.MiddleCenter;
+		style.imagePosition = ImagePosition.ImageOnly;
+		style.fixedHeight = 100.0f;
+
+		GUILayout.Label(controlsTexture, style);
 	}
 
 	private void ClearKeyListeners()
@@ -85,7 +73,7 @@ public class ObjectMenu : IMenu
 
 	private void RegisterKeyListeners()
 	{
-		KeyListener keyListener = ObjectController.GetKeyListener ();
+		KeyListener keyListener = ObjectController.GetKeyListener();
 		keyListener.ClearKeys();
 
 		// Switch the select mode to lights.

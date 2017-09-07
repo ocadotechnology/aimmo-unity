@@ -15,7 +15,7 @@ namespace AIMMOUnityTest
 			""x"": ""1"",
 			""y"": ""2"",
 			""sprite"": {
-				""path"" : ""mock_path"",
+				""path"" : ""Grass-400x400-isometric-top"",
 				""width"" : ""5"",
 				""height"" : ""6""
     		}
