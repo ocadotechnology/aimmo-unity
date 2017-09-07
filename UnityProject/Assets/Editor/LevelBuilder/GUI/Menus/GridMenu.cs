@@ -35,7 +35,7 @@ public class GridMenu : IMenu
 		if (showGrid) 
 			try 
 			{
-				GridController.BuildGrid (Convert.ToInt32 (width), Convert.ToInt32 (height));
+				GridVisualiser.BuildGrid (Convert.ToInt32 (width), Convert.ToInt32 (height));
 			}
 			catch (FormatException exception) 
 			{
@@ -44,7 +44,7 @@ public class GridMenu : IMenu
 					"Please make sure you write an integer.");
 			}
 		else
-			GridController.DestroyGrid();
+			GridVisualiser.DestroyGrid();
 	}
 
 }

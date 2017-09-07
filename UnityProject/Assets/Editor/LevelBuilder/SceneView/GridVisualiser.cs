@@ -8,7 +8,7 @@ using UnityEngine;
  * toggle. Also takes care of destroying it when you untick it.
  */
 
-public class GridController
+public class GridVisualiser
 {
 	private const float pointScale = 0.1f;
 	private const float lineScale = 0.02f;
