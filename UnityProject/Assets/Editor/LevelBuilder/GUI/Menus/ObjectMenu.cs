@@ -35,10 +35,13 @@ public class ObjectMenu : IMenu
 	{
 		// Register the keys when an object or more are selected.
 		// Disable them when nothing is selected.
-		if (ObjectController.HighlightSelectedObjects() && !keysRegistered) 
+		if (ObjectController.HighlightSelectedObjects()) 
 		{
-			keysRegistered = true;
-			RegisterKeyListeners();
+			if (!keysRegistered) 
+			{
+				keysRegistered = true;
+				RegisterKeyListeners();
+			}
 		} 
 		else if (keysRegistered) 
 		{
