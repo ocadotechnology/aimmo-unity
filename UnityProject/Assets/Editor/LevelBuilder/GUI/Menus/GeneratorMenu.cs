@@ -59,7 +59,7 @@ class GeneratorMenu : IMenu
 
 		// A dropdown list which displays all the PNG files that can be used as spites 
 		// See AssetController for 
-		IList<string> spriteList = AssetController.GetSprites();
+		IList<string> spriteList = AssetFetcher.GetSprites();
 		spriteList.Insert(0, "Default Sprite");
 
 		string[] sprites = spriteList.ToArray<string>();

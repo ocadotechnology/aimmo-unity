@@ -15,7 +15,7 @@ using System.Linq;
  * and it works only on Linux and Mac for the moment.
  */
 
-public class AssetController
+public class AssetFetcher
 {
 	public static void WorkOnLevel(string levelName)
 	{

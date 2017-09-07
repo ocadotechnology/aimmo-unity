@@ -23,7 +23,7 @@ namespace Serializers
 		{
 			if (sceneName != null) 
 			{
-				AssetController.WorkOnLevel (sceneName);
+				AssetFetcher.WorkOnLevel (sceneName);
 			}
 		
 			LinkedList<GameObject> objects = GetSceneObjects ();

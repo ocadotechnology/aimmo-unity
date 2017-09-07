@@ -74,9 +74,9 @@ public class LevelBuilderWindow : EditorWindow
 	{
 		// Level buttons.
 		GUILayout.Label("Select a level below to work on:");
-		foreach (string level in AssetController.GetLevels()) 
+		foreach (string level in AssetFetcher.GetLevels()) 
 			if (GUILayout.Button(new GUIContent(level, ""))) 
-				AssetController.WorkOnLevel(level);
+				AssetFetcher.WorkOnLevel(level);
 		
 		// Only let the level designer operate if it's a level. 
 		if (SceneManager.GetActiveScene().name.Equals("Main"))
