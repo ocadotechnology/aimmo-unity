@@ -46,7 +46,7 @@ public class ObjectMenu : IMenu
 		else if (keysRegistered) 
 		{
 			keysRegistered = false;
-			ClearKeyListeners ();
+			ClearKeyListeners();
 		}
 	}
 
@@ -80,35 +80,31 @@ public class ObjectMenu : IMenu
 		keyListener.ClearKeys();
 
 		// Switch the select mode to lights.
-		keyListener.RegisterKey (KeyCode.L, () => 
+		keyListener.RegisterKey(KeyCode.L, () => 
 		{
 			ObjectController.SwitchLightSelection();
 		});
 
 		// Choose if the action is to move the object or the light.
-		Action<float, float> moveAction;
-		if (!ObjectController.GetLightSelection()) 
-			moveAction = (x, y) => ObjectController.Move(x, y);
-		else 
-			moveAction = (x, y) => ObjectController.MoveLight(-0.1f * y, 0.1f * x);
+		Action<float, float> moveAction = (x, y) => ObjectController.Move(x, y);
 
 		// Either way the keys have a similar effect on both. It is important
 		// to point out though that in the case of the objects it moves them around
 		// the grid, whereas for lights they are moved in the 2D plane formed by
 		// the sprite.
-		keyListener.RegisterKey (KeyCode.W, () => 
+		keyListener.RegisterKey(KeyCode.W, () => 
 		{
 			moveAction(1.0f, 0.0f);
 		});
-		keyListener.RegisterKey (KeyCode.A, () => 
+		keyListener.RegisterKey(KeyCode.A, () => 
 		{
 			moveAction(0.0f, 1.0f);
 		});
-		keyListener.RegisterKey (KeyCode.S, () =>
+		keyListener.RegisterKey(KeyCode.S, () =>
 		{
 			moveAction(-1.0f, 0.0f);
 		});
-		keyListener.RegisterKey (KeyCode.D, () => 
+		keyListener.RegisterKey(KeyCode.D, () => 
 		{
 			moveAction(0.0f, -1.0f);
 		});
