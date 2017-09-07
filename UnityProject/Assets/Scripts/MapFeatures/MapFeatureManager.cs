@@ -14,6 +14,7 @@ namespace MapFeatures
 	{
 		public float x, y;
 		public float spriteWidth, spriteHeight;
+		public Texture2D texture; 
 		public string spritePath;
 
 		public LightData lightData;
@@ -22,22 +23,29 @@ namespace MapFeatures
 		// Construct from JSON.
 		public MapFeatureData(JSONNode json)
 		{
-			Debug.Log(json.ToString ());
-
 			this.x = json["x"].AsFloat;
 			this.y = json["y"].AsFloat;
 
 			JSONNode spriteJSON = json["sprite"];
-			this.spritePath = spriteJSON["path"];
-			this.spriteWidth = spriteJSON["width"].AsFloat;
-			this.spriteHeight = spriteJSON["height"].AsFloat;
 
-			this.lightData = new LightData(new Vector3(0, 0, 0));
+			// Loading the 2D texture from the path provided in the JSON
+			// so we can specify the size using the width and height parameters.
+			// We no longer need to give a size in the filename and parse it
+			// via JSON.
+			texture = Resources.Load<Texture2D>(spriteJSON["path"]);
+
+			this.spritePath = spriteJSON["path"];
+
+			// Calling the width and height parameters in the Texture2D object.
+			this.spriteWidth = texture.width;
+			this.spriteHeight = texture.height;
+
+			this.lightData = new LightData(Vector3.zero);
 			this.hasLight = false;
 
-			if (spriteJSON ["lights"] != null) 
+			if (spriteJSON["lights"] != null) 
 			{
-				this.lightData = new LightData (spriteJSON ["lights"]);
+				this.lightData = new LightData(spriteJSON["lights"]);
 				this.hasLight = true;
 			} 
 		}
@@ -123,18 +131,18 @@ namespace MapFeatures
 			return true;
 		}
 
+		// Attach Light
+		public void AttachLight(GameObject mapFeature, LightData lightData)
+		{
+			LightManager lightManager = mapFeature.AddComponent<LightManager>();
+			lightManager.Draw(mapFeature, lightData);
+		}
+
 		// Helps identify the different map features by each having their
 		// name in their game object id.
 		public abstract string MapFeatureId(string id);
 
 		// Sprite initialisation.
 		public abstract void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
-	
-		// Attach Light
-		public void AttachLight (GameObject mapFeature, LightData lightData)
-		{
-			LightManager lightManager = mapFeature.AddComponent<LightManager>();
-			lightManager.Draw (mapFeature, lightData);
-		}
 	}
 }

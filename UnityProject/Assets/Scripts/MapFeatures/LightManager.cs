@@ -52,7 +52,7 @@ namespace MapFeatures
 			}";
 		}
 	}
-		
+
 	class LightManager : MonoBehaviour
 	{
 		public void Draw(GameObject mapFeature, LightData lightData)

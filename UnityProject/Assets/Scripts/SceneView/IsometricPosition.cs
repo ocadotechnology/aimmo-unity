@@ -6,18 +6,10 @@ using UnityEngine;
 /* Every element in the scene has its standard position as well as its isometric
  * position, handled by this script. It translate 2D coordinates as sent by the
  * backend to 3D coordinates in our isometric space, which basically means that 
- * it makes sure that each object is in the correct depth. The following diagram
- * gives a rough idea of how the different levels of depth work in Unity:
+ * it makes sure that each object is in the correct depth. 
  * 
- *  				Camera 
- * 						\ --- depth 0
- * 						 \   \ --- depth 1
- * 						  \   \ --- depth 2
- * 						   /   O --- depth 3
- * 						    \   / --- depth 4
- *
- * In this example we would have a sprite, '/', on front (depth 2) and then the
- * avatar, 'O', sitting on depth 3, on top another sprite in depth 4.
+ * Go to https://github.com/ocadotechnology/aimmo-unity/wiki/Isometric-view for
+ * a more detailed explanation.
  */
 
 public class IsometricPosition : MonoBehaviour
@@ -81,9 +73,9 @@ public class IsometricPosition : MonoBehaviour
 		SpriteRenderer[] childSpriteRenderers = GetComponentsInChildren<SpriteRenderer>();
 		foreach (SpriteRenderer childSpriteRenderer in childSpriteRenderers)
 			childSpriteRenderer.sortingOrder = sortingOrder;
-
 	}
 
+	// Isometric positions are comparable.
 	public override bool Equals(object obj)
 	{
 		var position = obj as IsometricPosition;
