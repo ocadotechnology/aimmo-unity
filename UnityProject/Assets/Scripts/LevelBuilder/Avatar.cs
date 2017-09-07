@@ -3,6 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/* When the level designer decides to play the level, this is the script in charge
+ * of controlling the avatar. Don't get confuse with PlayerController, that one
+ * kind of does the same thing, but only for the actual play mode, the one that
+ * listen to the back-end. This one listens to the keyboard.
+ */
+
 [ExecuteInEditMode]
 public class Avatar : MonoBehaviour
 {
@@ -14,10 +20,10 @@ public class Avatar : MonoBehaviour
 
 	private void RegisterKeys()
 	{
-		var RegisterKey = new Action<KeyCode, Action>((keyCode, action) => 
+		Action RegisterKey = new Action<KeyCode, Action>((keyCode, action) => 
 		{
 			if (Input.GetKeyDown(keyCode)) 
-				action ();
+				action();
 		});
 
 		RegisterKey(KeyCode.W, () => RegisterNextPosition(1.0f, 0.0f));

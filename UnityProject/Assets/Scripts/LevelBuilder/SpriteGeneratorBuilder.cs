@@ -68,16 +68,12 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	{
 		Type type = Type.GetType(typeName);
 
-		/**
-		 * All the generators have only this 2 kinds of contructors.
-		 * 
-		 * We create the instances using Reflection rather than using 
-		 * generics as we do not know the type at runtime. For refence look 
-		 * at Activator documentation.
-		 * 
-		 * The only 2 constructors for the classes present so far inside the 
-		 * Generator module have only the constructors (float, float) and (float, float, string).
-		 */
+		// All the generators have only this 2 kinds of contructors.
+		// We create the instances using Reflection rather than using 
+		// generics as we do not know the type at runtime. For refence look 
+		// at Activator documentation.
+		// The only 2 constructors for the classes present so far inside the 
+		// Generator module have only the constructors (float, float) and (float, float, string).
 		if (path == null) 
 			return (IGenerator) Activator.CreateInstance(type, new object[] {x, y});
 		else 
