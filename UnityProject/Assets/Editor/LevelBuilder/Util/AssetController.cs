@@ -22,7 +22,7 @@ public class AssetController
 		if (!IsScenePresent(levelName)) 
 			throw new UnityException("The level name" + levelName + "seems not to be present");
 
-		EditorApplication.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Editor/LevelBuilder/Levels/" + levelName + ".unity");
+		EditorApplication.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Scenes/Levels/" + levelName + ".unity");
 	}
 
 	private static bool IsScenePresent(string sceneName) 

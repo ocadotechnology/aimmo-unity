@@ -17,20 +17,18 @@ public class Avatar : MonoBehaviour
 		var RegisterKey = new Action<KeyCode, Action>((keyCode, action) => 
 		{
 			if (Input.GetKeyDown(keyCode)) 
-			{
 				action ();
-			}
 		});
 
-		RegisterKey(KeyCode.W, () => RegisterNextPosition(+1, 0));
-		RegisterKey(KeyCode.A, () => RegisterNextPosition(0, +1));
-		RegisterKey(KeyCode.S, () => RegisterNextPosition(-1, 0));
-		RegisterKey(KeyCode.D, () => RegisterNextPosition(0, -1));
+		RegisterKey(KeyCode.W, () => RegisterNextPosition(1.0f, 0.0f));
+		RegisterKey(KeyCode.A, () => RegisterNextPosition(0.0f, 1.0f));
+		RegisterKey(KeyCode.S, () => RegisterNextPosition(-1.0f, 0.0f));
+		RegisterKey(KeyCode.D, () => RegisterNextPosition(0.0f, -1.0f));
 	}
 
 	private void RegisterNextPosition(float diffX, float diffY)
 	{
-		IsometricPosition pos = transform.gameObject.GetComponent<IsometricPosition> ();
+		IsometricPosition pos = transform.gameObject.GetComponent<IsometricPosition>();
 		float x = pos.x + diffX;
 		float y = pos.y + diffY;
 

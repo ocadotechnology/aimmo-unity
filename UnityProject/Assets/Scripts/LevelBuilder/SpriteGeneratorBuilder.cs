@@ -6,24 +6,24 @@ using System.Collections.Generic;
 using System.IO;
 using MapFeatures;
 
+/* A Builder pattern that is used to build Generators. A generators 
+ * is a method that generates an object using a Manager. For more 
+ * details see Editor/LevelGenerator/Generator and the managers 
+ * from Scripts/MapFeatures.
+ * 
+ * The SpriteGeneratorBuilder *has* to be attached to an object.
+ * 
+ * To keep the state of the scene once the scene is close, we *need to keep 
+ * a serializable object* that encasulates the state that describes how an 
+ * object should be generated.
+ * 
+ * The most of design is kept generic-less as Unity does not support adding 
+ * generic components.
+ */
+
 [ExecuteInEditMode]
 public class SpriteGeneratorBuilder : MonoBehaviour
 {
-	/**
-	 * A Builder pattern that is used to build Generators. A generators 
-	 * is a method that generates an object using a Manager. For more 
-	 * details see Editor/LevelGenerator/Generator and the managers 
-	 * from Scripts/MapFeatures.
-	 * 
-	 * The SpriteGeneratorBuilder *has* to be attached to an object.
-	 * 
-	 * To keep the state of the scene once the scene is close, we *need to keep 
-	 * a serializable object* that encasulates the state that describes how an 
-	 * object should be generated.
-	 * 
-	 * The most of design is kept generic-less as Unity does not support adding 
-	 * generic components.
-	 */
 	[SerializeField] private float x;
 	[SerializeField] private float y;
 	[SerializeField] private int width;
@@ -32,11 +32,9 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	[SerializeField] private bool hasLights;
 	[SerializeField] private LightData lights;
 
-	/**
-	 * The type is kept a type name that also refences also the assembly in which the
-	 * type is found. Using a type is harder in this context as the Type may not be
-	 * loaded inside the Assembly-CSharp(as the types are in Assembly-CSharp-Editor).
-	 */
+	// The type is kept a type name that also refences also the assembly in which the
+	// type is found. Using a type is harder in this context as the Type may not be
+	// loaded inside the Assembly-CSharp(as the types are in Assembly-CSharp-Editor).
 	[SerializeField] private string typeName;
 
 	public SpriteGeneratorBuilder CreateBuilder(Type type)
@@ -65,7 +63,6 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 
 		return this;
 	}
-
 
 	public IGenerator Build()
 	{
@@ -140,9 +137,7 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	private string GetLights()
 	{
 		if (!hasLights) 
-		{
 			return "";
-		}
 
 		return lights.ToJson () + ",";
 	}

@@ -32,8 +32,6 @@ class GeneratorMenu : IMenu
 	public GeneratorMenu()
 	{
 		obstacleData = new GenerationData();
-		healthData = new GenerationData();
-		scorePointData = new GenerationData();
 		lightsUI = new LightSubmenu();
 	}
 
@@ -43,8 +41,6 @@ class GeneratorMenu : IMenu
 
 		// Generators.
 		GeneratorGUI(typeof(ObstacleGenerator), "Generate obstacle", obstacleData);
-		//GeneratorGUI(typeof(HealthPointGenerator), "Generate health point", healthData);
-		//GeneratorGUI(typeof(ScorePointGenerator), "Generate score point", scorePointData);
 
 		// Light Data UI
 		lightsUI.Display();
@@ -86,7 +82,7 @@ class GeneratorMenu : IMenu
 				builder = builder.ByHeight (int.Parse (data.height));
 
 			if (lightsUI.addLight)
-				builder = builder.ByLightData (lightsUI.lightData);
+				builder = builder.ByLightData(lightsUI.lightData);
 
 			// We append the file name of the sprite at the end so the type of 
 			// the object is easily identifiable

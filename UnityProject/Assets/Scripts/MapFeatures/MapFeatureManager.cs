@@ -131,18 +131,18 @@ namespace MapFeatures
 			return true;
 		}
 
+		// Attach Light
+		public void AttachLight(GameObject mapFeature, LightData lightData)
+		{
+			LightManager lightManager = mapFeature.AddComponent<LightManager>();
+			lightManager.Draw(mapFeature, lightData);
+		}
+
 		// Helps identify the different map features by each having their
 		// name in their game object id.
 		public abstract string MapFeatureId(string id);
 
 		// Sprite initialisation.
 		public abstract void Draw(GameObject mapFeature, Sprite mapFeatureSprite);
-
-		// Attach Light
-		public void AttachLight (GameObject mapFeature, LightData lightData)
-		{
-			LightManager lightManager = mapFeature.AddComponent<LightManager>();
-			lightManager.Draw (mapFeature, lightData);
-		}
 	}
 }

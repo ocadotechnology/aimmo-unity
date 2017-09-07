@@ -25,23 +25,20 @@ class LightSubmenu : IMenu
 
 			GUILayout.Label ("Relative position in the sprite");
 
-			GUILayout.Label("X: ");
+			GUILayout.Label ("X: ");
 			lightX = GUILayout.TextField(lightX, GUILayout.MaxWidth(30));
-			GUILayout.Label("Y: ");
+			GUILayout.Label ("Y: ");
 			lightY = GUILayout.TextField(lightY, GUILayout.MaxWidth(30));
 
 			GUILayout.EndHorizontal();
-		
+
 			try 
 			{
-				lightData.x = Convert.ToSingle(lightX);
-				lightData.y = Convert.ToSingle(lightY);
+				lightData.x = float.Parse(lightX);
+				lightData.y = float.Parse(lightY);
 			}
 			catch (FormatException e)
 			{
-				Debug.Log (
-					"Light x/y format exception." +
-					"Please make sure you write an integer.");
 			}
 		}
 	}

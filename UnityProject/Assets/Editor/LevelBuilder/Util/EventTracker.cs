@@ -10,6 +10,7 @@ public static class EventTracker
 {
     static EventTracker()
 	{
+		//???
 		AvatarController.RemoveAvatar();
 
 		SceneView.onSceneGUIDelegate += view =>

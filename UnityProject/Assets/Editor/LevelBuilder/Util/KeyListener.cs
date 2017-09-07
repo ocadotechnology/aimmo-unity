@@ -6,17 +6,17 @@ using System.Collections;
 using System.Collections.Generic;
 using GeneratorNS;
 
+/* A dictionary that maps a key code to an Action.
+ * Can be used to register actions for key controlls.
+ */
+
 public class KeyListener 
 {
-	/**
-	 * A dictionary that maps a key code to an Action.
-	 * Can be used to register actions for key controlls.
-	 */
 	private SortedDictionary<KeyCode, Action> actions = new SortedDictionary<KeyCode, Action>();
 
 	public void RegisterKey(KeyCode key, Action action)
 	{
-		actions.Add (key, action);
+		actions.Add(key, action);
 	}
 
 	public void ClearKeys()
