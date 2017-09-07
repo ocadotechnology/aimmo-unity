@@ -2,7 +2,7 @@
 using UnityEngine;
 using MapFeatures;
 
-namespace GeneratorNS {
+namespace Generator {
 	public class ScorePointGenerator : SpriteGenerator
 	{
 		private const string defaultSprite = @"""sprite"" : {

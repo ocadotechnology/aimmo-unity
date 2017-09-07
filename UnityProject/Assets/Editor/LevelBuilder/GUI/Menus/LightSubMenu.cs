@@ -1,6 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
-using GeneratorNS;
+using Generator;
 using System;
 using System.Linq;
 using System.Collections;

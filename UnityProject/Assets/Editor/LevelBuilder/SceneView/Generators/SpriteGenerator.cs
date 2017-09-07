@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MapFeatures;
 
-namespace GeneratorNS {
+namespace Generator {
 	public abstract class SpriteGenerator : MapFeatureGenerator
 	{
 		private float x;

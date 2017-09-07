@@ -2,7 +2,8 @@
 using UnityEngine;
 using MapFeatures;
 
-namespace GeneratorNS {
+namespace Generator 
+{
 	public class HealthPointGenerator : SpriteGenerator
 	{
 		public HealthPointGenerator (float x, float y, string sprite) : base (x, y, sprite) {}

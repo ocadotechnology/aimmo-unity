@@ -2,7 +2,7 @@
 using UnityEngine;
 using MapFeatures;
 
-namespace GeneratorNS {
+namespace Generator {
 	public class PickupGenerator : SpriteGenerator
 	{
 		public PickupGenerator (float x, float y) : base (x, y, @"""sprite"": {}") 

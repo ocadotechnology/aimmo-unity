@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Serializers;
-using GeneratorNS;
+using Generator;
 
 /* Part of the menu that lets the user:
  *  1) 'Play Level': to try out the level by adding an avatar and go to game mode.

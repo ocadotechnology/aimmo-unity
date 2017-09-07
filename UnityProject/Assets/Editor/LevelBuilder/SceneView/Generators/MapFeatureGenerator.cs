@@ -7,7 +7,8 @@ using System.IO;
 using MapFeatures;
 using SimpleJSON;
 
-namespace GeneratorNS {
+namespace Generator 
+{
 	public abstract class MapFeatureGenerator: IGenerator 
 	{
 		/***

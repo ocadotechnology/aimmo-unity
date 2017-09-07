@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using GeneratorNS;
+using Generator;
 using System;
 using System.Linq;
 using System.Collections;

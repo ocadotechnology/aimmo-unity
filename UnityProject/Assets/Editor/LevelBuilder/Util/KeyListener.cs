@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using GeneratorNS;
+using Generator;
 
 /* A dictionary that maps a key code to an Action.
  * Can be used to register actions for key controlls.
