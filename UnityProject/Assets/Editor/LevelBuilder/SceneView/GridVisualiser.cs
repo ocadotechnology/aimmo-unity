@@ -69,12 +69,12 @@ public class GridVisualiser
 		// Rotate it facing towards the nearest point up left or up right. To
 		// understand the maths better, go to the IsometricPosition class.
 		Vector3 finalDirection = new Vector3(
-             (xAxis ? 1.0f : -1.0f) * Constants.IsometricShiftX, 
-             Constants.IsometricShiftY, 
-             1.0f);
+			(xAxis ? 1.0f : -1.0f) * Constants.IsometricShiftX, 
+			Constants.IsometricShiftY, 
+			1.0f);
 		Quaternion requiredRotation = Quaternion.FromToRotation(
-        	Vector3.up,
-        	finalDirection);
+			Vector3.up,
+			finalDirection);
 		line.transform.rotation = requiredRotation * line.transform.rotation;
 
 		line.transform.parent = lines.transform;
