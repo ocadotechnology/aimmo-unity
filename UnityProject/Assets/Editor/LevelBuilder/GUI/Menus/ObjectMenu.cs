@@ -86,7 +86,7 @@ public class ObjectMenu : IMenu
 	private void RegisterKeyListeners()
 	{
 		KeyListener keyListener = ObjectController.GetKeyListener ();
-		keyListener.ClearKeys ();
+		keyListener.ClearKeys();
 
 		// Switch the select mode to lights.
 		keyListener.RegisterKey (KeyCode.L, () => 
