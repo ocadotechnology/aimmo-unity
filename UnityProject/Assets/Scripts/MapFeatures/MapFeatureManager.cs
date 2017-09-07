@@ -4,20 +4,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
-/* The struct MapFeatureData holds all the necessary information to create a
- * map feature in the scene.
- */
-
 namespace MapFeatures 
 {
+	/* The struct MapFeatureData holds all the necessary information to create a
+	 * map feature in the scene.
+	 */
+
 	public struct MapFeatureData
 	{
 		public float x, y;
 		public float spriteWidth, spriteHeight;
 		public string spritePath;
 
-		public LightData lightData;
 		public bool hasLight;
+		public LightData lightData;
 
 		// Construct from JSON.
 		public MapFeatureData(JSONNode json)
@@ -32,13 +32,13 @@ namespace MapFeatures
 			this.spriteWidth = spriteJSON["width"].AsFloat;
 			this.spriteHeight = spriteJSON["height"].AsFloat;
 
-			this.lightData = new LightData(new Vector3(0, 0, 0));
+			this.lightData = new LightData(Vector3.zero);
 			this.hasLight = false;
 
-			if (spriteJSON ["lights"] != null) 
+			if (spriteJSON["lights"] != null) 
 			{
-				this.lightData = new LightData (spriteJSON ["lights"]);
 				this.hasLight = true;
+				this.lightData = new LightData (spriteJSON ["lights"]);
 			} 
 		}
 	}

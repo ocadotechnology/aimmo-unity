@@ -1,27 +1,20 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+/* Delegates what to do with the events. For now it only handles keyboard events
+ * but in the future it might be extended to mouse events.
+ */
+
 [InitializeOnLoad]
 public static class EventTracker
 {
-	/**
-     * This is a function that runs at the loading of the 
-     * Editor Assembly. This should register send all the events
-     * to the specific Controller. 
-	 */
-	private static void OnAllEvents()
+    static EventTracker()
 	{
-	}
-
-	static EventTracker()
-	{
-		AvatarController.RemoveAvatar ();
+		AvatarController.RemoveAvatar();
 
 		SceneView.onSceneGUIDelegate += view =>
 		{
 			Event e = Event.current;
-
-			OnAllEvents();
 
 			switch (e.type)
 			{
@@ -29,7 +22,7 @@ public static class EventTracker
 				{
 					// This delivers keys to the key listener. The
 					// key listeners dispaches the events to the correct action.
-					ObjectController.GetKeyListener ().Receive (Event.current.keyCode);
+					ObjectController.GetKeyListener().Receive(Event.current.keyCode);
 					break;
 				}
 			}

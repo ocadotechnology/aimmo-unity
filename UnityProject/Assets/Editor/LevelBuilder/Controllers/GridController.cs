@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/* Draws the yellow lines and green dots that you can see when you tick the grid
+ * toggle. Also takes care of destroying it when you untick it.
+ */
+
 public class GridController
 {
 	private const float pointScale = 0.1f;

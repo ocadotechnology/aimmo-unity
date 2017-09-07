@@ -108,37 +108,15 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	{
 		this.path = path;
 
-		TryInferDim ();
 		return this;
-	}
-
-	// Infers sprite dimesion if they are specified in the file name as "FileName-300x300-tst.png"
-	private bool TryInferDim()
-	{
-		string[] scv = path.Split ('-');
-		foreach (string dimensionTry in scv) 
-		{
-			string[] dim = dimensionTry.Split ('x');
-			if (dim.Length == 2) 
-			{
-				bool widthSucceded = int.TryParse(dim[0], out this.width);
-				bool heightSucceded = int.TryParse(dim[1], out this.height);
-				if (widthSucceded && heightSucceded) 
-				{
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 
 	public SpriteGeneratorBuilder ByWidth(int width)
 	{
 		this.width = width;
 		if (height == 0) 
-		{
 			height = width; 
-		}
+		
 		return this;
 	}
 
@@ -146,9 +124,8 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 	{
 		this.height = height;
 		if (width == 0) 
-		{
 			width = height; 
-		}
+		
 		return this;
 	}
 
