@@ -101,10 +101,15 @@ public class PlayerHealthBar : MonoBehaviour
 		// Green bar game object positioning. The x position will change when
 		// it is rescaled. When the healht points change, we move the green
 		// bar accordingly.
+
+		// Green bar is moved by a small unit forward in the z-axis because 
+		// there was an issue with the bars overlapping each other. Red one 
+		// stays static and green one changes with HP so it's in front of the 
+		// red.
 		greenBar.transform.localPosition = new Vector3(
 			0.0f, 
 			BarVerticalPosition, 
-			0.0f);
+			0.1f);
 		greenBar.transform.localRotation = Quaternion.Euler(Vector3.zero);
 		greenBar.transform.localScale = new Vector3(
 			BarMaxScaleX, 
