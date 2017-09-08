@@ -79,6 +79,10 @@ public class LevelBuilderWindow : EditorWindow
 		// Get all levels currently in the game.
 		IList<string> levelList = AssetFetcher.GetLevels();
 
+		// Remove the template as we don't want anyone to change it.
+		// It's further used to generate the level.
+		levelList.Remove("Template");
+
 		// Popup() expects a string[] array, so convert it.
 		string[] levels = levelList.ToArray<string>();
 
