@@ -1,5 +1,8 @@
 ﻿using System;
 
+/* 
+ */
+
 namespace Serializers
 {
 	public interface ISerializer

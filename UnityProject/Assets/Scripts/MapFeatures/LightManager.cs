@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
 
+/* Adds a light to the scene.
+ */
+
 namespace MapFeatures 
 {
 	[Serializable]
@@ -57,8 +60,6 @@ namespace MapFeatures
 	{
 		public void Draw(GameObject mapFeature, LightData lightData)
 		{
-			Debug.Log ("Light object is being built");
-
 			Vector3 position = mapFeature.transform.position;
 			string lightName = "light-" + mapFeature.name;
 

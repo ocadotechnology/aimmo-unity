@@ -43,5 +43,3 @@ public class PlayerScoreText : MonoBehaviour
 		text.GetComponent<TextMesh>().text = score;
 	}
 }
-
-
