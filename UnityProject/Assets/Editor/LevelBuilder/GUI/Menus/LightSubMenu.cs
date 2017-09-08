@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using Serializers;
 using MapFeatures;
 
-class LightSubmenu : IMenu
+class LightSubMenu : IMenu
 {		
 	public LightData lightData = new LightData(new Vector2(0.0f, 0.0f));
 	public bool addLight = false;

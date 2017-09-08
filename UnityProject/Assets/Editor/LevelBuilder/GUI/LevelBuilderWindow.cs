@@ -24,6 +24,7 @@ using MapFeatures;
 public class LevelBuilderWindow : EditorWindow
 {
 	private static LevelBuilderWindow windowInstance = null;
+	private int optionChosenByUser = 0;
 
 	// Main menus.
 	private IMenu[] menus = {
@@ -74,15 +75,34 @@ public class LevelBuilderWindow : EditorWindow
 	{
 		// Level buttons.
 		GUILayout.Label("Select a level below to work on:");
-		foreach (string level in AssetFetcher.GetLevels()) 
-			if (GUILayout.Button(new GUIContent(level, ""))) 
-				AssetFetcher.WorkOnLevel(level);
+
+		// Get all levels currently in the game.
+		IList<string> levelList = AssetFetcher.GetLevels();
+
+		// Popup() expects a string[] array, so convert it.
+		string[] levels = levelList.ToArray<string>();
+
+		// The int variable optionChosenbyUser is initialised class wide to 0.
+		// When the user chooses a different option, it gets updated and recalled
+		// as the first param (selectedIndex). 
+
+		optionChosenByUser--;
+
+		optionChosenByUser = EditorGUILayout.Popup(optionChosenByUser, levels);
+
+		// Index is returned and levels start from 1 so incrementing it.
+		optionChosenByUser++;
+
+		if (GUILayout.Button (new GUIContent ("Work!")))
+			AssetFetcher.WorkOnLevel ("Level" + optionChosenByUser);
 		
-		// Only let the level designer operate if it's a level. 
+		// Only let the level designer operate if it's a level.
+		// ie. If the scene is called "Main" then it is not a level.
+		// See the file hierarchy to understand.
 		if (SceneManager.GetActiveScene().name.Equals("Main"))
 			return;
 
 		foreach (IMenu menu in menus) 
 			menu.Display();
-	}
+	} 
 }

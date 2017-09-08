@@ -27,12 +27,12 @@ class GeneratorMenu : IMenu
 	private GenerationData obstacleData;
 	private GenerationData healthData;
 	private GenerationData scorePointData;
-	private LightSubmenu lightsUI;
+	private LightSubMenu lightsUI;
 
 	public GeneratorMenu()
 	{
 		obstacleData = new GenerationData();
-		lightsUI = new LightSubmenu();
+		lightsUI = new LightSubMenu();
 	}
 
 	public void Display()
