@@ -11,7 +11,6 @@ public class AvatarController
 
 	public static void CreateAvatar(float x, float y)
 	{
-		Debug.Log("Creating avatar");
 		GameObject avatar = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 		avatar.name = avatarName;
 		avatar.GetComponent<Renderer>().material = new Material(Shader.Find("Diffuse"));
@@ -23,11 +22,7 @@ public class AvatarController
 
 	public static void RemoveAvatar()
 	{
-		if (UnityEngine.GameObject.Find (avatarName)) 
-		{
-			Debug.Log ("Removing Avatar");
-			UnityEngine.Object.DestroyImmediate (GameObject.Find (avatarName));	
-		}
+		if (UnityEngine.GameObject.Find(avatarName)) 
+			UnityEngine.Object.DestroyImmediate(GameObject.Find(avatarName));	
 	}
 }
-

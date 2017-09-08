@@ -114,7 +114,7 @@ namespace MapFeatures
 			Draw(mapFeature, mapFeatureSprite);
 
 			if (mapFeatureData.hasLight)
-				AttachLight (mapFeature, mapFeatureData.lightData);
+				AttachLight(mapFeature, mapFeatureData.lightData);
 
 			return true;
 		}

@@ -44,6 +44,6 @@ public class Avatar : MonoBehaviour
 
 	void Update()
 	{
-		RegisterKeys ();
+		RegisterKeys();
 	}
 }

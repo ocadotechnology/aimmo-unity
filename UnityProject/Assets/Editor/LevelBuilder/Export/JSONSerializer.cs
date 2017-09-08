@@ -9,7 +9,7 @@ using MapFeatures;
 
 namespace Serializers
 {
-	public class JSONSerializer : ISerializer
+	public class JSONSerializer
 	{
 		private string sceneName;
 		private string temporaryExportName;

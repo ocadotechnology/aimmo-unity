@@ -15,7 +15,7 @@ namespace AIMMOUnityTest
 			""x"": ""1"",
 			""y"": ""2"",
 			""sprite"": {
-				""path"" : ""Grass-400x400-isometric-top"",
+				""path"" : ""Cobbles-400x317-Isometric-top"",
 				""width"" : ""5"",
 				""height"" : ""6""
     		}

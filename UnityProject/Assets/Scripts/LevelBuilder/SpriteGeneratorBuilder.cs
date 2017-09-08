@@ -140,7 +140,7 @@ public class SpriteGeneratorBuilder : MonoBehaviour
 
 	private string GetSprite()
 	{
-		// TODO: The type should not be exported from here, to refactor
+		// TODO: The type should not be exported from here, to refactor.
 		string unqualifiedTypeName = typeName.Split(',')[0].Split('.')[1];
 
 		return @"
