@@ -1,6 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEditor.SceneManagement;
 using Generator;
 using System;
 using System.Linq;
@@ -79,16 +80,11 @@ public class LevelBuilderWindow : EditorWindow
 		// Get all levels currently in the game.
 		IList<string> levelList = AssetFetcher.GetLevels();
 
-		// Remove the template as we don't want anyone to change it.
-		// It's further used to generate the level.
-		levelList.Remove("Template");
-
 		// Popup() expects a string[] array, so convert it.
 		string[] levels = levelList.ToArray<string>();
 
-		// The int variable optionChosenbyUser is initialised class wide to 0.
-		// When the user chooses a different option, it gets updated and recalled
-		// as the first param (selectedIndex). 
+		// optionChosenByUser initialised to 0, so the dropdown will be blank. 
+		// After an option is chosen for the first time, we update this.
 
 		optionChosenByUser--;
 
@@ -105,6 +101,23 @@ public class LevelBuilderWindow : EditorWindow
 		// See the file hierarchy to understand.
 		if (SceneManager.GetActiveScene().name.Equals("Main"))
 			return;
+
+		if (GUILayout.Button (new GUIContent ("Create a new level."))) {
+			Scene newScene = SceneHandler.createMethod ();
+
+			// Calling countScenes() inside SceneHandler to find the new 
+			// filename to save our scene with. 
+			int currentNoOfLevels = SceneHandler.countScenes ();
+			currentNoOfLevels++;
+
+			GameObject cameraGameObject = new GameObject("Main Camera");
+			cameraGameObject.AddComponent<Camera>();
+
+			if (!EditorSceneManager.SaveScene (newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity")) {
+				// TODO: check for errors here and remove the curly brackets.
+			}
+
+		} // if
 
 		foreach (IMenu menu in menus) 
 			menu.Display();

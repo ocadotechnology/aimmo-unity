@@ -73,6 +73,7 @@
      <Compile Include="Assets\Editor\LevelBuilder\Util\AssetFetcher.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\Util\EventTracker.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\Util\KeyListener.cs" />
+     <Compile Include="Assets\Editor\LevelBuilder\Util\SceneHandler.cs" />
      <Compile Include="Assets\Editor\Tests\IsometricPositionTest.cs" />
      <Compile Include="Assets\Editor\Tests\MapFeatureManagerTest.cs" />
      <Compile Include="Assets\Editor\Tests\PlayerControllerTest.cs" />
