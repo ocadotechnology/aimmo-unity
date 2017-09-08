@@ -20,11 +20,12 @@ public class Avatar : MonoBehaviour
 
 	private void RegisterKeys()
 	{
-		Action RegisterKey = new Action<KeyCode, Action>((keyCode, action) => 
-		{
-			if (Input.GetKeyDown(keyCode)) 
-				action();
-		});
+		Action<KeyCode,Action> RegisterKey = new Action<KeyCode, Action>(
+			(keyCode, action) => 
+			{
+				if (Input.GetKeyDown(keyCode)) 
+					action();
+			});
 
 		RegisterKey(KeyCode.W, () => RegisterNextPosition(1.0f, 0.0f));
 		RegisterKey(KeyCode.A, () => RegisterNextPosition(0.0f, 1.0f));
