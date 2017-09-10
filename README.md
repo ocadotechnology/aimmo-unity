@@ -53,4 +53,4 @@ From top to bottom:
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/ocadotechnology/aimmo-unity/CONTRIBUTING.md) for details on the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/ocadotechnology/aimmo-unity/blob/master/CONTRIBUTING.md) for details on the process for submitting pull requests to us.
