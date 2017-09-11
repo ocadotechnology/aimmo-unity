@@ -111,10 +111,10 @@ public class LevelBuilderWindow : EditorWindow
 			EditorSceneManager.MarkAllScenesDirty();
 			EditorSceneManager.SaveOpenScenes ();
 
+			Scene newScene = SceneHandler.createScene();
+
 			// Unload the scenes so we can create a new one.
 			SceneHandler.unloadScenes();
-
-			Scene newScene = SceneHandler.createScene();
 
 			// Calling countScenes() inside SceneHandler to find the new 
 			// filename to save our scene with. 
@@ -123,6 +123,9 @@ public class LevelBuilderWindow : EditorWindow
 
 			GameObject cameraGameObject = new GameObject("Main Camera");
 			cameraGameObject.AddComponent<Camera>();
+			cameraGameObject.tag = "MainCamera";
+
+			LevelBuilderWindow.SetUpScene ();
 
 
 			if (!EditorSceneManager.SaveScene (newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity")) {
