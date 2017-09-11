@@ -104,15 +104,22 @@ public class LevelBuilderWindow : EditorWindow
 			return;
 
 		if (GUILayout.Button (new GUIContent ("Create a new level."))) {
+
+			// We have a bug where Unity doesn't recognise our dynamically 
+			// added objects through the level builder so we need to force
+			// the change to be saved.
+			EditorSceneManager.MarkAllScenesDirty();
+			EditorSceneManager.SaveOpenScenes ();
+
+			// Unload the scenes so we can create a new one.
+			SceneHandler.unloadScenes();
+
 			Scene newScene = SceneHandler.createScene();
 
 			// Calling countScenes() inside SceneHandler to find the new 
 			// filename to save our scene with. 
 			int currentNoOfLevels = SceneHandler.countScenes ();
 			currentNoOfLevels++;
-
-			// Before saving, we need to unload the old scene(s). 
-			SceneHandler.unloadScenes();
 
 			GameObject cameraGameObject = new GameObject("Main Camera");
 			cameraGameObject.AddComponent<Camera>();
