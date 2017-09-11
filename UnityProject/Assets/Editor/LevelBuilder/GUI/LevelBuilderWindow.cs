@@ -103,17 +103,28 @@ public class LevelBuilderWindow : EditorWindow
 			return;
 
 		if (GUILayout.Button (new GUIContent ("Create a new level."))) {
-			Scene newScene = SceneHandler.createMethod ();
+			Scene newScene = SceneHandler.createScene();
+
+
+
+			Debug.Log ("The scene object we created is:" + newScene.name + ".");
+			Debug.Log ("The active scene is: " + SceneManager.GetActiveScene ().name + ".");
+			Debug.Log (SceneManager.GetActiveScene () == newScene);
 
 			// Calling countScenes() inside SceneHandler to find the new 
 			// filename to save our scene with. 
 			int currentNoOfLevels = SceneHandler.countScenes ();
 			currentNoOfLevels++;
 
+			// Before saving, we need to unload the old scene(s). 
+			SceneHandler.unloadScenes();
+
 			GameObject cameraGameObject = new GameObject("Main Camera");
 			cameraGameObject.AddComponent<Camera>();
 
+
 			if (!EditorSceneManager.SaveScene (newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity")) {
+				Debug.Log ("The savescene line failed!!!!!!!!!!!!!");
 				// TODO: check for errors here and remove the curly brackets.
 			}
 

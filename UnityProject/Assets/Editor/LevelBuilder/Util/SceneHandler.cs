@@ -10,9 +10,10 @@ using UnityEngine.SceneManagement;
 public class SceneHandler
 {
 	private static IList<string> levelsFetched;
+	private static string[] levelsArray;
 
 	// Calling this returns an empty Scene object that can be further manipulated and saved.
-	public static Scene createMethod()
+	public static Scene createScene()
 	{
 		Scene createdScene = EditorSceneManager.NewScene (NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 
@@ -24,8 +25,24 @@ public class SceneHandler
 	public static int countScenes()
 	{
 		levelsFetched = AssetFetcher.GetLevels ();
-		string[] levelsToCount = levelsFetched.ToArray<string> ();
+		levelsArray = levelsFetched.ToArray<string> ();
 
-		return levelsToCount.Length;
+		return levelsArray.Length;
 	} // countScenes
+
+	// Method that will make sure all currently loaded scenes will
+	// be unloaded.
+	public static void unloadScenes()
+	{
+		levelsFetched = AssetFetcher.GetLevels ();
+		levelsArray = levelsFetched.ToArray<string> ();
+		Scene sceneToUnload;
+
+		foreach (string level in levelsArray) 
+		{
+			sceneToUnload = SceneManager.GetSceneByName (level);
+			EditorSceneManager.CloseScene (sceneToUnload, false);
+		} // foreach
+			
+	} // unloadScenes
 } // class
