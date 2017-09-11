@@ -22,6 +22,7 @@ using MapFeatures;
  * 
  */ 
 
+[System.Serializable] 
 public class LevelBuilderWindow : EditorWindow
 {
 	private static LevelBuilderWindow windowInstance = null;
@@ -104,12 +105,6 @@ public class LevelBuilderWindow : EditorWindow
 
 		if (GUILayout.Button (new GUIContent ("Create a new level."))) {
 			Scene newScene = SceneHandler.createScene();
-
-
-
-			Debug.Log ("The scene object we created is:" + newScene.name + ".");
-			Debug.Log ("The active scene is: " + SceneManager.GetActiveScene ().name + ".");
-			Debug.Log (SceneManager.GetActiveScene () == newScene);
 
 			// Calling countScenes() inside SceneHandler to find the new 
 			// filename to save our scene with. 

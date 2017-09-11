@@ -59,7 +59,6 @@
      <Compile Include="Assets\Editor\LevelBuilder\GUI\Menus\GridMenu.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\GUI\Menus\IMenu.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\GUI\Menus\LevelControlMenu.cs" />
-     <Compile Include="Assets\Editor\LevelBuilder\GUI\Menus\LightSubmenu.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\GUI\Menus\LightSubMenu.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\GUI\Menus\ObjectMenu.cs" />
      <Compile Include="Assets\Editor\LevelBuilder\SceneView\AvatarController.cs" />

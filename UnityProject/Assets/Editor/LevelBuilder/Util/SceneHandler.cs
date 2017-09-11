@@ -18,7 +18,6 @@ public class SceneHandler
 		Scene createdScene = EditorSceneManager.NewScene (NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 
 		return createdScene;
-
 	} // createMethod
 
 	// Returns the number of Scenes that are currently present in the Assets/Scenes/Levels directory.
