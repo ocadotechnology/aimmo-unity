@@ -17,6 +17,15 @@ Install Unity 5.5.1 or later. We recommend to use Unity 2017.1.1:
 
 You will also need a text editor. The most popular ones for Unity are [MonoDevelop](http://www.monodevelop.com/) and [Visual Studio](https://www.visualstudio.com/).
 
+Now open your terminal. You can use the following shortcuts:
+* Ubuntu - CTRL + ALT + T
+* Mac - CMD + SPACE to open spotlight search; then type in "terminal", hit return.
+
+In the terminal type:
+`git clone https://github.com/ocadotechnology/aimmo-unity.git`
+
+And authenticate using your username and password token.
+
 ### Setting up the project
 
 Start Unity, click on `Open` and select the `UnityProject` directory, not the whole repository. Now you should be able to:
@@ -54,3 +63,7 @@ From top to bottom:
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/ocadotechnology/aimmo-unity/blob/master/CONTRIBUTING.md) for details on the process for submitting pull requests to us.
+
+## Contact Us
+
+If you ever need to contact us, please do so via our [contact form](https://www.codeforlife.education/help/#contact) on the Code For Life website. You can click [this link](https://www.codeforlife.education/help/#contact) to do so. 
