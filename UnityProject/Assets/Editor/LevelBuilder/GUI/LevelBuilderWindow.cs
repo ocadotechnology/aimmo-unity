@@ -22,7 +22,6 @@ using MapFeatures;
  * 
  */ 
 
-[System.Serializable] 
 public class LevelBuilderWindow : EditorWindow
 {
 	private static LevelBuilderWindow windowInstance = null;
