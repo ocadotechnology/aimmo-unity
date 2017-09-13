@@ -18,7 +18,7 @@ public class SceneHandler
 		Scene createdScene = EditorSceneManager.NewScene (NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 
 		return createdScene;
-	} // createMethod
+	} 
 
 	// Returns the number of Scenes that are currently present in the Assets/Scenes/Levels directory.
 	public static int countScenes()
@@ -27,7 +27,7 @@ public class SceneHandler
 		levelsArray = levelsFetched.ToArray<string> ();
 
 		return levelsArray.Length;
-	} // countScenes
+	} 
 
 	// Method that will make sure all currently loaded scenes will
 	// be unloaded.
@@ -40,8 +40,8 @@ public class SceneHandler
 		foreach (string level in levelsArray) 
 		{
 			sceneToUnload = SceneManager.GetSceneByName (level);
-			EditorSceneManager.CloseScene (sceneToUnload, false);
+			EditorSceneManager.CloseScene (sceneToUnload, true);
 		} // foreach
 			
-	} // unloadScenes
+	} 
 } // class
