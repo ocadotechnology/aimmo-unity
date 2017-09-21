@@ -13,6 +13,10 @@ using Serializers;
 
 class GeneratorMenu : IMenu
 {
+	// Autoincrementing value used for generating obstacles (so we don't have the same
+	// filenames twice as Unity does not allow for this.
+	private int fileIncrement = 0;
+
 	/* GenData is a class that encapsulates all the values used by the UI interface.
 	 * All of the values get updated each time. We use this design as we have multiple 
 	 * chunks of data, each for different types of Generators.
@@ -86,7 +90,7 @@ class GeneratorMenu : IMenu
 
 			// We append the file name of the sprite at the end so the type of 
 			// the object is easily identifiable
-			string finalName = "object-" + sprites[data.idx].Replace(" ", "-");
+			string finalName = "object-" + sprites[data.idx].Replace(" ", "-") + fileIncrement++;
 
 			// The Builder is the component that should persist as a Script Component
 			// together with the object. All the fields of the Builder *must* be serializable
