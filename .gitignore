@@ -1,22 +1,20 @@
-=============== 
+===============
 Unity generated
 ===============
-UnityProject/Temp/
-UnityProject/Library/
-UnityProject/Build/
-UnityProject/ProjectSettings/ProjectSettings.asset
-UnityProject/ProjectSettings/ProjectVersion.txt
+Temp/
+Library/
 
 =====================================
 Visual Studio / MonoDevelop generated
 =====================================
-UnityProject/ExportedObj/
-UnityProject/obj/
+ExportedObj/
+obj/
 *.svd
 *.userprefs
+UnityProject/*.csproj
 *.pidb
 *.suo
-*.sln
+UnityProject/*.sln
 *.user
 *.unityproj
 *.booproj
@@ -32,6 +30,4 @@ OS generated
 ehthumbs.db
 Thumbs.db
 .vscode
-UnityProject/Build
-
-
+UnityProject/Builds
