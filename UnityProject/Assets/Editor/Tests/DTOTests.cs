@@ -106,7 +106,43 @@ namespace AIMMOUnityTest
             Assert.AreEqual(new Location(-2, -9), scoreLocationDTO.location);
         }
 
+        [Test]
+        public void TestObstacleDTOSerialisation()
+        {
+            string obstacleJSON = @" {
+                ""obstacles"": [
+                    {
+                        ""location"": {
+                            ""x"": 0,
+                            ""y"": 1
+                        },
+                        ""width"": 2,
+                        ""height"": 1,
+                        ""type"": ""van"",
+                        ""orientation"": ""east""
+                    },
+                    {
+                        ""location"": {
+                            ""x"": 9,
+                            ""y"": 1
+                        },
+                        ""width"": 20,
+                        ""height"": 2,
+                        ""type"": ""wall"",
+                        ""orientation"": ""west""
+                    }
+                ]
+            } ";
 
-        
+            ObstaclesDTO obstaclesDTO = JsonUtility.FromJson<ObstaclesDTO>(obstacleJSON);
+            Assert.AreEqual(2, obstaclesDTO.obstacles.Length);
+
+            ObstacleDTO obstacleDTO = obstaclesDTO.obstacles[0];
+            Assert.AreEqual(new Location(0, 1), obstacleDTO.location);
+            Assert.AreEqual(2, obstacleDTO.width);
+            Assert.AreEqual(1, obstacleDTO.height);
+            Assert.AreEqual(ObstacleType.Van, obstacleDTO.ObstacleType);
+            Assert.AreEqual(Orientation.East, obstacleDTO.OrientationType);
+        }
     }
 }
