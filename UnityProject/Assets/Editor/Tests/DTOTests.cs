@@ -1,6 +1,10 @@
 using System;
 using UnityEngine;
 using NUnit.Framework;
+using MapFeatures.Pickups;
+using MapFeatures.Obstacles;
+using MapFeatures.ScoreLocations;
+using Players;
 
 namespace AIMMOUnityTest 
 {

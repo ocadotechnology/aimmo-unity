@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /* This class manages obstacles, i.e. the walls in the scene.
  */
 
-namespace MapFeatures 
+namespace MapFeatures.Obstacles 
 {
 	public class ObstacleManager : MapFeatureManager 
 	{

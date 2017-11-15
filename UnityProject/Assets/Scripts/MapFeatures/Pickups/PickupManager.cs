@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /* Still not clear what pickups will do, probably there will be different
  * types, so that will need to be taken care of.
  */
 
-namespace MapFeatures 
+namespace MapFeatures.Pickups
 {
 	public class PickupManager : MapFeatureManager
 	{

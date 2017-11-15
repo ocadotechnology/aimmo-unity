@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /* This class manages tehe health points, which are those cells in which the 
  * player gets an extra health point every iteration he or she stays there.
  */
 
-namespace MapFeatures 
+namespace MapFeatures.Pickups
 {
-	public class HealthPointManager : MapFeatureManager 
+    public class HealthPointManager : MapFeatureManager 
 	{	
 		public override void Draw(GameObject healthPoint, Sprite healhtPointSprite)
 		{

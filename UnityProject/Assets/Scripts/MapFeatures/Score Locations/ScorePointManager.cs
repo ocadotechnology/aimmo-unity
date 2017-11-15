@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /* This class manages the score points. If an avatar is in a score point its 
  * score is incremented by one every iteration.
  */
 
-namespace MapFeatures 
+namespace MapFeatures.ScoreLocations
 {
 	public class ScorePointManager : MapFeatureManager 
 	{
