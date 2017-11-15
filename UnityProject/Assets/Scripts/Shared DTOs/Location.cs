@@ -14,4 +14,9 @@ public struct Location: IEquatable<Location> {
     {
         return x == other.x && y == other.y;
     }
+
+    public override string ToString()
+    {
+        return string.Format("[Location x:{0} y:{1}]", x, y);
+    }
 }
