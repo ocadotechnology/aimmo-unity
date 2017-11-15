@@ -75,7 +75,7 @@ namespace AIMMOUnityTest
             Assert.AreEqual(2, pickupsDTO.pickups.Length);
             PickupDTO pickupDTO = pickupsDTO.pickups[0];
             Assert.AreEqual(new Location(1, 3), pickupDTO.location);
-            Assert.AreEqual(PickupType.Invulnerability, pickupDTO.pickupType);
+            Assert.AreEqual(PickupType.Invulnerability, pickupDTO.PickupType);
         }
 
         [Test]
@@ -147,6 +147,73 @@ namespace AIMMOUnityTest
             Assert.AreEqual(1, obstacleDTO.height);
             Assert.AreEqual(ObstacleType.Van, obstacleDTO.ObstacleType);
             Assert.AreEqual(Orientation.East, obstacleDTO.OrientationType);
+        }
+
+        [Test]
+        public void TestGameUpdateDTOSerialisation()
+        {
+            string gameUpdateJSON = @" {
+                ""era"": ""less_flat"",
+                ""southWestCorner"": {
+                    ""x"": -2,
+                    ""y"": -2
+                },
+                ""northEastCorner"": {
+                    ""x"": 2,
+                    ""y"": 2
+                },
+                ""players"": [
+                    {
+                        ""id"": 1,
+                        ""score"": 0,
+                        ""health"": 5,
+                        ""location"": {
+                            ""x"": 2,
+                            ""y"": 2
+                        },
+                        ""orientation"": ""east""
+                    }
+                ],
+                ""pickups"": [
+                    {
+                        ""type"": ""boost"",
+                        ""location"": {
+                            ""x"": 1,
+                            ""y"": 3
+                        }
+                    }
+                ],
+                ""scoreLocations"": [
+                    {
+                        ""location"": {
+                            ""x"": 1,
+                            ""y"": 3
+                        }
+                    }
+                ],
+                ""obstacles"": [
+                    {
+                        ""location"": {
+                            ""x"": 0,
+                            ""y"": 1
+                        },
+                        ""width"": 2,
+                        ""height"": 1,
+                        ""type"": ""van"",
+                        ""orientation"": ""east""
+                    }
+                ]
+
+            }";
+
+            GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameUpdateJSON);
+            Assert.AreEqual(Era.LessFlat, gameState.EraType);
+            Assert.AreEqual(new Location(-2, -2), gameState.southWestCorner);
+            Assert.AreEqual(new Location(2, 2), gameState.northEastCorner);
+            Assert.AreEqual(1, gameState.players.Length);
+            Assert.AreEqual(1, gameState.pickups.Length);
+            Assert.AreEqual(1, gameState.scoreLocations.Length);
+            Assert.AreEqual(1, gameState.obstacles.Length);
         }
     }
 }
