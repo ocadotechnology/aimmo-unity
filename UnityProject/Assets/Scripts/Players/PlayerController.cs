@@ -1,70 +1,73 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/* Handles the avatar movement. This script is attached to each of the players.
- */
 
-public class PlayerController : MonoBehaviour 
+namespace Players
 {
-	// General movement variables.
-	private const float speed = 5.0f;
-	private const float moveInterval = 0.5f;
 
-	private float startTime;
+    /* Handles the avatar movement. This script is attached to each of the players.
+     */
 
-	private PlayerData nextState;
-	private Vector2 currPosition;
-	private Vector2 nextPosition;
+    public class PlayerController : MonoBehaviour
+    {
+        // General movement variables.
+        private const float speed = 5.0f;
+        private const float moveInterval = 0.5f;
 
-	// Initialisation.
-	public void Awake()
-	{
-		startTime = Time.time;
-		currPosition = transform.position;
-		nextState = new PlayerData(transform.position);
-	}
+        private float startTime;
 
-	// Move the player to next position.
-	public void Update() 
-	{
-		// TODO: Rotation transition. Maybe an animation?
-		float step = (Time.time - startTime) * speed;
+        private PlayerDTO nextState;
+        private Vector2 currPosition;
+        private Vector2 nextPosition;
 
-		if (step < moveInterval) 
-		{
-			// Player is moving.
-			transform.GetComponent<IsometricPosition>().Set(
-				Vector2.Lerp(
-					currPosition, 
-					nextPosition, 
-					step));
-		}
-		else 
-		{
-			// Player has reached the destination. We reset it to be safe.
-			transform.GetComponent<IsometricPosition>().Set(nextPosition);
-			currPosition = nextPosition;
+        // Initialisation.
+        public void Awake()
+        {
+            startTime = Time.time;
+            currPosition = transform.position;
+        }
 
-			startTime = Time.time;
+        // Move the player to next position.
+        public void Update()
+        {
+            // TODO: Rotation transition. Maybe an animation?
+            float step = (Time.time - startTime) * speed;
 
-			// Update score label.
-			string scoreText = Convert.ToString(nextState.score);
-			transform.GetComponent<PlayerScoreText>().SetScore(scoreText);
+            if (step < moveInterval)
+            {
+                // Player is moving.
+                transform.GetComponent<IsometricPosition>().Set(
+                    Vector2.Lerp(
+                        currPosition,
+                        nextPosition,
+                        step));
+            }
+            else
+            {
+                // Player has reached the destination. We reset it to be safe.
+                transform.GetComponent<IsometricPosition>().Set(nextPosition);
+                currPosition = nextPosition;
 
-			// Update healthbar.
-			int hp = nextState.health;
-			transform.GetComponent<PlayerHealthBar>().SetHealthPoints(hp);
-		}	
-	}
+                startTime = Time.time;
 
-	// Set next destination.
-	public void SetNextState(PlayerData playerData)
-	{
-		nextState = playerData;
+                // Update score label.
+                string scoreText = Convert.ToString(nextState.score);
+                transform.GetComponent<PlayerScoreText>().SetScore(scoreText);
 
-		transform.GetComponent<IsometricPosition>().Set(nextPosition);
-		nextPosition = new Vector2(nextState.x, nextState.y);
-	}
+                // Update healthbar.
+                int hp = nextState.health;
+                transform.GetComponent<PlayerHealthBar>().SetHealthPoints(hp);
+            }
+        }
+
+        // Set next destination.
+        public void SetNextState(PlayerDTO playerDTO)
+        {
+            nextState = playerDTO;
+
+            transform.GetComponent<IsometricPosition>().Set(nextPosition);
+            nextPosition = new Vector2(nextState.location.x, nextState.location.y);
+        }
+
+    }
 }

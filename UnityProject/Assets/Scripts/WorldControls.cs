@@ -1,11 +1,12 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnitySocketIO;
 using UnitySocketIO.Events;
-using SimpleJSON;
-using MapFeatures;
+using MapFeatures.Obstacles;
+using MapFeatures.Pickups;
+using MapFeatures.ScoreLocations;
+using Players;
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.
@@ -17,8 +18,8 @@ public class WorldControls : MonoBehaviour
 {
 	// We use the dataQueue to process the request at our desired rate, i.e.
 	// every ProcessingInterval seconds.
-	private Queue<JSONNode> dataQueue;
-	private const float ProcessingInterval = 0.75f;
+    private Queue<GameStateDTO> dataQueue;
+	private const float ProcessingInterval = 2f;
 	private float startTime;
 
 	// Socket used to receive data from the backend.
@@ -30,17 +31,7 @@ public class WorldControls : MonoBehaviour
 	// Map feature managers.
 	private ObstacleManager obstacleManager;
 	private ScorePointManager scorePointManager;
-	private HealthPointManager healthPointManager;
 	private PickupManager pickupManager;
-
-	// Where all the managers will be put with the respective keys that match
-	// with the JSON sent from the backend.
-	private Dictionary<string, MapFeatureManager> mapFeatureManagers;
-	private static readonly string[] mapFeatureNames = {
-		"obstacle", 
-		"score_point", 
-		"health_point",
-		"pickup"};
 
 	// Player manager.
 	private PlayerManager playerManager;
@@ -56,21 +47,13 @@ public class WorldControls : MonoBehaviour
 	// Initial connection.
 	void Start()
 	{
-		// Initialise map feature managers.
-		obstacleManager = new ObstacleManager();
-		scorePointManager = new ScorePointManager();
-		healthPointManager = new HealthPointManager();
-		pickupManager = new PickupManager();
+        // Initialise map feature managers.
+        obstacleManager = gameObject.AddComponent(typeof(ObstacleManager)) as ObstacleManager;
+        scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
+        pickupManager = gameObject.AddComponent(typeof(PickupManager)) as PickupManager;
 
-		// Initialise dictionary.
-		mapFeatureManagers = new Dictionary<string, MapFeatureManager>();
-		mapFeatureManagers.Add(mapFeatureNames[0], obstacleManager);
-		mapFeatureManagers.Add(mapFeatureNames[1], scorePointManager);
-		mapFeatureManagers.Add(mapFeatureNames[2], healthPointManager);
-		mapFeatureManagers.Add(mapFeatureNames[3], pickupManager);
-
-		// Initialise player manager.
-		playerManager = new PlayerManager();
+        // Initialise player manager.
+        playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
 
 		if (Application.platform == RuntimePlatform.WebGLPlayer) 
 		{
@@ -87,7 +70,7 @@ public class WorldControls : MonoBehaviour
 		} 
 
 		startTime = Time.time;
-		dataQueue = new Queue<JSONNode>();
+        dataQueue = new Queue<GameStateDTO>();
 	}
 
 	// Calls ProcessUpdate every ProcessingInterval seconds.
@@ -148,71 +131,30 @@ public class WorldControls : MonoBehaviour
 			Debug.Log("Emitted response.");
 		});
 
-		io.On("world-update", (SocketIOEvent e) => 
+		io.On("game-state", (SocketIOEvent e) => 
 		{
-			WorldUpdate(e.data);
+            RenderGameState(e.data);
 		});
 	}
 
 	// Receive updates from the backend, parse them and delegate to the 
 	// classes in charge of creating, deleting and updating game objects.
-	void WorldUpdate(string updatesString)
-	{
-		JSONNode updates = JSON.Parse(updatesString);
-
-		// TEMPORARY. We only subscribe to the relevant updates.
-		//if (userId == updates["main_player"].AsInt)
-			dataQueue.Enqueue(updates);
+	void RenderGameState(string gameStateJSON)
+    {
+        GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameStateJSON);
+        dataQueue.Enqueue(gameState);
 	}
 
 	// Manage the changes in the scene.
 	void ProcessUpdate()
 	{
 		startTime = Time.time;
-		JSONNode updates = dataQueue.Dequeue();
+        GameStateDTO gameState = dataQueue.Dequeue();
 
-		// Players updates.
-		JSONNode players = updates["players"];
+        // Players updates.
+        PlayerDTO[] players = gameState.players;
 
-		foreach (JSONNode player in players["create"].AsArray) 
-			playerManager.CreatePlayer(player["id"].AsInt, new PlayerData(player));
-
-		foreach (JSONNode player in players["delete"].AsArray) 
-			playerManager.DeletePlayer(player["id"].AsInt);
-
-		foreach (JSONNode player in players["update"].AsArray)
-			playerManager.UpdatePlayer(player["id"].AsInt, new PlayerData(player));
-
-		// Map features updates.
-		JSONNode mapFeatures = updates["map_features"];
-
-		foreach (string mapFeatureName in mapFeatureNames)
-		{
-			MapFeatureManager mapFeatureManager = mapFeatureManagers[mapFeatureName];
-			JSONNode mapFeatureJSON = mapFeatures[mapFeatureName];
-
-			// Create.
-			foreach (JSONNode mapFeature in mapFeatureJSON["create"].AsArray)
-				mapFeatureManager.Create(mapFeature["id"], new MapFeatureData(mapFeature));
-
-			// Delete.
-			foreach (JSONNode mapFeature in mapFeatureJSON["delete"].AsArray) 
-				mapFeatureManager.Delete(mapFeature["id"]);
-		}
-	}
-
-	// Delete all map features and avatars.
-	public void Cleanup()
-	{
-		GameObject[] allMapFeatures = GameObject.FindGameObjectsWithTag("MapFeature");
-		GameObject[] allAvatars = GameObject.FindGameObjectsWithTag("Avatar");
-
-		foreach (GameObject mapFeature in allMapFeatures) 
-			Destroy(mapFeature);
-		
-		foreach (GameObject avatar in allAvatars) 
-			Destroy(avatar);
-		
+        playerManager.OverwritePlayersState(players);
 	}
 }
 	

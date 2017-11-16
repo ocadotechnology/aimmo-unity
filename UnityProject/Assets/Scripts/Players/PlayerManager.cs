@@ -1,117 +1,128 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using SimpleJSON;
 
-/* The struct PlayerData holds all the necessary information to create or update
- * a player in the scene. 
- * 
- * The appearance will probably change in the future.
- */
-
-public struct PlayerData
+namespace Players
 {
-	public float x, y, rotation;
-	public int score, health;
-	public string colour;
 
-	// Construct from just position.
-	public PlayerData(Vector2 position)
-	{
-		this.x = position.x;
-		this.y = position.y;
-		this.rotation = 0.0f;
-		this.score = 0;
-		this.health = 5; 
-		this.colour = "";
-	}
+    /* The struct PlayerData holds all the necessary information to create or update
+     * a player in the scene. 
+     * 
+     * The appearance will probably change in the future.
+     */
 
-	// Construct from JSON.
-	public PlayerData(JSONNode json)
-	{
-		this.x = json["x"].AsFloat;
-		this.y = json["y"].AsFloat;
-		this.rotation = json["rotation"].AsFloat;
-		this.score = json["score"].AsInt;
-		this.health = json["health"].AsInt;
-		this.colour = json["colour"];
-	}
-}
+    [Serializable]
+    public struct PlayerData
+    {
+        public float x, y, rotation;
+        public int id, score, health;
+        public string colour;
 
-/* Holds the methods to Create / Delete / Update players in a similar fashion to
- * MapFeautre.
- */
+        // Construct from just position.
+        public PlayerData(int id, Vector2 position)
+        {
+            this.id = id;
+            this.x = position.x;
+            this.y = position.y;
+            this.rotation = 0.0f;
+            this.score = 0;
+            this.health = 5;
+            this.colour = "";
+        }
+    }
 
-public interface IPlayerManager
-{
-	bool CreatePlayer(int id, PlayerData playerData);
-	bool DeletePlayer(int id);
-	bool UpdatePlayer(int id, PlayerData playerData);
-}
+    /* Holds the methods to Create / Delete / Update players in a similar fashion to
+     * MapFeautre.
+     */
 
-public class PlayerManager : MonoBehaviour, IPlayerManager
-{
-	public bool CreatePlayer(int id, PlayerData playerData)
-	{
-		// It might have already been created.
-		if (GameObject.Find(PlayerId(id)) != null)
-			return true;
+    public interface IPlayerManager
+    {
+        bool CreatePlayer(PlayerDTO playerDTO);
+        bool DeletePlayer(int id);
+        bool UpdatePlayer(PlayerDTO playerDTO);
+    }
 
-		// Generate sphere.
-		GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-		if (player == null)
-			return false;
+    public class PlayerManager : MonoBehaviour, IPlayerManager
+    {
+        public static String PLAYER_TAG = "Avatar";
 
-		player.tag = "Avatar";
-		player.name = PlayerId(id);
-		player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
-		player.AddComponent<PlayerController>();
+        public bool CreatePlayer(PlayerDTO playerDTO)
+        {
+            // It might have already been created.
+            if (GameObject.Find(PlayerId(playerDTO.id)) != null)
+                return true;
 
-		// Assign colour.
-		Color playerColour;
-		ColorUtility.TryParseHtmlString(playerData.colour, out playerColour);
-		player.GetComponent<Renderer>().material.color = playerColour;
+            // Generate sphere.
+            GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            if (player == null)
+                return false;
 
-		// Add score text.
-		string initialScore = Convert.ToString(playerData.score);
-		player.AddComponent<PlayerScoreText>().SetScore(initialScore);
+            player.tag = PLAYER_TAG;
+            player.name = PlayerId(playerDTO.id);
+            player.AddComponent<IsometricPosition>()
+                  .Set(playerDTO.location.x, playerDTO.location.y);
+            player.AddComponent<PlayerController>();
 
-		// Add health bar.
-		player.AddComponent<PlayerHealthBar>().SetHealthPoints(playerData.health);
+            // Add score text.
+            string initialScore = Convert.ToString(playerDTO.score);
+            player.AddComponent<PlayerScoreText>().SetScore(initialScore);
 
-		return true;
-	}
+            // Add health bar.
+            player.AddComponent<PlayerHealthBar>().SetHealthPoints(playerDTO.health);
 
-	public bool DeletePlayer(int id)
-	{
-		GameObject playerToDestroy = GameObject.Find(PlayerId(id));
-		if (playerToDestroy == null)
-			return false;
+            return true;
+        }
 
-		Destroy(playerToDestroy);
+        public bool DeletePlayer(int id)
+        {
+            GameObject playerToDestroy = GameObject.Find(PlayerId(id));
+            if (playerToDestroy == null)
+                return false;
 
-		return true;
-	}
+            Destroy(playerToDestroy);
 
-	public bool UpdatePlayer(int id, PlayerData playerData)
-	{
-		GameObject playerToUpdate = GameObject.Find(PlayerId(id));
-		if (playerToUpdate == null)
-			return false;
+            return true;
+        }
 
-		PlayerController controller = playerToUpdate.GetComponent<PlayerController>();
-		if (controller == null)
-			return false;
+        public bool UpdatePlayer(PlayerDTO playerDTO)
+        {
+            GameObject playerToUpdate = GameObject.Find(PlayerId(playerDTO.id));
+            if (playerToUpdate == null)
+                return false;
 
-		// The controller will change the position, score and health.
-		controller.SetNextState(playerData);
+            PlayerController controller = playerToUpdate.GetComponent<PlayerController>();
+            if (controller == null)
+                return false;
 
-		return true;	
-	}
+            // The controller will change the position, score and health.
+            controller.SetNextState(playerDTO);
 
-	public string PlayerId(int id)
-	{
-		return "player" + Convert.ToString(id);
-	}
+            return true;
+        }
+
+        public void OverwritePlayersState(PlayerDTO[] players) {
+            //RemoveAllPlayers();
+            foreach (PlayerDTO player in players) {
+                if (GameObject.Find(PlayerId(player.id)) == null)
+                {
+                    CreatePlayer(player);
+                } else 
+                {
+                    UpdatePlayer(player);
+                }
+            }
+        }
+
+        private void RemoveAllPlayers()
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag(PLAYER_TAG);
+            foreach (GameObject player in players) {
+                Destroy(player);
+            }
+        }
+
+        public string PlayerId(int id)
+        {
+            return "player" + Convert.ToString(id);
+        }
+    }
 }

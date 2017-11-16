@@ -1,158 +1,161 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-/* Creates the health bar sprite attached to each avatar and provides an easy
- * interface to modify it. When the health points change, it suffices to call
- * SetHealthPoints() and this class will do the rest.ss
- */
 
-public class PlayerHealthBar : MonoBehaviour 
+namespace Players
 {
-	// Texture constants.
-	private const int TextureWidth = 100;
-	private const int TextureHeight = 25;
 
-	// Sprite initialisation constants.
-	private const float SpriteRectWidth = 10.0f;
-	private const float SpriteRectHeight = 1.0f;
-	private const float SpritePivotCoordX = 0.5f;
-	private const float SpritePivotCoordY = 0.5f;
-	private const float SpritePixelsPerUnit = 100.0f;
+    /* Creates the health bar sprite attached to each avatar and provides an easy
+     * interface to modify it. When the health points change, it suffices to call
+     * SetHealthPoints() and this class will do the rest.
+     */
 
-	// General bar constants.
-	private const float BarVerticalPosition = -0.3f;
-	private const float BarMaxScaleX = 10.0f;
-	private const float BarMaxScaleY = 10.0f;
+    public class PlayerHealthBar : MonoBehaviour
+    {
+        // Texture constants.
+        private const int TextureWidth = 100;
+        private const int TextureHeight = 25;
 
-	// Health bar game object positioning constants.
-	private const float HealthBarRotationX = 0.0f;
-	private const float HealthBarRotationY = 0.0f;
-	private const float HealthBarRotationZ = 0.0f;
-	private const float HealthBarPositionX = 0.0f;
-	private const float HealthBarPositionY = 0.0f;
-	private const float HealthBarPositionZ = -0.45f;
+        // Sprite initialisation constants.
+        private const float SpriteRectWidth = 10.0f;
+        private const float SpriteRectHeight = 1.0f;
+        private const float SpritePivotCoordX = 0.5f;
+        private const float SpritePivotCoordY = 0.5f;
+        private const float SpritePixelsPerUnit = 100.0f;
 
-	// Constants to handle changes in the health poitns.
-	private const float MinHP = 0.0f;
-	private const float MaxHP = 10.0f;
-	private const float MinHPFromBackend = 0.0f;
-	private const float MaxHPFromBackend = 10.0f; 
-	private const float GreenBarPositionZeroHP = -0.5f;
-	private const float GreenBarIncrementOneHP = 0.05f;
+        // General bar constants.
+        private const float BarVerticalPosition = -0.3f;
+        private const float BarMaxScaleX = 10.0f;
+        private const float BarMaxScaleY = 10.0f;
 
-	// Health bar game objects.
-	private GameObject healthBar;
-	private GameObject redBar;
-	private GameObject greenBar;
+        // Health bar game object positioning constants.
+        private const float HealthBarRotationX = 0.0f;
+        private const float HealthBarRotationY = 0.0f;
+        private const float HealthBarRotationZ = 0.0f;
+        private const float HealthBarPositionX = 0.0f;
+        private const float HealthBarPositionY = 0.0f;
+        private const float HealthBarPositionZ = -0.45f;
 
-	void Awake() 
-	{
-		healthBar = new GameObject("Health bar");
-		redBar = new GameObject("Red bar");
-		greenBar = new GameObject("Green bar");
+        // Constants to handle changes in the health poitns.
+        private const float MinHP = 0.0f;
+        private const float MaxHP = 10.0f;
+        private const float MinHPFromBackend = 0.0f;
+        private const float MaxHPFromBackend = 10.0f;
+        private const float GreenBarPositionZeroHP = -0.5f;
+        private const float GreenBarIncrementOneHP = 0.05f;
 
-		// Generate basic green and red textures.
-		Texture2D greenTexture = new Texture2D(TextureWidth, TextureHeight);
-		Texture2D redTexture = new Texture2D(TextureWidth, TextureHeight);
-		for (int x = 0; x < TextureWidth; x++) 
-		{
-			for (int y = 0; y < TextureHeight; y++) 
-			{
-				greenTexture.SetPixel(x, y, Color.green);
-				redTexture.SetPixel(x, y, Color.red);
-			}
-		}
+        // Health bar game objects.
+        private GameObject healthBar;
+        private GameObject redBar;
+        private GameObject greenBar;
 
-		// Green and red bar sprites.
-		Sprite greenBarSprite = Sprite.Create(
-			greenTexture, 
-			new Rect(0.0f, 0.0f, SpriteRectWidth, SpriteRectHeight),
-			new Vector2(SpritePivotCoordX, SpritePivotCoordY),
-			SpritePixelsPerUnit);
-		Sprite redBarSprite = Sprite.Create(
-			redTexture, 
-			new Rect(0.0f, 0.0f, SpriteRectWidth, SpriteRectHeight),
-			new Vector2(SpritePivotCoordX, SpritePivotCoordY),
-			SpritePixelsPerUnit);
+        void Awake()
+        {
+            healthBar = new GameObject("Health bar");
+            redBar = new GameObject("Red bar");
+            greenBar = new GameObject("Green bar");
 
-		// Green and red bar sprite renderers.
-		SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
-		redBarRenderer.color = Color.red;
-		redBarRenderer.sprite = redBarSprite;
-		SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
-		greenBarRenderer.color = Color.green;
-		greenBarRenderer.sprite = greenBarSprite;
+            // Generate basic green and red textures.
+            Texture2D greenTexture = new Texture2D(TextureWidth, TextureHeight);
+            Texture2D redTexture = new Texture2D(TextureWidth, TextureHeight);
+            for (int x = 0; x < TextureWidth; x++)
+            {
+                for (int y = 0; y < TextureHeight; y++)
+                {
+                    greenTexture.SetPixel(x, y, Color.green);
+                    redTexture.SetPixel(x, y, Color.red);
+                }
+            }
 
-		redBar.transform.parent = healthBar.transform;
-		greenBar.transform.parent = healthBar.transform;
+            // Green and red bar sprites.
+            Sprite greenBarSprite = Sprite.Create(
+                greenTexture,
+                new Rect(0.0f, 0.0f, SpriteRectWidth, SpriteRectHeight),
+                new Vector2(SpritePivotCoordX, SpritePivotCoordY),
+                SpritePixelsPerUnit);
+            Sprite redBarSprite = Sprite.Create(
+                redTexture,
+                new Rect(0.0f, 0.0f, SpriteRectWidth, SpriteRectHeight),
+                new Vector2(SpritePivotCoordX, SpritePivotCoordY),
+                SpritePixelsPerUnit);
 
-		// Red bar game object positioning. This wont change.
-		redBar.transform.localPosition = new Vector3(
-			0.0f, 
-			BarVerticalPosition, 
-			0.0f);
-		redBar.transform.localRotation = Quaternion.Euler(Vector3.zero);
-		redBar.transform.localScale = new Vector3(
-			BarMaxScaleX, 
-			BarMaxScaleY, 
-			1.0f);
+            // Green and red bar sprite renderers.
+            SpriteRenderer redBarRenderer = redBar.AddComponent<SpriteRenderer>();
+            redBarRenderer.color = Color.red;
+            redBarRenderer.sprite = redBarSprite;
+            SpriteRenderer greenBarRenderer = greenBar.AddComponent<SpriteRenderer>();
+            greenBarRenderer.color = Color.green;
+            greenBarRenderer.sprite = greenBarSprite;
 
-		// Green bar game object positioning. The x position will change when
-		// it is rescaled. When the healht points change, we move the green
-		// bar accordingly.
+            redBar.transform.parent = healthBar.transform;
+            greenBar.transform.parent = healthBar.transform;
 
-		// Green bar is moved by a small unit forward in the z-axis because 
-		// there was an issue with the bars overlapping each other. Red one 
-		// stays static and green one changes with HP so it's in front of the 
-		// red.
-		greenBar.transform.localPosition = new Vector3(
-			0.0f, 
-			BarVerticalPosition, 
-			0.1f);
-		greenBar.transform.localRotation = Quaternion.Euler(Vector3.zero);
-		greenBar.transform.localScale = new Vector3(
-			BarMaxScaleX, 
-			BarMaxScaleY, 
-			1.0f);
+            // Red bar game object positioning. This wont change.
+            redBar.transform.localPosition = new Vector3(
+                0.0f,
+                BarVerticalPosition,
+                0.0f);
+            redBar.transform.localRotation = Quaternion.Euler(Vector3.zero);
+            redBar.transform.localScale = new Vector3(
+                BarMaxScaleX,
+                BarMaxScaleY,
+                1.0f);
 
-		healthBar.transform.parent = transform;
+            // Green bar game object positioning. The x position will change when
+            // it is rescaled. When the healht points change, we move the green
+            // bar accordingly.
 
-		// Parent health bar positioning.
-		healthBar.transform.localRotation = Quaternion.Euler(
-			HealthBarRotationX, 
-			HealthBarRotationY, 
-			HealthBarRotationZ);
-		healthBar.transform.localPosition = new Vector3(
-			HealthBarPositionX, 
-			HealthBarPositionY, 
-			HealthBarPositionZ);		
-	}
-	
-	// Change how the health bar looks. Called from player controller.
-	public void SetHealthPoints(float hp)
-	{
-		hp *= (MaxHP - MinHP) / (MaxHPFromBackend - MinHPFromBackend);
+            // Green bar is moved by a small unit forward in the z-axis because 
+            // there was an issue with the bars overlapping each other. Red one 
+            // stays static and green one changes with HP so it's in front of the 
+            // red.
+            greenBar.transform.localPosition = new Vector3(
+                0.0f,
+                BarVerticalPosition,
+                0.1f);
+            greenBar.transform.localRotation = Quaternion.Euler(Vector3.zero);
+            greenBar.transform.localScale = new Vector3(
+                BarMaxScaleX,
+                BarMaxScaleY,
+                1.0f);
 
-		// Bound hp from 0 to 10.
-		float actualHP = hp > MaxHP ? MaxHP : (hp < MinHP ? MinHP : hp);
+            healthBar.transform.parent = transform;
 
-		// This is the formula so that it looks nice.
-		float greenBarX = GetGreenBarX(actualHP);
-		greenBar.transform.localPosition = new Vector3(
-			greenBarX, 
-			BarVerticalPosition, 
-			0.0f);
-		greenBar.transform.localScale = new Vector3(
-			actualHP, 
-			BarMaxScaleY, 
-			1.0f);
-	}
+            // Parent health bar positioning.
+            healthBar.transform.localRotation = Quaternion.Euler(
+                HealthBarRotationX,
+                HealthBarRotationY,
+                HealthBarRotationZ);
+            healthBar.transform.localPosition = new Vector3(
+                HealthBarPositionX,
+                HealthBarPositionY,
+                HealthBarPositionZ);
+        }
 
-	// Method that calculates how much we need to move the green bar when its
-	// scale changes.
-	private float GetGreenBarX(float hp)
-	{
-		return GreenBarPositionZeroHP + (hp * GreenBarIncrementOneHP);
-	}
+        // Change how the health bar looks. Called from player controller.
+        public void SetHealthPoints(float hp)
+        {
+            hp *= (MaxHP - MinHP) / (MaxHPFromBackend - MinHPFromBackend);
+
+            // Bound hp from 0 to 10.
+            float actualHP = hp > MaxHP ? MaxHP : (hp < MinHP ? MinHP : hp);
+
+            // This is the formula so that it looks nice.
+            float greenBarX = GetGreenBarX(actualHP);
+            greenBar.transform.localPosition = new Vector3(
+                greenBarX,
+                BarVerticalPosition,
+                0.0f);
+            greenBar.transform.localScale = new Vector3(
+                actualHP,
+                BarMaxScaleY,
+                1.0f);
+        }
+
+        // Method that calculates how much we need to move the green bar when its
+        // scale changes.
+        private float GetGreenBarX(float hp)
+        {
+            return GreenBarPositionZeroHP + (hp * GreenBarIncrementOneHP);
+        }
+    }
 }
