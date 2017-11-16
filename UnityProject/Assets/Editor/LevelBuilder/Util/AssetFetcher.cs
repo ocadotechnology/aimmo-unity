@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using UnityEditor.SceneManagement;
 
 /* The "Controllers" are mostly designed as static libraries that 
  * provide mostly Editor-releated functionality.
@@ -22,7 +23,7 @@ public class AssetFetcher
 		if (!IsScenePresent(levelName)) 
 			throw new UnityException("The level name" + levelName + "seems not to be present");
 
-		EditorApplication.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Scenes/Levels/" + levelName + ".unity");
+		EditorSceneManager.OpenScene(Directory.GetCurrentDirectory() + "/Assets/Scenes/Levels/" + levelName + ".unity");
 	}
 
 	private static bool IsScenePresent(string sceneName) 

@@ -48,7 +48,4 @@ namespace MapFeatures.Pickups
             }
         }
     }
-    
 }
-
-

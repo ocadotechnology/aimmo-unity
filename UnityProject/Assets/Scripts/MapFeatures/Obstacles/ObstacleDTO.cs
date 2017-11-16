@@ -28,7 +28,7 @@ namespace MapFeatures.Obstacles
         {
             get
             {
-                return OrientationMethods.Orientation(orientation);
+                return OrientationMethods.OrientationForString(orientation);
             }
         }
     }
@@ -54,5 +54,4 @@ namespace MapFeatures.Obstacles
             }
         }
     }
-
 }

@@ -6,19 +6,31 @@
 
 namespace MapFeatures.ScoreLocations
 {
-	public class ScorePointManager : MapFeatureManager 
-	{
-		public override void Draw(GameObject scorePoint, Sprite scorePointSprite)
-		{
-			SpriteRenderer scorePointRenderer = scorePoint.AddComponent<SpriteRenderer>();
-			scorePointRenderer.sprite = scorePointSprite;
+    public class ScorePointManager : MapFeatureManager<ScoreLocationDTO>
+    {
+        public override bool Create(ScoreLocationDTO dto)
+        {
+            throw new System.NotImplementedException();
+        }
 
-			scorePoint.GetComponent<IsometricPosition>().ChangeRelativeDepth(2.0f);
-		}
+        public override bool Delete(ScoreLocationDTO dto)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public override string MapFeatureId(string id)
-		{
-			return "scorepoint" + id;
-		}
-	}
+        public override string MapFeatureId(string id)
+        {
+            return string.Format("ScoreLocation{0}", id);
+        }
+
+        public override string MapFeatureTag()
+        {
+            return "ScoreLocation";
+        }
+
+        public override bool UpdateFeature(ScoreLocationDTO dto)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

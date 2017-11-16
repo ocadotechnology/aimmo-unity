@@ -36,17 +36,19 @@ namespace Players
 
     public interface IPlayerManager
     {
-        bool CreatePlayer(int id, PlayerData playerData);
+        bool CreatePlayer(PlayerDTO playerDTO);
         bool DeletePlayer(int id);
-        bool UpdatePlayer(int id, PlayerData playerData);
+        bool UpdatePlayer(PlayerDTO playerDTO);
     }
 
     public class PlayerManager : MonoBehaviour, IPlayerManager
     {
-        public bool CreatePlayer(int id, PlayerData playerData)
+        public static String PLAYER_TAG = "Avatar";
+
+        public bool CreatePlayer(PlayerDTO playerDTO)
         {
             // It might have already been created.
-            if (GameObject.Find(PlayerId(id)) != null)
+            if (GameObject.Find(PlayerId(playerDTO.id)) != null)
                 return true;
 
             // Generate sphere.
@@ -54,22 +56,18 @@ namespace Players
             if (player == null)
                 return false;
 
-            player.tag = "Avatar";
-            player.name = PlayerId(id);
-            player.AddComponent<IsometricPosition>().Set(playerData.x, playerData.y);
+            player.tag = PLAYER_TAG;
+            player.name = PlayerId(playerDTO.id);
+            player.AddComponent<IsometricPosition>()
+                  .Set(playerDTO.location.x, playerDTO.location.y);
             player.AddComponent<PlayerController>();
 
-            // Assign colour.
-            Color playerColour;
-            ColorUtility.TryParseHtmlString(playerData.colour, out playerColour);
-            player.GetComponent<Renderer>().material.color = playerColour;
-
             // Add score text.
-            string initialScore = Convert.ToString(playerData.score);
+            string initialScore = Convert.ToString(playerDTO.score);
             player.AddComponent<PlayerScoreText>().SetScore(initialScore);
 
             // Add health bar.
-            player.AddComponent<PlayerHealthBar>().SetHealthPoints(playerData.health);
+            player.AddComponent<PlayerHealthBar>().SetHealthPoints(playerDTO.health);
 
             return true;
         }
@@ -85,9 +83,9 @@ namespace Players
             return true;
         }
 
-        public bool UpdatePlayer(int id, PlayerData playerData)
+        public bool UpdatePlayer(PlayerDTO playerDTO)
         {
-            GameObject playerToUpdate = GameObject.Find(PlayerId(id));
+            GameObject playerToUpdate = GameObject.Find(PlayerId(playerDTO.id));
             if (playerToUpdate == null)
                 return false;
 
@@ -96,9 +94,30 @@ namespace Players
                 return false;
 
             // The controller will change the position, score and health.
-            controller.SetNextState(playerData);
+            controller.SetNextState(playerDTO);
 
             return true;
+        }
+
+        public void OverwritePlayersState(PlayerDTO[] players) {
+            //RemoveAllPlayers();
+            foreach (PlayerDTO player in players) {
+                if (GameObject.Find(PlayerId(player.id)) == null)
+                {
+                    CreatePlayer(player);
+                } else 
+                {
+                    UpdatePlayer(player);
+                }
+            }
+        }
+
+        private void RemoveAllPlayers()
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag(PLAYER_TAG);
+            foreach (GameObject player in players) {
+                Destroy(player);
+            }
         }
 
         public string PlayerId(int id)

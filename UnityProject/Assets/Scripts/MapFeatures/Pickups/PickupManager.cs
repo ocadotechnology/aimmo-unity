@@ -6,23 +6,31 @@
 
 namespace MapFeatures.Pickups
 {
-	public class PickupManager : MapFeatureManager
-	{
-		public override void Draw(GameObject pickup, Sprite pickupSprite)
-		{
-			// TEMPORARY.
-			GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+    public class PickupManager : MapFeatureManager<PickupDTO>
+    {
+        public override bool Create(PickupDTO dto)
+        {
+            throw new System.NotImplementedException();
+        }
 
-			sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-			sphere.GetComponent<Renderer>().material.color = Color.blue;
-		
-			sphere.transform.parent = pickup.transform;
-			sphere.transform.position = pickup.transform.position;
-		}
+        public override bool Delete(PickupDTO dto)
+        {
+            throw new System.NotImplementedException();
+        }
 
-		public override string MapFeatureId(string id)
-		{
-			return "pickup" + id;
-		}
-	}
+        public override string MapFeatureId(string id)
+        {
+            return string.Format("Pickup{0}", id);
+        }
+
+        public override string MapFeatureTag()
+        {
+            return "Pickup";
+        }
+
+        public override bool UpdateFeature(PickupDTO dto)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
 }

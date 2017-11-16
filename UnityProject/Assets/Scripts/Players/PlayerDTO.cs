@@ -15,7 +15,7 @@ namespace Players
         {
             get
             {
-                return OrientationMethods.Orientation(orientation);
+                return OrientationMethods.OrientationForString(orientation);
             }
         }
     }

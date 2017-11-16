@@ -6,7 +6,7 @@ namespace Players
 
     /* Creates the health bar sprite attached to each avatar and provides an easy
      * interface to modify it. When the health points change, it suffices to call
-     * SetHealthPoints() and this class will do the rest.ss
+     * SetHealthPoints() and this class will do the rest.
      */
 
     public class PlayerHealthBar : MonoBehaviour

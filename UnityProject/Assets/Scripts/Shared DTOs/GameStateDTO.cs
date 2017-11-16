@@ -3,7 +3,7 @@ using MapFeatures.Pickups;
 using MapFeatures.Obstacles;
 using MapFeatures.ScoreLocations;
 
-public struct GameStateDTO 
+public struct GameStateDTO
 {
     public string era;
     public Location southWestCorner;
@@ -15,13 +15,14 @@ public struct GameStateDTO
 
     public Era EraType
     {
-        get {
+        get
+        {
             return EraMethods.EraForString(era);
         }
     }
 }
 
-public enum Era 
+public enum Era
 {
     LessFlat,
     Future

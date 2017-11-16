@@ -13,5 +13,4 @@ namespace MapFeatures.ScoreLocations
     {
         public Location location;
     }
-   
 }

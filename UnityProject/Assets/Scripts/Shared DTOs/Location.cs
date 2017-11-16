@@ -1,11 +1,13 @@
 using System;
 
 [Serializable]
-public struct Location: IEquatable<Location> {
+public struct Location : IEquatable<Location>
+{
     public int x;
     public int y;
 
-    public Location(int x, int y) {
+    public Location(int x, int y)
+    {
         this.x = x;
         this.y = y;
     }

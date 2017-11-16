@@ -1,15 +1,10 @@
-﻿using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using MapFeatures;
-using SimpleJSON;
 
 namespace Generator 
 {
-	public abstract class MapFeatureGenerator: IGenerator 
+	public abstract class MapFeatureGenerator<FeatureDTO>: IGenerator 
 	{
 		/***
 		 * The interface IGenerator can be found inside Scripts/LevelGenerator:
@@ -35,17 +30,14 @@ namespace Generator
 		* */
 		public GameObject GenerateObject(string id)
 		{
-			IMapFeatureManager manager = GetManager ();
-			MapFeatureData mfd = new MapFeatureData (JSON.Parse (ToJson ()));
-			manager.Create (id, mfd);
-
-			GameObject gameObject = GameObject.Find (manager.MapFeatureId (id));
-			UnityEngine.Object.DestroyImmediate((Component) manager);
-
-			return gameObject;
+            throw new NotImplementedException();
 		}
 
 		public abstract string MapFeatureToJson();
-		public abstract IMapFeatureManager GetManager ();
+        public abstract IMapFeatureManager<FeatureDTO> GetManager ();
 	}
+
+    /* Stub Classes */
+    public abstract class SpriteGenerator: MapFeatureGenerator<GameObject> {}
+    public abstract class ObstacleGenerator : SpriteGenerator {}
 }

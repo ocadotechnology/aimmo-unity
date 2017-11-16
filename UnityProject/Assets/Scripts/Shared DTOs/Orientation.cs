@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public enum Orientation
 {
-	North,
+    North,
     East,
     South,
     West
@@ -12,19 +12,20 @@ public enum Orientation
 
 public static class OrientationMethods
 {
-    public static Orientation Orientation(string orientation) {
-        switch (orientation.ToLower()) 
+    public static Orientation OrientationForString(string orientation)
+    {
+        switch (orientation.ToLower())
         {
             case "north":
-                return global::Orientation.North;
+                return Orientation.North;
             case "east":
-                return global::Orientation.East;
+                return Orientation.East;
             case "south":
-                return global::Orientation.South;
+                return Orientation.South;
             case "west":
-                return global::Orientation.West;
+                return Orientation.West;
             default:
-                return global::Orientation.North;
+                return Orientation.North;
         }
     }
 }

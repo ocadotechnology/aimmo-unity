@@ -6,13 +6,13 @@ using MapFeatures.Obstacles;
 using MapFeatures.ScoreLocations;
 using Players;
 
-namespace AIMMOUnityTest 
+namespace AIMMOUnityTest
 {
     [TestFixture]
-    internal class DTOTests
+    internal class DTODeserialisationTests
     {
         [Test]
-        public void TestPlayerDTOSerialisation()
+        public void TestPlayerDTODeserialisation()
         {
             string playerJSON = @" {
                 ""players"": [
@@ -50,7 +50,7 @@ namespace AIMMOUnityTest
         }
 
         [Test]
-        public void TestPickupDTOSerialisation()
+        public void TestPickupDTODeserialisation()
         {
             string pickupJSON = @" {
                 ""pickups"": [
@@ -79,7 +79,7 @@ namespace AIMMOUnityTest
         }
 
         [Test]
-        public void TestScoreDTOSerialisation()
+        public void TestScoreDTODeserialisation()
         {
             string scoreLocationJSON = @" {
                 ""scoreLocations"": [
@@ -111,7 +111,7 @@ namespace AIMMOUnityTest
         }
 
         [Test]
-        public void TestObstacleDTOSerialisation()
+        public void TestObstacleDTODeserialisation()
         {
             string obstacleJSON = @" {
                 ""obstacles"": [
@@ -150,7 +150,7 @@ namespace AIMMOUnityTest
         }
 
         [Test]
-        public void TestGameUpdateDTOSerialisation()
+        public void TestGameUpdateDTODeserialisation()
         {
             string gameUpdateJSON = @" {
                 ""era"": ""less_flat"",

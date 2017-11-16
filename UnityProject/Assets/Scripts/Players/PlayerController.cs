@@ -16,7 +16,7 @@ namespace Players
 
         private float startTime;
 
-        private PlayerData nextState;
+        private PlayerDTO nextState;
         private Vector2 currPosition;
         private Vector2 nextPosition;
 
@@ -25,7 +25,6 @@ namespace Players
         {
             startTime = Time.time;
             currPosition = transform.position;
-            //nextState = new PlayerData(transform.position);
         }
 
         // Move the player to next position.
@@ -62,12 +61,12 @@ namespace Players
         }
 
         // Set next destination.
-        public void SetNextState(PlayerData playerData)
+        public void SetNextState(PlayerDTO playerDTO)
         {
-            nextState = playerData;
+            nextState = playerDTO;
 
             transform.GetComponent<IsometricPosition>().Set(nextPosition);
-            nextPosition = new Vector2(nextState.x, nextState.y);
+            nextPosition = new Vector2(nextState.location.x, nextState.location.y);
         }
 
     }
