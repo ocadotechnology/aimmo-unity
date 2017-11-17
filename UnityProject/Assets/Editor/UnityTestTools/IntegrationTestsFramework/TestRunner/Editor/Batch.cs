@@ -7,6 +7,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityTest.IntegrationTests;
 using UnityEditor.SceneManagement;
+using System.Globalization;
 
 namespace UnityTest
 {
@@ -25,7 +26,7 @@ namespace UnityTest
         public static void RunIntegrationTests()
         {
             var targetPlatform = GetTargetPlatform();
-            var otherBuildScenes = GetSceneListFromParam (k_OtherBuildScenesParam);
+            var otherBuildScenes = GetSceneListFromParam(k_OtherBuildScenesParam);
 
             var testScenes = GetSceneListFromParam(k_TestScenesParam);
             if (testScenes.Count == 0)
@@ -33,8 +34,8 @@ namespace UnityTest
 
             RunIntegrationTests(targetPlatform, testScenes, otherBuildScenes);
         }
-        
-        public static void RunIntegrationTests(BuildTarget ? targetPlatform)
+
+        public static void RunIntegrationTests(BuildTarget? targetPlatform)
         {
             var sceneList = FindTestScenesInProject();
             RunIntegrationTests(targetPlatform, sceneList, new List<string>());
@@ -46,9 +47,9 @@ namespace UnityTest
             if (targetPlatform.HasValue)
                 BuildAndRun(targetPlatform.Value, testScenes, otherBuildScenes);
             else
-                RunInEditor(testScenes,  otherBuildScenes);
+                RunInEditor(testScenes, otherBuildScenes);
         }
-        
+
         private static void BuildAndRun(BuildTarget target, List<string> testScenes, List<string> otherBuildScenes)
         {
             var resultFilePath = GetParameterArgument(k_ResultFileDirParam);
@@ -68,11 +69,12 @@ namespace UnityTest
                 port = port
             };
 
-            if (Application.isWebPlayer)
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 config.sendResultsOverNetwork = false;
-                Debug.Log("You can't use WebPlayer as active platform for running integration tests. Switching to Standalone");
-                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.StandaloneWindows);
+                Debug.Log("You can't use WebGLPlayer as active platform for running integration tests. Switching to Standalone");
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+
             }
 
             PlatformRunner.BuildAndRunInPlayer(config);
@@ -89,15 +91,15 @@ namespace UnityTest
                 EditorApplication.Exit(returnCodeRunError);
                 return;
             }
-             
+
             string previousScenesXml = "";
             var serializer = new System.Xml.Serialization.XmlSerializer(typeof(EditorBuildSettingsScene[]));
-            using(StringWriter textWriter = new StringWriter())
+            using (StringWriter textWriter = new StringWriter())
             {
                 serializer.Serialize(textWriter, EditorBuildSettings.scenes);
                 previousScenesXml = textWriter.ToString();
             }
-                
+
             EditorBuildSettings.scenes = (testScenes.Concat(otherBuildScenes).ToList()).Select(s => new EditorBuildSettingsScene(s, true)).ToArray();
             EditorSceneManager.OpenScene(testScenes.First());
             GuiHelper.SetConsoleErrorPause(false);
@@ -109,12 +111,12 @@ namespace UnityTest
                 port = PlatformRunnerConfiguration.TryToGetFreePort(),
                 runInEditor = true
             };
-                    
+
             var settings = new PlayerSettingConfigurator(true);
             settings.AddConfigurationFile(TestRunnerConfigurator.integrationTestsNetwork, string.Join("\n", config.GetConnectionIPs()));
-            settings.AddConfigurationFile(TestRunnerConfigurator.testScenesToRun, string.Join ("\n", testScenes.ToArray()));
+            settings.AddConfigurationFile(TestRunnerConfigurator.testScenesToRun, string.Join("\n", testScenes.ToArray()));
             settings.AddConfigurationFile(TestRunnerConfigurator.previousScenes, previousScenesXml);
-         
+
             NetworkResultsReceiver.StartReceiver(config);
 
             EditorApplication.isPlaying = true;
@@ -124,7 +126,7 @@ namespace UnityTest
         {
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToLower().StartsWith(parameterName.ToLower()))
+                if (arg.ToLower().StartsWith(parameterName.ToLower(), StringComparison.CurrentCulture))
                 {
                     return arg.Substring(parameterName.Length);
                 }
@@ -138,18 +140,18 @@ namespace UnityTest
             if (notSupportedPlatforms.Contains(EditorUserBuildSettings.activeBuildTarget.ToString()))
             {
                 Debug.Log("activeBuildTarget can not be  "
-                    + EditorUserBuildSettings.activeBuildTarget + 
+                    + EditorUserBuildSettings.activeBuildTarget +
                     " use buildTarget parameter to open Unity.");
             }
         }
 
-        private static BuildTarget ? GetTargetPlatform()
+        private static BuildTarget? GetTargetPlatform()
         {
             string platformString = null;
             BuildTarget buildTarget;
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToLower().StartsWith(k_TargetPlatformParam.ToLower()))
+                if (arg.ToLower().StartsWith(k_TargetPlatformParam.ToLower(), StringComparison.CurrentCulture))
                 {
                     platformString = arg.Substring(k_ResultFilePathParam.Length);
                     break;
@@ -178,13 +180,13 @@ namespace UnityTest
             var sceneList = new List<string>();
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToLower().StartsWith(param.ToLower()))
+                if (arg.ToLower().StartsWith(param.ToLower(), StringComparison.CurrentCulture))
                 {
                     var scenesFromParam = arg.Substring(param.Length).Split(',');
                     foreach (var scene in scenesFromParam)
                     {
                         var sceneName = scene;
-                        if (!sceneName.EndsWith(".unity"))
+                        if (!sceneName.EndsWith(".unity", StringComparison.CurrentCulture))
                             sceneName += ".unity";
                         var foundScenes = Directory.GetFiles(Directory.GetCurrentDirectory(), sceneName, SearchOption.AllDirectories);
                         if (foundScenes.Length == 1)

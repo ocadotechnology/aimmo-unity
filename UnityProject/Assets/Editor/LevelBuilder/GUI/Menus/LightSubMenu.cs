@@ -37,7 +37,7 @@ class LightSubMenu : IMenu
 				lightData.x = float.Parse(lightX);
 				lightData.y = float.Parse(lightY);
 			}
-			catch (FormatException e)
+			catch (FormatException)
 			{
 			}
 		}
