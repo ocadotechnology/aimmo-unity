@@ -7,6 +7,7 @@ using UnityEditorInternal;
 using UnityEngine;
 using UnityTest.IntegrationTests;
 using UnityEditor.SceneManagement;
+using System.Globalization;
 
 namespace UnityTest
 {
@@ -68,11 +69,12 @@ namespace UnityTest
                 port = port
             };
 
-            if (Application.isWebPlayer)
+            if (Application.platform == RuntimePlatform.WebGLPlayer)
             {
                 config.sendResultsOverNetwork = false;
-                Debug.Log("You can't use WebPlayer as active platform for running integration tests. Switching to Standalone");
-                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTarget.StandaloneWindows);
+                Debug.Log("You can't use WebGLPlayer as active platform for running integration tests. Switching to Standalone");
+                EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+
             }
 
             PlatformRunner.BuildAndRunInPlayer(config);
@@ -124,7 +126,7 @@ namespace UnityTest
         {
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToLower().StartsWith(parameterName.ToLower()))
+                if (arg.ToLower().StartsWith(parameterName.ToLower(), StringComparison.CurrentCulture))
                 {
                     return arg.Substring(parameterName.Length);
                 }
@@ -149,7 +151,8 @@ namespace UnityTest
             BuildTarget buildTarget;
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToLower().StartsWith(k_TargetPlatformParam.ToLower()))
+                CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+                if (arg.ToLower(cultureInfo).StartsWith(k_TargetPlatformParam.ToLower(cultureInfo), StringComparison.CurrentCulture))
                 {
                     platformString = arg.Substring(k_ResultFilePathParam.Length);
                     break;
@@ -178,13 +181,13 @@ namespace UnityTest
             var sceneList = new List<string>();
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                if (arg.ToLower().StartsWith(param.ToLower()))
+                if (arg.ToLower().StartsWith(param.ToLower(), StringComparison.CurrentCulture))
                 {
                     var scenesFromParam = arg.Substring(param.Length).Split(',');
                     foreach (var scene in scenesFromParam)
                     {
                         var sceneName = scene;
-                        if (!sceneName.EndsWith(".unity"))
+                        if (!sceneName.EndsWith(".unity", StringComparison.CurrentCulture))
                             sceneName += ".unity";
                         var foundScenes = Directory.GetFiles(Directory.GetCurrentDirectory(), sceneName, SearchOption.AllDirectories);
                         if (foundScenes.Length == 1)
