@@ -151,8 +151,7 @@ namespace UnityTest
             BuildTarget buildTarget;
             foreach (var arg in Environment.GetCommandLineArgs())
             {
-                CultureInfo cultureInfo = CultureInfo.CurrentCulture;
-                if (arg.ToLower(cultureInfo).StartsWith(k_TargetPlatformParam.ToLower(cultureInfo), StringComparison.CurrentCulture))
+                if (arg.ToLower().StartsWith(k_TargetPlatformParam.ToLower(), StringComparison.CurrentCulture))
                 {
                     platformString = arg.Substring(k_ResultFilePathParam.Length);
                     break;
