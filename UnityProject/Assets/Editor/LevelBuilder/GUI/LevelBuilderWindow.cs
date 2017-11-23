@@ -176,5 +176,9 @@ public class LevelBuilderWindow : EditorWindow
         GameObject terrain = Instantiate(terrainPrefab) as GameObject;
         terrain.transform.SetParent(terrainParent.transform, false);
         terrain.transform.localPosition = new Vector3(0, 0, 0);
+
+        TerrainGenerator terrainGenerator = new TerrainGenerator();
+        TerrainDTO dto = new TerrainDTO(10, 10);
+        terrainGenerator.GenerateTerrain(dto);
     }
 }
