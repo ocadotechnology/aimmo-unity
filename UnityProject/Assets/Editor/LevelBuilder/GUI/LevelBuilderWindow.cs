@@ -66,6 +66,8 @@ public class LevelBuilderWindow : EditorWindow
 
 	public void OnGUI()
 	{
+        minSize = new Vector2(225, 0);
+
 		// Level buttons.
 		GUILayout.Label("Select a level below to work on:");
 
