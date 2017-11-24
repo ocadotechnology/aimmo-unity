@@ -125,8 +125,12 @@ public class LevelBuilderWindow : EditorWindow
             EditorSceneManager.SaveScene(newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity");
         }
 
-        foreach (IMenu menu in menus) 
-			menu.Display();
+        EditorGUILayout.BeginScrollView(Vector2.zero);
+        foreach (IMenu menu in menus)
+        {
+            menu.Display();
+        }
+        EditorGUILayout.EndScrollView();
 	}
 
     private static void SetupCamera()
