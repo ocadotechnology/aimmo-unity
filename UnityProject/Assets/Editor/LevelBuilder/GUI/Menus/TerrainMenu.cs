@@ -3,12 +3,11 @@ using UnityEditor;
 
 public class TerrainMenu : IMenu
 {
-    private TerrainDTO terrainDTO;
-    private TerrainDTO displayedTerrain;
+    private Vector2Int terrainSize;
     private TerrainGenerator terrainGenerator;
 
     public TerrainMenu() {
-        terrainDTO = new TerrainDTO(10, 10);
+        terrainSize = new Vector2Int(10, 10);
         terrainGenerator = new TerrainGenerator();
     }
 
@@ -29,10 +28,10 @@ public class TerrainMenu : IMenu
     {
         EditorGUILayout.BeginHorizontal();
         EditorGUI.BeginChangeCheck();
-        terrainDTO.width = EditorGUILayout.IntField("Width: ", terrainDTO.width);
-        terrainDTO.height = EditorGUILayout.IntField("Height: ", terrainDTO.height);
+        terrainSize = EditorGUILayout.Vector2IntField("Size", terrainSize); 
         if (EditorGUI.EndChangeCheck())
         {
+            TerrainDTO terrainDTO = new TerrainDTO(terrainSize.x, terrainSize.y);
             terrainGenerator.GenerateTerrain(terrainDTO);
         }
         EditorGUILayout.EndHorizontal();
