@@ -120,13 +120,8 @@ public class LevelBuilderWindow : EditorWindow
             GameObject level = CreateEmptyLevel();
             CreateTerrainForLevel(level);
 
-            if (!EditorSceneManager.SaveScene(newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity"))
-            {
-                Debug.Log("The savescene line failed!!!!!!!!!!!!!");
-                // TODO: check for errors here and remove the curly brackets.
-            }
-
-        } // if
+            EditorSceneManager.SaveScene(newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity");
+        }
 
         foreach (IMenu menu in menus) 
 			menu.Display();
