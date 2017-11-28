@@ -24,7 +24,8 @@ public class LevelBuilderWindow : EditorWindow
 
 	// Main menus.
 	private IMenu[] menus = {
-        new TerrainMenu()
+        new TerrainMenu(),
+        new PickupMenu(),
 	};
 
 	private static LevelBuilderWindow GetWindow()
@@ -64,7 +65,7 @@ public class LevelBuilderWindow : EditorWindow
 		camera.nearClipPlane = 0.3f;
 	}
 
-	public void OnGUI()
+    public void OnGUI()
 	{
         minSize = new Vector2(225, 0);
 
@@ -121,6 +122,7 @@ public class LevelBuilderWindow : EditorWindow
 
             GameObject level = CreateEmptyLevel();
             CreateTerrainForLevel(level);
+            CreatePickupsFolderForLevel(level);
 
             EditorSceneManager.SaveScene(newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity");
         }
@@ -173,7 +175,7 @@ public class LevelBuilderWindow : EditorWindow
         terrainParent.transform.SetParent(parent.transform, false);
         terrainParent.transform.localPosition = new Vector3(0, 0, 0);
 
-        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/terrain_lessFlat_default");
+        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_lessFlat_default");
         GameObject terrain = Instantiate(terrainPrefab) as GameObject;
         terrain.transform.SetParent(terrainParent.transform, false);
         terrain.transform.localPosition = new Vector3(0, 0, 0);
@@ -181,5 +183,12 @@ public class LevelBuilderWindow : EditorWindow
         TerrainGenerator terrainGenerator = new TerrainGenerator();
         TerrainDTO dto = new TerrainDTO(10, 10);
         terrainGenerator.GenerateTerrain(dto);
+    }
+
+    private static void CreatePickupsFolderForLevel(GameObject parent)
+    {
+        GameObject pickupFolder = new GameObject("Pickups");
+        pickupFolder.transform.localPosition = Vector3.zero;
+        pickupFolder.transform.SetParent(parent.transform, false);
     }
 }
