@@ -25,7 +25,8 @@ public class PickupMenu : IMenu
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button(pickupPickerButtonTitle))
         {
-            EditorGUIUtility.ShowObjectPicker<GameObject>(null, true, "pickup_", GUIUtility.GetControlID(pickupPickerButtonTitle, FocusType.Passive));
+            
+            EditorGUIUtility.ShowObjectPicker<GameObject>(null, false, "pickup_", GUIUtility.GetControlID(pickupPickerButtonTitle, FocusType.Passive));
         }
         EditorGUILayout.EndHorizontal();
     }
