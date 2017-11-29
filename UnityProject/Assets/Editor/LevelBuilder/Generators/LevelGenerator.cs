@@ -15,6 +15,7 @@ public class LevelGenerator
         CreateTerrainFolder();
         CreateTerrain();
         CreatePickupsFolder();
+        CreateObstaclesFolder();
     }
 
     private void CreateEmptyLevelFolder()
@@ -47,6 +48,13 @@ public class LevelGenerator
         GameObject pickupFolder = new GameObject("Pickups");
         pickupFolder.transform.localPosition = Vector3.zero;
         pickupFolder.transform.SetParent(levelFolder.transform, false);
+    }
+
+    private void CreateObstaclesFolder()
+    {
+        GameObject obstaclesFolder = new GameObject("Obstacles");
+        obstaclesFolder.transform.localPosition = Vector3.zero;
+        obstaclesFolder.transform.SetParent(levelFolder.transform, false);
     }
 
     private void SetupCamera()

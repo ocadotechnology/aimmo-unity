@@ -27,6 +27,7 @@ public class LevelBuilderWindow : EditorWindow
     {
         new TerrainMenu(),
         new PickupMenu(),
+        new ObstacleMenu(),
     };
 
     private static LevelBuilderWindow GetWindow()
