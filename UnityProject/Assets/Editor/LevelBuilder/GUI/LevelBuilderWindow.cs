@@ -42,7 +42,6 @@ public class LevelBuilderWindow : EditorWindow
         windowInstance.Show();
         windowInstance.Focus();
 
-        SetUpScene();
     }
 
     // 'Help' drop-down option. Go to github.
@@ -50,19 +49,6 @@ public class LevelBuilderWindow : EditorWindow
     public static void Help()
     {
         Application.OpenURL("https://github.com/ocadotechnology/aimmo-unity/");
-    }
-
-    // Any intialisation required for the scene when building a level goes here.
-    private static void SetUpScene()
-    {
-        Camera camera = Camera.main;
-
-        camera.transform.position = new Vector3(0.0f, 0.0f, -100.0f);
-        camera.transform.rotation = Quaternion.Euler(Vector3.zero);
-        camera.orthographic = true;
-        camera.orthographicSize = 5.0f;
-        camera.farClipPlane = 1000.0f;
-        camera.nearClipPlane = 0.3f;
     }
 
     public void OnGUI()
@@ -115,14 +101,9 @@ public class LevelBuilderWindow : EditorWindow
             // filename to save our scene with.
             int currentNoOfLevels = SceneHandler.countScenes();
             currentNoOfLevels++;
-            SetupCamera();
 
-            LevelBuilderWindow.SetUpScene();
-            SetupLighting();
-
-            GameObject level = CreateEmptyLevel();
-            CreateTerrainForLevel(level);
-            CreatePickupsFolderForLevel(level);
+            LevelGenerator levelGenerator = new LevelGenerator();
+            levelGenerator.GenerateLevel();
 
             EditorSceneManager.SaveScene(newScene, "Assets/Scenes/Levels/Level" + currentNoOfLevels + ".unity");
         }
@@ -133,62 +114,5 @@ public class LevelBuilderWindow : EditorWindow
             menu.Display();
         }
         EditorGUILayout.EndScrollView();
-    }
-
-    private static void SetupCamera()
-    {
-        // Setting up the camera.
-        GameObject cameraGameObject = new GameObject("Main Camera");
-        cameraGameObject.AddComponent<Camera>();
-        cameraGameObject.tag = "MainCamera";
-    }
-
-    private static void SetupLighting()
-    {
-        // Setting up the light.
-        GameObject directionalLight = new GameObject("Directional Light");
-        Light lightSettings = directionalLight.AddComponent<Light>();
-        lightSettings.type = LightType.Directional;
-
-        // The color needs to be normalized to the 0-1 range.
-        lightSettings.color = new Color(1.0f, 0.956f, 0.839f, 1.0f);
-        lightSettings.intensity = 1.0f;
-        lightSettings.shadowBias = 0.05f;
-        lightSettings.shadowNormalBias = 0.4f;
-        lightSettings.shadowNearPlane = 0.2f;
-        directionalLight.transform.position = new Vector3(0.0f, 3.0f, 0.0f);
-        directionalLight.transform.rotation = Quaternion.Euler(50.0f, -30.0f, 0.0f);
-    }
-
-    private static GameObject CreateEmptyLevel()
-    {
-        // create level folder
-        GameObject level = new GameObject("Level");
-        level.transform.position = new Vector3(0.5f, 0f, 0.5f);
-        return level;
-    }
-
-    private static void CreateTerrainForLevel(GameObject parent)
-    {
-        // create terrain folder
-        GameObject terrainParent = new GameObject("Terrain");
-        terrainParent.transform.SetParent(parent.transform, false);
-        terrainParent.transform.localPosition = new Vector3(0, 0, 0);
-
-        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_lessFlat_default");
-        GameObject terrain = Instantiate(terrainPrefab) as GameObject;
-        terrain.transform.SetParent(terrainParent.transform, false);
-        terrain.transform.localPosition = new Vector3(0, 0, 0);
-
-        TerrainGenerator terrainGenerator = new TerrainGenerator();
-        TerrainDTO dto = new TerrainDTO(10, 10);
-        terrainGenerator.GenerateTerrain(dto);
-    }
-
-    private static void CreatePickupsFolderForLevel(GameObject parent)
-    {
-        GameObject pickupFolder = new GameObject("Pickups");
-        pickupFolder.transform.localPosition = Vector3.zero;
-        pickupFolder.transform.SetParent(parent.transform, false);
     }
 }
