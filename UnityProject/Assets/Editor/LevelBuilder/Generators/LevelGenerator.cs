@@ -16,6 +16,11 @@ public class LevelGenerator
         CreateTerrain();
         CreatePickupsFolder();
         CreateObstaclesFolder();
+        CreatePlayerFolder();
+
+        // To be changed. This is a dummy to get some initial functionality in first.
+        GameObject playerDummyPrefab = Resources.Load<GameObject>("Prefabs/Players/player_default");
+        PlayerGenerator.GeneratePlayer(playerDummyPrefab);
     }
 
     private void CreateEmptyLevelFolder()
@@ -55,6 +60,13 @@ public class LevelGenerator
         GameObject obstaclesFolder = new GameObject("Obstacles");
         obstaclesFolder.transform.localPosition = Vector3.zero;
         obstaclesFolder.transform.SetParent(levelFolder.transform, false);
+    }
+
+    private void CreatePlayerFolder()
+    {
+        GameObject avatarFolder = new GameObject("Players");
+        avatarFolder.transform.localPosition = Vector3.zero;
+        avatarFolder.transform.SetParent(levelFolder.transform, false);
     }
 
     private void SetupCamera()
