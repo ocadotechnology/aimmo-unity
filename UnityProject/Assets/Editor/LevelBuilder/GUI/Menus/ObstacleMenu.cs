@@ -9,7 +9,6 @@ public class ObstacleMenu : IMenu
     {
         DisplayTitle();
         DisplayObstaclesPickerButton();
-
     }
 
     private void DisplayTitle()
@@ -28,19 +27,6 @@ public class ObstacleMenu : IMenu
             EditorGUIUtility.ShowObjectPicker<GameObject>(null, false, "obstacle_", GUIUtility.GetControlID(obstaclePickerButtonTitle, FocusType.Passive));
         }
         EditorGUILayout.EndHorizontal();
-    }
-
-    private void ListenForPickerEvents()
-    {
-        if (Event.current.commandName == "ObjectSelectorClosed" 
-            && Event.current.type != EventType.Layout)
-        {
-            GameObject objectPickerObject = EditorGUIUtility.GetObjectPickerObject() as GameObject;
-            if (objectPickerObject != null)
-            {
-                ObstacleGenerator.GenerateObstacle(objectPickerObject);
-            }
-        }
     }
 }
 

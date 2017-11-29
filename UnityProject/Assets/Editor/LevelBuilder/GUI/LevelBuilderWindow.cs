@@ -117,5 +117,27 @@ public class LevelBuilderWindow : EditorWindow
             menu.Display();
         }
         EditorGUILayout.EndScrollView();
+
+        ListenForPickerEvents();
+    }
+
+    private void ListenForPickerEvents()
+    {
+        if (Event.current.commandName == "ObjectSelectorClosed" 
+            && Event.current.type != EventType.Layout)
+        {
+            GameObject objectPickerObject = EditorGUIUtility.GetObjectPickerObject() as GameObject;
+            if (objectPickerObject != null)
+            {
+                if (objectPickerObject.tag == "Obstacle")
+                {
+                    ObstacleGenerator.GenerateObstacle(objectPickerObject);
+                }
+                else if (objectPickerObject.tag == "Pickup")
+                {
+                    PickupGenerator.GeneratePickup(objectPickerObject);
+                }
+            }
+        }
     }
 }

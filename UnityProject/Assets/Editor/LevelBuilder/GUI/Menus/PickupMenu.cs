@@ -10,7 +10,6 @@ public class PickupMenu : IMenu
     {
         DisplayTitle();
         DisplayPickupsPickerButton();
-        ListenForPickerEvents();
     }
 
     private void DisplayTitle()
@@ -30,18 +29,4 @@ public class PickupMenu : IMenu
         }
         EditorGUILayout.EndHorizontal();
     }
-
-    private void ListenForPickerEvents()
-    {
-        if (Event.current.commandName == "ObjectSelectorClosed" 
-            && Event.current.type != EventType.Layout)
-        {
-            GameObject objectPickerObject = EditorGUIUtility.GetObjectPickerObject() as GameObject;
-            if (objectPickerObject != null)
-            {
-                PickupGenerator.GeneratePickup(objectPickerObject);
-            }
-        }
-    }
-
 }
