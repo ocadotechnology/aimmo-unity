@@ -76,7 +76,12 @@ public class LevelBuilderWindow : EditorWindow
         optionChosenByUser++;
 
         if (GUILayout.Button(new GUIContent("Work!")))
+        {
+            EditorSceneManager.MarkAllScenesDirty();
+            EditorSceneManager.SaveOpenScenes();
+
             AssetFetcher.WorkOnLevel("Level" + optionChosenByUser);
+        }
 
         // Only let the level designer operate if it's a level.
         // ie. If the scene is called "Main" then it is not a level.
@@ -86,10 +91,6 @@ public class LevelBuilderWindow : EditorWindow
 
         if (GUILayout.Button(new GUIContent("Create a new level.")))
         {
-
-            // We have a bug where Unity doesn't recognise our dynamically
-            // added objects through the level builder so we need to force
-            // the change to be saved.
             EditorSceneManager.MarkAllScenesDirty();
             EditorSceneManager.SaveOpenScenes();
 
