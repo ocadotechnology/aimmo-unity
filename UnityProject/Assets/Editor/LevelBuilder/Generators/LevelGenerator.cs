@@ -4,24 +4,24 @@ using System.Collections;
 
 public class LevelGenerator
 {
-	private GameObject levelFolder;
+    private GameObject levelFolder;
     private GameObject terrainFolder;
 
-	public void GenerateLevel()
-	{
+    public void GenerateLevel()
+    {
         SetupCamera();
         SetupLighting();
-		CreateEmptyLevelFolder();
+        CreateEmptyLevelFolder();
         CreateTerrainFolder();
         CreateTerrain();
         CreatePickupsFolder();
-	}
+    }
 
-	private void CreateEmptyLevelFolder()
-	{
-		levelFolder = new GameObject("Level");
-		levelFolder.transform.position = new Vector3(0.5f, 0f, 0.5f);
-	}
+    private void CreateEmptyLevelFolder()
+    {
+        levelFolder = new GameObject("Level");
+        levelFolder.transform.position = new Vector3(0.5f, 0f, 0.5f);
+    }
 
     private void CreateTerrainFolder()
     {
@@ -42,18 +42,18 @@ public class LevelGenerator
         terrainGenerator.GenerateTerrain(dto);
     }
 
-	private void CreatePickupsFolder()
-	{
-		GameObject pickupFolder = new GameObject("Pickups");
-		pickupFolder.transform.localPosition = Vector3.zero;
-		pickupFolder.transform.SetParent(levelFolder.transform, false);
-	}
+    private void CreatePickupsFolder()
+    {
+        GameObject pickupFolder = new GameObject("Pickups");
+        pickupFolder.transform.localPosition = Vector3.zero;
+        pickupFolder.transform.SetParent(levelFolder.transform, false);
+    }
 
-	private void SetupCamera()
-	{
-		GameObject cameraGameObject = new GameObject("Main Camera");
-		cameraGameObject.AddComponent<Camera>();
-		cameraGameObject.tag = "MainCamera";
+    private void SetupCamera()
+    {
+        GameObject cameraGameObject = new GameObject("Main Camera");
+        cameraGameObject.AddComponent<Camera>();
+        cameraGameObject.tag = "MainCamera";
 
         Camera camera = Camera.main;
         camera.transform.position = new Vector3(0.0f, 0.0f, -100.0f);
@@ -62,23 +62,23 @@ public class LevelGenerator
         camera.orthographicSize = 5.0f;
         camera.farClipPlane = 1000.0f;
         camera.nearClipPlane = 0.3f;
-	}
+    }
 
-	private void SetupLighting()
-	{
-		// Setting up the light.
-		GameObject directionalLight = new GameObject("Directional Light");
-		Light lightSettings = directionalLight.AddComponent<Light>();
-		lightSettings.type = LightType.Directional;
+    private void SetupLighting()
+    {
+        // Setting up the light.
+        GameObject directionalLight = new GameObject("Directional Light");
+        Light lightSettings = directionalLight.AddComponent<Light>();
+        lightSettings.type = LightType.Directional;
 
-		// The color needs to be normalized to the 0-1 range.
-		lightSettings.color = new Color(1.0f, 0.956f, 0.839f, 1.0f);
-		lightSettings.intensity = 1.0f;
-		lightSettings.shadowBias = 0.05f;
-		lightSettings.shadowNormalBias = 0.4f;
-		lightSettings.shadowNearPlane = 0.2f;
-		directionalLight.transform.position = new Vector3(0.0f, 3.0f, 0.0f);
-		directionalLight.transform.rotation = Quaternion.Euler(50.0f, -30.0f, 0.0f);
-	}
+        // The color needs to be normalized to the 0-1 range.
+        lightSettings.color = new Color(1.0f, 0.956f, 0.839f, 1.0f);
+        lightSettings.intensity = 1.0f;
+        lightSettings.shadowBias = 0.05f;
+        lightSettings.shadowNormalBias = 0.4f;
+        lightSettings.shadowNearPlane = 0.2f;
+        directionalLight.transform.position = new Vector3(0.0f, 3.0f, 0.0f);
+        directionalLight.transform.rotation = Quaternion.Euler(50.0f, -30.0f, 0.0f);
+    }
 }
 

@@ -23,7 +23,8 @@ public class LevelBuilderWindow : EditorWindow
     private int optionChosenByUser = 0;
 
     // Main menus.
-    private IMenu[] menus = {
+    private IMenu[] menus =
+    {
         new TerrainMenu(),
         new PickupMenu(),
     };
