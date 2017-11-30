@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d8e8f6a7869434ddeb281f7543f13354
-timeCreated: 1512039826
+guid: ed28b674c5a8a4f32bf1fb9802bfe339
+timeCreated: 1512041813
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -62,7 +62,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Dee
-    second: {fileID: 2100000, guid: fe21156c4418e43259363d50af58b371, type: 2}
+    second: {fileID: 2100000, guid: 3d989995e12194bdea22564050196143, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -92,7 +92,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.015
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
@@ -109,7 +109,7 @@ ModelImporter:
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
-    useFileScale: 0
+    useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
