@@ -16,6 +16,10 @@ public class LevelGenerator
         CreateTerrain();
         CreatePickupsFolder();
         CreateObstaclesFolder();
+        CreatePlayerFolder();
+
+        GameObject defaultPlayerPrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
+        PlayerGenerator.GeneratePlayer(defaultPlayerPrefab);
     }
 
     private void CreateEmptyLevelFolder()
@@ -55,6 +59,13 @@ public class LevelGenerator
         GameObject obstaclesFolder = new GameObject("Obstacles");
         obstaclesFolder.transform.localPosition = Vector3.zero;
         obstaclesFolder.transform.SetParent(levelFolder.transform, false);
+    }
+
+    private void CreatePlayerFolder()
+    {
+        GameObject avatarFolder = new GameObject("Players");
+        avatarFolder.transform.localPosition = Vector3.zero;
+        avatarFolder.transform.SetParent(levelFolder.transform, false);
     }
 
     private void SetupCamera()
