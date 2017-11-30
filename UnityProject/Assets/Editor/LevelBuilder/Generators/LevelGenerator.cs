@@ -18,9 +18,8 @@ public class LevelGenerator
         CreateObstaclesFolder();
         CreatePlayerFolder();
 
-        // To be changed. This is a dummy to get some initial functionality in first.
-        GameObject playerDummyPrefab = Resources.Load<GameObject>("Prefabs/Players/player_default");
-        PlayerGenerator.GeneratePlayer(playerDummyPrefab);
+        GameObject defaultPlayerPrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
+        PlayerGenerator.GeneratePlayer(defaultPlayerPrefab);
     }
 
     private void CreateEmptyLevelFolder()
