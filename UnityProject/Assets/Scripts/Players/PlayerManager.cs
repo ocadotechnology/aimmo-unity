@@ -19,7 +19,7 @@ namespace Players
 		public string colour;
 
 		// Construct from just position.
-		public PlayerData (int id, Vector2 position)
+		public PlayerData(int id, Vector2 position)
 		{
 			this.id = id;
 			this.x = position.x;
@@ -37,68 +37,68 @@ namespace Players
 
 	public interface IPlayerManager
 	{
-		bool CreatePlayer (PlayerDTO playerDTO);
+		bool CreatePlayer(PlayerDTO playerDTO);
 
-		bool DeletePlayer (int id);
+		bool DeletePlayer(int id);
 
-		bool UpdatePlayer (PlayerDTO playerDTO);
+		bool UpdatePlayer(PlayerDTO playerDTO);
 	}
 
 	public class PlayerManager : MonoBehaviour, IPlayerManager
 	{
 		public static String PLAYER_TAG = "Avatar";
-		Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject> ();
+		Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
 
-		public bool CreatePlayer (PlayerDTO playerDTO)
+		public bool CreatePlayer(PlayerDTO playerDTO)
 		{
 			// It might have already been created.
-			if (activePlayers.ContainsKey (PlayerId (playerDTO.id)))
+			if (activePlayers.ContainsKey(PlayerId(playerDTO.id)))
 				return true;
 
-			GameObject player = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+			GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 			if (player == null)
 				return false;
 
 			player.tag = PLAYER_TAG;
-			player.name = PlayerId (playerDTO.id);
-			player.AddComponent<PlayerController> ();
+			player.name = PlayerId(playerDTO.id);
+			player.AddComponent<PlayerController>();
 
-			activePlayers.Add (PlayerId (playerDTO.id), player);
+			activePlayers.Add(PlayerId(playerDTO.id), player);
 
-			Debug.Log ("Added player");
+			Debug.Log("Added player");
 
 			return true;
 		}
 
-		public bool DeletePlayer (int id)
+		public bool DeletePlayer(int id)
 		{
-			if (!activePlayers.ContainsKey (PlayerId (id)))
+			if (!activePlayers.ContainsKey(PlayerId(id)))
 				return false;
 
-			Destroy (activePlayers [PlayerId (id)]);
+			Destroy(activePlayers[PlayerId(id)]);
 
-			activePlayers.Remove (PlayerId (id));
+			activePlayers.Remove(PlayerId(id));
 
-			Debug.Log ("Deleted player");
+			Debug.Log("Deleted player");
 
 			return true;
 		}
 
-		public bool UpdatePlayer (PlayerDTO playerDTO)
+		public bool UpdatePlayer(PlayerDTO playerDTO)
 		{
-			GameObject playerToUpdate = activePlayers [PlayerId (playerDTO.id)];
+			GameObject playerToUpdate = activePlayers[PlayerId(playerDTO.id)];
 
 			if (playerToUpdate == null)
 				return false;
 
-			PlayerController controller = playerToUpdate.GetComponent<PlayerController> ();
+			PlayerController controller = playerToUpdate.GetComponent<PlayerController>();
 			if (controller == null)
 				return false;
 
 			// The controller will change the position, score and health.
-			controller.SetNextState (playerDTO);
+			controller.SetNextState(playerDTO);
 
-			Debug.Log ("Updated player");
+			Debug.Log("Updated player");
 
 			return true;
 		}
@@ -107,31 +107,36 @@ namespace Players
 		 * Given the PlayerDTO array, UpdatePlayersState will decide whether a new 
 		 * player creation is required, or an update instead.
 		 */
-		public void UpdatePlayersState (PlayerDTO[] players)
+		public void UpdatePlayersState(PlayerDTO[] players)
 		{
-			foreach (PlayerDTO player in players) {
-				if (!activePlayers.ContainsKey (PlayerId (player.id))) {
-					CreatePlayer (player);
-				} else {
-					UpdatePlayer (player);
+			foreach (PlayerDTO player in players)
+			{
+				if (!activePlayers.ContainsKey(PlayerId(player.id)))
+				{
+					CreatePlayer(player);
+				}
+				else
+				{
+					UpdatePlayer(player);
 				}
 			}
 		}
 
-		private void RemoveAllPlayers ()
+		private void RemoveAllPlayers()
 		{
-			foreach (string player in activePlayers.Keys) {
-				Destroy (activePlayers [player]);
+			foreach (string player in activePlayers.Keys)
+			{
+				Destroy(activePlayers[player]);
 			}
 
-			activePlayers.Clear ();
+			activePlayers.Clear();
 
-			Debug.Log ("Removed all players");
+			Debug.Log("Removed all players");
 		}
 
-		public string PlayerId (int id)
+		public string PlayerId(int id)
 		{
-			return "player" + Convert.ToString (id);
+			return "player" + Convert.ToString(id);
 		}
 	}
 }

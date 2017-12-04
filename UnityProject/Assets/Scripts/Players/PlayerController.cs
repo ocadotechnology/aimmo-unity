@@ -12,7 +12,7 @@ namespace Players
 	{
 		// General movement variables.
 		private const float speed = 2.0f;
-		private Vector3 velocity = new Vector3 (0, 0, 0);
+		private Vector3 velocity = new Vector3(0, 0, 0);
 		private const float moveInterval = 0.5f;
 
 		private Animator anim;
@@ -30,17 +30,17 @@ namespace Players
                 
 
 		// Initialisation.
-		public void Awake ()
+		public void Awake()
 		{
 			startTime = Time.time;
 			currPosition = transform.position;
 
-			controller = GetComponent<CharacterController> ();
-			anim = GetComponentInChildren<Animator> ();
+			controller = GetComponent<CharacterController>();
+			anim = GetComponentInChildren<Animator>();
 		}
 
 		// Move the player to next position.
-		public void Update ()
+		public void Update()
 		{
 			/* MARIA'S MOVEMENT CODE. DON'T REMOVE
             if (playerIsMoving == 1){
@@ -80,11 +80,11 @@ namespace Players
 		}
 
 		// Set next destination.
-		public void SetNextState (PlayerDTO playerDTO)
+		public void SetNextState(PlayerDTO playerDTO)
 		{
 			nextState = playerDTO;
 
-			nextPosition = new Vector2 (nextState.location.x, nextState.location.y);
+			nextPosition = new Vector2(nextState.location.x, nextState.location.y);
 		}
 
 	}
