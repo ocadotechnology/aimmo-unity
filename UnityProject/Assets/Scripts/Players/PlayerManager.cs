@@ -55,7 +55,10 @@ namespace Players
 			if (activePlayers.ContainsKey(PlayerId(playerDTO.id)))
 				return true;
 
-			GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
+            GameObject player = PlayerGenerator.GeneratePlayer(deePrefab);
+
+
 			if (player == null)
 				return false;
 
