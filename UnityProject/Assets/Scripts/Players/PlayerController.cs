@@ -25,8 +25,8 @@ namespace Players
         private Vector2 nextPosition;
 
         // Temporary variables
-        public string direction = "north";
-        public int playerIsMoving = 0;
+        private string direction = "north";
+        private int playerIsMoving = 0;
                 
 
         // Initialisation.
