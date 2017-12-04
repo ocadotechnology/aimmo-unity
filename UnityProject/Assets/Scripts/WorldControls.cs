@@ -18,7 +18,7 @@ public class WorldControls : MonoBehaviour
 {
 	// We use the dataQueue to process the request at our desired rate, i.e.
 	// every ProcessingInterval seconds.
-    private Queue<GameStateDTO> dataQueue;
+	private Queue<GameStateDTO> dataQueue;
 	private const float ProcessingInterval = 2f;
 	private float startTime;
 
@@ -37,7 +37,7 @@ public class WorldControls : MonoBehaviour
 	private PlayerManager playerManager;
 
 	// Tell WebGL to ignore keyboard input.
-	void Awake() 
+	void Awake()
 	{
 		#if !UNITY_EDITOR && UNITY_WEBGL
 			WebGLInput.captureAllKeyboardInput = false;
@@ -47,15 +47,15 @@ public class WorldControls : MonoBehaviour
 	// Initial connection.
 	void Start()
 	{
-        // Initialise map feature managers.
-        obstacleManager = gameObject.AddComponent(typeof(ObstacleManager)) as ObstacleManager;
-        scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
-        pickupManager = gameObject.AddComponent(typeof(PickupManager)) as PickupManager;
+		// Initialise map feature managers.
+		obstacleManager = gameObject.AddComponent(typeof(ObstacleManager)) as ObstacleManager;
+		scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
+		pickupManager = gameObject.AddComponent(typeof(PickupManager)) as PickupManager;
 
-        // Initialise player manager.
-        playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
+		// Initialise player manager.
+		playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
 
-		if (Application.platform == RuntimePlatform.WebGLPlayer) 
+		if (Application.platform == RuntimePlatform.WebGLPlayer)
 		{
 			// Ask the browsers for setup calls.
 			// (See unity.html for clarifications.)
@@ -70,7 +70,7 @@ public class WorldControls : MonoBehaviour
 		} 
 
 		startTime = Time.time;
-        dataQueue = new Queue<GameStateDTO>();
+		dataQueue = new Queue<GameStateDTO>();
 	}
 
 	// Calls ProcessUpdate every ProcessingInterval seconds.
@@ -113,48 +113,48 @@ public class WorldControls : MonoBehaviour
 	{
 		io.ResetSettings();
 
-		io.On("connect", (SocketIOEvent e) => 
-		{
-			Debug.Log("SocketIO Connected.");
-		});
+		io.On("connect", (SocketIOEvent e) =>
+			{
+				Debug.Log("SocketIO Connected.");
+			});
 
 		io.Connect();
 
-		io.On("world-init", (SocketIOEvent e) => 
-		{
-			Debug.Log("World init.");
+		io.On("world-init", (SocketIOEvent e) =>
+			{
+				Debug.Log("World init.");
 
-			// So that the server knows that requests have started
-			// being processed.
-			io.Emit("client-ready", Convert.ToString(userId));
+				// So that the server knows that requests have started
+				// being processed.
+				io.Emit("client-ready", Convert.ToString(userId));
 
-			Debug.Log("Emitted response.");
-		});
+				Debug.Log("Emitted response for the server for world initialisation.");
+			});
 
-		io.On("game-state", (SocketIOEvent e) => 
-		{
-            RenderGameState(e.data);
-		});
+		io.On("game-state", (SocketIOEvent e) =>
+			{
+				RenderGameState(e.data);
+			});
 	}
 
-	// Receive updates from the backend, parse them and delegate to the 
+	// Receive updates from the backend, parse them and delegate to the
 	// classes in charge of creating, deleting and updating game objects.
 	void RenderGameState(string gameStateJSON)
-    {
-        GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameStateJSON);
-        dataQueue.Enqueue(gameState);
+	{
+		GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameStateJSON);
+		dataQueue.Enqueue(gameState);
 	}
 
 	// Manage the changes in the scene.
 	void ProcessUpdate()
 	{
 		startTime = Time.time;
-        GameStateDTO gameState = dataQueue.Dequeue();
+		GameStateDTO gameState = dataQueue.Dequeue();
 
-        // Players updates.
-        PlayerDTO[] players = gameState.players;
+		// Players updates.
+		PlayerDTO[] players = gameState.players;
 
-        playerManager.OverwritePlayersState(players);
+		playerManager.UpdatePlayersState(players);
 	}
 }
 	
