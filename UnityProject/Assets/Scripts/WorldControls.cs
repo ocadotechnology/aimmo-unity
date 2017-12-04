@@ -128,7 +128,7 @@ public class WorldControls : MonoBehaviour
 			// being processed.
 			io.Emit("client-ready", Convert.ToString(userId));
 
-			Debug.Log("Emitted response.");
+			Debug.Log("Emitted response for the server for world initialisation.");
 		});
 
 		io.On("game-state", (SocketIOEvent e) => 
@@ -154,7 +154,7 @@ public class WorldControls : MonoBehaviour
         // Players updates.
         PlayerDTO[] players = gameState.players;
 
-        playerManager.OverwritePlayersState(players);
+		playerManager.UpdatePlayersState(players);
 	}
 }
 	

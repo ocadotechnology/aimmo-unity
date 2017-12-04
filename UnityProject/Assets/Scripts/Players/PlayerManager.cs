@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Players
@@ -44,48 +45,47 @@ namespace Players
     public class PlayerManager : MonoBehaviour, IPlayerManager
     {
         public static String PLAYER_TAG = "Avatar";
+		Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
 
         public bool CreatePlayer(PlayerDTO playerDTO)
         {
             // It might have already been created.
-            if (GameObject.Find(PlayerId(playerDTO.id)) != null)
+			if (activePlayers.ContainsKey(PlayerId(playerDTO.id)))
                 return true;
 
-            // Generate sphere.
             GameObject player = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             if (player == null)
                 return false;
 
             player.tag = PLAYER_TAG;
             player.name = PlayerId(playerDTO.id);
-            player.AddComponent<IsometricPosition>()
-                  .Set(playerDTO.location.x, playerDTO.location.y);
             player.AddComponent<PlayerController>();
 
-            // Add score text.
-            string initialScore = Convert.ToString(playerDTO.score);
-            player.AddComponent<PlayerScoreText>().SetScore(initialScore);
+			activePlayers.Add(PlayerId(playerDTO.id), player);
 
-            // Add health bar.
-            player.AddComponent<PlayerHealthBar>().SetHealthPoints(playerDTO.health);
+			Debug.Log ("Added player");
 
             return true;
         }
-
+			
         public bool DeletePlayer(int id)
         {
-            GameObject playerToDestroy = GameObject.Find(PlayerId(id));
-            if (playerToDestroy == null)
+			if (!activePlayers.ContainsKey(PlayerId(id)))
                 return false;
 
-            Destroy(playerToDestroy);
+			Destroy(activePlayers[PlayerId(id)]);
+
+			activePlayers.Remove(PlayerId(id));
+
+			Debug.Log ("Deleted player");
 
             return true;
         }
-
+			
         public bool UpdatePlayer(PlayerDTO playerDTO)
         {
-            GameObject playerToUpdate = GameObject.Find(PlayerId(playerDTO.id));
+			GameObject playerToUpdate = activePlayers[PlayerId(playerDTO.id)];
+
             if (playerToUpdate == null)
                 return false;
 
@@ -96,17 +96,22 @@ namespace Players
             // The controller will change the position, score and health.
             controller.SetNextState(playerDTO);
 
+			Debug.Log ("Updated player");
+
             return true;
         }
 
-        public void OverwritePlayersState(PlayerDTO[] players) {
-            //RemoveAllPlayers();
+		/*
+		 * Given the PlayerDTO array, UpdatePlayersState will decide whether a new 
+		 * player creation is required, or an update instead.
+		 */
+        public void UpdatePlayersState(PlayerDTO[] players) {
             foreach (PlayerDTO player in players) {
-                if (GameObject.Find(PlayerId(player.id)) == null)
+				if (!activePlayers.ContainsKey(PlayerId(player.id)))
                 {
                     CreatePlayer(player);
                 } else 
-                {
+				{
                     UpdatePlayer(player);
                 }
             }
@@ -114,10 +119,13 @@ namespace Players
 
         private void RemoveAllPlayers()
         {
-            GameObject[] players = GameObject.FindGameObjectsWithTag(PLAYER_TAG);
-            foreach (GameObject player in players) {
-                Destroy(player);
+			foreach (string player in activePlayers.Keys) {
+				Destroy(activePlayers[player]);
             }
+
+			activePlayers.Clear ();
+
+			Debug.Log ("Removed all players");
         }
 
         public string PlayerId(int id)
