@@ -65,8 +65,6 @@ namespace Players
 
 			activePlayers.Add(PlayerId(playerDTO.id), player);
 
-			Debug.Log("Added player");
-
 			return true;
 		}
 
@@ -97,8 +95,6 @@ namespace Players
 
 			// The controller will change the position, score and health.
 			controller.SetNextState(playerDTO);
-
-			Debug.Log("Updated player");
 
 			return true;
 		}
