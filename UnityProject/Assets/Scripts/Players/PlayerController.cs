@@ -5,49 +5,49 @@ using UnityEngine;
 namespace Players
 {
 
-	/* Handles the avatar movement. This script is attached to each of the players.
+    /* Handles the avatar movement. This script is attached to each of the players.
      */
 
-	public class PlayerController : MonoBehaviour
-	{
-		// General movement variables.
-		private const float speed = 2.0f;
-		private Vector3 velocity = new Vector3(0, 0, 0);
-		private const float moveInterval = 0.5f;
+    public class PlayerController : MonoBehaviour
+    {
+        // General movement variables.
+        private const float speed = 2.0f;
+        private Vector3 velocity = new Vector3(0, 0, 0);
+        private const float moveInterval = 0.5f;
 
-		private Animator anim;
-		private CharacterController controller;
+        private Animator anim;
+        private CharacterController controller;
 
-		private float startTime;
+        private float startTime;
 
-		private PlayerDTO nextState;
-		private Vector3 currPosition;
-		private Vector3 nextPosition;
+        private PlayerDTO nextState;
+        private Vector3 currPosition;
+        private Vector3 nextPosition;
         private int health;
         private int score;
 
-		// Temporary variables
-		private string orientation = "north";
-		private int playerIsMoving = 0;
+        // Temporary variables
+        private string orientation = "north";
+        private int playerIsMoving = 0;
                 
 
-		// Initialisation.
-		public void Awake()
-		{
-			startTime = Time.time;
-			currPosition = transform.position;
+        // Initialisation.
+        public void Awake()
+        {
+            startTime = Time.time;
+            currPosition = transform.position;
 
-			controller = GetComponent<CharacterController>();
-			anim = GetComponentInChildren<Animator>();
-		}
+            controller = GetComponent<CharacterController>();
+            anim = GetComponentInChildren<Animator>();
+        }
 
-		// Move the player to next position.
-		public void Update()
-		{
+        // Move the player to next position.
+        public void Update()
+        {
             gameObject.transform.localPosition = nextPosition;
             Debug.Log(nextPosition.x);
 
-			/* MARIA'S MOVEMENT CODE. DON'T REMOVE
+            /* MARIA'S MOVEMENT CODE. DON'T REMOVE
             if (playerIsMoving == 1){
                 anim.SetInteger ("AnimParam", 1);
 
@@ -82,25 +82,25 @@ namespace Players
 
             transform.position += velocity * Time.deltaTime;
             */
-		}
+        }
 
-		/*
+        /*
          * Set next position, health, score, etc. Makes it ready to be updated next
          * time Unity calls Update() above.
          */
-		public void SetNextState(PlayerDTO playerDTO)
-		{
-			nextState = playerDTO;
+        public void SetNextState(PlayerDTO playerDTO)
+        {
+            nextState = playerDTO;
 
             // Keep track of current position and note the next one.
             currPosition = gameObject.transform.position;
-			nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
+            nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
 
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
             orientation = nextState.orientation;
-		}
+        }
 
-	}
+    }
 }
