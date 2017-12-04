@@ -3,13 +3,15 @@ using System.Collections;
 
 public class PlayerGenerator : MonoBehaviour
 {
-    public static void GeneratePlayer(GameObject playerPrefab)
+    public static GameObject GeneratePlayer(GameObject playerPrefab)
     {
-        GameObject pickup = Object.Instantiate(
+        GameObject player = Object.Instantiate(
                                 playerPrefab, 
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
-        pickup.transform.SetParent(GameObject.Find("Players").transform, false);
+        player.transform.SetParent(GameObject.Find("Players").transform, false);
+
+        return player;
     }
 }
 
