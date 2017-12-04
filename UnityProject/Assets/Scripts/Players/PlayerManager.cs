@@ -55,9 +55,7 @@ namespace Players
 			if (activePlayers.ContainsKey(PlayerId(playerDTO.id)))
 				return true;
 
-            GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
-            GameObject player = PlayerGenerator.GeneratePlayer(deePrefab);
-
+            GameObject player = PlayerGenerator.GeneratePlayer(playerDTO);
 
 			if (player == null)
 				return false;
@@ -89,7 +87,7 @@ namespace Players
 		{
 			GameObject playerToUpdate = activePlayers[PlayerId(playerDTO.id)];
 
-			if (playerToUpdate == null)
+            if (playerToUpdate == null)
 				return false;
 
 			PlayerController controller = playerToUpdate.GetComponent<PlayerController>();
