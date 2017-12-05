@@ -37,6 +37,7 @@ namespace MapFeatures.Pickups
             if (currentPickups.Contains(dto))
             {
                 currentPickups.Remove(dto);
+                // TODO: Destroy the gameobject, perhaps we need to store gameobjects instead of PickupDTO list?
                 return true;
             }
 
