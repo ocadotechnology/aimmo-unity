@@ -28,12 +28,13 @@ namespace Players
 
         // Temporary variables
         private string orientation = "north";
-        private int playerIsMoving = 0;
+        private bool playerIsMoving = false;
                 
 
         // Initialisation.
         public void Awake()
         {
+            Debug.Log("awake called");
             startTime = Time.time;
             currPosition = transform.position;
 
@@ -44,9 +45,6 @@ namespace Players
         // Move the player to next position.
         public void Update()
         {
-            gameObject.transform.localPosition = nextPosition;
-            Debug.Log(nextPosition.x);
-
             /* MARIA'S MOVEMENT CODE. DON'T REMOVE
             if (playerIsMoving == 1){
                 anim.SetInteger ("AnimParam", 1);
@@ -96,11 +94,26 @@ namespace Players
             currPosition = gameObject.transform.position;
             nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
 
+            playerIsMoving = IsPlayerMoving() ? true : false;
+
+            // Temporary solution to movement before we have animations:
+            if (playerIsMoving)
+            {
+                gameObject.transform.localPosition = nextPosition;
+            }
+
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
             orientation = nextState.orientation;
         }
 
+        private bool IsPlayerMoving()
+        {
+            if (currPosition.x == nextPosition.x && currPosition.y == nextPosition.y)
+                return false;
+
+            return true;
+        }
     }
 }
