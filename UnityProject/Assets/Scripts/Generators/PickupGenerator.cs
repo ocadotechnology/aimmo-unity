@@ -17,8 +17,10 @@ public class PickupGenerator
 
     public static GameObject GeneratePickup(PickupDTO pickupDTO)
     {
-        GameObject pickupPrefab = Resources.Load<GameObject>("Prefabs/Pickups/pickup_" + pickupDTO.type);
+        string resource = "Prefabs/Pickups/pickup_" + pickupDTO.type;
+        GameObject pickupPrefab = Resources.Load<GameObject>(resource);
 
+        Debug.Log(resource);
         GameObject pickup = Object.Instantiate(
                                 pickupPrefab,
                                 new Vector3(pickupDTO.location.x, 0, pickupDTO.location.y),
