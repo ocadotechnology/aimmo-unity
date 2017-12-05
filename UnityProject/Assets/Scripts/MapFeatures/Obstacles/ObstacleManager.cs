@@ -27,7 +27,7 @@ namespace MapFeatures.Obstacles
             return "Obstacle";
         }
 
-        public override bool UpdateFeature(ObstacleDTO dto)
+        public override bool UpdateFeatures(ObstacleDTO[] dto)
         {
             throw new System.NotImplementedException();
         }

@@ -16,8 +16,9 @@ namespace MapFeatures
     public interface IMapFeatureManager<FeatureDTO>
     {
         bool Create(FeatureDTO dto);
-        bool UpdateFeature(FeatureDTO dto);
         bool Delete(FeatureDTO dto);
+        bool UpdateFeatures(FeatureDTO[] dto);
+
         void Overwrite(FeatureDTO[] dtos);
 
         string MapFeatureId(string id);
@@ -30,7 +31,7 @@ namespace MapFeatures
         public abstract bool Delete(FeatureDTO dto);
         public abstract string MapFeatureId(string id);
         public abstract string MapFeatureTag();
-        public abstract bool UpdateFeature(FeatureDTO dto);
+        public abstract bool UpdateFeatures(FeatureDTO[] dtoArray);
 
         public void Overwrite(FeatureDTO[] dtos)
         {

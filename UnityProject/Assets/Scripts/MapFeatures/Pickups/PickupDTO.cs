@@ -10,7 +10,7 @@ namespace MapFeatures.Pickups
 
 
     [Serializable]
-    public struct PickupDTO
+    public struct PickupDTO : IEquatable<PickupDTO>
     {
         public string type;
         public Location location;
@@ -21,6 +21,14 @@ namespace MapFeatures.Pickups
             {
                 return PickupTypeMethods.PickupTypeForString(type);
             }
+        }
+
+        public bool Equals(PickupDTO other)
+        {
+            if (type == other.type && location.Equals(other.location))
+                return true;
+
+            return false;
         }
     }
 
