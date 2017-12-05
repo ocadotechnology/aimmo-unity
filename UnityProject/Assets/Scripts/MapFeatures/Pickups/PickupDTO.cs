@@ -30,6 +30,15 @@ namespace MapFeatures.Pickups
 
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            int hash = 17;
+            hash = hash * 23 + type.GetHashCode();
+            hash = hash * 23 + location.x.GetHashCode();
+            hash = hash * 23 + location.y.GetHashCode();
+            return hash;
+        }
     }
 
     public enum PickupType
