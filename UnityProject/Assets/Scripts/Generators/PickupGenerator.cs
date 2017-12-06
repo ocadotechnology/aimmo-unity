@@ -32,7 +32,7 @@ public class PickupGenerator
 
         int hash = pickupDTO.GetHashCode();
 
-        pickup.name = "pickup_" + pickupDTO.type + "_" + pickupDTO.location.x + pickupDTO.location.y;
+        pickup.name = "pickup_" + pickupDTO.type + "_" + pickupDTO.location.x + "_" + pickupDTO.location.y;
 
         return pickup;            
     }

@@ -41,7 +41,7 @@ namespace MapFeatures.Pickups
                     return false;
                 }
 
-                GameObject objectToDestroy = GameObject.Find("pickup_" + dto.type + "_" + dto.location.x + dto.location.y);
+                GameObject objectToDestroy = GameObject.Find("pickup_" + dto.type + "_" + dto.location.x + "_" + dto.location.y);
 
                 Destroy(objectToDestroy);
                 return true;
