@@ -30,8 +30,6 @@ public class PickupGenerator
                                 Quaternion.identity) as GameObject;
         pickup.transform.SetParent(GameObject.Find("Pickups").transform, false);
 
-        int hash = pickupDTO.GetHashCode();
-
         pickup.name = "pickup_" + pickupDTO.type + "_" + pickupDTO.location.x + "_" + pickupDTO.location.y;
 
         return pickup;            

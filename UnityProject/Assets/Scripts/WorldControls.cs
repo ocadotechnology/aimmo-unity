@@ -22,6 +22,8 @@ public class WorldControls : MonoBehaviour
     private const float ProcessingInterval = 2f;
     private float startTime;
 
+    private int gameStateEventCount = 1;
+
     // Socket used to receive data from the backend.
     public SocketIOController io;
 
@@ -133,16 +135,39 @@ public class WorldControls : MonoBehaviour
 
         io.On("game-state", (SocketIOEvent e) =>
             {
-                RenderGameState(e.data);
+                // Convert the string to our DTO format.
+                GameStateDTO gameState = ConvertJSONtoDTO(e.data);
+
+                // Check if this is the first game-state event received. If so, set 
+                // up the terrain and don't do it ever again.
+                if (gameStateEventCount == 1)
+                {
+                    // TODO: to be moved elsewhere. Not MapFeatures? cc @niket
+                    TerrainGenerator terrainGenerator = new TerrainGenerator();
+                    int width = terrainGenerator.CalculateWidthFromGameState(gameState);
+                    int height = terrainGenerator.CalculateHeightFromGameState(gameState);
+
+                    TerrainDTO terrainDTO = new TerrainDTO(width, height);
+                    terrainGenerator.GenerateTerrainMMO(terrainDTO);
+                }
+
+                RenderGameState(gameState);
+
+                gameStateEventCount++;
             });
+    }
+        
+    private GameStateDTO ConvertJSONtoDTO(string gameStateJSON)
+    {
+        GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameStateJSON);
+        return gameState;
     }
 
     // Receive updates from the backend, parse them and delegate to the
     // classes in charge of creating, deleting and updating game objects.
-    void RenderGameState(string gameStateJSON)
+    void RenderGameState(GameStateDTO gameStateDTO)
     {
-        GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameStateJSON);
-        dataQueue.Enqueue(gameState);
+        dataQueue.Enqueue(gameStateDTO);
     }
 
     // Manage the changes in the scene.
@@ -150,7 +175,7 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
         GameStateDTO gameState = dataQueue.Dequeue();
-
+        
         // Player updates.
         PlayerDTO[] players = gameState.players;
         playerManager.UpdatePlayersState(players);
