@@ -34,10 +34,18 @@ namespace MapFeatures.Pickups
 
         public override bool Delete(PickupDTO dto)
         {
+            int hash = dto.GetHashCode();
+
             if (currentPickups.Contains(dto))
             {
-                currentPickups.Remove(dto);
-                // TODO: Destroy the gameobject, perhaps we need to store gameobjects instead of PickupDTO list?
+                if (!currentPickups.Remove(dto))
+                {
+                    Debug.Log("Pickup found in currentPickups but can't be removed!");
+                    GameObject objectToDestroy = GameObject.Find("pickup_" + dto.type + "_" + dto.GetHashCode());
+                    Destroy(objectToDestroy);
+                }
+
+
                 return true;
             }
 
@@ -100,7 +108,6 @@ namespace MapFeatures.Pickups
             {
                 Delete(pickup);
             }
-
 
             return true;
         }
