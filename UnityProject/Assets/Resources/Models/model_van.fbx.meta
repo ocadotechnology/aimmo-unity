@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: d3a099cf9a52946d195a99ed76e00c5a
-timeCreated: 1512048424
+guid: d9fa708b63e1f463f9b7c36506f6dde8
+timeCreated: 1512558950
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -14,8 +14,8 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: van
-    second: {fileID: 2100000, guid: 8c1898a72da9b483e88e3bbc96e9368c, type: 2}
+      name: Material
+    second: {fileID: 2100000, guid: a267031d3aa0d447e86c9d7bb5342810, type: 2}
   materials:
     importMaterials: 0
     materialName: 0
@@ -45,7 +45,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 2.5
+    globalScale: 2.7
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
