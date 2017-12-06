@@ -34,18 +34,16 @@ namespace MapFeatures.Pickups
 
         public override bool Delete(PickupDTO dto)
         {
-            int hash = dto.GetHashCode();
-
             if (currentPickups.Contains(dto))
             {
                 if (!currentPickups.Remove(dto))
                 {
-                    Debug.Log("Pickup found in currentPickups but can't be removed!");
-                    GameObject objectToDestroy = GameObject.Find("pickup_" + dto.type + "_" + dto.GetHashCode());
-                    Destroy(objectToDestroy);
+                    return false;
                 }
 
+                GameObject objectToDestroy = GameObject.Find("pickup_" + dto.type + "_" + dto.location.x + dto.location.y);
 
+                Destroy(objectToDestroy);
                 return true;
             }
 
@@ -102,7 +100,7 @@ namespace MapFeatures.Pickups
 
             // We find elements that exist in currentPickups but not dtoArray 
             // (ie. newPickups).
-            pickupsToCreate = (List<PickupDTO>)  currentPickups.Except(newPickups).ToList();
+            pickupsToDelete = (List<PickupDTO>)  currentPickups.Except(newPickups).ToList();
 
             foreach (PickupDTO pickup in pickupsToDelete)
             {

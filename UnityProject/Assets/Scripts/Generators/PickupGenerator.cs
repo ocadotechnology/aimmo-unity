@@ -4,9 +4,8 @@ using MapFeatures.Pickups;
 
 public class PickupGenerator
 {
-    /* As we don't pass ID from the back-end as of now, another way to generate
-     * unique names would be by obtaining either the hash code or using location
-     * in the name 
+    /* As we don't pass ID from the back-end as of now, instead we get the
+     * location (xy) and append to the end of a "pickup_type_" string.
      */
     public static GameObject GeneratePickup(GameObject pickupPrefab)
     {
@@ -33,7 +32,7 @@ public class PickupGenerator
 
         int hash = pickupDTO.GetHashCode();
 
-        pickup.name = "pickup_" + pickupDTO.type + "_" + hash;
+        pickup.name = "pickup_" + pickupDTO.type + "_" + pickupDTO.location.x + pickupDTO.location.y;
 
         return pickup;            
     }
