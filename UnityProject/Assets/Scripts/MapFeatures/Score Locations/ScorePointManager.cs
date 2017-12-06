@@ -28,7 +28,7 @@ namespace MapFeatures.ScoreLocations
             return "ScoreLocation";
         }
 
-        public override bool UpdateFeature(ScoreLocationDTO dto)
+        public override bool UpdateFeatures(ScoreLocationDTO[] dto)
         {
             throw new System.NotImplementedException();
         }

@@ -151,10 +151,13 @@ public class WorldControls : MonoBehaviour
         startTime = Time.time;
         GameStateDTO gameState = dataQueue.Dequeue();
 
-        // Players updates.
+        // Player updates.
         PlayerDTO[] players = gameState.players;
-
         playerManager.UpdatePlayersState(players);
+
+        // Pickup updates.
+        PickupDTO[] pickups = gameState.pickups;
+        pickupManager.UpdateFeatures(pickups);
     }
 }
 	
