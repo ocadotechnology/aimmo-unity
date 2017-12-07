@@ -9,7 +9,17 @@ namespace MapFeatures.Obstacles
     {
         public override bool Create(ObstacleDTO dto)
         {
-            throw new System.NotImplementedException();
+            // Generate the obstacle gameObject. 
+            // TODO: Is the location actually free? Is the dto info correct?
+            GameObject obstacle = ObstacleGenerator.GenerateObstacle(dto);
+
+            if (obstacle == null)
+            {
+                Debug.Log("Generated obstacle is null!");
+                return false;
+            }
+
+            return true;
         }
 
         public override bool Delete(ObstacleDTO dto)
@@ -27,9 +37,21 @@ namespace MapFeatures.Obstacles
             return "Obstacle";
         }
 
-        public override bool UpdateFeatures(ObstacleDTO[] dto)
+        public override bool UpdateFeatures(ObstacleDTO[] dtoArray)
         {
-            throw new System.NotImplementedException();
+            CreateObstacles(dtoArray);
+
+            return true;
+        }
+
+        private bool CreateObstacles(ObstacleDTO[] dtoArray)
+        {
+            foreach (ObstacleDTO obstacle in dtoArray)
+            {
+                Create(obstacle);
+            }
+
+            return true;
         }
     }
 }
