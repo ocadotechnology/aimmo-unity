@@ -20,7 +20,7 @@ public class ObstacleGenerator
     {
         // TODO: era is hardcoded until we find a efficient way to pass
         // this from WorldControls.
-        string resource = "Prefabs/Obstacles/obstacle_" + "lessFlat" + "_" + obstacleDTO.type;
+        string resource = "Prefabs/Obstacles/obstacle_" + "future" + "_" + obstacleDTO.type;
         GameObject obstaclePrefab = Resources.Load<GameObject>(resource);
 
         GameObject obstacle = Object.Instantiate(
