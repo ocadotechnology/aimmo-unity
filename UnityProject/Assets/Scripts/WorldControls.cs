@@ -175,7 +175,10 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
         GameStateDTO gameState = dataQueue.Dequeue();
-        
+
+        // TODO: era might have to be passed to each of the managers as a second
+        // parameter.
+
         // Player updates.
         PlayerDTO[] players = gameState.players;
         playerManager.UpdatePlayersState(players);
@@ -183,6 +186,10 @@ public class WorldControls : MonoBehaviour
         // Pickup updates.
         PickupDTO[] pickups = gameState.pickups;
         pickupManager.UpdateFeatures(pickups);
+
+        // Obstacle updates.
+        ObstacleDTO[] obstacles = gameState.obstacles;
+        obstacleManager.UpdateFeatures(obstacles);
     }
 }
 	
