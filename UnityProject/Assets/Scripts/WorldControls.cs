@@ -177,7 +177,8 @@ public class WorldControls : MonoBehaviour
         GameStateDTO gameState = dataQueue.Dequeue();
 
         // TODO: era might have to be passed to each of the managers as a second
-        // parameter.
+        // parameter, as some require it for the prefab name and each mapfeature
+        // doesn't reach the scope of that JSON.
 
         // Player updates.
         PlayerDTO[] players = gameState.players;
@@ -190,6 +191,10 @@ public class WorldControls : MonoBehaviour
         // Obstacle updates.
         ObstacleDTO[] obstacles = gameState.obstacles;
         obstacleManager.UpdateFeatures(obstacles);
+
+        // Score updates.
+        ScoreLocationDTO[] scores = gameState.scoreLocations;
+        scorePointManager.UpdateFeatures(scores);
     }
 }
 	
