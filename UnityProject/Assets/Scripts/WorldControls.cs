@@ -149,6 +149,11 @@ public class WorldControls : MonoBehaviour
 
                     TerrainDTO terrainDTO = new TerrainDTO(width, height);
                     terrainGenerator.GenerateTerrainMMO(terrainDTO);
+
+                    // Generate the obstacles only on initial game creation. Don't duplicate.
+                    // TODO: move this elsewhere maybe along with terrain code above?
+                    ObstacleDTO[] obstacles = gameState.obstacles;
+                    obstacleManager.UpdateFeatures(obstacles);
                 }
 
                 RenderGameState(gameState);
@@ -187,10 +192,6 @@ public class WorldControls : MonoBehaviour
         // Pickup updates.
         PickupDTO[] pickups = gameState.pickups;
         pickupManager.UpdateFeatures(pickups);
-
-        // Obstacle updates.
-        ObstacleDTO[] obstacles = gameState.obstacles;
-        obstacleManager.UpdateFeatures(obstacles);
 
         // Score updates.
         ScoreLocationDTO[] scores = gameState.scoreLocations;
