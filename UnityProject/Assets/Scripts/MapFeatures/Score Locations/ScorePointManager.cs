@@ -36,15 +36,16 @@ namespace MapFeatures.ScoreLocations
         {
             if (currentScores.Contains(dto))
             {
+
                 if (!currentScores.Remove(dto))
                 {
                     return false;
                 }
 
                 // TODO: handle with dynamic type when that is implemented.
-                GameObject objectToDestroy = GameObject.Find("pickup_" + "bluedisk" + "_" + dto.location.x + "_" + dto.location.y);
-
-                Destroy(objectToDestroy);
+                GameObject objectToDestroy = GameObject.Find("score_" + "bluedisk" + "_" + dto.location.x + "_" + dto.location.y);
+               
+                DestroyImmediate(objectToDestroy);
 
                 return true;
             }
@@ -102,6 +103,8 @@ namespace MapFeatures.ScoreLocations
             // We find elements that exist in currentScores but not dto 
             // (ie. newPickups).
             scoresToDelete = (List<ScoreLocationDTO>)  currentScores.Except(newScores).ToList();
+
+            //scoresToDelete is correct
 
             foreach (ScoreLocationDTO score in scoresToDelete)
             {
