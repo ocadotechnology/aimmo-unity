@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-/* This class manages the score points. If an avatar is in a score point its 
+/* This class manages the score points. If an avatar is in a score point its
  * score is incremented by one every iteration.
  */
 
@@ -36,15 +36,16 @@ namespace MapFeatures.ScoreLocations
         {
             if (currentScores.Contains(dto))
             {
+
                 if (!currentScores.Remove(dto))
                 {
                     return false;
                 }
 
                 // TODO: handle with dynamic type when that is implemented.
-                GameObject objectToDestroy = GameObject.Find("pickup_" + "bluedisk" + "_" + dto.location.x + "_" + dto.location.y);
+                GameObject objectToDestroy = GameObject.Find("score_" + "bluedisk" + "_" + dto.location.x + "_" + dto.location.y);
 
-                Destroy(objectToDestroy);
+                DestroyImmediate(objectToDestroy);
 
                 return true;
             }
@@ -79,7 +80,7 @@ namespace MapFeatures.ScoreLocations
             // Clear old contents.
             scoresToCreate.Clear();
 
-            // Find elements that exist in provided array that doesn't exist 
+            // Find elements that exist in provided array that doesn't exist
             // in current world scores.
             scoresToCreate = (List<ScoreLocationDTO>) newScoreLocations.Except(currentScores).ToList();
 
@@ -99,7 +100,7 @@ namespace MapFeatures.ScoreLocations
             // Clear old contents.
             scoresToDelete.Clear();
 
-            // We find elements that exist in currentScores but not dto 
+            // We find elements that exist in currentScores but not dto
             // (ie. newPickups).
             scoresToDelete = (List<ScoreLocationDTO>)  currentScores.Except(newScores).ToList();
 
