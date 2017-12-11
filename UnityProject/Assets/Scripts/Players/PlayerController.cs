@@ -45,44 +45,48 @@ namespace Players
         // Move the player to next position.
         public void Update()
         {
-            //MARIA'S MOVEMENT CODE. DON'T REMOVE
+            Debug.Log("nextPosition: " + nextPosition.x + "," + nextPosition.z);;
+            Debug.Log("current: " + transform.localPosition.x + "," + transform.localPosition.z);
+
+            if (Math.Abs(transform.localPosition.x - nextPosition.x) <= 0.05 && Math.Abs(transform.localPosition.z - nextPosition.z) <= 0.05)
+            {
+                gameObject.transform.localPosition = nextPosition;
+                playerIsMoving = false;
+            }
+
+
+
             // If the player's square needs to change and the player hasn't hit next square yet
-            if (playerIsMoving && transform.localPosition.x != nextPosition.x && transform.localPosition.y != nextPosition.y){
+            if (playerIsMoving && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
                 // Activate animation
                 anim.SetInteger ("AnimParam", 1);
 
-                // Turning the player
-                if (orientation == "north"){
-                    gameObject.transform.eulerAngles = new Vector3(0, 90, 0);
-                    velocity = new Vector3(speed, 0, 0);
-                }
-
-                // negative x axix
-                else if (orientation == "south"){
-                    gameObject.transform.eulerAngles = new Vector3(0, -90, 0);
-                    velocity = new Vector3(-speed, 0, 0);
-                }
-
-                // positive z axix
-                else if (orientation == "east"){
-                    gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-                    velocity = new Vector3(0, 0, speed);
-                }
-
-                // negative z axix
-                else if (orientation == "west"){
-                    gameObject.transform.eulerAngles = new Vector3(0, 180, 0);
+                //TODO: change this when orientation PR gets merged
+                if (nextPosition.z < transform.localPosition.z){
                     velocity = new Vector3(0, 0, -speed);
+                    transform.eulerAngles = new Vector3(0, 180, 0);
                 }
-                gameObject.transform.localPosition += velocity * Time.deltaTime;
+                if (nextPosition.z > transform.localPosition.z){
+                    velocity = new Vector3(0, 0, speed);
+                    transform.eulerAngles = new Vector3(0, 0, 0);
+                }
+                if (nextPosition.x < transform.localPosition.x){
+                    velocity = new Vector3(-speed, 0, 0);
+                    transform.eulerAngles = new Vector3(0, -90, 0);
+                }
+                if (nextPosition.x > transform.localPosition.x){
+                    velocity = new Vector3(speed, 0, 0);
+                    transform.eulerAngles = new Vector3(0, 90, 0);
+                }
             }
-
-            // Deactivate animation
             else{
+                // Deactivate animation
                 velocity = new Vector3(0, 0, 0);
                 anim.SetInteger ("AnimParam", 0);
             }
-            
+
+            gameObject.transform.localPosition += velocity * Time.deltaTime;
+
         }
 
         /*
@@ -94,17 +98,11 @@ namespace Players
             nextState = playerDTO;
 
             // Keep track of current position and note the next one.
-            currPosition = gameObject.transform.position;
+            currPosition = gameObject.transform.localPosition;
             nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
 
             //playerIsMoving checks if the player has to move to another square
-            playerIsMoving = PositionChange() ? true : false;
-
-            /*
-            if (playerIsMoving)
-            {
-                gameObject.transform.localPosition = nextPosition;
-            }*/
+            playerIsMoving = PositionChange();
 
             // Update the health, score & orientation.
             health = nextState.health;
@@ -114,7 +112,7 @@ namespace Players
 
         private bool PositionChange()
         {
-            if (currPosition.x == nextPosition.x && currPosition.y == nextPosition.y)
+            if (currPosition.x == nextPosition.x && currPosition.z == nextPosition.z)
                 return false;
 
             return true;
