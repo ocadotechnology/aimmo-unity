@@ -31,7 +31,7 @@ namespace UnitySocketIO.SocketIO {
 
             ackList = new List<Ack>();
 
-            AddSocketIO();
+            //AddSocketIO();
             AddEventListeners();
         }
 
@@ -39,13 +39,13 @@ namespace UnitySocketIO.SocketIO {
             SocketID = socketID;
         }
 
-        void AddSocketIO() {
-            Application.ExternalEval(@"
-                var socketIOScript = document.createElement('script');
-                socketIOScript.setAttribute('src', 'http" + (settings.sslEnabled ? "s" : "") + @"://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") +  @"/socket.io/socket.io.js');
-                document.head.appendChild(socketIOScript);
-            ");
-        }
+        //void AddSocketIO() {
+        //    Application.ExternalEval(@"
+        //        var socketIOScript = document.createElement('script');
+        //        socketIOScript.setAttribute('src', 'http" + (settings.sslEnabled ? "s" : "") + @"://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") +  @"/socket.io/socket.io.js');
+        //        document.head.appendChild(socketIOScript);
+        //    ");
+        //}
 
         void AddEventListeners() {
             Application.ExternalEval(@"
