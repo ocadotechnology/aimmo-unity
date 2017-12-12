@@ -28,7 +28,7 @@ namespace Players
 
         // Temporary variables
         private string orientation = "north";
-        private bool playerIsMoving = false;
+        private bool positionChangeNeeded = false;
                 
 
         // Initialisation.
@@ -48,11 +48,11 @@ namespace Players
             if (Math.Abs(transform.localPosition.x - nextPosition.x) <= 0.05 && Math.Abs(transform.localPosition.z - nextPosition.z) <= 0.05)
             {
                 gameObject.transform.localPosition = nextPosition;
-                playerIsMoving = false;
+                positionChangeNeeded = false;
             }
 
             // If the player's square needs to change and the player hasn't hit next square yet
-            if (playerIsMoving && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
+            if (positionChangeNeeded && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
                 // Activate animation
                 anim.SetInteger ("AnimParam", 1);
 
@@ -96,8 +96,8 @@ namespace Players
             currPosition = gameObject.transform.localPosition;
             nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
 
-            //playerIsMoving checks if the player has to move to another square
-            playerIsMoving = PositionChange();
+            // PositionChangeNeded checks if the player has to move to another square
+            positionChangeNeeded = PositionChangeNeeded();
 
             // Update the health, score & orientation.
             health = nextState.health;
@@ -105,7 +105,7 @@ namespace Players
             orientation = nextState.orientation;
         }
 
-        private bool PositionChange()
+        private bool PositionChangeNeeded()
         {
             if (currPosition.x == nextPosition.x && currPosition.z == nextPosition.z)
                 return false;
