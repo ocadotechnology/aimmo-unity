@@ -66,7 +66,13 @@ namespace Players
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
 
-			//TODO: Random texture?
+			//TODO: Random texture test
+
+			//allow Resource.LoadAll to just return a list of objects (filtered to only have materials in)
+			Material material = (Material)Resources.LoadAll("Materials/Players", typeof(Material))[UnityEngine.Random.Range(0, 100)];
+
+			player.GetComponent<Renderer>().material = material;
+
 
             return true;
         }
