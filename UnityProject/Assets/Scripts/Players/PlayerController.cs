@@ -45,16 +45,11 @@ namespace Players
         // Move the player to next position.
         public void Update()
         {
-            Debug.Log("nextPosition: " + nextPosition.x + "," + nextPosition.z);;
-            Debug.Log("current: " + transform.localPosition.x + "," + transform.localPosition.z);
-
             if (Math.Abs(transform.localPosition.x - nextPosition.x) <= 0.05 && Math.Abs(transform.localPosition.z - nextPosition.z) <= 0.05)
             {
                 gameObject.transform.localPosition = nextPosition;
                 playerIsMoving = false;
             }
-
-
 
             // If the player's square needs to change and the player hasn't hit next square yet
             if (playerIsMoving && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
