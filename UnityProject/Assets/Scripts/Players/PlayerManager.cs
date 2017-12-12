@@ -66,6 +66,8 @@ namespace Players
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
 
+			//TODO: Random texture?
+
             return true;
         }
 
