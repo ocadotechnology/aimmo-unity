@@ -66,10 +66,6 @@ namespace Players
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
 
-            //Random Texture 
-            Material material = (Material)Resources.LoadAll("Materials/Players", typeof(Material))[UnityEngine.Random.Range(0, 100)];
-            player.GetComponent<Renderer>().material = material;
-
             return true;
         }
 
