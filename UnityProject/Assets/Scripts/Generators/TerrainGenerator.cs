@@ -5,7 +5,7 @@ using System;
 public class TerrainGenerator
 {
     private const float TerrainScalingFactor = 0.1f;
-    private const float TerrainSnapToGridShift = -0.5f;
+    public const float TerrainSnapToGridShift = 0.5f;
     private GameObject terrainGameObject;
     private GameObject terrainMMOFolder;
         
