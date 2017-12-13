@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using Players;
 
 public class PlayerGenerator : MonoBehaviour

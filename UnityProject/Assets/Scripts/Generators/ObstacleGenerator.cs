@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEditor;
-using System.Collections;
 using MapFeatures.Obstacles;
 
 public class ObstacleGenerator 

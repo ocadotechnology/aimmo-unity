@@ -6,16 +6,12 @@ using UnitySocketIO.Events;
 
 namespace UnitySocketIO {
     public class SocketIOController : MonoBehaviour {
-
+        
         public SocketIOSettings settings;
 
         BaseSocketIO socketIO;
 
         public string SocketID { get { return socketIO.SocketID; } }
-
-        public void ResetSettings() {
-          socketIO.Init(settings);
-        }
 
         void Awake() {
             if(Application.platform == RuntimePlatform.WebGLPlayer) {
@@ -24,7 +20,7 @@ namespace UnitySocketIO {
             else {
                 socketIO = gameObject.AddComponent<NativeSocketIO>();
             }
-
+            
             socketIO.Init(settings);
         }
 

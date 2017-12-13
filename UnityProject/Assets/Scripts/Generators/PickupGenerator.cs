@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEditor;
 using MapFeatures.Pickups;
 
 public class PickupGenerator

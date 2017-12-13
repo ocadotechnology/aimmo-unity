@@ -113,7 +113,7 @@ public class WorldControls : MonoBehaviour
     // Once this happens, the game starts.
     public void EstablishConnection()
     {
-        io.ResetSettings();
+        //io.ResetSettings();
 
         io.On("connect", (SocketIOEvent e) =>
             {
