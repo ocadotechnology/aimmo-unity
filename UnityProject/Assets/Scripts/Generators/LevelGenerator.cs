@@ -25,7 +25,7 @@ public class LevelGenerator
     private void CreateEmptyLevelFolder()
     {
         levelFolder = new GameObject("Level");
-        levelFolder.transform.position = new Vector3(0.5f, 0f, 0.5f);
+        levelFolder.transform.position = new Vector3(TerrainGenerator.TerrainSnapToGridShift, 0f, TerrainGenerator.TerrainSnapToGridShift);
     }
 
     private void CreateTerrainFolder()
