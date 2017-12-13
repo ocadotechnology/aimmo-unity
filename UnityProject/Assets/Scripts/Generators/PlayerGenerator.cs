@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
 using Players;
 
 public class PlayerGenerator : MonoBehaviour
@@ -10,7 +9,7 @@ public class PlayerGenerator : MonoBehaviour
 
     public static GameObject GeneratePlayer(GameObject playerPrefab)
     {
-        GameObject player = UnityEngine.Object.Instantiate(
+        GameObject player = Object.Instantiate(
                                 playerPrefab, 
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
@@ -21,13 +20,13 @@ public class PlayerGenerator : MonoBehaviour
 
     public static GameObject GeneratePlayer(PlayerDTO playerDTO)
     {
-        GameObject player = UnityEngine.Object.Instantiate(
+        GameObject player = Object.Instantiate(
                                 PlayerGenerator.deePrefab,
                                 new Vector3(playerDTO.location.x, 0, playerDTO.location.y),
                                 Quaternion.identity) as GameObject;
         
         player.transform.SetParent(GameObject.Find("Players").transform, false);
-        player.transform.Find("Dee").GetComponent<Renderer>().material = PlayerGenerator.materials[UnityEngine.Random.Range(0, materials.Length - 1)];
+        player.transform.Find("Dee").GetComponent<Renderer>().material = PlayerGenerator.materials[Random.Range(0, materials.Length - 1)];
 
         return player;            
     }
