@@ -66,10 +66,6 @@ namespace Players
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
 
-            //Random Texture For Each Player - CHANGE when functionality added.
-            Material material = (Material)Resources.LoadAll("Materials/Players", typeof(Material))[UnityEngine.Random.Range(0, 4)];
-            player.transform.Find("Dee").GetComponent<Renderer>().material = material;
-
             return true;
         }
 
