@@ -3,9 +3,9 @@ using Players;
 
 public class PlayerGenerator : MonoBehaviour
 {
-    static Material[] materials = Resources.LoadAll<Material>("Materials/Players");
+    public static Material[] materials = Resources.LoadAll<Material>("Materials/Players");
     static GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
-    static int numberOfSkins = materials.Length;
+    public static int numberOfSkins = materials.Length;
 
     public static GameObject GeneratePlayer(GameObject playerPrefab)
     {
@@ -31,7 +31,7 @@ public class PlayerGenerator : MonoBehaviour
         return player;            
     }
 
-    private static Material mapIDToSkin(int playerID)
+    public static Material mapIDToSkin(int playerID)
     {
         return PlayerGenerator.materials[playerID % numberOfSkins];
     }

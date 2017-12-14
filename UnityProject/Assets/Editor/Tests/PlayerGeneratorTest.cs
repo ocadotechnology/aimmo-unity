@@ -1,10 +1,6 @@
 ﻿using System;
 using UnityEngine;
 using NUnit.Framework;
-using MapFeatures.Pickups;
-using MapFeatures.Obstacles;
-using MapFeatures.ScoreLocations;
-using Players;
 
 namespace AIMMOUnityTest
 {
@@ -32,7 +28,7 @@ namespace AIMMOUnityTest
 
             // ID materials.Length to Material 0
             expectedSkin = PlayerGenerator.materials[0];
-            playerID = PlayerGenerator.materials.Length;
+            playerID = PlayerGenerator.numberOfSkins;
 
             receivedSkin = PlayerGenerator.mapIDToSkin(playerID);
 
@@ -40,7 +36,7 @@ namespace AIMMOUnityTest
 
             // ID materials.Length + 1 to Material 1
             expectedSkin = PlayerGenerator.materials[1];
-            playerID = PlayerGenerator.materials.Length + 1;
+            playerID = PlayerGenerator.numberOfSkins + 1;
 
             receivedSkin = PlayerGenerator.mapIDToSkin(playerID);
 
