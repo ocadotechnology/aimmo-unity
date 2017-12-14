@@ -1,11 +1,5 @@
 /* Scalable canvas */
 
-* {
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-}
-
 div.fullWidth {
   width: 100%;
   height: 100%;
