@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Players;
 using NUnit.Framework;
 
 namespace AIMMOUnityTest
@@ -7,6 +8,43 @@ namespace AIMMOUnityTest
     [TestFixture]
     internal class PlayerGeneratorTest
     {
+        [Test]
+        public void TestGeneratePlayerByPrefab()
+        {
+            GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
+
+            GameObject generatedPlayer = PlayerGenerator.GeneratePlayer(deePrefab);
+
+            Assert.AreEqual(0, generatedPlayer.transform.localPosition.x);
+            Assert.AreEqual(0, generatedPlayer.transform.localPosition.y);
+            Assert.AreEqual(0, generatedPlayer.transform.localPosition.z);
+
+            Assert.AreEqual(generatedPlayer.transform.parent.name, "Players");
+        }
+
+        [Test]
+        public void TestGeneratePlayerByDTO()
+        {
+            PlayerDTO playerDTO = new PlayerDTO();
+            Location playerLocation = new Location(10, 20);
+            playerDTO.location = playerLocation;
+            playerDTO.id = 1;
+
+            GameObject generatedPlayer = PlayerGenerator.GeneratePlayer(playerDTO);
+
+            Assert.AreEqual(playerLocation.x, generatedPlayer.transform.localPosition.x);
+            Assert.AreEqual(0, generatedPlayer.transform.localPosition.y);
+            Assert.AreEqual(playerLocation.y, generatedPlayer.transform.localPosition.z);
+
+            int noOfSkins = PlayerGenerator.numberOfSkins;
+            Material expectedSkin = PlayerGenerator.materials[playerDTO.id % noOfSkins];
+            Material returnedSkin = generatedPlayer.transform.Find("Dee").GetComponent<Renderer>().sharedMaterial;
+
+            Assert.IsInstanceOf<Material>(returnedSkin);
+            Assert.AreEqual(expectedSkin, returnedSkin);
+            Assert.AreEqual(generatedPlayer.transform.parent.name, "Players");
+        }
+
         [Test]
         public void TestPlayerGeneratorMapIDToSkin()
         {
