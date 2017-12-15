@@ -36,19 +36,6 @@ namespace AIMMOUnityTest
 		}
 
 		[Test]
-		public void TestCameraIsInitialisedWithCorrectRotation()
-		{
-			Assert.IsNotNull(parentCamera);
-
-			Vector3 cameraRotation = parentCamera.transform.rotation.eulerAngles;
-
-			// We want them to be zero.
-			Assert.IsTrue(Math.Abs(cameraRotation.x) < epsilon);
-			Assert.IsTrue(Math.Abs(cameraRotation.y) < epsilon);
-			Assert.IsTrue(Math.Abs(cameraRotation.z) < epsilon);
-		}
-
-		[Test]
 		public void TestWorldControllerHasWorldControlsAndSocketIO()
 		{
 			Assert.IsNotNull(worldController);
