@@ -19,8 +19,8 @@ namespace AIMMOUnityTest
             Assert.AreEqual(0, generatedScore.transform.localPosition.y);
             Assert.AreEqual(0, generatedScore.transform.localPosition.z);
 
-            Assert.AreEqual(generatedScore.transform.parent.name, "Scores");
-            Assert.AreEqual(generatedScore.tag, "Score");
+            Assert.AreEqual("Scores", generatedScore.transform.parent.name);
+            Assert.AreEqual("Score", generatedScore.tag);
         }
 
         [Test]
@@ -36,14 +36,14 @@ namespace AIMMOUnityTest
             Assert.AreEqual(0, generatedScore.transform.localPosition.y);
             Assert.AreEqual(pickupLocation.y, generatedScore.transform.localPosition.z);
 
-            Assert.AreEqual(generatedScore.transform.parent.name, "Scores");
-            Assert.AreEqual(generatedScore.name, "score_bluedisk_10_20");
+            Assert.AreEqual( "Scores", generatedScore.transform.parent.name);
+            Assert.AreEqual("score_bluedisk_10_20", generatedScore.name);
 
-            Assert.AreEqual(generatedScore.transform.localPosition.x, 10);
-            Assert.AreEqual(generatedScore.transform.localPosition.z, 20);
-            Assert.AreEqual(generatedScore.transform.localPosition.y, 0);
+            Assert.AreEqual(10, generatedScore.transform.localPosition.x);
+            Assert.AreEqual(20, generatedScore.transform.localPosition.z);
+            Assert.AreEqual(0, generatedScore.transform.localPosition.y);
 
-            Assert.AreEqual(generatedScore.tag, "Score");
+            Assert.AreEqual("Score", generatedScore.tag);
         }
     }
 }
