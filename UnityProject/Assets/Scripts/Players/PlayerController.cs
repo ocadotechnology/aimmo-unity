@@ -27,7 +27,6 @@ namespace Players
         private int score;
 
         // Temporary variables
-        private string orientation = "north";
         private bool positionChangeNeeded = false;
                 
 
@@ -56,19 +55,19 @@ namespace Players
                 // Activate animation
                 anim.SetInteger ("AnimParam", 1);
 
-                if (orientation == "south"){
+                if (nextState.orientationType == Orientation.South){
                     velocity = new Vector3(0, 0, -speed);
                     transform.eulerAngles = new Vector3(0, 180, 0);
                 }
-                if (orientation == "north"){
+                if (nextState.orientationType == Orientation.North){
                     velocity = new Vector3(0, 0, speed);
                     transform.eulerAngles = new Vector3(0, 0, 0);
                 }
-                if (orientation == "west"){
+                if (nextState.orientationType == Orientation.West){
                     velocity = new Vector3(-speed, 0, 0);
                     transform.eulerAngles = new Vector3(0, -90, 0);
                 }
-                if (orientation == "east"){
+                if (nextState.orientationType == Orientation.East){
                     velocity = new Vector3(speed, 0, 0);
                     transform.eulerAngles = new Vector3(0, 90, 0);
                 }
@@ -101,7 +100,6 @@ namespace Players
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
-            orientation = nextState.orientation;
         }
 
         private bool PositionChangeNeeded()
