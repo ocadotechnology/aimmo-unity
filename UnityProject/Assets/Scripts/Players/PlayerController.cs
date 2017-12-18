@@ -27,7 +27,6 @@ namespace Players
         private int score;
 
         // Temporary variables
-        private string orientation = "north";
         private bool positionChangeNeeded = false;
                 
 
@@ -51,27 +50,26 @@ namespace Players
                 positionChangeNeeded = false;
             }
 
-            // If the player's square needs to change and the player hasn't hit next square yet
+            // If the player's location needs to change and the player hasn't hit next square yet
             if (positionChangeNeeded && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
                 // Activate animation
                 anim.SetInteger ("AnimParam", 1);
 
-                //TODO: change this when orientation PR gets merged
-                if (nextPosition.z < transform.localPosition.z){
+                if (nextState.orientationType == Orientation.South){
                     velocity = new Vector3(0, 0, -speed);
-                    transform.eulerAngles = new Vector3(0, 180, 0);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.South);
                 }
-                if (nextPosition.z > transform.localPosition.z){
+                if (nextState.orientationType == Orientation.North){
                     velocity = new Vector3(0, 0, speed);
-                    transform.eulerAngles = new Vector3(0, 0, 0);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.North);
                 }
-                if (nextPosition.x < transform.localPosition.x){
+                if (nextState.orientationType == Orientation.West){
                     velocity = new Vector3(-speed, 0, 0);
-                    transform.eulerAngles = new Vector3(0, -90, 0);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.West);
                 }
-                if (nextPosition.x > transform.localPosition.x){
+                if (nextState.orientationType == Orientation.East){
                     velocity = new Vector3(speed, 0, 0);
-                    transform.eulerAngles = new Vector3(0, 90, 0);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.East);
                 }
             }
             else{
@@ -102,7 +100,6 @@ namespace Players
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
-            orientation = nextState.orientation;
         }
 
         private bool PositionChangeNeeded()
