@@ -34,7 +34,7 @@ public static class OrientationMethods
         }
     }
 
-    public static Vector3 OrientationForVector(Orientation orientation)
+    public static Vector3 VectorForOrientation(Orientation orientation)
     {
         switch (orientation)
         {

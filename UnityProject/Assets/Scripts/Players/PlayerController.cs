@@ -57,19 +57,19 @@ namespace Players
 
                 if (nextState.orientationType == Orientation.South){
                     velocity = new Vector3(0, 0, -speed);
-                    transform.eulerAngles = OrientationMethods.OrientationForVector(Orientation.South);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.South);
                 }
                 if (nextState.orientationType == Orientation.North){
                     velocity = new Vector3(0, 0, speed);
-                    transform.eulerAngles = OrientationMethods.OrientationForVector(Orientation.North);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.North);
                 }
                 if (nextState.orientationType == Orientation.West){
                     velocity = new Vector3(-speed, 0, 0);
-                    transform.eulerAngles = OrientationMethods.OrientationForVector(Orientation.West);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.West);
                 }
                 if (nextState.orientationType == Orientation.East){
                     velocity = new Vector3(speed, 0, 0);
-                    transform.eulerAngles = OrientationMethods.OrientationForVector(Orientation.East);
+                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.East);
                 }
             }
             else{
