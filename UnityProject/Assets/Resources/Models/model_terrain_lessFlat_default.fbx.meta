@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 987886115ee304b41839afda325867b0
-timeCreated: 1513696407
+guid: 62904207537d54008ad75589b2a0e3de
+timeCreated: 1513697187
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -15,7 +15,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material
-    second: {fileID: 2100000, guid: 18489b21e4f4e4d3081b1ebf07e5f01b, type: 2}
+    second: {fileID: 2100000, guid: d6fad5c53ede84ee0830f6f5d2a48e40, type: 2}
   materials:
     importMaterials: 0
     materialName: 0
@@ -45,7 +45,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.5
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     importVisibility: 1
