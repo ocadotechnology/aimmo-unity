@@ -34,7 +34,7 @@ public class MoveCamera : MonoBehaviour
             // if (currPos != lastPos)
             // {
                 Vector3 move = new Vector3(-currPos.x * panSpeed, -currPos.y * panSpeed, 0);
-                transform.Translate(move, Space.Self);
+                transform.Translate(move, Space.World);
                // lastPos = currPos;
             // }
 		}
