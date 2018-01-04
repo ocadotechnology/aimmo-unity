@@ -6,9 +6,19 @@ using UnitySocketIO.IO;
 using UnitySocketIO.Events;
 using UnitySocketIO.Packet;
 using UnitySocketIO.WebGL;
+using System.Runtime.InteropServices;
 
 namespace UnitySocketIO.SocketIO {
     public class WebGLSocketIO : BaseSocketIO {
+
+        [DllImport("__Internal")]
+        private static extern void Connect(string url, string path);
+
+        [DllImport("__Internal")]
+        private static extern void Disconnect();
+
+        [DllImport("__Internal")]
+        private static extern void On(string eventName, string gameObjectName);
 
         int packetID;
 
@@ -32,7 +42,7 @@ namespace UnitySocketIO.SocketIO {
             ackList = new List<Ack>();
 
             //AddSocketIO();
-            AddEventListeners();
+            //AddEventListeners();
         }
 
         public void SetSocketID(string socketID) {
@@ -47,93 +57,96 @@ namespace UnitySocketIO.SocketIO {
         //    ");
         //}
 
-        void AddEventListeners() {
-            Application.ExternalEval(@"
-                window.socketEvents = {};
+        //void AddEventListeners() {
+        //    Application.ExternalEval(@"
+        //        window.socketEvents = {};
 
-                window.socketEventListener = function(event, data){
-                    var socketData = {
-                        socketEvent: event,
-                        eventData: typeof data === 'undefined' ? '' : JSON.stringify(data)
-                    };
+        //        window.socketEventListener = function(event, data){
+        //            var socketData = {
+        //                socketEvent: event,
+        //                eventData: typeof data === 'undefined' ? '' : JSON.stringify(data)
+        //            };
 
-                    SendMessage('" + gameObject.name + @"', 'InvokeEventCallback', JSON.stringify(socketData));
-                };
-            ");
-        }
+        //            SendMessage('" + gameObject.name + @"', 'InvokeEventCallback', JSON.stringify(socketData));
+        //        };
+        //    ");
+        //}
 
         public override void Connect() {
-            Application.ExternalEval(@"
-                window.socketIO = io.connect('http" + (settings.sslEnabled ? "s" : "") + @"://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") + @"/');
+            Debug.Log("Connecting...");
+            Connect("http" + (settings.sslEnabled ? "s" : "") + "://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") + "/", settings.path);
+            //Application.ExternalEval(@"
+            //    window.socketIO = io.connect('http" + (settings.sslEnabled ? "s" : "") + @"://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") + @"/');
                 
-                window.socketIO.on('connect', function(){
-                    SendMessage('" + gameObject.name + @"', 'SetSocketID', window.socketIO.io.engine.id);
-                });
+            //    window.socketIO.on('connect', function(){
+            //        SendMessage('" + gameObject.name + @"', 'SetSocketID', window.socketIO.io.engine.id);
+            //    });
 
-                for(var socketEvent in window.socketEvents){
-                    window.socketIO.on(socketEvent, window.socketEvents[socketEvent]);
-                }
-            ");
+            //    for(var socketEvent in window.socketEvents){
+            //        window.socketIO.on(socketEvent, window.socketEvents[socketEvent]);
+            //    }
+            //");
         }
 
         public override void Close() {
-            Application.ExternalEval(@"
-                if(typeof window.socketIO !== 'undefined')
-                    window.socketIO.disconnect();
-            ");
+            Disconnect();
+            //Application.ExternalEval(@"
+            //    if(typeof window.socketIO !== 'undefined')
+            //        window.socketIO.disconnect();
+            //");
         }
 
 
         public override void Emit(string e) {
-            Application.ExternalEval(@"
-                if(typeof window.socketIO !== 'undefined')
-                    window.socketIO.emit('" + e + @"');
-            ");
+            //Application.ExternalEval(@"
+            //    if(typeof window.socketIO !== 'undefined')
+            //        window.socketIO.emit('" + e + @"');
+            //");
         }
 
         public override void Emit(string e, string data) {
-            Application.ExternalEval(@"
-                if(typeof window.socketIO !== 'undefined')
-                    window.socketIO.emit('" + e + @"', " + data + @");
-            ");
+            //Application.ExternalEval(@"
+            //    if(typeof window.socketIO !== 'undefined')
+            //        window.socketIO.emit('" + e + @"', " + data + @");
+            //");
         }
 
         public override void Emit(string e, Action<string> action) {
-            packetID++;
+            //packetID++;
 
-            Application.ExternalEval(@"
-                if(typeof window.socketIO !== 'undefined'){
-                    window.socketIO.emit('" + e + @"', function(data){
-                        var ackData = {
-                            packetID: " + packetID.ToString() + @",
-                            data: typeof data === 'undefined' ? '' : JSON.stringify(data)
-                        };
+            //Application.ExternalEval(@"
+            //    if(typeof window.socketIO !== 'undefined'){
+            //        window.socketIO.emit('" + e + @"', function(data){
+            //            var ackData = {
+            //                packetID: " + packetID.ToString() + @",
+            //                data: typeof data === 'undefined' ? '' : JSON.stringify(data)
+            //            };
 
-                        SendMessage('" + gameObject.name + @"', 'InvokeAck', JSON.stringify(ackData));
-                    });
-                }
-            ");
+            //            SendMessage('" + gameObject.name + @"', 'InvokeAck', JSON.stringify(ackData));
+            //        });
+            //    }
+            //");
 
-            ackList.Add(new Ack(packetID, action));
+            //ackList.Add(new Ack(packetID, action));
         }
 
         public override void Emit(string e, string data, Action<string> action) {
-            packetID++;
+            //packetID++;
 
-            Application.ExternalEval(@"
-                if(typeof window.socketIO !== 'undefined'){
-                    window.socketIO.emit('" + e + @"', " + data + @", function(data){
-                        var ackData = {
-                            packetID: " + packetID.ToString() + @",
-                            data: typeof data === 'undefined' ? '' : JSON.stringify(data)
-                        };
+            //Application.ExternalEval(@"
+            //    if(typeof window.socketIO !== 'undefined'){
+            //        window.socketIO.emit('" + e + @"', " + data + @", function(data){
+            //            var ackData = {
+            //                packetID: " + packetID.ToString() + @",
+            //                data: typeof data === 'undefined' ? '' : JSON.stringify(data)
+            //            };
 
-                        SendMessage('" + gameObject.name + @"', 'InvokeAck', JSON.stringify(ackData));
-                    });
-                }
-            ");
+            //            SendMessage('" + gameObject.name + @"', 'InvokeAck', JSON.stringify(ackData));
+            //        });
+            //    }
+            //");
 
-            ackList.Add(new Ack(packetID, action));
+            //ackList.Add(new Ack(packetID, action));
         }
 
 
@@ -146,52 +159,55 @@ namespace UnitySocketIO.SocketIO {
             }
 
             eventHandlers[e].Add(callback);
+            Debug.Log("gameObjectName");
+            Debug.Log(gameObject.name);
+            On(e, gameObject.name);
 
-            Application.ExternalEval(@"
-                if(typeof window.socketEvents['" + e + @"'] === 'undefined'){
-                    window.socketEvents['" + e + @"'] = function(data){
-                        window.socketEventListener('" + e + @"', data);
-                    };
+            //Application.ExternalEval(@"
+            //    if(typeof window.socketEvents['" + e + @"'] === 'undefined'){
+            //        window.socketEvents['" + e + @"'] = function(data){
+            //            window.socketEventListener('" + e + @"', data);
+            //        };
 
-                    if(typeof window.socketIO !== 'undefined'){
-                        window.socketIO.on('" + e + @"', function(data){
-                            window.socketEventListener('" + e + @"', data);
-                        });
-                    }
-                }
-            ");    
+            //        if(typeof window.socketIO !== 'undefined'){
+            //            window.socketIO.on('" + e + @"', function(data){
+            //                window.socketEventListener('" + e + @"', data);
+            //            });
+            //        }
+            //    }
+            //");    
         }
 
         public override void Off(string e, Action<SocketIOEvent> callback) {
-            if(!eventHandlers.ContainsKey(e))
-                return;
+            //if(!eventHandlers.ContainsKey(e))
+            //    return;
 
-            List<Action<SocketIOEvent>> _eventHandlers = eventHandlers[e];
+            //List<Action<SocketIOEvent>> _eventHandlers = eventHandlers[e];
 
-            if(!_eventHandlers.Contains(callback))
-                return;
+            //if(!_eventHandlers.Contains(callback))
+            //    return;
 
-            _eventHandlers.Remove(callback);
+            //_eventHandlers.Remove(callback);
 
-            if(_eventHandlers.Count == 0) {
-                eventHandlers.Remove(e);
-            }
+            //if(_eventHandlers.Count == 0) {
+            //    eventHandlers.Remove(e);
+            //}
         }
 
 
 
         public void InvokeAck(string ackJson) {
-            Ack ack;
-            AckJson ackData = JsonUtility.FromJson<AckJson>(ackJson);
+            //Ack ack;
+            //AckJson ackData = JsonUtility.FromJson<AckJson>(ackJson);
             
-            for(int i = 0; i < ackList.Count; i++) {
-                if(ackList[i].packetID == ackData.packetID) {
-                    ack = ackList[i];
-                    ackList.RemoveAt(i);
-                    ack.Invoke(ackData.data);
-                    return;
-                }
-            }
+            //for(int i = 0; i < ackList.Count; i++) {
+            //    if(ackList[i].packetID == ackData.packetID) {
+            //        ack = ackList[i];
+            //        ackList.RemoveAt(i);
+            //        ack.Invoke(ackData.data);
+            //        return;
+            //    }
+            //}
         }
 
 

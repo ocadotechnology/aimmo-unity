@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnitySocketIO;
-//using UnitySocketIO.Events;
+using UnitySocketIO;
+using UnitySocketIO.Events;
 using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
@@ -25,7 +25,7 @@ public class WorldControls : MonoBehaviour
     private int gameStateEventCount = 1;
 
     // Socket used to receive data from the backend.
-    //public SocketIOController io;
+    public SocketIOController io;
 
     // User identifier.
     private int userId;
@@ -57,19 +57,19 @@ public class WorldControls : MonoBehaviour
         //// Initialise player manager.
         playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
 
-        //if (Application.platform == RuntimePlatform.WebGLPlayer)
-        //{
-        //    // Ask the browsers for setup calls.
-        //    // (See unity.html for clarifications.)
-        //    Debug.Log("Sending message to WebGLPlayer.");
-        //    //Application.ExternalCall("SendAllConnect");
-        //}
-        //else
-        //{
-        //    // TEMPORARY. Just for testing. Connect directly. Assume id = 1.
-        //    EstablishConnection();
-        //    SetUserId(1);
-        //} 
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            // Ask the browsers for setup calls.
+            // (See unity.html for clarifications.)
+            Debug.Log("Sending message to WebGLPlayer.");
+            Application.ExternalCall("SendAllConnect");
+        }
+        else
+        {
+            // TEMPORARY. Just for testing. Connect directly. Assume id = 1.
+            EstablishConnection();
+            SetUserId(1);
+        } 
 
         startTime = Time.time;
         dataQueue = new Queue<GameStateDTO>();
@@ -90,12 +90,17 @@ public class WorldControls : MonoBehaviour
     // Socket setup.
     public void SetGameURL(string url)
     {
-        //io.settings.url = url;
+        io.settings.url = url;
     }
 
     public void SetGamePort(int port)
     {
-        //io.settings.port = port;
+        io.settings.port = port;
+    }
+
+    public void SetGamePath(string path)
+    {
+        io.settings.path = path;
     }
 
     // Set main user.
@@ -114,52 +119,53 @@ public class WorldControls : MonoBehaviour
     public void EstablishConnection()
     {
         //io.ResetSettings();
+        io.Connect();
 
-        //io.On("connect", (SocketIOEvent e) =>
-        //    {
-        //        Debug.Log("SocketIO Connected.");
-        //    });
 
-        //io.Connect();
+        io.On("connect", (SocketIOEvent e) =>
+            {
+                Debug.Log("SocketIO Connected.");
+            });
 
-        //io.On("world-init", (SocketIOEvent e) =>
-        //    {
-        //        Debug.Log("World init.");
 
-        //        // So that the server knows that requests have started
-        //        // being processed.
-        //        io.Emit("client-ready", Convert.ToString(userId));
+        io.On("world-init", (SocketIOEvent e) =>
+            {
+                Debug.Log("World init.");
 
-        //        Debug.Log("Emitted response for the server for world initialisation.");
-        //    });
+                // So that the server knows that requests have started
+                // being processed.
+                io.Emit("client-ready", Convert.ToString(userId));
 
-        //io.On("game-state", (SocketIOEvent e) =>
-            //{
-            //    // Convert the string to our DTO format.
-            //    GameStateDTO gameState = ConvertJSONtoDTO(e.data);
+                Debug.Log("Emitted response for the server for world initialisation.");
+            });
 
-            //    // Check if this is the first game-state event received. If so, set 
-            //    // up the terrain and don't do it ever again.
-            //    if (gameStateEventCount == 1)
-            //    {
-            //        // TODO: to be moved elsewhere. Not MapFeatures? cc @niket
-            //        TerrainGenerator terrainGenerator = new TerrainGenerator();
-            //        int width = terrainGenerator.CalculateWidthFromGameState(gameState);
-            //        int height = terrainGenerator.CalculateHeightFromGameState(gameState);
+        io.On("game-state", (SocketIOEvent e) =>
+            {
+                // Convert the string to our DTO format.
+                GameStateDTO gameState = ConvertJSONtoDTO(e.data);
 
-            //        TerrainDTO terrainDTO = new TerrainDTO(width, height);
-            //        terrainGenerator.GenerateTerrainMMO(terrainDTO);
+                // Check if this is the first game-state event received. If so, set 
+                // up the terrain and don't do it ever again.
+                if (gameStateEventCount == 1)
+                {
+                    // TODO: to be moved elsewhere. Not MapFeatures? cc @niket
+                    TerrainGenerator terrainGenerator = new TerrainGenerator();
+                    int width = terrainGenerator.CalculateWidthFromGameState(gameState);
+                    int height = terrainGenerator.CalculateHeightFromGameState(gameState);
 
-            //        // Generate the obstacles only on initial game creation. Don't duplicate.
-            //        // TODO: move this elsewhere maybe along with terrain code above?
-            //        ObstacleDTO[] obstacles = gameState.obstacles;
-            //        obstacleManager.UpdateFeatures(obstacles);
-            //    }
+                    TerrainDTO terrainDTO = new TerrainDTO(width, height);
+                    terrainGenerator.GenerateTerrainMMO(terrainDTO);
 
-            //    RenderGameState(gameState);
+                    // Generate the obstacles only on initial game creation. Don't duplicate.
+                    // TODO: move this elsewhere maybe along with terrain code above?
+                    ObstacleDTO[] obstacles = gameState.obstacles;
+                    obstacleManager.UpdateFeatures(obstacles);
+                }
 
-            //    gameStateEventCount++;
-            //});
+                RenderGameState(gameState);
+
+                gameStateEventCount++;
+            });
     }
 
     public void NewGameState(string gameStateString)

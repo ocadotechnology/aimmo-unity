@@ -7,6 +7,7 @@ namespace UnitySocketIO.SocketIO {
 
 		public string url;
 		public int port;
+        public string path;
 
 		public bool sslEnabled;
 
