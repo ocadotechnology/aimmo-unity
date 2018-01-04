@@ -3,34 +3,44 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour
 {
-    public float panSpeed = 1.0f;
     public float zoomSpeed = 1.0f;
 
-    private Vector3 firstPos;
-    // Mouse position in the beginning of the movement
-    private bool isPanning;
+    private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
-    void Update()
-    {	
+    // Ground plane we will drag the camera on
+    // Defined by origin point and normal vector
+    Plane groundPlane;
+    private Vector3 groundOrigin = Vector3.zero;
+    private Vector3 groundNormal = Vector3.up;
+
+    private Vector3 dragOrigin; // mouse down point
+
+
+    public void Start()
+    {
+        groundPlane = new Plane(groundNormal, groundOrigin);
+    }
+
+
+    public void Update()
+    {
         // PAN
-        // Right mouse button pressed to begin panning
-        if (Input.GetMouseButtonDown(1))
+        float offset; // distance from camera's ray to drag origin ray
+        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition); // drag origin ray
+
+        // Start drag
+        if (Input.GetKeyDown(dragKey))
         {
-            // Save initial mouse position
-            firstPos = Input.mousePosition;
-            isPanning = true;
+            groundPlane.Raycast(mouseRay, out offset);
+            dragOrigin = mouseRay.GetPoint(offset);
         }
 
-        // Mouse released
-        if (Input.GetMouseButtonUp(1))
-            isPanning = false;
-
-        // Move the camera on its XY plane
-        if (isPanning)
+        // Continue drag
+        if (Input.GetKey(dragKey))
         {
-            Vector3 currPos = Camera.main.ScreenToViewportPoint(Input.mousePosition - firstPos); // Current mouse position
-            Vector3 move = new Vector3(-currPos.x * panSpeed, -currPos.y * panSpeed, 0);
-            transform.Translate(move, Space.World);
+            groundPlane.Raycast(mouseRay, out offset);
+            Vector3 intersection = mouseRay.GetPoint(offset);
+            transform.position += dragOrigin - intersection;
         }
 
         // ZOOM
