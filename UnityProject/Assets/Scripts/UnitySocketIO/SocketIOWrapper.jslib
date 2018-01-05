@@ -10,10 +10,6 @@ mergeInto(LibraryManager.library, {
             console.log("connected");
         });
 
-        // socket.on("game-state", function(state) {
-        //     // gameInstance.SendMessage("World Controller", "NewGameState", JSON.stringify(state));
-        // });
-
         window.socketEvents = {};
     },
 
