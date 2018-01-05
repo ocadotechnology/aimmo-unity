@@ -20,22 +20,12 @@ namespace UnitySocketIO.SocketIO {
         [DllImport("__Internal")]
         private static extern void On(string eventName, string gameObjectName);
 
-        int packetID;
-
         Dictionary<string, List<Action<SocketIOEvent>>> eventHandlers;
-
-        object ackQueueLock;
-        Queue<SocketPacket> ackQueue;
-        List<Ack> ackList;
-
-        bool isReady;
 
         public override void Init(SocketIOSettings settings) {
             base.Init(settings);
 
             eventHandlers = new Dictionary<string, List<Action<SocketIOEvent>>>();
-
-            ackList = new List<Ack>();
         }
 
         public void SetSocketID(string socketID) {

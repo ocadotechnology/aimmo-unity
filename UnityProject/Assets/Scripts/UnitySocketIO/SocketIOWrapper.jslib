@@ -6,10 +6,6 @@ mergeInto(LibraryManager.library, {
 
         window.socket = socket;
 
-        socket.on("connect", function(data) {
-            console.log("connected");
-        });
-
         window.socketEvents = {};
     },
 
