@@ -54,7 +54,7 @@ public class WorldControls : MonoBehaviour
         scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
         pickupManager = gameObject.AddComponent(typeof(PickupManager)) as PickupManager;
 
-        //// Initialise player manager.
+        // Initialise player manager.
         playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
 
         if (Application.platform == RuntimePlatform.WebGLPlayer)
