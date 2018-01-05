@@ -1,5 +1,3 @@
 *.meta -diff
 UnityProject/Assets/Scripts/Plugins/** -diff
-UnityProject/Assets/Gizmos/ProCamera2D/** -diff
 UnityProject/Assets/Scripts/Plugins/** linguist-generated
-UnityProject/Assets/Gizmos/ProCamera2D/** linguist-generated
