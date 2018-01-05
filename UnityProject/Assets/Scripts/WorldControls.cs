@@ -140,6 +140,8 @@ public class WorldControls : MonoBehaviour
 
         io.On("game-state", (SocketIOEvent e) =>
             {
+                if (e.data == "")
+                  return;
                 NewGameState(e.data);
             });
     }

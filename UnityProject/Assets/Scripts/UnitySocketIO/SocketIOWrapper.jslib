@@ -16,20 +16,17 @@ mergeInto(LibraryManager.library, {
     On: function(eventName, gameObjectName) {
         socketEventName = Pointer_stringify(eventName);
         objectName = Pointer_stringify(gameObjectName);
-        console.log(objectName);
-        if(typeof window.socketEvents[socketEventName] === 'undefined') {
+        if(typeof window.socketEvents[socketEventName] === 'undefined'
+         && typeof window.socket !== 'undefined') {
             window.socketEvents[socketEventName] = true;
 
-            if (typeof window.socket !== 'undefined') {
-                window.socket.on(socketEventName, function(data) {
-                    var socketData = {
-                        socketEvent: socketEventName,
-                        eventData: typeof data === 'undefined' ? '' : JSON.stringify(data)
-                    };
-
-                    gameInstance.SendMessage(objectName, 'InvokeEventCallback', JSON.stringify(socketData));
-                });
-            }
+            window.socket.on(socketEventName, function(data) {
+                var socketData = {
+                    socketEvent: socketEventName,
+                    eventData: typeof data === 'undefined' ? '' : JSON.stringify(data)
+                };
+                gameInstance.SendMessage(objectName, 'InvokeEventCallback', JSON.stringify(socketData));
+            });
         }
     }
 });
