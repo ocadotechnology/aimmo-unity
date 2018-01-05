@@ -69,7 +69,7 @@ public class WorldControls : MonoBehaviour
             // TEMPORARY. Just for testing. Connect directly. Assume id = 1.
             EstablishConnection();
             SetUserId(1);
-        } 
+        }
 
         startTime = Time.time;
         dataQueue = new Queue<GameStateDTO>();
@@ -98,6 +98,11 @@ public class WorldControls : MonoBehaviour
         io.settings.port = port;
     }
 
+    public void SetGamePath(string path)
+    {
+        io.settings.path = path;
+    }
+
     // Set main user.
     public void SetUserId(int userId)
     {
@@ -113,14 +118,14 @@ public class WorldControls : MonoBehaviour
     // Once this happens, the game starts.
     public void EstablishConnection()
     {
-        //io.ResetSettings();
+        io.Connect();
+
 
         io.On("connect", (SocketIOEvent e) =>
             {
                 Debug.Log("SocketIO Connected.");
             });
 
-        io.Connect();
 
         io.On("world-init", (SocketIOEvent e) =>
             {
@@ -135,33 +140,38 @@ public class WorldControls : MonoBehaviour
 
         io.On("game-state", (SocketIOEvent e) =>
             {
-                // Convert the string to our DTO format.
-                GameStateDTO gameState = ConvertJSONtoDTO(e.data);
-
-                // Check if this is the first game-state event received. If so, set 
-                // up the terrain and don't do it ever again.
-                if (gameStateEventCount == 1)
-                {
-                    // TODO: to be moved elsewhere. Not MapFeatures? cc @niket
-                    TerrainGenerator terrainGenerator = new TerrainGenerator();
-                    int width = terrainGenerator.CalculateWidthFromGameState(gameState);
-                    int height = terrainGenerator.CalculateHeightFromGameState(gameState);
-
-                    TerrainDTO terrainDTO = new TerrainDTO(width, height);
-                    terrainGenerator.GenerateTerrainMMO(terrainDTO);
-
-                    // Generate the obstacles only on initial game creation. Don't duplicate.
-                    // TODO: move this elsewhere maybe along with terrain code above?
-                    ObstacleDTO[] obstacles = gameState.obstacles;
-                    obstacleManager.UpdateFeatures(obstacles);
-                }
-
-                RenderGameState(gameState);
-
-                gameStateEventCount++;
+                if (e.data == "")
+                  return;
+                NewGameState(e.data);
             });
     }
-        
+
+    public void NewGameState(string gameStateString)
+    {
+        // Convert the string to our DTO format.
+        GameStateDTO gameState = ConvertJSONtoDTO(gameStateString);
+
+        // Check if this is the first game-state event received. If so, set
+        // up the terrain and don't do it ever again.
+        if (gameStateEventCount == 1)
+        {
+            TerrainGenerator terrainGenerator = new TerrainGenerator();
+            int width = terrainGenerator.CalculateWidthFromGameState(gameState);
+            int height = terrainGenerator.CalculateHeightFromGameState(gameState);
+
+            TerrainDTO terrainDTO = new TerrainDTO(width, height);
+            terrainGenerator.GenerateTerrainMMO(terrainDTO);
+
+            // Generate the obstacles only on initial game creation. Don't duplicate.
+            ObstacleDTO[] obstacles = gameState.obstacles;
+            obstacleManager.UpdateFeatures(obstacles);
+        }
+
+        RenderGameState(gameState);
+
+        gameStateEventCount++;
+    }
+
     private GameStateDTO ConvertJSONtoDTO(string gameStateJSON)
     {
         GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameStateJSON);
@@ -198,4 +208,3 @@ public class WorldControls : MonoBehaviour
         scorePointManager.UpdateFeatures(scores);
     }
 }
-	
