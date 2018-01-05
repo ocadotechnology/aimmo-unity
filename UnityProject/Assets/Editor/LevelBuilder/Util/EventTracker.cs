@@ -18,7 +18,7 @@ public static class EventTracker
 
 			switch (e.type)
 			{
-				case EventType.keyDown:
+				case EventType.KeyDown:
 				{
 					// This delivers keys to the key listener. The
 					// key listeners dispaches the events to the correct action.
