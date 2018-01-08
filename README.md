@@ -2,7 +2,7 @@
 
 This is the Unity project that will be used to create and display the game view in [AI:MMO](https://github.com/ocadotechnology/aimmo), the new game by [Code for Life](https://www.codeforlife.education/). 
 
-![Scene screenshot](http://i68.tinypic.com/wk0lfs.png)
+![Scene screenshot](https://media.giphy.com/media/l4EpdN3Hh7w7jFvkA/giphy.gif)
 
 ## Getting started
 
