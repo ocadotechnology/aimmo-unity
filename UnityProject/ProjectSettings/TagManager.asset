@@ -10,6 +10,7 @@ TagManager:
   - Pickup
   - Obstacle
   - Score
+  - Grid
   layers:
   - Default
   - TransparentFX

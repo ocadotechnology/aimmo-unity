@@ -19,6 +19,8 @@ using System.Collections.Generic;
 
 public class LevelBuilderWindow : EditorWindow
 {
+    public static float SectionTitleHeight = 20;
+
     private static LevelBuilderWindow windowInstance = null;
     private int optionChosenByUser = 0;
 
@@ -26,6 +28,7 @@ public class LevelBuilderWindow : EditorWindow
     private IMenu[] menus =
     {
         new TerrainMenu(),
+        new OverlayMenu(),
         new PickupMenu(),
         new ObstacleMenu(),
     };
@@ -123,7 +126,7 @@ public class LevelBuilderWindow : EditorWindow
 
     private void ListenForPickerEvents()
     {
-        if (Event.current.commandName == "ObjectSelectorClosed" 
+        if (Event.current.commandName == "ObjectSelectorClosed"
             && Event.current.type != EventType.Layout)
         {
             GameObject objectPickerObject = EditorGUIUtility.GetObjectPickerObject() as GameObject;

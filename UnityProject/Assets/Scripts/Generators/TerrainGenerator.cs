@@ -4,24 +4,43 @@ using System;
 public class TerrainGenerator
 {
     public const float TerrainScalingFactor = 0.1f;
-    public const float TerrainSnapToGridShift = 0.5f;
+    public const float TerrainSnapToGridShift = -0.5f;
     private GameObject terrainGameObject;
-    private GameObject terrainMMOFolder;
-        
+    private GameObject terrainFolder;
+
     public void GenerateTerrain(TerrainDTO terrain)
     {
-        if (!terrainGameObject) {
+        if (!terrainGameObject)
+        {
             terrainGameObject = GetTerrainGameObject();
         }
-        Vector3 newScale = new Vector3(TerrainScalingFactor * terrain.width, 
-                                       TerrainScalingFactor, 
+        if (!terrainFolder)
+        {
+            terrainFolder = GetTerrainFolder();
+        }
+        Vector3 newScale = new Vector3(TerrainScalingFactor * terrain.width,
+                                       TerrainScalingFactor,
                                        TerrainScalingFactor * terrain.height);
-        if (terrainGameObject.transform.localScale != newScale) {
+        if (terrainGameObject.transform.localScale != newScale)
+        {
             float shiftX = terrain.width % 2 == 0 ? TerrainSnapToGridShift : 0f;
             float shiftZ = terrain.height % 2 == 0 ? TerrainSnapToGridShift : 0f;
-            terrainGameObject.transform.localPosition = new Vector3(shiftX, 0f, shiftZ);
+            terrainFolder.transform.localPosition = new Vector3(shiftX, 0f, shiftZ);
             terrainGameObject.transform.localScale = newScale;
         }
+    }
+
+    public GameObject GenerateTerrainMMO(TerrainDTO terrainDTO)
+    {
+        // TODO: make this dynamic for other types of terrains.
+        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_lessFlat_default");
+        terrainGameObject = UnityEngine.Object.Instantiate(terrainPrefab) as GameObject;
+        terrainGameObject.transform.SetParent(GameObject.Find("Terrain").transform, false);
+        terrainGameObject.transform.localPosition = new Vector3(0, 0, 0);
+
+        GenerateTerrain(terrainDTO);
+
+        return terrainGameObject;
     }
 
     public int CalculateHeightFromGameState(GameStateDTO gameState)
@@ -38,21 +57,13 @@ public class TerrainGenerator
         return width;
     }
 
-
-    public GameObject GenerateTerrainMMO(TerrainDTO terrainDTO)
+    private GameObject GetTerrainGameObject()
     {
-        // TODO: make this dynamic for other types of terrains.
-        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_lessFlat_default");
-        terrainGameObject = GameObject.Instantiate(terrainPrefab) as GameObject;
-        terrainGameObject.transform.SetParent(GameObject.Find("Terrain").transform, false);
-        terrainGameObject.transform.localPosition = new Vector3(0, 0, 0);
-
-        GenerateTerrain(terrainDTO);
-
-        return terrainGameObject;
+        return GameObject.FindWithTag("Terrain");
     }
 
-    private GameObject GetTerrainGameObject() {
-        return GameObject.FindWithTag("Terrain");
+    private GameObject GetTerrainFolder()
+    {
+        return GameObject.Find("Terrain");
     }
 }
