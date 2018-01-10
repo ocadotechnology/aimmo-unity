@@ -8,7 +8,7 @@ public class TerrainGenerator
     private GameObject terrainGameObject;
     private GameObject terrainFolder;
 
-    public void GenerateTerrain(TerrainDTO terrain)
+    public GameObject GenerateTerrain(TerrainDTO terrain)
     {
         if (!terrainGameObject)
         {
@@ -28,6 +28,7 @@ public class TerrainGenerator
             terrainFolder.transform.localPosition = new Vector3(shiftX, 0f, shiftZ);
             terrainGameObject.transform.localScale = newScale;
         }
+        return terrainGameObject;
     }
 
     public GameObject GenerateTerrainMMO(TerrainDTO terrainDTO)

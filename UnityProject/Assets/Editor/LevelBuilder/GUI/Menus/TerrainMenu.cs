@@ -5,13 +5,13 @@ public class TerrainMenu : IMenu
 {
     private Vector2Int terrainSize;
     private TerrainGenerator terrainGenerator;
-    private GridGenerator gridGenerator;
+    private OverlayGenerator gridGenerator;
 
     public TerrainMenu()
     {
         terrainSize = new Vector2Int(10, 10);
         terrainGenerator = new TerrainGenerator();
-        gridGenerator = new GridGenerator();
+        gridGenerator = new OverlayGenerator();
     }
 
     public void Display()

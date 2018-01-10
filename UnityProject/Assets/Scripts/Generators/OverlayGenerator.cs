@@ -1,13 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class GridGenerator
+public class OverlayGenerator
 {
     private GameObject terrainFolder;
     private GameObject gridGameObject;
 
 
-    public void GenerateGridForTerrain(TerrainDTO terrain)
+    public GameObject GenerateGridForTerrain(TerrainDTO terrain)
     {
         if (!gridGameObject)
         {
@@ -21,6 +21,7 @@ public class GridGenerator
             gridGameObject.transform.localScale = newScale;
             UpdateGridMaterial(terrain);
         }
+        return gridGameObject;
     }
 
     private void UpdateGridMaterial(TerrainDTO terrain)
