@@ -34,7 +34,7 @@ public class OverlayMenu : IMenu
         showGrid = EditorGUILayout.Toggle("Grid", showGrid);
         if (EditorGUI.EndChangeCheck())
         {
-            GameObject grid = GameObject.Find("overlay_grid");
+            GameObject grid = GameObject.FindWithTag("Grid");
             GridListener gridListener = grid.GetComponent<GridListener>();
             gridListener.IsGridVisible(showGrid);
         }

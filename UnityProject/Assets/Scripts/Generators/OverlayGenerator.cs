@@ -5,7 +5,13 @@ public class OverlayGenerator
 {
     private GameObject terrainFolder;
     private GameObject gridGameObject;
+    private static float TERRAIN_GRID_OFFSET = 0.01f;
 
+    public OverlayGenerator(GameObject terrainFolder = null, GameObject gridGameObject = null)
+    {
+        this.terrainFolder = terrainFolder;
+        this.gridGameObject = gridGameObject;
+    }
 
     public GameObject GenerateGridForTerrain(TerrainDTO terrain)
     {
@@ -19,8 +25,8 @@ public class OverlayGenerator
         if (gridGameObject.transform.localScale != newScale)
         {
             gridGameObject.transform.localScale = newScale;
-            UpdateGridMaterial(terrain);
         }
+        UpdateGridMaterial(terrain);
         return gridGameObject;
     }
 
@@ -32,6 +38,19 @@ public class OverlayGenerator
 
     private GameObject GetGridGameObject()
     {
-        return GameObject.FindWithTag("Grid");
+        GameObject grid = GameObject.FindWithTag("Grid");
+        if (grid == null)
+        {
+            GameObject gridPrefab = GetGridPrefab();
+            grid = GameObject.Instantiate(gridPrefab);
+            grid.transform.SetParent(terrainFolder.transform);
+            grid.transform.localPosition = new Vector3(0f, TERRAIN_GRID_OFFSET, 0f);
+        }
+        return grid;
+    }
+
+    private GameObject GetGridPrefab()
+    {
+        return Resources.Load<GameObject>("Prefabs/Overlays/overlay_grid");
     }
 }

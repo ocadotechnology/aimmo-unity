@@ -16,6 +16,8 @@ public class TerrainGenerator
 
     public GameObject GenerateTerrain(TerrainDTO terrain)
     {
+        terrainFolder = terrainFolder ?? GetTerrainFolder();
+        terrainGameObject = terrainGameObject ?? GetTerrainGameObject();
         Vector3 newScale = new Vector3(TerrainScalingFactor * terrain.width,
                                        TerrainScalingFactor,
                                        TerrainScalingFactor * terrain.height);

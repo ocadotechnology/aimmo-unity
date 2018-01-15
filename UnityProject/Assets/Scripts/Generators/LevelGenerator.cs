@@ -4,14 +4,22 @@ public class LevelGenerator
 {
     private GameObject levelFolder;
     private GameObject terrainFolder;
+    private Transform root;
 
-    public void GenerateLevel()
+    private static TerrainDTO DEFAULT_TERRAIN = new TerrainDTO(10, 10);
+
+    public void GenerateLevel(Transform root = null)
     {
+        this.root = root;
+        if (this.root == null)
+        {
+            this.root = CreateEmptyLevelFolder();
+        }
         SetupCamera();
         SetupLighting();
-        CreateEmptyLevelFolder();
         CreateTerrainFolder();
         CreateTerrain();
+        CreateGrid();
         CreatePickupsFolder();
         CreateObstaclesFolder();
         CreatePlayerFolder();
@@ -20,10 +28,11 @@ public class LevelGenerator
         PlayerGenerator.GeneratePlayer(defaultPlayerPrefab);
     }
 
-    private void CreateEmptyLevelFolder()
+    private Transform CreateEmptyLevelFolder()
     {
         levelFolder = new GameObject("Level");
         levelFolder.transform.position = new Vector3(TerrainGenerator.TerrainSnapToGridShift, 0f, TerrainGenerator.TerrainSnapToGridShift);
+        return levelFolder.transform;
     }
 
     private void CreateTerrainFolder()
@@ -41,8 +50,13 @@ public class LevelGenerator
         terrain.transform.localPosition = new Vector3(0, 0, 0);
 
         TerrainGenerator terrainGenerator = new TerrainGenerator();
-        TerrainDTO dto = new TerrainDTO(10, 10);
-        terrainGenerator.GenerateTerrain(dto);
+        terrainGenerator.GenerateTerrain(DEFAULT_TERRAIN);
+    }
+
+    private void CreateGrid()
+    {
+        OverlayGenerator overlayGenerator = new OverlayGenerator(terrainFolder: terrainFolder);
+        overlayGenerator.GenerateGridForTerrain(DEFAULT_TERRAIN);
     }
 
     private void CreatePickupsFolder()
