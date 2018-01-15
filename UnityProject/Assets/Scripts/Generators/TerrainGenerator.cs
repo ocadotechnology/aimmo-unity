@@ -4,20 +4,18 @@ using System;
 public class TerrainGenerator
 {
     public const float TerrainScalingFactor = 0.1f;
-    public const float TerrainSnapToGridShift = -0.5f;
+    public const float TerrainSnapToGridShift = 0.5f;
     private GameObject terrainGameObject;
     private GameObject terrainFolder;
 
+    public TerrainGenerator(GameObject terrainFolder = null, GameObject terrain = null)
+    {
+        this.terrainFolder = terrainFolder ?? GetTerrainFolder();
+        this.terrainGameObject = terrain ?? GetTerrainGameObject();
+    }
+
     public GameObject GenerateTerrain(TerrainDTO terrain)
     {
-        if (!terrainGameObject)
-        {
-            terrainGameObject = GetTerrainGameObject();
-        }
-        if (!terrainFolder)
-        {
-            terrainFolder = GetTerrainFolder();
-        }
         Vector3 newScale = new Vector3(TerrainScalingFactor * terrain.width,
                                        TerrainScalingFactor,
                                        TerrainScalingFactor * terrain.height);
@@ -36,7 +34,7 @@ public class TerrainGenerator
         // TODO: make this dynamic for other types of terrains.
         GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_lessFlat_default");
         terrainGameObject = UnityEngine.Object.Instantiate(terrainPrefab) as GameObject;
-        terrainGameObject.transform.SetParent(GameObject.Find("Terrain").transform, false);
+        terrainGameObject.transform.SetParent(terrainFolder.transform, false);
         terrainGameObject.transform.localPosition = new Vector3(0, 0, 0);
 
         GenerateTerrain(terrainDTO);
