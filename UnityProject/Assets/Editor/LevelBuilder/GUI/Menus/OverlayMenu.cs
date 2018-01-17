@@ -6,7 +6,7 @@ using UnityEngine;
 using MapFeatures.Overlays;
 
 /* 
- * Allows the user to choose when to display the grid and how big it should be.
+ * The menu section that allows you to configure Overlays (e.g. grid)
  */
 
 public class OverlayMenu : IMenu
