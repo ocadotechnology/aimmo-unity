@@ -5,13 +5,13 @@ public class TerrainMenu : IMenu
 {
     private Vector2Int terrainSize;
     private TerrainGenerator terrainGenerator;
-    private OverlayGenerator gridGenerator;
+    private OverlayGenerator overlayGenerator;
 
     public TerrainMenu()
     {
         terrainSize = new Vector2Int(10, 10);
         terrainGenerator = new TerrainGenerator();
-        gridGenerator = new OverlayGenerator();
+        overlayGenerator = new OverlayGenerator();
     }
 
     public void Display()
@@ -38,7 +38,7 @@ public class TerrainMenu : IMenu
         {
             TerrainDTO terrainDTO = new TerrainDTO(terrainSize.x, terrainSize.y);
             terrainGenerator.GenerateTerrain(terrainDTO);
-            gridGenerator.GenerateGridForTerrain(terrainDTO);
+            overlayGenerator.GenerateGridForTerrain(terrainDTO);
         }
         EditorGUILayout.EndHorizontal();
 
