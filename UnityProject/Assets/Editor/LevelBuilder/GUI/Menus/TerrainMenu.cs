@@ -23,7 +23,9 @@ public class TerrainMenu : IMenu
     private void DisplayTitle()
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Terrain", EditorStyles.largeLabel);
+        EditorGUILayout.LabelField("Terrain",
+                                   EditorStyles.largeLabel,
+                                   new GUILayoutOption[] { GUILayout.Height(LevelBuilderWindow.SectionTitleHeight) });
         EditorGUILayout.EndHorizontal();
     }
 

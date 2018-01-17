@@ -14,10 +14,12 @@ public class ObstacleMenu : IMenu
     private void DisplayTitle()
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Obstacles", EditorStyles.largeLabel);
+        EditorGUILayout.LabelField("Obstacles",
+                                   EditorStyles.largeLabel,
+                                   new GUILayoutOption[] { GUILayout.Height(LevelBuilderWindow.SectionTitleHeight) });
         EditorGUILayout.EndHorizontal();
     }
-        
+
     private void DisplayObstaclesPickerButton()
     {
         EditorGUILayout.BeginHorizontal();

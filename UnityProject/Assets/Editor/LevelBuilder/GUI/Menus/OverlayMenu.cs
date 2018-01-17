@@ -22,7 +22,9 @@ public class OverlayMenu : IMenu
     private void DisplayTitle()
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Overlays", EditorStyles.largeLabel, new GUILayoutOption[] { GUILayout.Height(LevelBuilderWindow.SectionTitleHeight) });
+        EditorGUILayout.LabelField("Overlays",
+                                   EditorStyles.largeLabel,
+                                   new GUILayoutOption[] { GUILayout.Height(LevelBuilderWindow.SectionTitleHeight) });
         EditorGUILayout.EndHorizontal();
     }
 

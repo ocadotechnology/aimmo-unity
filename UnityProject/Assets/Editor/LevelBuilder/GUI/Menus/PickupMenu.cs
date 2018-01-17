@@ -15,7 +15,9 @@ public class PickupMenu : IMenu
     private void DisplayTitle()
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Pickups", EditorStyles.largeLabel);
+        EditorGUILayout.LabelField("Pickups",
+                                   EditorStyles.largeLabel,
+                                   new GUILayoutOption[] { GUILayout.Height(LevelBuilderWindow.SectionTitleHeight) });
         EditorGUILayout.EndHorizontal();
     }
 
@@ -24,7 +26,7 @@ public class PickupMenu : IMenu
         EditorGUILayout.BeginHorizontal();
         if (GUILayout.Button(pickupPickerButtonTitle))
         {
-            
+
             EditorGUIUtility.ShowObjectPicker<GameObject>(null, false, "pickup_", GUIUtility.GetControlID(pickupPickerButtonTitle, FocusType.Passive));
         }
         EditorGUILayout.EndHorizontal();
