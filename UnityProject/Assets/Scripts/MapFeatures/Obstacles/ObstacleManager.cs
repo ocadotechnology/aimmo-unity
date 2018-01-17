@@ -9,13 +9,11 @@ namespace MapFeatures.Obstacles
     {
         public override bool Create(ObstacleDTO dto)
         {
-            // Generate the obstacle gameObject. 
-            // TODO: Is the location actually free? Is the dto info correct?
-            GameObject obstacle = ObstacleGenerator.GenerateObstacle(dto);
+            GameObject obstacle = ObstacleGenerator.GenerateObstacle(dto, GameObject.Find("Obstacles").transform);
 
             if (obstacle == null)
             {
-                Debug.Log("Generated obstacle is null!");
+                Debug.LogError("Generated obstacle is null!");
                 return false;
             }
 

@@ -139,7 +139,7 @@ public class LevelBuilderWindow : EditorWindow
             {
                 if (objectPickerObject.tag == "Obstacle")
                 {
-                    ObstacleGenerator.GenerateObstacle(objectPickerObject);
+                    ObstacleGenerator.GenerateObstacle(objectPickerObject, GameObject.Find("Obstacles").transform);
                 }
                 else if (objectPickerObject.tag == "Pickup")
                 {
