@@ -11,7 +11,6 @@ public class ObstacleGenerator
             new Vector3(adjustedLocation.x, 0, adjustedLocation.y),
             Quaternion.identity) as GameObject;
         obstacle.transform.SetParent(GameObject.Find("Obstacles").transform, false);
-        Debug.Log(obstacle);
         return obstacle;
     }
 
@@ -40,8 +39,6 @@ public class ObstacleGenerator
         obstacleDTO.location = new Location(x: 0, y: 0);
         obstacleDTO.width = (int)Mathf.Ceil(gameObject.GetComponent<Renderer>().bounds.size.x);
         obstacleDTO.height = (int)Mathf.Ceil(gameObject.GetComponent<Renderer>().bounds.size.z);
-        Debug.Log(obstacleDTO.width);
-        Debug.Log(obstacleDTO.height);
         return GetAdjustedLocation(obstacleDTO);
     }
 
