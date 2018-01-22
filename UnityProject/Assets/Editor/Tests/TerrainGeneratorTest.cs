@@ -9,11 +9,16 @@ namespace AIMMOUnityTest
     {
         TerrainGenerator generator;
         TerrainDTO terrainDTO;
+        GameObject terrainFolder;
+        GameObject terrain;
+        private static float EPSILON = 0.0001f;
 
         [SetUp]
         public void SetUpTerrainGenerator()
         {
-            generator = new TerrainGenerator();
+            terrainFolder = new GameObject("TerrainFolder");
+            terrain = new GameObject("terrain");
+            generator = new TerrainGenerator(terrainFolder: terrainFolder, terrain: terrain);
         }
 
         [SetUp]
@@ -53,20 +58,16 @@ namespace AIMMOUnityTest
         [Test]
         public void TestOddDimensionsTerrainGenerationMMO()
         {
-            // This test will FAIL when dynamic terrain logic will be added, therefore
-            // update when this happens. 
-
-            terrainDTO.width = 11;
+            terrainDTO.width = 21;
             terrainDTO.height = 11;
 
-            GameObject terrain = generator.GenerateTerrainMMO(terrainDTO);
-            Assert.AreEqual("terrain_lessFlat_default(Clone)", terrain.name);
-            Assert.AreEqual("Terrain", terrain.transform.parent.name);
+            terrain = generator.GenerateTerrainMMO(terrainDTO);
+            Assert.AreEqual(terrainFolder.transform, terrain.transform.parent);
 
-            Vector3 expectedPosition = new Vector3(0, 0, 0);
-            Assert.IsTrue(expectedPosition == terrain.transform.localPosition);
+            Vector3 expectedPosition = new Vector3(0.0f, 0.0f, 0.0f);
+            Assert.IsTrue(Vector3.SqrMagnitude(expectedPosition - terrainFolder.transform.localPosition) < EPSILON);
 
-            Vector3 expectedScale = new Vector3(1.1f, 0.1f, 1.1f);
+            Vector3 expectedScale = new Vector3(2.1f, 0.1f, 1.1f);
             Assert.IsTrue(expectedScale == terrain.transform.localScale);
         }
 
@@ -76,12 +77,12 @@ namespace AIMMOUnityTest
             terrainDTO.width = 4;
             terrainDTO.height = 4;
 
-            GameObject terrain = generator.GenerateTerrainMMO(terrainDTO);
-            Assert.AreEqual("terrain_lessFlat_default(Clone)", terrain.name);
-            Assert.AreEqual("Terrain", terrain.transform.parent.name);
+            terrain = generator.GenerateTerrainMMO(terrainDTO);
+            Assert.AreEqual(terrainFolder.transform, terrain.transform.parent);
 
             Vector3 expectedPosition = new Vector3(0.5f, 0f, 0.5f);
-            Assert.IsTrue(expectedPosition == terrain.transform.localPosition);
+            Debug.Log(terrainFolder.transform.localPosition);
+            Assert.IsTrue(Vector3.SqrMagnitude(expectedPosition - terrainFolder.transform.localPosition) < EPSILON);
 
             Vector3 expectedScale = new Vector3(0.4f, 0.1f, 0.4f);
             Assert.IsTrue(expectedScale == terrain.transform.localScale);

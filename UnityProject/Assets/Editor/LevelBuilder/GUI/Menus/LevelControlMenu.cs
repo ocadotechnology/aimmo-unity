@@ -15,28 +15,28 @@ using Generator;
 
 class LevelControlMenu : IMenu
 {
-	public void Display()
-	{
-		EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
+    public void Display()
+    {
+        EditorGUILayout.LabelField("", GUI.skin.horizontalSlider);
 
-		if (GUILayout.Button("Play Level"))
-		{
-			AvatarController.CreateAvatar(0.0f, 0.0f);
-			EditorApplication.ExecuteMenuItem("Edit/Play");
-		}
+        if (GUILayout.Button("Play Level"))
+        {
+            AvatarController.CreateAvatar(0.0f, 0.0f);
+            EditorApplication.ExecuteMenuItem("Edit/Play");
+        }
 
-		if (GUILayout.Button("Stop Level"))
-		{
-			if (Application.isPlaying)
-				EditorApplication.ExecuteMenuItem("Edit/Play");
-			
-			AvatarController.RemoveAvatar ();
-		}
+        if (GUILayout.Button("Stop Level"))
+        {
+            if (Application.isPlaying)
+                EditorApplication.ExecuteMenuItem("Edit/Play");
 
-		if (GUILayout.Button("Export Level"))
-		{
-			string sceneName = SceneManager.GetActiveScene().name;
-			ExportController.ExportFile(sceneName);
-		}
-	}
+            AvatarController.RemoveAvatar();
+        }
+
+        if (GUILayout.Button("Export Level"))
+        {
+            string sceneName = SceneManager.GetActiveScene().name;
+            ExportController.ExportFile(sceneName);
+        }
+    }
 }

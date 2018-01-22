@@ -15,10 +15,17 @@ namespace MapFeatures.ScoreLocations
         List<ScoreLocationDTO> scoresToDelete = new List<ScoreLocationDTO>();
         List<ScoreLocationDTO> scoresToCreate = new List<ScoreLocationDTO>();
 
+        GameObject scoreFolder;
+
+        public ScorePointManager()
+        {
+            scoreFolder = GameObject.Find("Scores");
+        }
+
         public override bool Create(ScoreLocationDTO dto)
         {
             // TODO: some checking that this location is free to place on.
-            GameObject score = ScoreGenerator.GenerateScore(dto);
+            GameObject score = ScoreGenerator.GenerateScore(dto, scoreFolder.transform);
 
             if (score == null)
             {
@@ -82,7 +89,7 @@ namespace MapFeatures.ScoreLocations
 
             // Find elements that exist in provided array that doesn't exist
             // in current world scores.
-            scoresToCreate = (List<ScoreLocationDTO>) newScoreLocations.Except(currentScores).ToList();
+            scoresToCreate = (List<ScoreLocationDTO>)newScoreLocations.Except(currentScores).ToList();
 
             foreach (ScoreLocationDTO score in scoresToCreate)
             {
@@ -102,7 +109,7 @@ namespace MapFeatures.ScoreLocations
 
             // We find elements that exist in currentScores but not dto
             // (ie. newPickups).
-            scoresToDelete = (List<ScoreLocationDTO>)  currentScores.Except(newScores).ToList();
+            scoresToDelete = (List<ScoreLocationDTO>)currentScores.Except(newScores).ToList();
 
             foreach (ScoreLocationDTO score in scoresToDelete)
             {

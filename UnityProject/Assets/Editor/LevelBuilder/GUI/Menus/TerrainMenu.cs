@@ -5,10 +5,13 @@ public class TerrainMenu : IMenu
 {
     private Vector2Int terrainSize;
     private TerrainGenerator terrainGenerator;
+    private OverlayGenerator overlayGenerator;
 
-    public TerrainMenu() {
+    public TerrainMenu()
+    {
         terrainSize = new Vector2Int(10, 10);
         terrainGenerator = new TerrainGenerator();
+        overlayGenerator = new OverlayGenerator();
     }
 
     public void Display()
@@ -20,7 +23,9 @@ public class TerrainMenu : IMenu
     private void DisplayTitle()
     {
         EditorGUILayout.BeginHorizontal();
-        EditorGUILayout.LabelField("Terrain", EditorStyles.largeLabel);
+        EditorGUILayout.LabelField("Terrain",
+                                   EditorStyles.largeLabel,
+                                   new GUILayoutOption[] { GUILayout.Height(LevelBuilderWindow.SectionTitleHeight) });
         EditorGUILayout.EndHorizontal();
     }
 
@@ -28,11 +33,12 @@ public class TerrainMenu : IMenu
     {
         EditorGUILayout.BeginHorizontal();
         EditorGUI.BeginChangeCheck();
-        terrainSize = EditorGUILayout.Vector2IntField("Size", terrainSize); 
+        terrainSize = EditorGUILayout.Vector2IntField("Size", terrainSize);
         if (EditorGUI.EndChangeCheck())
         {
             TerrainDTO terrainDTO = new TerrainDTO(terrainSize.x, terrainSize.y);
             terrainGenerator.GenerateTerrain(terrainDTO);
+            overlayGenerator.GenerateGridForTerrain(terrainDTO);
         }
         EditorGUILayout.EndHorizontal();
 

@@ -19,16 +19,24 @@ using System.Collections.Generic;
 
 public class LevelBuilderWindow : EditorWindow
 {
+    public static float SectionTitleHeight = 20;
+
     private static LevelBuilderWindow windowInstance = null;
     private int optionChosenByUser = 0;
 
     // Main menus.
-    private IMenu[] menus =
+    private IMenu[] menus;
+
+    public void OnEnable()
     {
-        new TerrainMenu(),
-        new PickupMenu(),
-        new ObstacleMenu(),
-    };
+        menus = new IMenu[]
+        {
+            new TerrainMenu(),
+            new OverlayMenu(),
+            new PickupMenu(),
+            new ObstacleMenu(),
+        };
+    }
 
     private static LevelBuilderWindow GetWindow()
     {
@@ -123,7 +131,7 @@ public class LevelBuilderWindow : EditorWindow
 
     private void ListenForPickerEvents()
     {
-        if (Event.current.commandName == "ObjectSelectorClosed" 
+        if (Event.current.commandName == "ObjectSelectorClosed"
             && Event.current.type != EventType.Layout)
         {
             GameObject objectPickerObject = EditorGUIUtility.GetObjectPickerObject() as GameObject;
@@ -131,7 +139,7 @@ public class LevelBuilderWindow : EditorWindow
             {
                 if (objectPickerObject.tag == "Obstacle")
                 {
-                    ObstacleGenerator.GenerateObstacle(objectPickerObject);
+                    ObstacleGenerator.GenerateObstacle(objectPickerObject, GameObject.Find("Obstacles").transform);
                 }
                 else if (objectPickerObject.tag == "Pickup")
                 {
