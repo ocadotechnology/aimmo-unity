@@ -10,7 +10,7 @@ public class ObstacleGenerator
             obstaclePrefab,
             new Vector3(adjustedLocation.x, 0, adjustedLocation.y),
             Quaternion.identity) as GameObject;
-        obstacle.transform.SetParent(parent, false);
+        obstacle.transform.SetParent(parent: parent, worldPositionStays: true);
         return obstacle;
     }
 
@@ -26,7 +26,7 @@ public class ObstacleGenerator
             new Vector3(adjustedLocation.x, 0, adjustedLocation.y),
             Quaternion.identity) as GameObject;
 
-        obstacle.transform.SetParent(parent, false);
+        obstacle.transform.SetParent(parent: parent, worldPositionStays: true);
 
         obstacle.name = "obstacle_" + obstacleDTO.type + "_" + obstacleDTO.location.x + "_" + obstacleDTO.location.y;
 

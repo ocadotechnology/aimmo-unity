@@ -17,7 +17,7 @@ namespace MapFeatures.ScoreLocations
 
         GameObject scoreFolder;
 
-        public ScorePointManager()
+        public void Start()
         {
             scoreFolder = GameObject.Find("Scores");
         }

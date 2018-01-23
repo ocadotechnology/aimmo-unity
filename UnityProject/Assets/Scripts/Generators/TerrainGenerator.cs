@@ -6,7 +6,7 @@ public class TerrainGenerator
     public const float TerrainScalingFactor = 0.1f;
     public const float TerrainSnapToGridShift = 0.5f;
     private GameObject terrainGameObject;
-    private GameObject terrainFolder;
+    public GameObject terrainFolder;
 
     public TerrainGenerator(GameObject terrainFolder = null, GameObject terrain = null)
     {
@@ -34,12 +34,14 @@ public class TerrainGenerator
     public GameObject GenerateTerrainMMO(TerrainDTO terrainDTO)
     {
         // TODO: make this dynamic for other types of terrains.
-        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_lessFlat_default");
+        GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_future_default");
         terrainGameObject = UnityEngine.Object.Instantiate(terrainPrefab) as GameObject;
         terrainGameObject.transform.SetParent(terrainFolder.transform, false);
         terrainGameObject.transform.localPosition = new Vector3(0, 0, 0);
 
         GenerateTerrain(terrainDTO);
+
+        UpdateTerrainMaterial(terrainDTO);
 
         return terrainGameObject;
     }
@@ -66,5 +68,11 @@ public class TerrainGenerator
     private GameObject GetTerrainFolder()
     {
         return GameObject.Find("Terrain");
+    }
+
+    private void UpdateTerrainMaterial(TerrainDTO terrain)
+    {
+        Material material = terrainGameObject.GetComponent<Renderer>().sharedMaterial;
+        material.mainTextureScale = new Vector2(terrain.width, terrain.height);
     }
 }

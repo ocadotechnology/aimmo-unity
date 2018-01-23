@@ -11,12 +11,13 @@ namespace AIMMOUnityTest
         public void TestGridGeneratedByDTO()
         {
             TerrainDTO terrainDTO = new TerrainDTO(81, 2);
-            OverlayGenerator overlayGenerator = new OverlayGenerator();
+            GameObject terrainFolder = new GameObject();
+            OverlayGenerator overlayGenerator = new OverlayGenerator(terrainFolder: terrainFolder);
 
             GameObject generatedGrid = overlayGenerator.GenerateGridForTerrain(terrainDTO);
 
-            Assert.AreEqual(generatedGrid.transform.parent.name, "Terrain");
-            Assert.AreEqual(generatedGrid.transform.name, "overlay_grid");
+            Assert.AreEqual(generatedGrid.transform.parent, terrainFolder.transform);
+            Assert.AreEqual(generatedGrid.transform.name, "overlay_grid(Clone)");
 
             Assert.AreEqual(generatedGrid.transform.transform.localPosition.x, 0);
             Assert.AreEqual(generatedGrid.transform.transform.localPosition.y, 0.01f);
