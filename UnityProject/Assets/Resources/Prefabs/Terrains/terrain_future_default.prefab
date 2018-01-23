@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33218429090856482}
   - component: {fileID: 23053202819628740}
   m_Layer: 0
-  m_Name: terrain_lessFlat_default
+  m_Name: terrain_future_default
   m_TagString: Terrain
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 4b2e31f4f96dc452cb2435fe1451d061, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33317986952955426}
   - component: {fileID: 23747516035888852}
   m_Layer: 0
-  m_Name: obstacle_future_wall
+  m_Name: obstacle_lessFlat_wall
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

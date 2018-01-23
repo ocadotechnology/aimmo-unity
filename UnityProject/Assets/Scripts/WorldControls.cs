@@ -162,6 +162,9 @@ public class WorldControls : MonoBehaviour
             TerrainDTO terrainDTO = new TerrainDTO(width, height);
             terrainGenerator.GenerateTerrainMMO(terrainDTO);
 
+            OverlayGenerator overlayGenerator = new OverlayGenerator(terrainFolder: terrainGenerator.terrainFolder);
+            overlayGenerator.GenerateGridForTerrain(terrainDTO);
+
             // Generate the obstacles only on initial game creation. Don't duplicate.
             ObstacleDTO[] obstacles = gameState.obstacles;
             obstacleManager.UpdateFeatures(obstacles);
