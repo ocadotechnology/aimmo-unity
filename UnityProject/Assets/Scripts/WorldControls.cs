@@ -103,9 +103,9 @@ public class WorldControls : MonoBehaviour
         io.settings.path = path;
     }
 
-    public void SetSSL(bool isSSLEnabled)
+    public void SetSSL(string isSSLEnabled)
     {
-        io.settings.sslEnabled = isSSLEnabled;
+        io.settings.sslEnabled = Convert.ToBoolean(isSSLEnabled);
     }
 
     // Set main user.
