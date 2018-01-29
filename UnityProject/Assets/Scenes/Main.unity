@@ -490,10 +490,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    url: staging.aimmo.codeforlife.education/game-1
+    url: dev.aimmo.codeforlife.education/game-2
     port: 0
     path: 
-    sslEnabled: 1
+    sslEnabled: 0
     reconnectTime: 10
     timeToDropAck: 10
     pingTimeout: 10

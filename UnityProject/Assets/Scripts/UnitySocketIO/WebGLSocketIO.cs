@@ -34,10 +34,7 @@ namespace UnitySocketIO.SocketIO {
 
         public override void Connect() {
             Debug.Log("Connecting...");
-            string fullUrl = "http" + (settings.sslEnabled ? "s" : "") + "://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") + "/";
-            Debug.Log(fullUrl);
-            Debug.Log(settings.path);
-            Connect(fullUrl, settings.path);
+            Connect("http" + (settings.sslEnabled ? "s" : "") + "://" + settings.url + (!settings.sslEnabled && settings.port != 0 ? ":" + settings.port.ToString() : "") + "/", settings.path);
         }
 
         public override void Close() {
