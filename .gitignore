@@ -31,3 +31,5 @@ ehthumbs.db
 Thumbs.db
 .vscode
 UnityProject/Builds
+
+\.idea/
