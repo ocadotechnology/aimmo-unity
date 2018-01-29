@@ -103,6 +103,11 @@ public class WorldControls : MonoBehaviour
         io.settings.path = path;
     }
 
+    public void SetSSL(bool isSSLEnabled)
+    {
+        io.settings.sslEnabled = isSSLEnabled;
+    }
+
     // Set main user.
     public void SetUserId(int userId)
     {
