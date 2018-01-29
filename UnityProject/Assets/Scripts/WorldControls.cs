@@ -7,6 +7,7 @@ using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
 using Players;
+using System.Collections;
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.
@@ -73,6 +74,7 @@ public class WorldControls : MonoBehaviour
 
         startTime = Time.time;
         dataQueue = new Queue<GameStateDTO>();
+        QualitySettings.antiAliasing = 8;
     }
 
     // Calls ProcessUpdate every ProcessingInterval seconds.
