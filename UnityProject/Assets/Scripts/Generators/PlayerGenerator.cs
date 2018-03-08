@@ -5,6 +5,7 @@ public class PlayerGenerator : MonoBehaviour
 {
     public static Material[] materials = Resources.LoadAll<Material>("Materials/Players");
     static GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
+    static GameObject markerPrefab = Resources.Load<GameObject>("Prefabs/Players/player_arrow");
     public static int numberOfSkins = materials.Length;
 
     public static GameObject GeneratePlayer(GameObject playerPrefab)
@@ -28,12 +29,18 @@ public class PlayerGenerator : MonoBehaviour
         player.transform.SetParent(GameObject.Find("Players").transform, false);
         player.transform.Find("Dee").GetComponent<Renderer>().material = PlayerGenerator.mapIDToSkin(playerDTO.id);
 
+        PlayerGenerator.AppendMarker(playerDTO.location, player);
+
         return player;            
     }
 
-    private static void AppendMarker(GameObject player)
+    private static void AppendMarker(Location playerLocation, GameObject playerObject)
     {
-        
+        GameObject marker = Object.Instantiate(PlayerGenerator.markerPrefab,
+                                               new Vector3(playerLocation.x, 1.1f, playerLocation.y),
+                                               Quaternion.identity) as GameObject;
+
+        playerObject.transform.SetParent(playerObject.transform, false);
     }
 
     public static Material mapIDToSkin(int playerID)
