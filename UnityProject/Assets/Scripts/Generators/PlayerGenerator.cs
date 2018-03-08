@@ -37,10 +37,10 @@ public class PlayerGenerator : MonoBehaviour
     private static void AppendMarker(Location playerLocation, GameObject playerObject)
     {
         GameObject marker = Object.Instantiate(PlayerGenerator.markerPrefab,
-                                               new Vector3(playerLocation.x, 1.1f, playerLocation.y),
+                                               new Vector3(0, 1.1f, 0),
                                                Quaternion.identity) as GameObject;
 
-        playerObject.transform.SetParent(playerObject.transform, false);
+        marker.transform.SetParent(playerObject.transform, false);
     }
 
     public static Material mapIDToSkin(int playerID)
