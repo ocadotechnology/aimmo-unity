@@ -110,6 +110,11 @@ public class WorldControls : MonoBehaviour
         io.settings.sslEnabled = Convert.ToBoolean(isSSLEnabled);
     }
 
+    public void SetCurrentAvatarID(int avatarID)
+    {
+        io.settings.avatarID = avatarID;
+    }
+
     // Set main user.
     public void SetUserId(int userId)
     {

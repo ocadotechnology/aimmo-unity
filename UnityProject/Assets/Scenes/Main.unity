@@ -498,6 +498,7 @@ MonoBehaviour:
     timeToDropAck: 10
     pingTimeout: 10
     pingInterval: 1
+    avatarID: 1
 --- !u!1 &1878634856
 GameObject:
   m_ObjectHideFlags: 0

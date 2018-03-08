@@ -31,6 +31,11 @@ public class PlayerGenerator : MonoBehaviour
         return player;            
     }
 
+    private static void AppendMarker(GameObject player)
+    {
+        
+    }
+
     public static Material mapIDToSkin(int playerID)
     {
         return PlayerGenerator.materials[playerID % numberOfSkins];
