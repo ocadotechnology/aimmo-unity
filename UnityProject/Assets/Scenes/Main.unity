@@ -490,7 +490,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    url: dev.aimmo.codeforlife.education/game-2
+    url: local.aimmo.codeforlife.education/game-1
     port: 0
     path: 
     sslEnabled: 0
