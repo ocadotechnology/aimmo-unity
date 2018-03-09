@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Players;
+using UnitySocketIO;
 
 public class PlayerGenerator : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class PlayerGenerator : MonoBehaviour
     static GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
     static GameObject markerPrefab = Resources.Load<GameObject>("Prefabs/Players/player_arrow");
     public static int numberOfSkins = materials.Length;
+    static GameObject worldController = GameObject.Find("World Controller");
+    static SocketIOController io = worldController.GetComponent(typeof(SocketIOController)) as SocketIOController;
 
     public static GameObject GeneratePlayer(GameObject playerPrefab)
     {
@@ -29,18 +32,28 @@ public class PlayerGenerator : MonoBehaviour
         player.transform.SetParent(GameObject.Find("Players").transform, false);
         player.transform.Find("Dee").GetComponent<Renderer>().material = PlayerGenerator.mapIDToSkin(playerDTO.id);
 
-        PlayerGenerator.AppendMarker(playerDTO.location, player);
+        if(io == null)
+        {
+            Debug.LogWarning("SocketIOController object not found!");
+        }
+
+        if(io.settings.avatarID == playerDTO.id) 
+        {
+            PlayerGenerator.AppendMarker(playerDTO.location, player);
+        }
 
         return player;            
     }
 
-    private static void AppendMarker(Location playerLocation, GameObject playerObject)
+    private static bool AppendMarker(Location playerLocation, GameObject playerObject)
     {
         GameObject marker = Object.Instantiate(PlayerGenerator.markerPrefab,
                                                new Vector3(0, 1.1f, 0),
                                                Quaternion.identity) as GameObject;
 
         marker.transform.SetParent(playerObject.transform, false);
+
+        return false;
     }
 
     public static Material mapIDToSkin(int playerID)
