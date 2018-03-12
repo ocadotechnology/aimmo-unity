@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour
 {
-    public float zoomSpeed = 1.0f;
+    public float zoomSpeed = 0.5f;
 
     private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
@@ -48,8 +48,16 @@ public class MoveCamera : MonoBehaviour
         float scroll = Input.GetAxis("Mouse ScrollWheel");
 
         if (scroll > 0)
+        {
             Camera.main.orthographicSize -= zoomSpeed;
+            if (Camera.main.orthographicSize <= 1.2f)
+                Camera.main.orthographicSize = 1.2f;
+        }
         else if (scroll < 0)
+        {
             Camera.main.orthographicSize += zoomSpeed;
+            if (Camera.main.orthographicSize >= 5.0f)
+                Camera.main.orthographicSize = 5.0f;
+        }
     }
 }
