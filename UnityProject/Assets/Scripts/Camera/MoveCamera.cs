@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour
 {
-    private float zoomSpeed = 0.5f;
+    public float zoomSpeed = 0.5f;
     private float minCameraCap = 1.2f;
     private float maxCameraCap = 5.0f;
 
