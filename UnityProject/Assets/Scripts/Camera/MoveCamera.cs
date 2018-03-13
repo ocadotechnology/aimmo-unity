@@ -3,7 +3,9 @@ using System.Collections;
 
 public class MoveCamera : MonoBehaviour
 {
-    public float zoomSpeed = 0.5f;
+    private float zoomSpeed = 0.5f;
+    private float minCameraCap = 1.2f;
+    private float maxCameraCap = 5.0f;
 
     private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
@@ -49,15 +51,11 @@ public class MoveCamera : MonoBehaviour
 
         if (scroll > 0)
         {
-            Camera.main.orthographicSize -= zoomSpeed;
-            if (Camera.main.orthographicSize <= 1.2f)
-                Camera.main.orthographicSize = 1.2f;
+            Camera.main.orthographicSize = Mathf.Max(Camera.main.orthographicSize - zoomSpeed, minCameraCap);
         }
         else if (scroll < 0)
         {
-            Camera.main.orthographicSize += zoomSpeed;
-            if (Camera.main.orthographicSize >= 5.0f)
-                Camera.main.orthographicSize = 5.0f;
+            Camera.main.orthographicSize = Mathf.Min(Camera.main.orthographicSize - zoomSpeed, maxCameraCap);
         }
     }
 }
