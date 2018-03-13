@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnitySocketIO;
 
 namespace Players
 {
@@ -48,6 +49,8 @@ namespace Players
     {
         public static String PLAYER_TAG = "Avatar";
         Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
+        static GameObject worldController = GameObject.Find("World Controller");
+        static SocketIOController io = worldController.GetComponent(typeof(SocketIOController)) as SocketIOController;
 
         public bool CreatePlayer(PlayerDTO playerDTO)
         {
@@ -63,6 +66,19 @@ namespace Players
             player.tag = PLAYER_TAG;
             player.name = PlayerId(playerDTO.id);
             player.AddComponent<PlayerController>();
+
+            Debug.Log("Comparison: io settings: " + io.settings.avatarID + " dto: " + playerDTO.id);
+
+            if (io.settings.avatarID == playerDTO.id)
+            {
+                Debug.Log("Setting marker");
+                PlayerGenerator.AppendMarker(playerDTO.location, player);
+            }
+
+            if (io == null)
+            {
+                Debug.LogWarning("SocketIOController object not found!");
+            }
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
 
