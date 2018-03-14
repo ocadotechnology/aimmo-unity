@@ -28,7 +28,7 @@ public class WorldControls : MonoBehaviour
     public SocketIOController io;
 
     // User identifier.
-    private int userId;
+    public int currentAvatarID = 0;
 
     // Map feature managers.
     private ObstacleManager obstacleManager;
@@ -67,8 +67,8 @@ public class WorldControls : MonoBehaviour
         else
         {
             // TEMPORARY. Just for testing. Connect directly. Assume id = 1.
+            SetCurrentAvatarID(currentAvatarID);
             EstablishConnection();
-            SetUserId(1);
         }
 
         startTime = Time.time;
@@ -114,17 +114,6 @@ public class WorldControls : MonoBehaviour
         playerManager.avatarID = avatarID;
     }
 
-    // Set main user.
-    public void SetUserId(int userId)
-    {
-        this.userId = userId;
-
-        // Now the camera knows who to follow.
-        GameObject cameraGameObject = Camera.main.transform.gameObject;
-        FollowAvatar followAvatar = cameraGameObject.AddComponent<FollowAvatar>();
-        followAvatar.FollowUserWithId(playerManager.PlayerId(userId));
-    }
-
     // The backend calls this function to open a socket connection.
     // Once this happens, the game starts.
     public void EstablishConnection()
@@ -144,7 +133,7 @@ public class WorldControls : MonoBehaviour
 
                 // So that the server knows that requests have started
                 // being processed.
-                io.Emit("client-ready", Convert.ToString(userId));
+                io.Emit("client-ready", Convert.ToString(currentAvatarID));
 
                 Debug.Log("Emitted response for the server for world initialisation.");
             });

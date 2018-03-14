@@ -71,6 +71,9 @@ namespace Players
             player.name = PlayerId(playerDTO.id);
             player.AddComponent<PlayerController>();
 
+            Debug.Log(playerDTO.id);
+            Debug.Log(avatarID);
+
             if (avatarID == playerDTO.id)
             {
                 Debug.Log("Setting Marker to id: " + avatarID);
@@ -81,6 +84,14 @@ namespace Players
 
             return true;
         }
+
+        //public bool SetCurrentPlayer(int currentPlayerID)
+        //{
+        //    if (!activePlayers.ContainsKey(PlayerId(currentPlayerID)))
+        //        return false;
+
+        //    PlayerGenerator.AppendMarker(activePlayers[PlayerId(currentPlayerID)]);
+        //}
 
         public bool DeletePlayer(int id)
         {
