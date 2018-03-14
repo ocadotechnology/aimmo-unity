@@ -55,7 +55,7 @@ public class MoveCamera : MonoBehaviour
         }
         else if (scroll < 0)
         {
-            Camera.main.orthographicSize = Mathf.Min(Camera.main.orthographicSize - zoomSpeed, maxCameraCap);
+            Camera.main.orthographicSize = Mathf.Min(Camera.main.orthographicSize + zoomSpeed, maxCameraCap);
         }
     }
 }
