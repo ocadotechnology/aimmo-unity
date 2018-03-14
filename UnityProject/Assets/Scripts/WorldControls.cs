@@ -7,7 +7,6 @@ using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
 using Players;
-using System.Collections;
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.
@@ -112,7 +111,7 @@ public class WorldControls : MonoBehaviour
 
     public void SetCurrentAvatarID(int avatarID)
     {
-        io.settings.avatarID = avatarID;
+        playerManager.avatarID = avatarID;
     }
 
     // Set main user.
