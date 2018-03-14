@@ -14,41 +14,41 @@ public class PlayerGenerator : MonoBehaviour
         playersFolder = GameObject.Find("Players");
     }
 
-    public static GameObject GeneratePlayer(GameObject playerPrefab, GameObject parentPlayerFolder = null)
+    public static GameObject GeneratePlayer(GameObject playerPrefab, GameObject playerFolder = null)
     {
-        parentPlayerFolder = parentPlayerFolder ?? playersFolder;
+        playerFolder = playerFolder ?? playersFolder;
 
         GameObject player = Object.Instantiate(
                                 playerPrefab, 
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
-        player.transform.SetParent(parentPlayerFolder.transform, false);
+        player.transform.SetParent(playerFolder.transform, false);
 
         return player;
     }
 
-    public static GameObject GeneratePlayer(PlayerDTO playerDTO, GameObject parentPlayerFolder = null)
+    public static GameObject GeneratePlayer(PlayerDTO playerDTO, GameObject playerFolder = null)
     {
-        parentPlayerFolder = parentPlayerFolder ?? playersFolder;
+        playerFolder = playerFolder ?? playersFolder;
 
         GameObject player = Object.Instantiate(
                                 PlayerGenerator.deePrefab,
                                 new Vector3(playerDTO.location.x, 0, playerDTO.location.y),
                                 Quaternion.identity) as GameObject;
         
-        player.transform.SetParent(parentPlayerFolder.transform, false);
+        player.transform.SetParent(playerFolder.transform, false);
         player.transform.Find("Dee").GetComponent<Renderer>().material = PlayerGenerator.mapIDToSkin(playerDTO.id);
 
         return player;            
     }
 
-    public static bool AppendMarker(GameObject playerParentObject)
+    public static bool AppendMarker(GameObject player)
     {
         GameObject marker = Object.Instantiate(PlayerGenerator.markerPrefab,
                                                new Vector3(0, 1.1f, 0),
                                                Quaternion.identity) as GameObject;
 
-        marker.transform.SetParent(playerParentObject.transform, false);
+        marker.transform.SetParent(player.transform, false);
 
         return false;
     }

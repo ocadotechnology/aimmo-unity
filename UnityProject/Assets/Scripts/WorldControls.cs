@@ -66,7 +66,6 @@ public class WorldControls : MonoBehaviour
         }
         else
         {
-            // TEMPORARY. Just for testing. Connect directly. Assume id = 1.
             SetCurrentAvatarID(currentAvatarID);
             EstablishConnection();
         }
@@ -109,9 +108,10 @@ public class WorldControls : MonoBehaviour
         io.settings.sslEnabled = Convert.ToBoolean(isSSLEnabled);
     }
 
-    public void SetCurrentAvatarID(int avatarID)
+    // Sets the current players avatar ID so that a marker can be added.
+    public void SetCurrentAvatarID(int playersCurrentAvatarID)
     {
-        playerManager.avatarID = avatarID;
+        playerManager.playersCurrentAvatarID = playersCurrentAvatarID;
     }
 
     // The backend calls this function to open a socket connection.

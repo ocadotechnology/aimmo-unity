@@ -37,7 +37,7 @@ namespace AIMMOUnityTest
         public void TestCorrectPlayerAddedWithMarker()
         {
             // Set (mock) desired ID to 2
-            playerManager.avatarID = 2;
+            playerManager.playersCurrentAvatarID = 2;
 
             playerManager.CreatePlayer(playerDTO);
 

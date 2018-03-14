@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnitySocketIO;
 
 namespace Players
 {
@@ -49,7 +48,7 @@ namespace Players
     {
         public static String PLAYER_TAG = "Avatar";
         Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
-        public int avatarID = 0;
+        public int playersCurrentAvatarID = 0;
         public GameObject parentPlayerFolder;
 
         void Awake() {
@@ -71,9 +70,9 @@ namespace Players
             player.name = PlayerId(playerDTO.id);
             player.AddComponent<PlayerController>();
 
-            if (avatarID == playerDTO.id)
+            if (playersCurrentAvatarID == playerDTO.id)
             {
-                Debug.Log("Setting Marker to id: " + avatarID);
+                Debug.Log("Setting Marker to id: " + playersCurrentAvatarID);
                 PlayerGenerator.AppendMarker(player);
             }
 
