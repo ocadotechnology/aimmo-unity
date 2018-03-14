@@ -82,14 +82,6 @@ namespace Players
             return true;
         }
 
-        //public bool SetCurrentPlayer(int currentPlayerID)
-        //{
-        //    if (!activePlayers.ContainsKey(PlayerId(currentPlayerID)))
-        //        return false;
-
-        //    PlayerGenerator.AppendMarker(activePlayers[PlayerId(currentPlayerID)]);
-        //}
-
         public bool DeletePlayer(int id)
         {
             if (!activePlayers.ContainsKey(PlayerId(id)))
