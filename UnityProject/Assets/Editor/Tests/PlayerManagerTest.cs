@@ -51,6 +51,10 @@ namespace AIMMOUnityTest
             Assert.IsNotNull(player2);
             Assert.AreEqual(player2.tag, "Avatar");
 
+
+            // We expect no marker on player1
+            Assert.IsNull(player.transform.Find("player_arrow(Clone)"));
+
             GameObject marker = player2.transform.Find("player_arrow(Clone)").gameObject;
             Assert.IsNotNull(marker);
         }
