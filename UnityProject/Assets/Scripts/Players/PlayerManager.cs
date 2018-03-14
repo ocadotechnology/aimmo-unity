@@ -71,9 +71,6 @@ namespace Players
             player.name = PlayerId(playerDTO.id);
             player.AddComponent<PlayerController>();
 
-            Debug.Log(playerDTO.id);
-            Debug.Log(avatarID);
-
             if (avatarID == playerDTO.id)
             {
                 Debug.Log("Setting Marker to id: " + avatarID);
