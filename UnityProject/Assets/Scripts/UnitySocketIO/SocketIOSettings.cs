@@ -20,7 +20,5 @@ namespace UnitySocketIO.SocketIO
         public int pingTimeout;
         public int pingInterval;
 
-        public int avatarID;
-
     }
 }
