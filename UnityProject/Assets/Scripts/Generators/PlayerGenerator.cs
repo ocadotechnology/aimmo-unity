@@ -4,7 +4,7 @@ using Players;
 public class PlayerGenerator : MonoBehaviour
 {
     public static Material[] materials = Resources.LoadAll<Material>("Materials/Players");
-    static GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
+    static GameObject characterPrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
     static GameObject markerPrefab = Resources.Load<GameObject>("Prefabs/Players/player_arrow");
     public static int numberOfSkins = materials.Length;
     private static GameObject playersFolder;
@@ -32,7 +32,7 @@ public class PlayerGenerator : MonoBehaviour
         playerFolder = playerFolder ?? playersFolder;
 
         GameObject player = Object.Instantiate(
-                                PlayerGenerator.deePrefab,
+                                PlayerGenerator.characterPrefab,
                                 new Vector3(playerDTO.location.x, 0, playerDTO.location.y),
                                 Quaternion.identity) as GameObject;
         
