@@ -7,7 +7,6 @@ using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
 using Players;
-using System.Collections;
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.
@@ -29,7 +28,7 @@ public class WorldControls : MonoBehaviour
     public SocketIOController io;
 
     // User identifier.
-    private int userId;
+    public int currentAvatarID = 0;
 
     // Map feature managers.
     private ObstacleManager obstacleManager;
@@ -67,9 +66,8 @@ public class WorldControls : MonoBehaviour
         }
         else
         {
-            // TEMPORARY. Just for testing. Connect directly. Assume id = 1.
+            SetCurrentAvatarID(currentAvatarID);
             EstablishConnection();
-            SetUserId(1);
         }
 
         startTime = Time.time;
@@ -110,15 +108,10 @@ public class WorldControls : MonoBehaviour
         io.settings.sslEnabled = Convert.ToBoolean(isSSLEnabled);
     }
 
-    // Set main user.
-    public void SetUserId(int userId)
+    // Sets the current players avatar ID so that a marker can be added.
+    public void SetCurrentAvatarID(int playersCurrentAvatarID)
     {
-        this.userId = userId;
-
-        // Now the camera knows who to follow.
-        GameObject cameraGameObject = Camera.main.transform.gameObject;
-        FollowAvatar followAvatar = cameraGameObject.AddComponent<FollowAvatar>();
-        followAvatar.FollowUserWithId(playerManager.PlayerId(userId));
+        playerManager.playersCurrentAvatarID = playersCurrentAvatarID;
     }
 
     // The backend calls this function to open a socket connection.
@@ -140,7 +133,7 @@ public class WorldControls : MonoBehaviour
 
                 // So that the server knows that requests have started
                 // being processed.
-                io.Emit("client-ready", Convert.ToString(userId));
+                io.Emit("client-ready", Convert.ToString(currentAvatarID));
 
                 Debug.Log("Emitted response for the server for world initialisation.");
             });

@@ -1,22 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace UnitySocketIO.SocketIO {
-	[System.Serializable]
-	public class SocketIOSettings {
+namespace UnitySocketIO.SocketIO
+{
+    [System.Serializable]
+    public class SocketIOSettings
+    {
 
-		public string url;
-		public int port;
+        public string url;
+        public int port;
         public string path;
 
-		public bool sslEnabled;
+        public bool sslEnabled;
 
-		public int reconnectTime;
+        public int reconnectTime;
 
-		public int timeToDropAck;
+        public int timeToDropAck;
 
-		public int pingTimeout;
-		public int pingInterval;
+        public int pingTimeout;
+        public int pingInterval;
 
-	}
+    }
 }

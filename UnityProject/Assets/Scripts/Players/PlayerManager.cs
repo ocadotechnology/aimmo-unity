@@ -48,6 +48,12 @@ namespace Players
     {
         public static String PLAYER_TAG = "Avatar";
         Dictionary<string, GameObject> activePlayers = new Dictionary<string, GameObject>();
+        public int playersCurrentAvatarID = 0;
+        public GameObject parentPlayerFolder;
+
+        void Awake() {
+            parentPlayerFolder = GameObject.Find("Players");
+        }
 
         public bool CreatePlayer(PlayerDTO playerDTO)
         {
@@ -55,7 +61,7 @@ namespace Players
             if (activePlayers.ContainsKey(PlayerId(playerDTO.id)))
                 return true;
 
-            GameObject player = PlayerGenerator.GeneratePlayer(playerDTO);
+            GameObject player = PlayerGenerator.GeneratePlayer(playerDTO, parentPlayerFolder);
 
             if (player == null)
                 return false;
@@ -63,6 +69,12 @@ namespace Players
             player.tag = PLAYER_TAG;
             player.name = PlayerId(playerDTO.id);
             player.AddComponent<PlayerController>();
+
+            if (playersCurrentAvatarID == playerDTO.id)
+            {
+                Debug.Log("Setting Marker to id: " + playersCurrentAvatarID);
+                PlayerGenerator.AppendMarker(player);
+            }
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
 
