@@ -12,7 +12,6 @@ public class PlayerGenerator : MonoBehaviour
     void Awake()
     {
         playersFolder = GameObject.Find("Players");
-        Debug.Log(playersFolder);
     }
 
     public static GameObject GeneratePlayer(GameObject playerPrefab, GameObject playerFolder = null)
