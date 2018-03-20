@@ -1,15 +1,23 @@
 using UnityEngine;
 using NUnit.Framework;
-using MapFeatures.Pickups;
+using UnityEditor.SceneManagement;
+
 
 namespace AIMMOUnityTest
 {
     [TestFixture]
     internal class OverlayGeneratorTests
     {
+        private void SetUpMainScene()
+        {
+            EditorSceneManager.OpenScene("Assets/Scenes/Main.unity", OpenSceneMode.Single);
+        }
+
         [Test]
         public void TestGridGeneratedByDTO()
         {
+            SetUpMainScene();
+
             TerrainDTO terrainDTO = new TerrainDTO(81, 2);
             GameObject terrainFolder = new GameObject();
             OverlayGenerator overlayGenerator = new OverlayGenerator(terrainFolder: terrainFolder);
