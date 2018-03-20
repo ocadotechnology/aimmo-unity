@@ -11,9 +11,10 @@ namespace AIMMOUnityTest
         [Test]
         public void TestGeneratePlayerByPrefab()
         {
+            GameObject playersFolder = GameObject.Find("Players");
             GameObject deePrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
 
-            GameObject generatedPlayer = PlayerGenerator.GeneratePlayer(deePrefab);
+            GameObject generatedPlayer = PlayerGenerator.GeneratePlayer(deePrefab, playersFolder);
 
             Assert.AreEqual(0, generatedPlayer.transform.localPosition.x);
             Assert.AreEqual(0, generatedPlayer.transform.localPosition.y);
@@ -27,10 +28,12 @@ namespace AIMMOUnityTest
         {
             PlayerDTO playerDTO = new PlayerDTO();
             Location playerLocation = new Location(10, 20);
+            GameObject playersFolder = GameObject.Find("Players");
+
             playerDTO.location = playerLocation;
             playerDTO.id = 1;
 
-            GameObject generatedPlayer = PlayerGenerator.GeneratePlayer(playerDTO);
+            GameObject generatedPlayer = PlayerGenerator.GeneratePlayer(playerDTO, playersFolder);
 
             Assert.AreEqual(playerLocation.x, generatedPlayer.transform.localPosition.x);
             Assert.AreEqual(0, generatedPlayer.transform.localPosition.y);
