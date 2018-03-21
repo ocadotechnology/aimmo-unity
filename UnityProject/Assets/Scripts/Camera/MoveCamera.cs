@@ -5,7 +5,7 @@ public class MoveCamera : MonoBehaviour
 {
     public float zoomSpeed = 0.5f;
     private float minCameraCap = 1.2f;
-    private float maxCameraCap = 5.0f;
+    private float maxCameraCap = 7.0f;
 
     private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
