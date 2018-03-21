@@ -11,7 +11,8 @@ namespace AIMMOUnityTest
     [TestFixture]
     internal class CanvasTests
     {
-        private void SetUpMainScene()
+        [SetUp]
+        public void SetUpMainScene()
         {
             EditorSceneManager.OpenScene("Assets/Scenes/Main.unity", OpenSceneMode.Single);
         }
@@ -19,8 +20,6 @@ namespace AIMMOUnityTest
         [Test]
         public void TestMainSceneHasCompass()
         {
-            SetUpMainScene();
-
             // Main game object.
             GameObject compass = GameObject.Find("Compass");
 
@@ -31,6 +30,7 @@ namespace AIMMOUnityTest
 
             Assert.NotNull(compass);
             Assert.NotNull(rectTransform);
+            Assert.NotNull(canvasRenderer);
             Assert.NotNull(image);
         }
 
@@ -74,4 +74,4 @@ namespace AIMMOUnityTest
             Assert.AreEqual(expectedTexture, image.mainTexture);
         }
     }
-}     
+}
