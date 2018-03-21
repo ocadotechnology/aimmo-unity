@@ -37,7 +37,6 @@ namespace AIMMOUnityTest
         [Test]
         public void TestMainSceneCompassHasCorrectPositionRelativeToAnchor()
         {
-            SetUpMainScene();
             GameObject compass = GameObject.Find("Compass");
 
             RectTransform rectTransform = compass.GetComponent(typeof(RectTransform)) as RectTransform;
@@ -64,11 +63,10 @@ namespace AIMMOUnityTest
         [Test]
         public void TestMainSceneCompassHasImageScriptAttatchedCorrectly()
         {
-            SetUpMainScene();
             GameObject compass = GameObject.Find("Compass");
             Image image = compass.GetComponent(typeof(Image)) as Image;
-            String expectedTextureName = "compass2";
-            Texture expectedTexture = (Texture) Resources.Load("Images/compass2", typeof(Texture));
+            String expectedTextureName = "compass";
+            Texture expectedTexture = (Texture) Resources.Load("Images/compass", typeof(Texture));
 
             Assert.AreEqual(expectedTextureName, image.mainTexture.name);
             Assert.AreEqual(expectedTexture, image.mainTexture);
