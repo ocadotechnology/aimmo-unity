@@ -4,6 +4,7 @@ public class LevelGenerator
 {
     private GameObject levelFolder;
     private GameObject terrainFolder;
+    private GameObject avatarFolder;
     private Transform root;
 
     private static TerrainDTO DEFAULT_TERRAIN = new TerrainDTO(10, 10);
@@ -25,7 +26,7 @@ public class LevelGenerator
         CreatePlayerFolder();
 
         GameObject defaultPlayerPrefab = Resources.Load<GameObject>("Prefabs/Players/player_dee");
-        PlayerGenerator.GeneratePlayer(defaultPlayerPrefab);
+        PlayerGenerator.GeneratePlayer(defaultPlayerPrefab, avatarFolder);
     }
 
     private Transform CreateEmptyLevelFolder()
@@ -75,7 +76,7 @@ public class LevelGenerator
 
     private void CreatePlayerFolder()
     {
-        GameObject avatarFolder = new GameObject("Players");
+        avatarFolder = new GameObject("Players");
         avatarFolder.transform.localPosition = Vector3.zero;
         avatarFolder.transform.SetParent(levelFolder.transform, false);
     }
@@ -87,8 +88,8 @@ public class LevelGenerator
         cameraGameObject.tag = "MainCamera";
 
         Camera camera = Camera.main;
-        camera.transform.position = new Vector3(0.0f, 0.0f, -100.0f);
-        camera.transform.rotation = Quaternion.Euler(Vector3.zero);
+        camera.transform.position = new Vector3(-24.226f, 35f, -24.193f);
+        camera.transform.rotation = Quaternion.Euler(new Vector3(45.0f, 45.0f, 0.0f));
         camera.orthographic = true;
         camera.orthographicSize = 5.0f;
         camera.farClipPlane = 1000.0f;
