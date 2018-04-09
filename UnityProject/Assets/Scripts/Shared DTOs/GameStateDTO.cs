@@ -24,6 +24,7 @@ public struct GameStateDTO
 
 public enum Era
 {
+    PreHistory,
     LessFlat,
     Future
 }
@@ -34,6 +35,8 @@ public static class EraMethods
     {
         switch (obstacleType.ToLower())
         {
+            case "pre_history":
+                return Era.PreHistory;
             case "less_flat":
                 return Era.LessFlat;
             case "future":
