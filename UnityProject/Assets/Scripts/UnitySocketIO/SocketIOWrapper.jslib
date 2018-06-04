@@ -25,7 +25,7 @@ mergeInto(LibraryManager.library, {
                     socketEvent: socketEventName,
                     eventData: typeof data === 'undefined' ? '' : JSON.stringify(data)
                 };
-                unityInstance.SendMessage(objectName, 'InvokeEventCallback', JSON.stringify(socketData));
+                SendMessage(objectName, 'InvokeEventCallback', JSON.stringify(socketData));
             });
         }
     }
