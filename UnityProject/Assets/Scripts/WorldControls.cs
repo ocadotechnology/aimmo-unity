@@ -41,6 +41,7 @@ public class WorldControls : MonoBehaviour
     // Tell WebGL to ignore keyboard input.
     void Awake()
     {
+        
         #if !UNITY_EDITOR && UNITY_WEBGL
 			WebGLInput.captureAllKeyboardInput = false;
         #endif
