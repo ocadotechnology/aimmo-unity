@@ -80,7 +80,7 @@ namespace UnityTest.IntegrationTests
 
             AssetDatabase.Refresh();
 
-            var result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
+            UnityEditor.Build.Reporting.BuildReport result = BuildPipeline.BuildPlayer(configuration.testScenes.Concat(configuration.buildScenes).ToArray(),
                                                    configuration.GetTempPath(),
                                                    configuration.buildTarget,
                                                    BuildOptions.AutoRunPlayer | BuildOptions.Development);
@@ -90,7 +90,7 @@ namespace UnityTest.IntegrationTests
 
             AssetDatabase.Refresh();
 
-            if (!string.IsNullOrEmpty(result))
+            if (result != null)
             {
                 if (InternalEditorUtility.inBatchMode)
                     EditorApplication.Exit(Batch.returnCodeRunError);

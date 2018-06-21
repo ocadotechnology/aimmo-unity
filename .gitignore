@@ -32,5 +32,6 @@ Thumbs.db
 .vscode
 UnityProject/Builds
 
+.vs/
 \.idea/
 UnityProject/.vs/UnityProject/xs/UserPrefs.xml
