@@ -10,10 +10,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-Install Unity 5.5.1 or later. We recommend to use Unity 2017.3.1f1:
-* [Download for Mac OS X](https://unity3d.com/unity/whats-new/unity-2017.3.1)
-* [Download for Windows](https://unity3d.com/unity/whats-new/unity-2017.3.1)
-* [Download for Linux](https://beta.unity3d.com/download/aea5ecb8f9fd/UnitySetup-2017.3.1f1)
+Install Unity 5.5.1 or later. We recommend to use **[Unity 2018.1.1f1](https://unity3d.com/unity/whatsnew/unity-2018.1.1)**. Download your Unity software using Unity Hub.
 
 You will also need a text editor. The most popular ones for Unity are [MonoDevelop](http://www.monodevelop.com/) and [Visual Studio](https://www.visualstudio.com/).
 
