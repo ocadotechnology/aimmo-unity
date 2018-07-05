@@ -10,7 +10,5 @@ public class GameExporter
         string[] levels = new string[] { "Assets/Scenes/Main.unity" };
 
         BuildPipeline.BuildPlayer(levels, path + "/players/static/unity", BuildTarget.WebGL, BuildOptions.None);
-
-        FileUtil.ReplaceFile(path + "/players/static/unity/index.html", path + "/players/templates/players/viewer.html");
 	}
 }
