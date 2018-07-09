@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33721069082403908}
   - component: {fileID: 23735167175901146}
   m_Layer: 0
-  m_Name: pickup_package
+  m_Name: score_package
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,6 +54,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: b146287fa43254b61a128de998855d09, type: 3}
   m_StaticBatchInfo:
