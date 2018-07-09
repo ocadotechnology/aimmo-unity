@@ -25,7 +25,11 @@ And authenticate using your username and password token.
 
 ### Setting up the project
 
-Start Unity, click on `Open` and select the `UnityProject` directory, not the whole repository. Now you should be able to:
+* Start Unity, click on `Open` and select the `UnityProject` directory, not the whole repository. 
+* You may need to install the [.NET SDK](https://www.microsoft.com/net/learn/get-started)
+* In Unity, run `Build Game` -> `Build WebGL Game into aimmo`
+
+Now you should be able to (not necessary if you just want to build the game):
 * Connect to the back-end. [How](https://github.com/ocadotechnology/aimmo-unity/wiki/Back-end-connection)?
 * Use the level builder. [How](https://github.com/ocadotechnology/aimmo-unity/wiki/Level-builder)?
 * Run the tests. [How](https://github.com/ocadotechnology/aimmo-unity/wiki/Tests)?
