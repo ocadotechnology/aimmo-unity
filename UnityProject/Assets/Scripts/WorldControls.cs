@@ -139,6 +139,11 @@ public class WorldControls : MonoBehaviour
                 Debug.Log("Emitted response for the server for world initialisation.");
             });
 
+        io.On("game-state-reset", (SocketIOEvent e ) => 
+            {
+                dataQueue.Clear();
+            });
+
         io.On("game-state", (SocketIOEvent e) =>
             {
                 if (e.data == "")
