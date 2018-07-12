@@ -27,7 +27,7 @@ namespace Players
         private int score;
 
         // Temporary variables
-        private bool positionChangeNeeded = false;
+        private bool positionChangeNeeded = false, jumpNeeded = false;
                 
 
         // Initialisation.
@@ -51,7 +51,12 @@ namespace Players
             }
 
             // If the player's location needs to change and the player hasn't hit next square yet
-            if (positionChangeNeeded && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
+            if (positionChangeNeeded) {
+                if (jumpNeeded) {
+                    Debug.Log("jump needed");
+                    Vector3 jump = CalculatePostJumpFinalMove(transform.localPosition, nextPosition);
+                    gameObject.transform.localPosition.Set(jump.x, jump.y, jump.z);
+                }
                 // Activate animation
                 anim.SetInteger ("AnimParam", 1);
 
@@ -96,7 +101,7 @@ namespace Players
 
             // PositionChangeNeded checks if the player has to move to another square
             positionChangeNeeded = PositionChangeNeeded();
-
+            jumpNeeded = IsJumpNeeded();
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
@@ -104,10 +109,31 @@ namespace Players
 
         private bool PositionChangeNeeded()
         {
-            if (currPosition.x == nextPosition.x && currPosition.z == nextPosition.z)
-                return false;
+            return !(currPosition.x == nextPosition.x && currPosition.z == nextPosition.z);
+        }
 
-            return true;
+        private bool IsJumpNeeded()
+        {
+            return Math.Pow(currPosition.x - nextPosition.x, 2) + Math.Pow(currPosition.y - nextPosition.y, 2) > 1.05 * 1.05;
+        }
+
+        private Vector3 CalculatePostJumpFinalMove(Vector3 from, Vector3 to) {
+            if (to.x - from.x > 0.05f) 
+            {
+                return new Vector3(to.x - 1, 0, to.y);
+            }
+            else if (from.x - to.x > 0.05f)
+            {
+                return new Vector3(to.x + 1, 0, to.y);
+            }
+            else if (to.y - from.y > 0.05f)
+            {
+                return new Vector3(to.x, 0, to.y - 1);
+            }
+            else
+            {
+                return new Vector3(to.x, 0, to.y + 1);
+            }
         }
     }
 }

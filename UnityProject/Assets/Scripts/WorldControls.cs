@@ -7,6 +7,8 @@ using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
 using Players;
+using Utilities;
+
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.
@@ -19,9 +21,11 @@ public class WorldControls : MonoBehaviour
     // We use the dataQueue to process the request at our desired rate, i.e.
     // every ProcessingInterval seconds.
     private Queue<GameStateDTO> dataQueue;
-    private const float ProcessingInterval = 2f;
+    private GameStateDTO?[] circularDataBuffer = new GameStateDTO?[2];
+    private int dataBufferIndex = 0;
+    private const float ProcessingInterval = 6f;
     private float startTime;
-
+    CircularBuffer buffer = new CircularBuffer();
     private int gameStateEventCount = 1;
 
     // Socket used to receive data from the backend.
@@ -71,6 +75,8 @@ public class WorldControls : MonoBehaviour
             EstablishConnection();
         }
 
+        Application.runInBackground = true;
+
         startTime = Time.time;
         dataQueue = new Queue<GameStateDTO>();
         QualitySettings.antiAliasing = 8;
@@ -81,10 +87,15 @@ public class WorldControls : MonoBehaviour
     {
         float step = Time.time - startTime;
 
-        if (dataQueue == null)
-            return;
+        //if (dataQueue == null)
+            //return;
 
-        if (step >= ProcessingInterval && dataQueue.Count > 0)
+        //if (dataQueue.Count > 4) {
+            //GameStateDTO state = dataQueue.LastOrDefault();
+            //dataQueue.Clear();
+            //dataQueue.Enqueue(state);
+        //}
+        if (step >= ProcessingInterval)
             ProcessUpdate();
     }
 
@@ -139,15 +150,21 @@ public class WorldControls : MonoBehaviour
                 Debug.Log("Emitted response for the server for world initialisation.");
             });
 
-        io.On("game-state-reset", (SocketIOEvent e ) => 
+        io.On("game-buffer-reset", (SocketIOEvent e) => 
             {
-                dataQueue.Clear();
+                Debug.Log("Received reset comm");
+                Debug.Log(e.data);
+                // dataQueue.Clear();
+                Debug.Log("Reset");
             });
 
         io.On("game-state", (SocketIOEvent e) =>
             {
                 if (e.data == "")
                   return;
+                Debug.Log("GAME UPDATE");
+                PlayerDTO p = ConvertJSONtoDTO(e.data).players[0];
+                Debug.Log(p.location.ToString());
                 NewGameState(e.data);
             });
     }
@@ -191,29 +208,37 @@ public class WorldControls : MonoBehaviour
     // classes in charge of creating, deleting and updating game objects.
     void RenderGameState(GameStateDTO gameStateDTO)
     {
-        dataQueue.Enqueue(gameStateDTO);
+        circularDataBuffer[dataBufferIndex] = gameStateDTO;
+        dataBufferIndex = (dataBufferIndex + 1) % 2;
+        //dataQueue.Enqueue(gameStateDTO);
     }
 
     // Manage the changes in the scene.
     void ProcessUpdate()
     {
         startTime = Time.time;
-        GameStateDTO gameState = dataQueue.Dequeue();
+        int index = (dataBufferIndex + 1) % 2;
 
+        GameStateDTO? gameState = circularDataBuffer[index]; //dataQueue.Dequeue();
+        if (!gameState.HasValue) return;
+
+        circularDataBuffer[index] = null;
+        Debug.Log("PROCESSING UPDATE");
+        //Debug.Log(dataQueue.Count);
         // TODO: era might have to be passed to each of the managers as a second
         // parameter, as some require it for the prefab name and each mapfeature
         // doesn't reach the scope of that JSON.
 
         // Player updates.
-        PlayerDTO[] players = gameState.players;
+        PlayerDTO[] players = gameState.Value.players;
         playerManager.UpdatePlayersState(players);
 
         // Pickup updates.
-        PickupDTO[] pickups = gameState.pickups;
+        PickupDTO[] pickups = gameState.Value.pickups;
         pickupManager.UpdateFeatures(pickups);
 
         // Score updates.
-        ScoreLocationDTO[] scores = gameState.scoreLocations;
+        ScoreLocationDTO[] scores = gameState.Value.scoreLocations;
         scorePointManager.UpdateFeatures(scores);
     }
 }
