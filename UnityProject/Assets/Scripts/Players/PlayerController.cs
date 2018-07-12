@@ -49,14 +49,15 @@ namespace Players
                 gameObject.transform.localPosition = nextPosition;
                 positionChangeNeeded = false;
             }
-
+            if (jumpNeeded)
+            {
+                gameObject.transform.localPosition = nextPosition;
+                jumpNeeded = false;
+                positionChangeNeeded = false;
+                return;
+            }
             // If the player's location needs to change and the player hasn't hit next square yet
             if (positionChangeNeeded) {
-                if (jumpNeeded) {
-                    Debug.Log("jump needed");
-                    Vector3 jump = CalculatePostJumpFinalMove(transform.localPosition, nextPosition);
-                    gameObject.transform.localPosition.Set(jump.x, jump.y, jump.z);
-                }
                 // Activate animation
                 anim.SetInteger ("AnimParam", 1);
 
@@ -114,26 +115,8 @@ namespace Players
 
         private bool IsJumpNeeded()
         {
-            return Math.Pow(currPosition.x - nextPosition.x, 2) + Math.Pow(currPosition.y - nextPosition.y, 2) > 1.05 * 1.05;
-        }
-
-        private Vector3 CalculatePostJumpFinalMove(Vector3 from, Vector3 to) {
-            if (to.x - from.x > 0.05f) 
-            {
-                return new Vector3(to.x - 1, 0, to.y);
-            }
-            else if (from.x - to.x > 0.05f)
-            {
-                return new Vector3(to.x + 1, 0, to.y);
-            }
-            else if (to.y - from.y > 0.05f)
-            {
-                return new Vector3(to.x, 0, to.y - 1);
-            }
-            else
-            {
-                return new Vector3(to.x, 0, to.y + 1);
-            }
+            return Math.Pow(gameObject.transform.localPosition.x - nextPosition.x, 2) + 
+                       Math.Pow(gameObject.transform.localPosition.z - nextPosition.z, 2) > 1.05 * 1.05;
         }
     }
 }

@@ -18,14 +18,11 @@ using Utilities;
 
 public class WorldControls : MonoBehaviour
 {
-    // We use the dataQueue to process the request at our desired rate, i.e.
+    // We use the dataBuffer to process the request at our desired rate, i.e.
     // every ProcessingInterval seconds.
-    private Queue<GameStateDTO> dataQueue;
-    private GameStateDTO?[] circularDataBuffer = new GameStateDTO?[2];
-    private int dataBufferIndex = 0;
-    private const float ProcessingInterval = 6f;
+    private const float ProcessingInterval = 2f;
     private float startTime;
-    CircularBuffer buffer = new CircularBuffer();
+    CircularBuffer<GameStateDTO?> dataBuffer;
     private int gameStateEventCount = 1;
 
     // Socket used to receive data from the backend.
@@ -76,9 +73,8 @@ public class WorldControls : MonoBehaviour
         }
 
         Application.runInBackground = true;
-
+        dataBuffer = new CircularBuffer<GameStateDTO?>(2, true);
         startTime = Time.time;
-        dataQueue = new Queue<GameStateDTO>();
         QualitySettings.antiAliasing = 8;
     }
 
@@ -87,14 +83,6 @@ public class WorldControls : MonoBehaviour
     {
         float step = Time.time - startTime;
 
-        //if (dataQueue == null)
-            //return;
-
-        //if (dataQueue.Count > 4) {
-            //GameStateDTO state = dataQueue.LastOrDefault();
-            //dataQueue.Clear();
-            //dataQueue.Enqueue(state);
-        //}
         if (step >= ProcessingInterval)
             ProcessUpdate();
     }
@@ -150,13 +138,6 @@ public class WorldControls : MonoBehaviour
                 Debug.Log("Emitted response for the server for world initialisation.");
             });
 
-        io.On("game-buffer-reset", (SocketIOEvent e) => 
-            {
-                Debug.Log("Received reset comm");
-                Debug.Log(e.data);
-                // dataQueue.Clear();
-                Debug.Log("Reset");
-            });
 
         io.On("game-state", (SocketIOEvent e) =>
             {
@@ -208,23 +189,19 @@ public class WorldControls : MonoBehaviour
     // classes in charge of creating, deleting and updating game objects.
     void RenderGameState(GameStateDTO gameStateDTO)
     {
-        circularDataBuffer[dataBufferIndex] = gameStateDTO;
-        dataBufferIndex = (dataBufferIndex + 1) % 2;
-        //dataQueue.Enqueue(gameStateDTO);
+
+        dataBuffer.Add(gameStateDTO);
     }
 
     // Manage the changes in the scene.
     void ProcessUpdate()
     {
         startTime = Time.time;
-        int index = (dataBufferIndex + 1) % 2;
 
-        GameStateDTO? gameState = circularDataBuffer[index]; //dataQueue.Dequeue();
+        GameStateDTO? gameState = dataBuffer.Get();
         if (!gameState.HasValue) return;
 
-        circularDataBuffer[index] = null;
         Debug.Log("PROCESSING UPDATE");
-        //Debug.Log(dataQueue.Count);
         // TODO: era might have to be passed to each of the managers as a second
         // parameter, as some require it for the prefab name and each mapfeature
         // doesn't reach the scope of that JSON.
