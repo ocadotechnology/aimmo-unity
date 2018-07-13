@@ -14,6 +14,7 @@ namespace Players
         private const float speed = 2.0f;
         private Vector3 velocity = new Vector3(0, 0, 0);
         private const float moveInterval = 0.5f;
+        private const float error = 0.05f;
 
         private Animator anim;
         private CharacterController controller;
@@ -45,7 +46,8 @@ namespace Players
         // Move the player to next position.
         public void FixedUpdate()
         {
-            if (Math.Abs(transform.localPosition.x - nextPosition.x) <= 0.05 && Math.Abs(transform.localPosition.z - nextPosition.z) <= 0.05)
+            if (Math.Abs(transform.localPosition.x - nextPosition.x) <= error && 
+                Math.Abs(transform.localPosition.z - nextPosition.z) <= error)
             {
                 gameObject.transform.localPosition = nextPosition;
                 positionChangeNeeded = false;
@@ -108,10 +110,10 @@ namespace Players
 
         private Orientation? CalculateOrientation() 
         {
-            if (nextPosition.x - currPosition.x > 0.05) return Orientation.East;
-            if (currPosition.x - nextPosition.x > 0.05) return Orientation.West;
-            if (nextPosition.z - currPosition.z > 0.05) return Orientation.North;
-            if (currPosition.z - nextPosition.z > 0.05) return Orientation.South;
+            if (nextPosition.x - currPosition.x > error) return Orientation.East;
+            if (currPosition.x - nextPosition.x > error) return Orientation.West;
+            if (nextPosition.z - currPosition.z > error) return Orientation.North;
+            if (currPosition.z - nextPosition.z > error) return Orientation.South;
             return null;
         }
 
