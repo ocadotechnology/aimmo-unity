@@ -143,9 +143,7 @@ public class WorldControls : MonoBehaviour
             {
                 if (e.data == "")
                   return;
-                Debug.Log("GAME UPDATE");
                 PlayerDTO p = ConvertJSONtoDTO(e.data).players[0];
-                Debug.Log(p.location.ToString());
                 NewGameState(e.data);
             });
     }
@@ -189,7 +187,6 @@ public class WorldControls : MonoBehaviour
     // classes in charge of creating, deleting and updating game objects.
     void RenderGameState(GameStateDTO gameStateDTO)
     {
-
         dataBuffer.Add(gameStateDTO);
     }
 
@@ -201,7 +198,6 @@ public class WorldControls : MonoBehaviour
         GameStateDTO? gameState = dataBuffer.Get();
         if (!gameState.HasValue) return;
 
-        Debug.Log("PROCESSING UPDATE");
         // TODO: era might have to be passed to each of the managers as a second
         // parameter, as some require it for the prefab name and each mapfeature
         // doesn't reach the scope of that JSON.

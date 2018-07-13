@@ -23,6 +23,7 @@ namespace Players
         private PlayerDTO nextState;
         private Vector3 currPosition;
         private Vector3 nextPosition;
+        private Orientation? nextOrientation;
         private int health;
         private int score;
 
@@ -42,7 +43,7 @@ namespace Players
         }
 
         // Move the player to next position.
-        public void Update()
+        public void FixedUpdate()
         {
             if (Math.Abs(transform.localPosition.x - nextPosition.x) <= 0.05 && Math.Abs(transform.localPosition.z - nextPosition.z) <= 0.05)
             {
@@ -54,31 +55,16 @@ namespace Players
                 gameObject.transform.localPosition = nextPosition;
                 jumpNeeded = false;
                 positionChangeNeeded = false;
-                return;
             }
-            // If the player's location needs to change and the player hasn't hit next square yet
-            if (positionChangeNeeded) {
-                // Activate animation
-                anim.SetInteger ("AnimParam", 1);
 
-                if (nextState.orientationType == Orientation.South){
-                    velocity = new Vector3(0, 0, -speed);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.South);
-                }
-                if (nextState.orientationType == Orientation.North){
-                    velocity = new Vector3(0, 0, speed);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.North);
-                }
-                if (nextState.orientationType == Orientation.West){
-                    velocity = new Vector3(-speed, 0, 0);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.West);
-                }
-                if (nextState.orientationType == Orientation.East){
-                    velocity = new Vector3(speed, 0, 0);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.East);
-                }
+            if (positionChangeNeeded && nextOrientation.HasValue) {
+                Debug.Log("POS CHANGE: " + gameObject.transform.localPosition.ToString() + " -> " + nextPosition.ToString() + " : " + nextState.orientationType);
+                anim.SetInteger("AnimParam", 1); // Activate animation
+                velocity = GetVelocityForOrientation();
+                transform.eulerAngles = OrientationMethods.VectorForOrientation(nextOrientation.Value);
             }
-            else{
+            else
+            {
                 // Deactivate animation
                 velocity = new Vector3(0, 0, 0);
                 anim.SetInteger ("AnimParam", 0);
@@ -106,6 +92,7 @@ namespace Players
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
+            nextOrientation = CalculateOrientation();
         }
 
         private bool PositionChangeNeeded()
@@ -115,8 +102,34 @@ namespace Players
 
         private bool IsJumpNeeded()
         {
-            return Math.Pow(gameObject.transform.localPosition.x - nextPosition.x, 2) + 
-                       Math.Pow(gameObject.transform.localPosition.z - nextPosition.z, 2) > 1.05 * 1.05;
+            return Math.Pow(currPosition.x - nextPosition.x, 2) + 
+                       Math.Pow(currPosition.z - nextPosition.z, 2) > 1.05 * 1.05;
+        }
+
+        private Orientation? CalculateOrientation() 
+        {
+            if (nextPosition.x - currPosition.x > 0.05) return Orientation.East;
+            if (currPosition.x - nextPosition.x > 0.05) return Orientation.West;
+            if (nextPosition.z - currPosition.z > 0.05) return Orientation.North;
+            if (currPosition.z - nextPosition.z > 0.05) return Orientation.South;
+            return null;
+        }
+
+        private Vector3 GetVelocityForOrientation()
+        {
+            switch (nextOrientation)
+            {
+                case Orientation.South:
+                    return new Vector3(0, 0, -speed);
+                case Orientation.North:
+                    return new Vector3(0, 0, speed);
+                case Orientation.West:
+                    return new Vector3(-speed, 0, 0);
+                case Orientation.East:
+                    return new Vector3(speed, 0, 0);
+                default:
+                    return new Vector3(0, 0, 0);
+            }
         }
     }
 }
