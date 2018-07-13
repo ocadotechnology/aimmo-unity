@@ -143,7 +143,6 @@ public class WorldControls : MonoBehaviour
             {
                 if (e.data == "")
                   return;
-                PlayerDTO p = ConvertJSONtoDTO(e.data).players[0];
                 NewGameState(e.data);
             });
     }
