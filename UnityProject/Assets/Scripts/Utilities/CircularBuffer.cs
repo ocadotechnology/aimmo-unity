@@ -18,7 +18,12 @@ namespace Utilities
         public void Add(T i)
         {
             Buffer[WriteIndex] = i;
-            WriteIndex = NextIndex(WriteIndex);
+            int Index = NextIndex(WriteIndex);
+            if (Index == WriteIndex)
+            {
+                ReadIndex = NextIndex(ReadIndex);
+            }
+            WriteIndex = Index;
         }
 
         public T Get()
