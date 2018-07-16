@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-
 namespace Players
 {
 
@@ -11,9 +10,9 @@ namespace Players
     public class PlayerController : MonoBehaviour
     {
         // General movement variables.
-        private const float speed = 2.0f;
         private Vector3 velocity = new Vector3(0, 0, 0);
         private const float moveInterval = 0.5f;
+        private const float speed = 2.0f;
         private const float error = 0.05f;
 
         private Animator anim;
@@ -60,7 +59,6 @@ namespace Players
             }
 
             if (positionChangeNeeded && nextOrientation.HasValue) {
-                Debug.Log("POS CHANGE: " + gameObject.transform.localPosition.ToString() + " -> " + nextPosition.ToString() + " : " + nextState.orientationType);
                 anim.SetInteger("AnimParam", 1); // Activate animation
                 velocity = GetVelocityForOrientation();
                 transform.eulerAngles = OrientationMethods.VectorForOrientation(nextOrientation.Value);
@@ -108,7 +106,7 @@ namespace Players
                        Math.Pow(currPosition.z - nextPosition.z, 2) > 1.05 * 1.05;
         }
 
-        private Orientation? CalculateOrientation() 
+        private Orientation? CalculateOrientation()
         {
             if (nextPosition.x - currPosition.x > error) return Orientation.East;
             if (currPosition.x - nextPosition.x > error) return Orientation.West;
