@@ -33,7 +33,7 @@ public static class VectorExtensions
 
     public static bool SouthOf(this Vector3 a, Vector3 b)
     {
-        return b.x - a.z > Epsilon;
+        return b.z - a.z > Epsilon;
     }
 
     private static bool RoughlyEquals(float a, float b, float epsilon)
