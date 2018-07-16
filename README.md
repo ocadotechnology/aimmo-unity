@@ -12,7 +12,13 @@ These instructions will get you a copy of the project up and running on your loc
 
 Install Unity 5.5.1 or later. We recommend to use **[Unity 2018.1.1f1](https://unity3d.com/unity/whatsnew/unity-2018.1.1)**. Download your Unity software using Unity Hub.
 
+Install WebGL Build Support as well.
+
 You will also need a text editor. The most popular ones for Unity are [MonoDevelop](http://www.monodevelop.com/) and [Visual Studio](https://www.visualstudio.com/).
+
+For debugging purposes we reccomend Visual Studio:
+
+`Run` -> `Attach to process` -> `Unity Editor` 
 
 Now open your terminal. You can use the following shortcuts:
 * Ubuntu - CTRL + ALT + T
