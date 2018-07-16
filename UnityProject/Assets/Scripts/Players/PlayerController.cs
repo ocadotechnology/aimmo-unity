@@ -56,7 +56,8 @@ namespace Players
                 positionChangeNeeded = false;
             }
 
-            if (positionChangeNeeded && nextOrientation.HasValue) {
+            if (positionChangeNeeded && nextOrientation.HasValue) 
+            {         
                 anim.SetInteger("AnimParam", 1); // Activate animation
                 velocity = GetVelocityForOrientation();
                 transform.eulerAngles = OrientationMethods.VectorForOrientation(nextOrientation.Value);
