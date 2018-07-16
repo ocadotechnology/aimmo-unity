@@ -25,10 +25,12 @@ public static class VectorExtensions
     {
         return b.x - a.x > Epsilon;
     }
+
     public static bool NorthOf(this Vector3 a, Vector3 b)
     {
         return a.z - b.z > Epsilon;
     }
+
     public static bool SouthOf(this Vector3 a, Vector3 b)
     {
         return b.x - a.z > Epsilon;

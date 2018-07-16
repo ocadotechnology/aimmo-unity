@@ -22,7 +22,7 @@ public class WorldControls : MonoBehaviour
     // every ProcessingInterval seconds.
     private const float ProcessingInterval = 2f;
     private float startTime;
-    CircularBuffer<GameStateDTO?> gameStateBuffer;
+    IBuffer<GameStateDTO?> gameStateBuffer;
     private const int gameStateBufferLength = 2;
     private int gameStateEventCount = 1;
 
@@ -187,7 +187,7 @@ public class WorldControls : MonoBehaviour
     // classes in charge of creating, deleting and updating game objects.
     void RenderGameState(GameStateDTO gameStateDTO)
     {
-        gameStateBuffer.Add(gameStateDTO);
+        gameStateBuffer.Enqueue(gameStateDTO);
     }
 
     // Manage the changes in the scene.
@@ -195,7 +195,7 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        GameStateDTO? gameState = gameStateBuffer.Get();
+        GameStateDTO? gameState = gameStateBuffer.Pop();
         if (!gameState.HasValue) return;
 
         // TODO: era might have to be passed to each of the managers as a second

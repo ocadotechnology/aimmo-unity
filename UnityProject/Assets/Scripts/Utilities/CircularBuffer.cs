@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Utilities
 {
-    public class CircularBuffer<T> : IEnumerable<T>
+    public class CircularBuffer<T> : IBuffer<T>
     {
         public readonly int Length;
         private T[] Buffer;
@@ -17,9 +17,9 @@ namespace Utilities
             this.ResetToDefault = ResetToDefault;
         }
 
-        public void Add(T i)
+        public void Enqueue(T a)
         {
-            Buffer[WriteIndex] = i;
+            Buffer[WriteIndex] = a;
             int Index = NextIndex(WriteIndex);
             if (Index == WriteIndex)
             {
@@ -28,7 +28,7 @@ namespace Utilities
             WriteIndex = Index;
         }
 
-        public T Get()
+        public T Pop()
         {
             T item = Buffer[ReadIndex];
 
@@ -37,17 +37,6 @@ namespace Utilities
 
             ReadIndex = NextIndex(ReadIndex);
             return item;
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public IEnumerator<T> GetEnumerator()
-        {
-            for (int i = 0; i < Length; i++)
-                yield return Get();
         }
 
         private int NextIndex(int Index)
