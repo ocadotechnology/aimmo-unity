@@ -22,7 +22,8 @@ public class WorldControls : MonoBehaviour
     // every ProcessingInterval seconds.
     private const float ProcessingInterval = 2f;
     private float startTime;
-    CircularBuffer<GameStateDTO?> dataBuffer;
+    CircularBuffer<GameStateDTO?> gameStateBuffer;
+    private const int gameStateBufferLength = 2;
     private int gameStateEventCount = 1;
 
     // Socket used to receive data from the backend.
@@ -73,7 +74,7 @@ public class WorldControls : MonoBehaviour
         }
 
         Application.runInBackground = true;
-        dataBuffer = new CircularBuffer<GameStateDTO?>(2, true);
+        gameStateBuffer = new CircularBuffer<GameStateDTO?>(gameStateBufferLength, true);
         startTime = Time.time;
         QualitySettings.antiAliasing = 8;
     }
@@ -186,7 +187,7 @@ public class WorldControls : MonoBehaviour
     // classes in charge of creating, deleting and updating game objects.
     void RenderGameState(GameStateDTO gameStateDTO)
     {
-        dataBuffer.Add(gameStateDTO);
+        gameStateBuffer.Add(gameStateDTO);
     }
 
     // Manage the changes in the scene.
@@ -194,7 +195,7 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        GameStateDTO? gameState = dataBuffer.Get();
+        GameStateDTO? gameState = gameStateBuffer.Get();
         if (!gameState.HasValue) return;
 
         // TODO: era might have to be passed to each of the managers as a second

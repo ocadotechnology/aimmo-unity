@@ -1,7 +1,9 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+
 namespace Utilities
 {
-    public class CircularBuffer<T>
+    public class CircularBuffer<T> : IEnumerable<T>
     {
         public readonly int Length;
         private T[] Buffer;
@@ -32,9 +34,20 @@ namespace Utilities
 
             if (ResetToDefault)
                 Buffer[ReadIndex] = default(T);
-            
+
             ReadIndex = NextIndex(ReadIndex);
             return item;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            for (int i = 0; i < Length; i++)
+                yield return Get();
         }
 
         private int NextIndex(int Index)
