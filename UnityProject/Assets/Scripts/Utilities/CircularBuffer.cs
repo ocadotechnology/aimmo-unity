@@ -1,7 +1,9 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
+
 namespace Utilities
 {
-    public class CircularBuffer<T>
+    public class CircularBuffer<T> : IBuffer<T>
     {
         public readonly int Length;
         private T[] Buffer;
@@ -15,9 +17,9 @@ namespace Utilities
             this.ResetToDefault = ResetToDefault;
         }
 
-        public void Add(T i)
+        public void Enqueue(T a)
         {
-            Buffer[WriteIndex] = i;
+            Buffer[WriteIndex] = a;
             int Index = NextIndex(WriteIndex);
             if (Index == WriteIndex)
             {
@@ -26,13 +28,13 @@ namespace Utilities
             WriteIndex = Index;
         }
 
-        public T Get()
+        public T Pop()
         {
             T item = Buffer[ReadIndex];
 
             if (ResetToDefault)
                 Buffer[ReadIndex] = default(T);
-            
+
             ReadIndex = NextIndex(ReadIndex);
             return item;
         }

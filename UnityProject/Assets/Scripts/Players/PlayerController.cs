@@ -14,7 +14,6 @@ namespace Players
         private const float moveInterval = 0.5f;
         private const float speed = 2.0f;
         private const float error = 0.05f;
-
         private Animator anim;
         private CharacterController controller;
 
@@ -28,7 +27,7 @@ namespace Players
         private int score;
 
         // Temporary variables
-        private bool positionChangeNeeded = false, jumpNeeded = false;
+        private bool jumpNeeded = false;
                 
 
         // Initialisation.
@@ -45,11 +44,10 @@ namespace Players
         // Move the player to next position.
         public void FixedUpdate()
         {
-            if (Math.Abs(transform.localPosition.x - nextPosition.x) <= error && 
-                Math.Abs(transform.localPosition.z - nextPosition.z) <= error)
+            bool positionChangeNeeded = IsPositionChangeNeeded();
+            if (!positionChangeNeeded)
             {
                 gameObject.transform.localPosition = nextPosition;
-                positionChangeNeeded = false;
             }
             if (jumpNeeded)
             {
@@ -58,7 +56,8 @@ namespace Players
                 positionChangeNeeded = false;
             }
 
-            if (positionChangeNeeded && nextOrientation.HasValue) {
+            if (positionChangeNeeded && nextOrientation.HasValue) 
+            {         
                 anim.SetInteger("AnimParam", 1); // Activate animation
                 velocity = nextOrientation.Value.GetVelocity(speed);
                 transform.eulerAngles = nextOrientation.Value.GetVector();
@@ -86,8 +85,6 @@ namespace Players
             currPosition = gameObject.transform.localPosition;
             nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
 
-            // PositionChangeNeded checks if the player has to move to another square
-            positionChangeNeeded = PositionChangeNeeded();
             jumpNeeded = IsJumpNeeded();
             // Update the health, score & orientation.
             health = nextState.health;
@@ -95,23 +92,22 @@ namespace Players
             nextOrientation = CalculateOrientation();
         }
 
-        private bool PositionChangeNeeded()
+        private bool IsPositionChangeNeeded()
         {
-            return !(currPosition.x == nextPosition.x && currPosition.z == nextPosition.z);
+            return !gameObject.transform.localPosition.RoughlyEquals(nextPosition);
         }
 
         private bool IsJumpNeeded()
         {
-            return Math.Pow(currPosition.x - nextPosition.x, 2) + 
-                       Math.Pow(currPosition.z - nextPosition.z, 2) > 1.05 * 1.05;
+            return currPosition.SqrDistanceTo(nextPosition) > VectorExtensions.RoughUnitDistanceSqr;
         }
 
         private Orientation? CalculateOrientation()
         {
-            if (nextPosition.x - currPosition.x > error) return Orientation.East;
-            if (currPosition.x - nextPosition.x > error) return Orientation.West;
-            if (nextPosition.z - currPosition.z > error) return Orientation.North;
-            if (currPosition.z - nextPosition.z > error) return Orientation.South;
+            if (nextPosition.EastOf(currPosition)) return Orientation.East;
+            if (nextPosition.WestOf(currPosition)) return Orientation.West;
+            if (nextPosition.NorthOf(currPosition)) return Orientation.North;
+            if (nextPosition.SouthOf(nextPosition)) return Orientation.South;
             return null;
         }
 
