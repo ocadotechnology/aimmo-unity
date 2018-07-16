@@ -17,9 +17,9 @@ namespace Utilities
             this.ResetToDefault = ResetToDefault;
         }
 
-        public void Enqueue(T a)
+        public void Enqueue(T item)
         {
-            Buffer[WriteIndex] = a;
+            Buffer[WriteIndex] = item;
             int Index = NextIndex(WriteIndex);
             if (Index == WriteIndex)
             {
