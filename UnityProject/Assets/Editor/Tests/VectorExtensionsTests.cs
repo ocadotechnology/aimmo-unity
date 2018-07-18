@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using UnityEngine;
 
 namespace AIMMOUnityTest
@@ -35,8 +34,8 @@ namespace AIMMOUnityTest
         [TestCase(1, 1, 2, 2, 2)]
         [TestCase(1, 1, 4, 2, 10)]
         [TestCase(5, 5, 0, 0, 50)]
-        public void TestSqrDistanceToPositive(float ax, float ay,
-                                              float bx, float by, float expectedSqrDistance)
+        public void TestSqrDistanceTo(float ax, float ay,
+                                      float bx, float by, float expectedSqrDistance)
         {
             var a = new Vector3(ax, 0, ay);
             var b = new Vector3(bx, 0, by);

@@ -13,7 +13,6 @@ namespace Players
         private Vector3 velocity = new Vector3(0, 0, 0);
         private const float moveInterval = 0.5f;
         private const float speed = 2.0f;
-        private const float error = 0.05f;
         private Animator anim;
         private CharacterController controller;
 
