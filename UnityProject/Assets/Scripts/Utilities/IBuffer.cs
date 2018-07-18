@@ -3,5 +3,6 @@
 public interface IBuffer<T>
 {
     T Pop();
-    void Enqueue(T a);
+    void Enqueue(T item);
+    bool HasNext();
 }

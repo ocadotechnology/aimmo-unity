@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace Utilities
@@ -30,6 +31,7 @@ namespace Utilities
 
         public T Pop()
         {
+            if (!HasNext()) throw new InvalidOperationException("Buffer is empty");
             T item = Buffer[ReadIndex];
 
             if (ResetToDefault)
@@ -37,6 +39,11 @@ namespace Utilities
 
             ReadIndex = NextIndex(ReadIndex);
             return item;
+        }
+
+        public bool HasNext()
+        {
+            return !Buffer[ReadIndex].Equals(default(T));
         }
 
         private int NextIndex(int Index)
