@@ -18,11 +18,10 @@ using Utilities;
 
 public class WorldControls : MonoBehaviour
 {
-    // We use the dataBuffer to process the request at our desired rate, i.e.
-    // every ProcessingInterval seconds.
+    // The GameState buffer processes the request every `ProcessingInterval` seconds.
+    IBuffer<GameStateDTO?> gameStateBuffer;
     private const float ProcessingInterval = 2f;
     private float startTime;
-    IBuffer<GameStateDTO?> gameStateBuffer;
     private const int gameStateBufferLength = 2;
     private int gameStateEventCount = 1;
 
