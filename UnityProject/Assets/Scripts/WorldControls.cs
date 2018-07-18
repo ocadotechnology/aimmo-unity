@@ -73,7 +73,7 @@ public class WorldControls : MonoBehaviour
         }
 
         Application.runInBackground = true;
-        gameStateBuffer = new CircularBuffer<GameStateDTO?>(gameStateBufferLength, true);
+        gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength, true);
         startTime = Time.time;
         QualitySettings.antiAliasing = 8;
     }
