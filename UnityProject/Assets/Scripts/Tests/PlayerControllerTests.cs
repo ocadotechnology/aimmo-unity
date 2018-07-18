@@ -62,14 +62,6 @@ public class PlayerControllerTests
         Assert.AreEqual(player.transform.localPosition.z, 5f);
     }
 
-    //[TestCase(3, 5)]
-    //[TestCase(7, 5)]
-    //[TestCase(5, 3)]
-    //[TestCase(5, 7)]
-    //[TestCase(6, 6)]
-    //[TestCase(6, 4)]
-    //[TestCase(4, 6)]
-    //[TestCase(4, 4)]
     [UnityTest]
     public IEnumerator PlayerJumpsIfTooFar()
     {
