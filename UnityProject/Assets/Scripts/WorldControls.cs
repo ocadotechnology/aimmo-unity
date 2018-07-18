@@ -202,15 +202,15 @@ public class WorldControls : MonoBehaviour
         // doesn't reach the scope of that JSON.
 
         // Player updates.
-        PlayerDTO[] players = gameState.Value.players;
+        PlayerDTO[] players = gameState.players;
         playerManager.UpdatePlayersState(players);
 
         // Pickup updates.
-        PickupDTO[] pickups = gameState.Value.pickups;
+        PickupDTO[] pickups = gameState.pickups;
         pickupManager.UpdateFeatures(pickups);
 
         // Score updates.
-        ScoreLocationDTO[] scores = gameState.Value.scoreLocations;
+        ScoreLocationDTO[] scores = gameState.scoreLocations;
         scorePointManager.UpdateFeatures(scores);
     }
 }
