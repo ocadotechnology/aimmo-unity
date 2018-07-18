@@ -3,7 +3,6 @@ using UnityEngine;
 
 public static class VectorExtensions
 {
-    public const float RoughUnitDistanceSqr = 1.01f * 1.01f;
     public const float Epsilon = 0.01f;
 
     public static bool RoughlyEquals(this Vector3 a, Vector3 b, float epsilon = Epsilon)

@@ -13,6 +13,7 @@ namespace Players
         private Vector3 velocity = new Vector3(0, 0, 0);
         private const float moveInterval = 0.5f;
         private const float speed = 2.0f;
+        private const float roughUnitDistanceSqr = 1.01f * 1.01f;
         private Animator anim;
         private CharacterController controller;
 
@@ -98,7 +99,8 @@ namespace Players
 
         private bool IsJumpNeeded()
         {
-            return currPosition.SqrDistanceTo(nextPosition) > VectorExtensions.RoughUnitDistanceSqr;
+            return currPosition.SqrDistanceTo(nextPosition) > roughUnitDistanceSqr;
+;
         }
 
         private Orientation? CalculateOrientation()
