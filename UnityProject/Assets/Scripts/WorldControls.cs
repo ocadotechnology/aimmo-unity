@@ -7,6 +7,8 @@ using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
 using Players;
+using Utilities;
+
 
 /* Main class of the game. It has the following responsibilities:
  *  - Handle the first communication with the backend to setup the world.
@@ -16,12 +18,11 @@ using Players;
 
 public class WorldControls : MonoBehaviour
 {
-    // We use the dataQueue to process the request at our desired rate, i.e.
-    // every ProcessingInterval seconds.
-    private Queue<GameStateDTO> dataQueue;
+    // The GameState buffer processes the request every `ProcessingInterval` seconds.
+    IBuffer<GameStateDTO> gameStateBuffer;
     private const float ProcessingInterval = 2f;
     private float startTime;
-
+    private const int gameStateBufferLength = 2;
     private int gameStateEventCount = 1;
 
     // Socket used to receive data from the backend.
@@ -71,8 +72,9 @@ public class WorldControls : MonoBehaviour
             EstablishConnection();
         }
 
+        Application.runInBackground = true;
+        gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength, true);
         startTime = Time.time;
-        dataQueue = new Queue<GameStateDTO>();
         QualitySettings.antiAliasing = 8;
     }
 
@@ -81,10 +83,7 @@ public class WorldControls : MonoBehaviour
     {
         float step = Time.time - startTime;
 
-        if (dataQueue == null)
-            return;
-
-        if (step >= ProcessingInterval && dataQueue.Count > 0)
+        if (step >= ProcessingInterval)
             ProcessUpdate();
     }
 
@@ -139,6 +138,7 @@ public class WorldControls : MonoBehaviour
                 Debug.Log("Emitted response for the server for world initialisation.");
             });
 
+
         io.On("game-state", (SocketIOEvent e) =>
             {
                 if (e.data == "")
@@ -186,14 +186,16 @@ public class WorldControls : MonoBehaviour
     // classes in charge of creating, deleting and updating game objects.
     void RenderGameState(GameStateDTO gameStateDTO)
     {
-        dataQueue.Enqueue(gameStateDTO);
+        gameStateBuffer.Enqueue(gameStateDTO);
     }
 
     // Manage the changes in the scene.
     void ProcessUpdate()
     {
         startTime = Time.time;
-        GameStateDTO gameState = dataQueue.Dequeue();
+
+        if (!gameStateBuffer.HasNext()) return;
+        GameStateDTO gameState = gameStateBuffer.Pop();
 
         // TODO: era might have to be passed to each of the managers as a second
         // parameter, as some require it for the prefab name and each mapfeature

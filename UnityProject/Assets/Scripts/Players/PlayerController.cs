@@ -1,7 +1,6 @@
 ﻿using System;
 using UnityEngine;
 
-
 namespace Players
 {
 
@@ -11,10 +10,10 @@ namespace Players
     public class PlayerController : MonoBehaviour
     {
         // General movement variables.
-        private const float speed = 2.0f;
         private Vector3 velocity = new Vector3(0, 0, 0);
         private const float moveInterval = 0.5f;
-
+        private const float speed = 2.0f;
+        private const float roughUnitDistanceSqr = 1.01f * 1.01f;
         private Animator anim;
         private CharacterController controller;
 
@@ -23,11 +22,12 @@ namespace Players
         private PlayerDTO nextState;
         private Vector3 currPosition;
         private Vector3 nextPosition;
+        private Orientation? nextOrientation;
         private int health;
         private int score;
 
         // Temporary variables
-        private bool positionChangeNeeded = false;
+        private bool jumpNeeded = false;
                 
 
         // Initialisation.
@@ -42,37 +42,28 @@ namespace Players
         }
 
         // Move the player to next position.
-        public void Update()
+        public void FixedUpdate()
         {
-            if (Math.Abs(transform.localPosition.x - nextPosition.x) <= 0.05 && Math.Abs(transform.localPosition.z - nextPosition.z) <= 0.05)
+            bool positionChangeNeeded = IsPositionChangeNeeded();
+            if (!positionChangeNeeded)
             {
                 gameObject.transform.localPosition = nextPosition;
+            }
+            if (jumpNeeded)
+            {
+                gameObject.transform.localPosition = nextPosition;
+                jumpNeeded = false;
                 positionChangeNeeded = false;
             }
 
-            // If the player's location needs to change and the player hasn't hit next square yet
-            if (positionChangeNeeded && (transform.localPosition.x != nextPosition.x || transform.localPosition.z != nextPosition.z)){
-                // Activate animation
-                anim.SetInteger ("AnimParam", 1);
-
-                if (nextState.orientationType == Orientation.South){
-                    velocity = new Vector3(0, 0, -speed);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.South);
-                }
-                if (nextState.orientationType == Orientation.North){
-                    velocity = new Vector3(0, 0, speed);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.North);
-                }
-                if (nextState.orientationType == Orientation.West){
-                    velocity = new Vector3(-speed, 0, 0);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.West);
-                }
-                if (nextState.orientationType == Orientation.East){
-                    velocity = new Vector3(speed, 0, 0);
-                    transform.eulerAngles = OrientationMethods.VectorForOrientation(Orientation.East);
-                }
+            if (positionChangeNeeded && nextOrientation.HasValue) 
+            {         
+                anim.SetInteger("AnimParam", 1); // Activate animation
+                velocity = GetVelocityForOrientation();
+                transform.eulerAngles = OrientationMethods.VectorForOrientation(nextOrientation.Value);
             }
-            else{
+            else
+            {
                 // Deactivate animation
                 velocity = new Vector3(0, 0, 0);
                 anim.SetInteger ("AnimParam", 0);
@@ -94,20 +85,48 @@ namespace Players
             currPosition = gameObject.transform.localPosition;
             nextPosition = new Vector3(nextState.location.x, 0, nextState.location.y);
 
-            // PositionChangeNeded checks if the player has to move to another square
-            positionChangeNeeded = PositionChangeNeeded();
-
+            jumpNeeded = IsJumpNeeded();
             // Update the health, score & orientation.
             health = nextState.health;
             score = nextState.score;
+            nextOrientation = CalculateOrientation();
         }
 
-        private bool PositionChangeNeeded()
+        private bool IsPositionChangeNeeded()
         {
-            if (currPosition.x == nextPosition.x && currPosition.z == nextPosition.z)
-                return false;
+            return !gameObject.transform.localPosition.RoughlyEquals(nextPosition);
+        }
 
-            return true;
+        private bool IsJumpNeeded()
+        {
+            return currPosition.SqrDistanceTo(nextPosition) > roughUnitDistanceSqr;
+;
+        }
+
+        private Orientation? CalculateOrientation()
+        {
+            if (nextPosition.EastOf(currPosition)) return Orientation.East;
+            if (nextPosition.WestOf(currPosition)) return Orientation.West;
+            if (nextPosition.NorthOf(currPosition)) return Orientation.North;
+            if (nextPosition.SouthOf(nextPosition)) return Orientation.South;
+            return null;
+        }
+
+        private Vector3 GetVelocityForOrientation()
+        {
+            switch (nextOrientation)
+            {
+                case Orientation.South:
+                    return new Vector3(0, 0, -speed);
+                case Orientation.North:
+                    return new Vector3(0, 0, speed);
+                case Orientation.West:
+                    return new Vector3(-speed, 0, 0);
+                case Orientation.East:
+                    return new Vector3(speed, 0, 0);
+                default:
+                    return new Vector3(0, 0, 0);
+            }
         }
     }
 }
