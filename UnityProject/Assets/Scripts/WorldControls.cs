@@ -19,7 +19,7 @@ using Utilities;
 public class WorldControls : MonoBehaviour
 {
     // The GameState buffer processes the request every `ProcessingInterval` seconds.
-    IBuffer<GameStateDTO?> gameStateBuffer;
+    IBuffer<GameStateDTO> gameStateBuffer;
     private const float ProcessingInterval = 2f;
     private float startTime;
     private const int gameStateBufferLength = 2;
@@ -194,23 +194,23 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        GameStateDTO? gameState = gameStateBuffer.Pop();
-        if (!gameState.HasValue) return;
+        if (!gameStateBuffer.HasNext()) return;
+        GameStateDTO gameState = gameStateBuffer.Pop();
 
         // TODO: era might have to be passed to each of the managers as a second
         // parameter, as some require it for the prefab name and each mapfeature
         // doesn't reach the scope of that JSON.
 
         // Player updates.
-        PlayerDTO[] players = gameState.Value.players;
+        PlayerDTO[] players = gameState.players;
         playerManager.UpdatePlayersState(players);
 
         // Pickup updates.
-        PickupDTO[] pickups = gameState.Value.pickups;
+        PickupDTO[] pickups = gameState.pickups;
         pickupManager.UpdateFeatures(pickups);
 
         // Score updates.
-        ScoreLocationDTO[] scores = gameState.Value.scoreLocations;
+        ScoreLocationDTO[] scores = gameState.scoreLocations;
         scorePointManager.UpdateFeatures(scores);
     }
 }

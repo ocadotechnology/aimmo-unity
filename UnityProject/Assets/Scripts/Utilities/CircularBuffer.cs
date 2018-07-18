@@ -39,6 +39,11 @@ namespace Utilities
             return item;
         }
 
+        public bool HasNext()
+        {
+            return !Buffer[ReadIndex].Equals(default(T));
+        }
+
         private int NextIndex(int Index)
         {
             return (Index + 1) % Length;
