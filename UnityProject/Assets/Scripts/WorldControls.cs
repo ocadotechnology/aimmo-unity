@@ -59,17 +59,9 @@ public class WorldControls : MonoBehaviour
         // Initialise player manager.
         playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
 
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            // Ask the browsers for setup calls.
-            // (See unity.html for clarifications.)
-            Debug.Log("Sending message to WebGLPlayer.");
-            Application.ExternalCall("SendAllConnect");
-        }
-        else
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
         {
             SetCurrentAvatarID(currentAvatarID);
-            EstablishConnection();
         }
 
         Application.runInBackground = true;
@@ -90,9 +82,6 @@ public class WorldControls : MonoBehaviour
     // Socket setup.
     public void ReceiveGameUpdate(string input)
     {
-        Debug.Log("received: ");
-        Debug.Log(input.Substring(input.Length - 10));
-        Debug.Log(input.Length);
         if (gameStateBuffer != null && input != "")
             NewGameState(input);
     }
@@ -103,31 +92,6 @@ public class WorldControls : MonoBehaviour
         playerManager.playersCurrentAvatarID = playersCurrentAvatarID;
     }
 
-    // The backend calls this function to open a socket connection.
-    // Once this happens, the game starts.
-    public void EstablishConnection()
-    {
-        //io.On("connect", (SocketIOEvent e) =>
-            //{
-            //    Debug.Log("SocketIO Connected.");
-            //});
-
-
-        //io.On("world-init", (SocketIOEvent e) =>
-            //{
-            //    Debug.Log("World init.");
-
-            //    // So that the server knows that requests have started
-            //    // being processed.
-            //    //io.Emit("client-ready", Convert.ToString(currentAvatarID));
-                
-            //    //Application.ExternalCall("ClientReady", Convert.ToString(currentAvatarID));
-
-            //    Debug.Log("Emitted response for the server for world initialisation.");
-            //});
-
-    }
-
     public void NewGameState(string gameStateString)
     {
         // Convert the string to our DTO format.
@@ -136,7 +100,6 @@ public class WorldControls : MonoBehaviour
         // up the terrain and don't do it ever again.
         if (gameStateEventCount == 1)
         {
-            Debug.Log("SETTING UP TERRAIN");
             TerrainGenerator terrainGenerator = new TerrainGenerator();
             int width = terrainGenerator.CalculateWidthFromGameState(gameState);
             int height = terrainGenerator.CalculateHeightFromGameState(gameState);
