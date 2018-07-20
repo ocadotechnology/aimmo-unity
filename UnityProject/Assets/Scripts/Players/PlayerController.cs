@@ -59,8 +59,8 @@ namespace Players
             if (positionChangeNeeded && nextOrientation.HasValue) 
             {         
                 anim.SetInteger("AnimParam", 1); // Activate animation
-                velocity = GetVelocityForOrientation();
-                transform.eulerAngles = OrientationMethods.VectorForOrientation(nextOrientation.Value);
+                velocity = nextOrientation.Value.GetVelocity(speed);
+                transform.eulerAngles = nextOrientation.Value.GetVector();
             }
             else
             {
@@ -112,21 +112,5 @@ namespace Players
             return null;
         }
 
-        private Vector3 GetVelocityForOrientation()
-        {
-            switch (nextOrientation)
-            {
-                case Orientation.South:
-                    return new Vector3(0, 0, -speed);
-                case Orientation.North:
-                    return new Vector3(0, 0, speed);
-                case Orientation.West:
-                    return new Vector3(-speed, 0, 0);
-                case Orientation.East:
-                    return new Vector3(speed, 0, 0);
-                default:
-                    return new Vector3(0, 0, 0);
-            }
-        }
     }
 }

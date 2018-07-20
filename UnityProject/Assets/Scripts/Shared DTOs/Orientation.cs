@@ -10,7 +10,7 @@ public enum Orientation
     West
 }
 
-public static class OrientationMethods
+public static class OrientationExtensions
 {
     private static Vector3 vectorNorth = new Vector3(0, 0, 0);
     private static Vector3 vectorSouth = new Vector3(0, 180, 0);
@@ -34,7 +34,7 @@ public static class OrientationMethods
         }
     }
 
-    public static Vector3 VectorForOrientation(Orientation orientation)
+    public static Vector3 GetVector(this Orientation orientation)
     {
         switch (orientation)
         {
@@ -48,6 +48,22 @@ public static class OrientationMethods
                 return vectorWest;
             default:
                 return vectorNorth;
+        }
+    }
+    public static Vector3 GetVelocity(this Orientation orientation, float speed)
+    {
+        switch (orientation)
+        {
+            case Orientation.South:
+                return new Vector3(0, 0, -speed);
+            case Orientation.North:
+                return new Vector3(0, 0, speed);
+            case Orientation.West:
+                return new Vector3(-speed, 0, 0);
+            case Orientation.East:
+                return new Vector3(speed, 0, 0);
+            default:
+                return new Vector3(0, 0, 0);
         }
     }
 }
