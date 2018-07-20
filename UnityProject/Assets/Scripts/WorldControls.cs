@@ -88,24 +88,13 @@ public class WorldControls : MonoBehaviour
     }
 
     // Socket setup.
-    public void SetGameURL(string url)
+    public void ReceiveGameUpdate(string input)
     {
-        io.settings.url = url;
-    }
-
-    public void SetGamePort(int port)
-    {
-        io.settings.port = port;
-    }
-
-    public void SetGamePath(string path)
-    {
-        io.settings.path = path;
-    }
-
-    public void SetSSL(string isSSLEnabled)
-    {
-        io.settings.sslEnabled = Convert.ToBoolean(isSSLEnabled);
+        Debug.Log("received: ");
+        Debug.Log(input.Substring(input.Length - 10));
+        Debug.Log(input.Length);
+        if (gameStateBuffer != null && input != "")
+            NewGameState(input);
     }
 
     // Sets the current players avatar ID so that a marker can be added.
@@ -118,44 +107,36 @@ public class WorldControls : MonoBehaviour
     // Once this happens, the game starts.
     public void EstablishConnection()
     {
-        io.Connect();
+        //io.On("connect", (SocketIOEvent e) =>
+            //{
+            //    Debug.Log("SocketIO Connected.");
+            //});
 
 
-        io.On("connect", (SocketIOEvent e) =>
-            {
-                Debug.Log("SocketIO Connected.");
-            });
+        //io.On("world-init", (SocketIOEvent e) =>
+            //{
+            //    Debug.Log("World init.");
 
+            //    // So that the server knows that requests have started
+            //    // being processed.
+            //    //io.Emit("client-ready", Convert.ToString(currentAvatarID));
+                
+            //    //Application.ExternalCall("ClientReady", Convert.ToString(currentAvatarID));
 
-        io.On("world-init", (SocketIOEvent e) =>
-            {
-                Debug.Log("World init.");
+            //    Debug.Log("Emitted response for the server for world initialisation.");
+            //});
 
-                // So that the server knows that requests have started
-                // being processed.
-                io.Emit("client-ready", Convert.ToString(currentAvatarID));
-
-                Debug.Log("Emitted response for the server for world initialisation.");
-            });
-
-
-        io.On("game-state", (SocketIOEvent e) =>
-            {
-                if (e.data == "")
-                  return;
-                NewGameState(e.data);
-            });
     }
 
     public void NewGameState(string gameStateString)
     {
         // Convert the string to our DTO format.
         GameStateDTO gameState = ConvertJSONtoDTO(gameStateString);
-
         // Check if this is the first game-state event received. If so, set
         // up the terrain and don't do it ever again.
         if (gameStateEventCount == 1)
         {
+            Debug.Log("SETTING UP TERRAIN");
             TerrainGenerator terrainGenerator = new TerrainGenerator();
             int width = terrainGenerator.CalculateWidthFromGameState(gameState);
             int height = terrainGenerator.CalculateHeightFromGameState(gameState);
@@ -194,7 +175,7 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        if (!gameStateBuffer.HasNext()) return;
+        if (gameStateBuffer == null || !gameStateBuffer.HasNext()) return;
         GameStateDTO gameState = gameStateBuffer.Pop();
 
         // TODO: era might have to be passed to each of the managers as a second
