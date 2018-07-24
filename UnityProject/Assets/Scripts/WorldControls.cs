@@ -130,7 +130,10 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        if (gameStateBuffer == null || !gameStateBuffer.HasNext()) return;
+        if (!gameStateBuffer.HasNext()) 
+        {
+            return;
+        }
         GameStateDTO gameState = gameStateBuffer.Pop();
 
         // TODO: era might have to be passed to each of the managers as a second
