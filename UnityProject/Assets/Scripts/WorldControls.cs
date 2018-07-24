@@ -19,7 +19,7 @@ using Utilities;
 public class WorldControls : MonoBehaviour
 {
     // The GameState buffer processes the request every `ProcessingInterval` seconds.
-    IBuffer<GameStateDTO> gameStateBuffer;
+    IBuffer<GameStateDTO> gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength);
     private const float ProcessingInterval = 2f;
     private float startTime;
     private const int gameStateBufferLength = 2;
@@ -42,15 +42,18 @@ public class WorldControls : MonoBehaviour
     // Tell WebGL to ignore keyboard input.
     void Awake()
     {
-        
-        #if !UNITY_EDITOR && UNITY_WEBGL
+
+#if !UNITY_EDITOR && UNITY_WEBGL
 			WebGLInput.captureAllKeyboardInput = false;
-        #endif
+#endif
     }
 
-    // Initial connection.
     void Start()
     {
+#if UNITY_EDITOR
+        EstablishSocketConnection();
+#endif
+
         // Initialise map feature managers.
         obstacleManager = gameObject.AddComponent(typeof(ObstacleManager)) as ObstacleManager;
         scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
@@ -65,7 +68,6 @@ public class WorldControls : MonoBehaviour
         }
 
         Application.runInBackground = true;
-        gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength);
         startTime = Time.time;
         QualitySettings.antiAliasing = 8;
     }
@@ -77,6 +79,24 @@ public class WorldControls : MonoBehaviour
 
         if (step >= ProcessingInterval)
             ProcessUpdate();
+    }
+
+    private void EstablishSocketConnection()
+    {
+        io.Connect(); 
+
+        io.On("connect", (SocketIOEvent e) =>
+            {
+                Debug.Log("SocketIO Connected.");
+            });
+
+
+        io.On("game-state", (SocketIOEvent e) =>
+            {
+                if (e.data == "")
+                    return;
+                NewGameState(e.data);
+            });
     }
 
     // Socket setup.
@@ -140,7 +160,7 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        if (!gameStateBuffer.HasNext()) 
+        if (!gameStateBuffer.HasNext())
         {
             return;
         }

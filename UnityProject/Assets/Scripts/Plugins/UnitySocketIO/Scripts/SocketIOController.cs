@@ -14,10 +14,8 @@ namespace UnitySocketIO {
         public string SocketID { get { return socketIO.SocketID; } }
 
         void Awake() {
-            if(Application.platform == RuntimePlatform.WebGLPlayer) {
-                socketIO = gameObject.AddComponent<WebGLSocketIO>();
-            }
-            else {
+            if(Application.platform != RuntimePlatform.WebGLPlayer) 
+            {
                 socketIO = gameObject.AddComponent<NativeSocketIO>();
             }
             
