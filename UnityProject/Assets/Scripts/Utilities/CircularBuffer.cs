@@ -8,6 +8,7 @@ namespace Utilities
         private T[] Buffer;
         private int WriteIndex, ReadIndex = 0;
         private bool ResetToDefault;
+        private bool moveAlong = false;
 
         public CircularBuffer(int Length, bool ResetToDefault = false)
         {
@@ -19,12 +20,17 @@ namespace Utilities
         public void Enqueue(T item)
         {
             Buffer[WriteIndex] = item;
-            int Index = NextIndex(WriteIndex);
-            if (Index == WriteIndex)
+
+            if (moveAlong)
             {
                 ReadIndex = NextIndex(ReadIndex);
+                moveAlong = false;
             }
-            WriteIndex = Index;
+            WriteIndex = NextIndex(WriteIndex);
+            if (WriteIndex == ReadIndex)
+            {
+                moveAlong = true;
+            }
         }
 
         public T Pop()
@@ -34,19 +40,34 @@ namespace Utilities
 
             if (ResetToDefault)
                 Buffer[ReadIndex] = default(T);
-
-            ReadIndex = NextIndex(ReadIndex);
+            
+            var Index = NextIndex(ReadIndex);
+            if (!EmptyAtIndex(Index)) 
+            {
+                ReadIndex = Index;
+            }
+            WriteIndex = PrevIndex(WriteIndex);
             return item;
         }
 
         public bool HasNext()
         {
-            return !Buffer[ReadIndex].Equals(default(T));
+            return !EmptyAtIndex(ReadIndex);
+        }
+
+        private bool EmptyAtIndex(int Index)
+        {
+            return Buffer[Index] == null || Buffer[Index].Equals(default(T));
         }
 
         private int NextIndex(int Index)
         {
             return (Index + 1) % Length;
+        }
+
+        private int PrevIndex(int Index)
+        {
+            return (Index - 1).Mod(Length);
         }
     }
 }
