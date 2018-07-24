@@ -102,7 +102,7 @@ public class WorldControls : MonoBehaviour
     // Socket setup.
     public void ReceiveGameUpdate(string input)
     {
-        if (gameStateBuffer != null && input != "")
+        if (input != "")
         {
             NewGameState(input);
         }
