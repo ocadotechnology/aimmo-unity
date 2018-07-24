@@ -18,7 +18,8 @@ namespace Utilities
         public void Enqueue(T item)
         {
             Buffer.Add(item);
-            if (Buffer.Count > Capacity) {
+            if (Buffer.Count > Capacity) 
+            {
                 Buffer.RemoveAt(0);
             }
         }
