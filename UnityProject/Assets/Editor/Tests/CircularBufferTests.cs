@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using UnityEngine;
 using Utilities;
 
 namespace AIMMOUnityTest
@@ -13,9 +12,8 @@ namespace AIMMOUnityTest
         [SetUp]
         public void SetUpBuffer()
         {
-            buffer = new CircularBuffer<GameStateDTO>(2, true);
+            buffer = new CircularBuffer<GameStateDTO>(2);
         }
-
 
         [Test]
         public void TestPop()

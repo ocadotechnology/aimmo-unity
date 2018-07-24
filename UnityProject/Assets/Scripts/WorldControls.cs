@@ -58,7 +58,7 @@ public class WorldControls : MonoBehaviour
         }
 
         Application.runInBackground = true;
-        gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength, true);
+        gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength);
         startTime = Time.time;
         QualitySettings.antiAliasing = 8;
     }
@@ -75,7 +75,9 @@ public class WorldControls : MonoBehaviour
     public void ReceiveGameUpdate(string input)
     {
         if (gameStateBuffer != null && input != "")
+        {
             NewGameState(input);
+        }
     }
 
     // Sets the current players avatar ID so that a marker can be added.
