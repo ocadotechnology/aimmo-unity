@@ -17,9 +17,8 @@ namespace UnitySocketIO {
             if(Application.platform != RuntimePlatform.WebGLPlayer) 
             {
                 socketIO = gameObject.AddComponent<NativeSocketIO>();
+                socketIO.Init(settings);
             }
-            
-            socketIO.Init(settings);
         }
 
         public void Connect() {

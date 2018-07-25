@@ -38,6 +38,7 @@ public class WorldControls : MonoBehaviour
 
     // Player manager.
     private PlayerManager playerManager;
+    bool started = false;
 
     // Tell WebGL to ignore keyboard input.
     void Awake()
@@ -70,9 +71,9 @@ public class WorldControls : MonoBehaviour
         Application.runInBackground = true;
         startTime = Time.time;
         QualitySettings.antiAliasing = 8;
+        started = true;
     }
 
-    // Calls ProcessUpdate every ProcessingInterval seconds.
     void Update()
     {
         float step = Time.time - startTime;
@@ -99,10 +100,9 @@ public class WorldControls : MonoBehaviour
             });
     }
 
-    // Socket setup.
     public void ReceiveGameUpdate(string input)
     {
-        if (input != "")
+        if (input != "" && started)
         {
             NewGameState(input);
         }
@@ -116,8 +116,8 @@ public class WorldControls : MonoBehaviour
 
     public void NewGameState(string gameStateString)
     {
-        // Convert the string to our DTO format.
         GameStateDTO gameState = ConvertJSONtoDTO(gameStateString);
+
         // Check if this is the first game-state event received. If so, set
         // up the terrain and don't do it ever again.
         if (gameStateEventCount == 1)
