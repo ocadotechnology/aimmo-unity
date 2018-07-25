@@ -1,52 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Utilities
 {
     public class CircularBuffer<T> : IBuffer<T>
     {
-        public readonly int Length;
-        private T[] Buffer;
-        private int WriteIndex, ReadIndex = 0;
-        private bool ResetToDefault;
+        public readonly int Capacity;
+        private readonly List<T> Buffer;
 
-        public CircularBuffer(int Length, bool ResetToDefault = false)
+        public CircularBuffer(int Capacity)
         {
-            this.Length = Length;
-            Buffer = new T[Length];
-            this.ResetToDefault = ResetToDefault;
+            this.Capacity = Capacity;
+            Buffer = new List<T>();
         }
 
         public void Enqueue(T item)
         {
-            Buffer[WriteIndex] = item;
-            int Index = NextIndex(WriteIndex);
-            if (Index == WriteIndex)
+            Buffer.Add(item);
+            if (Buffer.Count > Capacity) 
             {
-                ReadIndex = NextIndex(ReadIndex);
+                Buffer.RemoveAt(0);
             }
-            WriteIndex = Index;
         }
 
         public T Pop()
         {
             if (!HasNext()) throw new InvalidOperationException("Buffer is empty");
-            T item = Buffer[ReadIndex];
-
-            if (ResetToDefault)
-                Buffer[ReadIndex] = default(T);
-
-            ReadIndex = NextIndex(ReadIndex);
+            T item = Buffer.ElementAt(0);
+            Buffer.RemoveAt(0);
             return item;
         }
 
         public bool HasNext()
         {
-            return !Buffer[ReadIndex].Equals(default(T));
-        }
-
-        private int NextIndex(int Index)
-        {
-            return (Index + 1) % Length;
+            return Buffer.Count > 0;
         }
     }
 }

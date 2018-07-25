@@ -27,8 +27,7 @@ namespace Players
         private int score;
 
         // Temporary variables
-        private bool jumpNeeded = false;
-                
+        private bool jumpNeeded;
 
         // Initialisation.
         public void Awake()
@@ -56,8 +55,8 @@ namespace Players
                 positionChangeNeeded = false;
             }
 
-            if (positionChangeNeeded && nextOrientation.HasValue) 
-            {         
+            if (positionChangeNeeded && nextOrientation.HasValue)
+            {
                 anim.SetInteger("AnimParam", 1); // Activate animation
                 velocity = nextOrientation.Value.GetVelocity(speed);
                 transform.eulerAngles = nextOrientation.Value.GetVector();
@@ -108,7 +107,7 @@ namespace Players
             if (nextPosition.EastOf(currPosition)) return Orientation.East;
             if (nextPosition.WestOf(currPosition)) return Orientation.West;
             if (nextPosition.NorthOf(currPosition)) return Orientation.North;
-            if (nextPosition.SouthOf(nextPosition)) return Orientation.South;
+            if (nextPosition.SouthOf(currPosition)) return Orientation.South;
             return null;
         }
 

@@ -19,7 +19,7 @@ using Utilities;
 public class WorldControls : MonoBehaviour
 {
     // The GameState buffer processes the request every `ProcessingInterval` seconds.
-    IBuffer<GameStateDTO> gameStateBuffer;
+    IBuffer<GameStateDTO> gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength);
     private const float ProcessingInterval = 2f;
     private float startTime;
     private const int gameStateBufferLength = 2;
@@ -38,19 +38,23 @@ public class WorldControls : MonoBehaviour
 
     // Player manager.
     private PlayerManager playerManager;
+    bool started = false;
 
     // Tell WebGL to ignore keyboard input.
     void Awake()
     {
-        
-        #if !UNITY_EDITOR && UNITY_WEBGL
+
+#if !UNITY_EDITOR && UNITY_WEBGL
 			WebGLInput.captureAllKeyboardInput = false;
-        #endif
+#endif
     }
 
-    // Initial connection.
     void Start()
     {
+#if UNITY_EDITOR
+        EstablishSocketConnection();
+#endif
+
         // Initialise map feature managers.
         obstacleManager = gameObject.AddComponent(typeof(ObstacleManager)) as ObstacleManager;
         scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
@@ -59,26 +63,17 @@ public class WorldControls : MonoBehaviour
         // Initialise player manager.
         playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
 
-        if (Application.platform == RuntimePlatform.WebGLPlayer)
-        {
-            // Ask the browsers for setup calls.
-            // (See unity.html for clarifications.)
-            Debug.Log("Sending message to WebGLPlayer.");
-            Application.ExternalCall("SendAllConnect");
-        }
-        else
+        if (Application.platform != RuntimePlatform.WebGLPlayer)
         {
             SetCurrentAvatarID(currentAvatarID);
-            EstablishConnection();
         }
 
         Application.runInBackground = true;
-        gameStateBuffer = new CircularBuffer<GameStateDTO>(gameStateBufferLength, true);
         startTime = Time.time;
         QualitySettings.antiAliasing = 8;
+        started = true;
     }
 
-    // Calls ProcessUpdate every ProcessingInterval seconds.
     void Update()
     {
         float step = Time.time - startTime;
@@ -87,25 +82,30 @@ public class WorldControls : MonoBehaviour
             ProcessUpdate();
     }
 
-    // Socket setup.
-    public void SetGameURL(string url)
+    private void EstablishSocketConnection()
     {
-        io.settings.url = url;
+        io.Connect(); 
+
+        io.On("connect", (SocketIOEvent e) =>
+            {
+                Debug.Log("SocketIO Connected.");
+            });
+
+
+        io.On("game-state", (SocketIOEvent e) =>
+            {
+                if (e.data == "")
+                    return;
+                NewGameState(e.data);
+            });
     }
 
-    public void SetGamePort(int port)
+    public void ReceiveGameUpdate(string input)
     {
-        io.settings.port = port;
-    }
-
-    public void SetGamePath(string path)
-    {
-        io.settings.path = path;
-    }
-
-    public void SetSSL(string isSSLEnabled)
-    {
-        io.settings.sslEnabled = Convert.ToBoolean(isSSLEnabled);
+        if (input != "" && started)
+        {
+            NewGameState(input);
+        }
     }
 
     // Sets the current players avatar ID so that a marker can be added.
@@ -114,42 +114,8 @@ public class WorldControls : MonoBehaviour
         playerManager.playersCurrentAvatarID = playersCurrentAvatarID;
     }
 
-    // The backend calls this function to open a socket connection.
-    // Once this happens, the game starts.
-    public void EstablishConnection()
-    {
-        io.Connect();
-
-
-        io.On("connect", (SocketIOEvent e) =>
-            {
-                Debug.Log("SocketIO Connected.");
-            });
-
-
-        io.On("world-init", (SocketIOEvent e) =>
-            {
-                Debug.Log("World init.");
-
-                // So that the server knows that requests have started
-                // being processed.
-                io.Emit("client-ready", Convert.ToString(currentAvatarID));
-
-                Debug.Log("Emitted response for the server for world initialisation.");
-            });
-
-
-        io.On("game-state", (SocketIOEvent e) =>
-            {
-                if (e.data == "")
-                  return;
-                NewGameState(e.data);
-            });
-    }
-
     public void NewGameState(string gameStateString)
     {
-        // Convert the string to our DTO format.
         GameStateDTO gameState = ConvertJSONtoDTO(gameStateString);
 
         // Check if this is the first game-state event received. If so, set
@@ -194,7 +160,10 @@ public class WorldControls : MonoBehaviour
     {
         startTime = Time.time;
 
-        if (!gameStateBuffer.HasNext()) return;
+        if (!gameStateBuffer.HasNext())
+        {
+            return;
+        }
         GameStateDTO gameState = gameStateBuffer.Pop();
 
         // TODO: era might have to be passed to each of the managers as a second
