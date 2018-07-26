@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnitySocketIO;
+#if UNITY_EDITOR
 using UnitySocketIO.Events;
+#endif
 using MapFeatures.Obstacles;
 using MapFeatures.Pickups;
 using MapFeatures.ScoreLocations;
@@ -25,8 +25,10 @@ public class WorldControls : MonoBehaviour
     private const int gameStateBufferLength = 2;
     private int gameStateEventCount = 1;
 
+#if UNITY_EDITOR
     // Socket used to receive data from the backend.
     public SocketIOController io;
+#endif
 
     // User identifier.
     public int currentAvatarID = 0;
@@ -82,6 +84,7 @@ public class WorldControls : MonoBehaviour
             ProcessUpdate();
     }
 
+#if UNITY_EDITOR
     private void EstablishSocketConnection()
     {
         io.Connect(); 
@@ -99,6 +102,7 @@ public class WorldControls : MonoBehaviour
                 NewGameState(e.data);
             });
     }
+#endif
 
     public void ReceiveGameUpdate(string input)
     {
