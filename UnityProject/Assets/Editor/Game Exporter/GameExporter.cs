@@ -40,7 +40,7 @@ public class GameExporter
         }
 
         Directory.Move("Assets/Scripts/Plugins/UnitySocketIO~", "Assets/Scripts/Plugins/UnitySocketIO");
-        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate);
+        AssetDatabase.Refresh(ImportAssetOptions.ForceUpdate); // Stop ignoring the library
     }
 
 }
