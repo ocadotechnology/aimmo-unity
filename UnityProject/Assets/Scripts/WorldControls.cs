@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using UnitySocketIO;
 #if UNITY_EDITOR
+using UnitySocketIO;
 using UnitySocketIO.Events;
 #endif
 using MapFeatures.Obstacles;
