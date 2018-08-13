@@ -53,7 +53,6 @@ public class WorldControls : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("Inside Start(), about to initialise player manager");
 #if UNITY_EDITOR
         EstablishSocketConnection();
 #endif
@@ -68,11 +67,6 @@ public class WorldControls : MonoBehaviour
         playerManager.playersCurrentAvatarID = currentAvatarID;
 
         Debug.Log(playerManager.playersCurrentAvatarID);
-
-        //if (Application.platform != RuntimePlatform.WebGLPlayer)
-        //{
-        //    SetCurrentAvatarID(currentAvatarID);
-        //}
 
         Application.runInBackground = true;
         startTime = Time.time;
@@ -91,7 +85,6 @@ public class WorldControls : MonoBehaviour
 #if UNITY_EDITOR
     public void EstablishSocketConnection()
     {
-        Debug.Log("GOT HERE");
         io.Connect(); 
 
         io.On("connect", (SocketIOEvent e) =>
@@ -126,13 +119,10 @@ public class WorldControls : MonoBehaviour
         Debug.Log("Inside set curr avatar id");
         Debug.Log(playersCurrentAvatarID);
         currentAvatarID = playersCurrentAvatarID;
-        playerManager.playersCurrentAvatarID = playersCurrentAvatarID;
     }
 
     public void NewGameState(string gameStateString)
     {
-        Debug.Log("Inside NewGameState");
-        Debug.Log(gameStateString);
         GameStateDTO gameState = ConvertJSONtoDTO(gameStateString);
 
         // Check if this is the first game-state event received. If so, set

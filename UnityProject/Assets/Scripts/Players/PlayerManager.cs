@@ -72,10 +72,8 @@ namespace Players
 
             if (playersCurrentAvatarID == playerDTO.id)
             {
-                Debug.Log("Setting Marker to id: " + playersCurrentAvatarID);
+                Debug.Log("Setting marker to id: " + playersCurrentAvatarID);
                 PlayerGenerator.AppendMarker(player);
-            } else {
-                Debug.Log("IDs do not match" + playersCurrentAvatarID + "  " + playerDTO.id);
             }
 
             activePlayers.Add(PlayerId(playerDTO.id), player);
