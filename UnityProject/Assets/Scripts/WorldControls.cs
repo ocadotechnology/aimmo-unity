@@ -66,7 +66,6 @@ public class WorldControls : MonoBehaviour
         playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
         playerManager.playersCurrentAvatarID = currentAvatarID;
 
-        Debug.Log(playerManager.playersCurrentAvatarID);
 
         Application.runInBackground = true;
         startTime = Time.time;
@@ -83,7 +82,7 @@ public class WorldControls : MonoBehaviour
     }
 
 #if UNITY_EDITOR
-    public void EstablishSocketConnection()
+    private void EstablishSocketConnection()
     {
         io.Connect(); 
 
@@ -99,7 +98,6 @@ public class WorldControls : MonoBehaviour
                 if (e.data == "")
                     return;
 
-                Debug.Log("GAME STATE EVENT");
                 NewGameState(e.data);
             });
     }
@@ -116,8 +114,6 @@ public class WorldControls : MonoBehaviour
     // Sets the current players avatar ID so that a marker can be added.
     public void SetCurrentAvatarID(int playersCurrentAvatarID)
     {
-        Debug.Log("Inside set curr avatar id");
-        Debug.Log(playersCurrentAvatarID);
         currentAvatarID = playersCurrentAvatarID;
     }
 
