@@ -72,7 +72,7 @@ namespace Players
 
             if (playersCurrentAvatarID == playerDTO.id)
             {
-                Debug.Log("Setting Marker to id: " + playersCurrentAvatarID);
+                Debug.Log("Setting marker to id: " + playersCurrentAvatarID);
                 PlayerGenerator.AppendMarker(player);
             }
 
