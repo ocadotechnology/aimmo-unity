@@ -114,6 +114,9 @@ public class WorldControls : MonoBehaviour
     // Sets the current players avatar ID so that a marker can be added.
     public void SetCurrentAvatarID(int playersCurrentAvatarID)
     {
+        if (playerManager != null) {
+            playerManager.playersCurrentAvatarID = playersCurrentAvatarID;
+        }
         currentAvatarID = playersCurrentAvatarID;
     }
 
