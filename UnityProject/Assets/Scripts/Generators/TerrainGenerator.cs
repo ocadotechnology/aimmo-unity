@@ -9,10 +9,11 @@ public class TerrainGenerator
     private GameObject terrainEdgeGameObject;
     public GameObject terrainFolder;
 
-    public TerrainGenerator(GameObject terrainFolder = null, GameObject terrain = null)
+    public TerrainGenerator(GameObject terrainFolder = null, GameObject terrain = null, GameObject terrainEdge = null)
     {
         this.terrainFolder = terrainFolder ?? GetTerrainFolder();
         this.terrainGameObject = terrain ?? GetTerrainGameObject();
+        this.terrainEdgeGameObject = terrain ?? GetTerrainEdgeGameObject();
     }
 
     public GameObject GenerateTerrain(TerrainDTO terrain)
@@ -29,17 +30,14 @@ public class TerrainGenerator
             terrainFolder.transform.localPosition = new Vector3(shiftX, 0f, shiftZ);
             terrainGameObject.transform.localScale = newScale;
         }
+
         return terrainGameObject;
     }
 
     public GameObject GenerateTerrainEdge(TerrainDTO terrain)
     {
         terrainFolder = terrainFolder ?? GetTerrainFolder();
-        GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_edge");
-        terrainEdgeGameObject = UnityEngine.Object.Instantiate(terrainEdgePrefab) as GameObject;
-        terrainEdgeGameObject.transform.SetParent(terrainFolder.transform, false);
-        terrainEdgeGameObject.transform.localPosition = new Vector3(0, -0.1f, 0);
-      
+        terrainEdgeGameObject = terrainEdgeGameObject ?? GetTerrainEdgeGameObject();
         Vector3 newScale = new Vector3(TerrainScalingFactor * (terrain.width + 100),
                                TerrainScalingFactor,
                                 TerrainScalingFactor * (terrain.height + 100));
@@ -57,6 +55,11 @@ public class TerrainGenerator
         terrainGameObject = UnityEngine.Object.Instantiate(terrainPrefab) as GameObject;
         terrainGameObject.transform.SetParent(terrainFolder.transform, false);
         terrainGameObject.transform.localPosition = new Vector3(0, 0, 0);
+
+        GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_edge");
+        terrainEdgeGameObject = UnityEngine.Object.Instantiate(terrainEdgePrefab) as GameObject;
+        terrainEdgeGameObject.transform.SetParent(terrainFolder.transform, false);
+        terrainEdgeGameObject.transform.localPosition = new Vector3(0, -0.1f, 0);
 
         GenerateTerrain(terrainDTO);
 
@@ -83,6 +86,11 @@ public class TerrainGenerator
     private GameObject GetTerrainGameObject()
     {
         return GameObject.FindWithTag("Terrain");
+    }
+
+    private GameObject GetTerrainEdgeGameObject()
+    {
+        return GameObject.FindWithTag("TerrainEdge");
     }
 
     private GameObject GetTerrainFolder()

@@ -94,7 +94,6 @@ public class WorldControls : MonoBehaviour
 
         io.On("game-state", (SocketIOEvent e) =>
             {
-                Debug.Log("New game state received.");
                 if (e.data == "")
                     return;
 

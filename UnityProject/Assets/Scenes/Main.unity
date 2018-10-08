@@ -648,8 +648,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings:
-    url: 127.0.01
-    port: 7001
+    url: local.aimmo.codeforlife.education/game-1
+    port: 0
     path: 
     sslEnabled: 0
     reconnectTime: 10
