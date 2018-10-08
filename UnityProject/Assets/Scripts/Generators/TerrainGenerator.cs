@@ -13,7 +13,7 @@ public class TerrainGenerator
     {
         this.terrainFolder = terrainFolder ?? GetTerrainFolder();
         this.terrainGameObject = terrain ?? GetTerrainGameObject();
-        this.terrainEdgeGameObject = terrain ?? GetTerrainEdgeGameObject();
+        this.terrainEdgeGameObject = terrainEdge ?? GetTerrainEdgeGameObject();
     }
 
     public GameObject GenerateTerrain(TerrainDTO terrain)
@@ -62,9 +62,9 @@ public class TerrainGenerator
         terrainEdgeGameObject.transform.localPosition = new Vector3(0, -0.1f, 0);
 
         GenerateTerrain(terrainDTO);
+        GenerateTerrainEdge(terrainDTO);
 
         UpdateTerrainMaterial(terrainDTO);
-        GenerateTerrainEdge(terrainDTO);
 
         return terrainGameObject;
     }
