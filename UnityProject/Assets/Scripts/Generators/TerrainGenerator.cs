@@ -56,18 +56,26 @@ public class TerrainGenerator
         terrainGameObject.transform.SetParent(terrainFolder.transform, false);
         terrainGameObject.transform.localPosition = new Vector3(0, 0, 0);
 
-        GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_edge");
-        terrainEdgeGameObject = UnityEngine.Object.Instantiate(terrainEdgePrefab) as GameObject;
-        terrainEdgeGameObject.transform.SetParent(terrainFolder.transform, false);
-        terrainEdgeGameObject.transform.localPosition = new Vector3(0, -0.1f, 0);
-
         GenerateTerrain(terrainDTO);
-        GenerateTerrainEdge(terrainDTO);
 
         UpdateTerrainMaterial(terrainDTO);
 
         return terrainGameObject;
     }
+
+    public GameObject GenerateTerrainEdgeMMO(TerrainDTO terrainDTO)
+    {
+        // TODO: make this dynamic for other types of terrains.
+        GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_edge");
+        terrainEdgeGameObject = UnityEngine.Object.Instantiate(terrainEdgePrefab) as GameObject;
+        terrainEdgeGameObject.transform.SetParent(terrainFolder.transform, false);
+        terrainEdgeGameObject.transform.localPosition = new Vector3(0, -0.1f, 0);
+
+        GenerateTerrainEdge(terrainDTO);
+
+        return terrainEdgeGameObject;
+    }
+
 
     public int CalculateHeightFromGameState(GameStateDTO gameState)
     {

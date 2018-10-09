@@ -133,6 +133,7 @@ public class WorldControls : MonoBehaviour
 
             TerrainDTO terrainDTO = new TerrainDTO(width, height);
             terrainGenerator.GenerateTerrainMMO(terrainDTO);
+            terrainGenerator.GenerateTerrainEdgeMMO(terrainDTO);
 
             OverlayGenerator overlayGenerator = new OverlayGenerator(terrainFolder: terrainGenerator.terrainFolder);
             overlayGenerator.GenerateGridForTerrain(terrainDTO);
