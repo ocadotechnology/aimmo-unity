@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 33218429090856482}
   - component: {fileID: 23053202819628740}
   m_Layer: 0
-  m_Name: terrain_edge
+  m_Name: terrainEdge_future
   m_TagString: TerrainEdge
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

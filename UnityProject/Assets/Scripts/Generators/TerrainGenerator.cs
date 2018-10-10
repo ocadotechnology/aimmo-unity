@@ -66,7 +66,7 @@ public class TerrainGenerator
     public GameObject GenerateTerrainEdgeMMO(TerrainDTO terrainDTO)
     {
         // TODO: make this dynamic for other types of terrains.
-        GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_edge");
+        GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrainEdge_future");
         terrainEdgeGameObject = UnityEngine.Object.Instantiate(terrainEdgePrefab) as GameObject;
         terrainEdgeGameObject.transform.SetParent(terrainFolder.transform, false);
         terrainEdgeGameObject.transform.localPosition = new Vector3(0, -0.1f, 0);
