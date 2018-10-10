@@ -50,7 +50,6 @@ public class TerrainGenerator
 
     public GameObject GenerateTerrainMMO(TerrainDTO terrainDTO)
     {
-        // TODO: make this dynamic for other types of terrains.
         GameObject terrainPrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrain_future_default");
         terrainGameObject = UnityEngine.Object.Instantiate(terrainPrefab) as GameObject;
         terrainGameObject.transform.SetParent(terrainFolder.transform, false);
@@ -65,7 +64,6 @@ public class TerrainGenerator
 
     public GameObject GenerateTerrainEdgeMMO(TerrainDTO terrainDTO)
     {
-        // TODO: make this dynamic for other types of terrains.
         GameObject terrainEdgePrefab = Resources.Load<GameObject>("Prefabs/Terrains/terrainEdge_future");
         terrainEdgeGameObject = UnityEngine.Object.Instantiate(terrainEdgePrefab) as GameObject;
         terrainEdgeGameObject.transform.SetParent(terrainFolder.transform, false);
