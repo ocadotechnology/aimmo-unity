@@ -11,6 +11,7 @@ namespace AIMMOUnityTest
         TerrainDTO terrainDTO;
         GameObject terrainFolder;
         GameObject terrain;
+        GameObject terrainEdge;
         private static float EPSILON = 0.0001f;
 
         [SetUp]
@@ -18,7 +19,8 @@ namespace AIMMOUnityTest
         {
             terrainFolder = new GameObject("TerrainFolder");
             terrain = new GameObject("terrain");
-            generator = new TerrainGenerator(terrainFolder: terrainFolder, terrain: terrain);
+            terrainEdge = new GameObject("terrainEdge");
+            generator = new TerrainGenerator(terrainFolder: terrainFolder, terrain: terrain, terrainEdge: terrainEdge);
         }
 
         [SetUp]
@@ -86,6 +88,14 @@ namespace AIMMOUnityTest
 
             Vector3 expectedScale = new Vector3(0.4f, 0.1f, 0.4f);
             Assert.IsTrue(expectedScale == terrain.transform.localScale);
+        }
+
+        [Test]
+        public void TestTerrainEdgeDepth()
+        {
+            terrain = generator.GenerateTerrainMMO(terrainDTO);
+            terrainEdge = generator.GenerateTerrainEdgeMMO(terrainDTO);
+            Assert.IsTrue(terrainEdge.transform.position.y < terrain.transform.position.y);
         }
     }
 }
