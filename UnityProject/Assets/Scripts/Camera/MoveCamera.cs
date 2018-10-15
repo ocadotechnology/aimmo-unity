@@ -7,6 +7,10 @@ public class MoveCamera : MonoBehaviour
     private float minCameraCap = 1.2f;
     private float maxCameraCap = 7.0f;
 
+    private RaycastHit[] hits;
+    private bool foundMap = true;
+    private Vector3 prevIncr;
+
     private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
     // Ground plane we will drag the camera on
@@ -29,6 +33,15 @@ public class MoveCamera : MonoBehaviour
         // PAN
         float offset; // distance from camera's ray to drag origin ray
         Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition); // drag origin ray
+        foundMap = false;
+
+        // Check if map is visible
+        hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
+
+        foreach (RaycastHit hit in hits)
+        {
+            foundMap |= hit.transform.gameObject.tag == "Terrain";
+        }
 
         // Start drag
         if (Input.GetKeyDown(dragKey))
@@ -42,8 +55,18 @@ public class MoveCamera : MonoBehaviour
         {
             groundPlane.Raycast(mouseRay, out offset);
             Vector3 intersection = mouseRay.GetPoint(offset);
-            transform.position += dragOrigin - intersection;
+
+            if (foundMap)
+            {
+                prevIncr = dragOrigin - intersection;
+                transform.position += prevIncr;
+            }
+            else
+            {
+                transform.position -= prevIncr;
+            }
         }
+
 
         // ZOOM
         // Mouse scrollwheel to zoom in fixed increments
