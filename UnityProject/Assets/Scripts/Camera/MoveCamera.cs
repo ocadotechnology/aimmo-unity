@@ -8,8 +8,9 @@ public class MoveCamera : MonoBehaviour
     private float maxCameraCap = 7.0f;
 
     private RaycastHit[] hits;
-    private bool foundMap = true;
-    private Vector3 prevIncr;
+    private Vector3 previousTranslation;
+    private Ray mouseRay;
+    private float offset;
 
     private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
@@ -32,16 +33,8 @@ public class MoveCamera : MonoBehaviour
     {
         // PAN
         float offset; // distance from camera's ray to drag origin ray
-        Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition); // drag origin ray
-        foundMap = false;
+        mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition); // drag origin ray
 
-        // Check if map is visible
-        hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
-
-        foreach (RaycastHit hit in hits)
-        {
-            foundMap |= hit.transform.gameObject.tag == "Terrain";
-        }
 
         // Start drag
         if (Input.GetKeyDown(dragKey))
@@ -53,18 +46,7 @@ public class MoveCamera : MonoBehaviour
         // Continue drag
         if (Input.GetKey(dragKey))
         {
-            groundPlane.Raycast(mouseRay, out offset);
-            Vector3 intersection = mouseRay.GetPoint(offset);
-
-            if (foundMap)
-            {
-                prevIncr = dragOrigin - intersection;
-                transform.position += prevIncr;
-            }
-            else
-            {
-                transform.position -= prevIncr;
-            }
+            ContinueDrag();
         }
 
 
@@ -79,6 +61,36 @@ public class MoveCamera : MonoBehaviour
         else if (scroll < 0)
         {
             Camera.main.orthographicSize = Mathf.Min(Camera.main.orthographicSize + zoomSpeed, maxCameraCap);
+        }
+    }
+
+    private bool IsMapVisible()
+    {
+        bool foundMap = false;
+
+        hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
+
+        foreach (RaycastHit hit in hits)
+        {
+            foundMap |= hit.transform.gameObject.tag == "Terrain";
+        }
+
+        return foundMap;
+    }
+
+    private void ContinueDrag()
+    {
+        groundPlane.Raycast(mouseRay, out offset);
+        Vector3 intersection = mouseRay.GetPoint(offset);
+
+        if (IsMapVisible())
+        {
+            previousTranslation = dragOrigin - intersection;
+            transform.position += previousTranslation;
+        }
+        else
+        {
+            transform.position -= previousTranslation;
         }
     }
 }
