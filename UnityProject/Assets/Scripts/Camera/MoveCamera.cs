@@ -66,16 +66,18 @@ public class MoveCamera : MonoBehaviour
 
     private bool IsMapVisible()
     {
-        bool foundMap = false;
 
         hits = Physics.RaycastAll(transform.position, transform.forward, 100.0F);
 
         foreach (RaycastHit hit in hits)
         {
-            foundMap |= hit.transform.gameObject.tag == "Terrain";
+            if (hit.transform.gameObject.tag == "Terrain")
+            {
+                return true;
+            }
         }
 
-        return foundMap;
+        return false;
     }
 
     private void ContinueDrag()
