@@ -37,8 +37,8 @@ public class MoveCamera : MonoBehaviour
         // Start drag
         if (Input.GetKeyDown(dragKey))
         {
-            groundPlane.Raycast(mouseRay, out offset);
-            dragOrigin = mouseRay.GetPoint(offset);
+            groundPlane.Raycast(mouseRay, out mouseTranslation);
+            dragOrigin = mouseRay.GetPoint(mouseTranslation);
         }
 
         // Continue drag
