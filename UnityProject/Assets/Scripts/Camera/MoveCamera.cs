@@ -8,9 +8,9 @@ public class MoveCamera : MonoBehaviour
     private float maxCameraCap = 7.0f;
 
     private RaycastHit[] hits;
-    private Vector3 previousTranslation;
+    private Vector3 cameraTranslation;
     private Ray mouseRay;
-    private float offset;
+    private float mouseTranslation; // distance from camera's ray to drag origin ray
 
     private KeyCode dragKey = KeyCode.Mouse0; // left mouse button
 
@@ -32,9 +32,7 @@ public class MoveCamera : MonoBehaviour
     public void Update()
     {
         // PAN
-        float offset; // distance from camera's ray to drag origin ray
         mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition); // drag origin ray
-
 
         // Start drag
         if (Input.GetKeyDown(dragKey))
@@ -82,17 +80,17 @@ public class MoveCamera : MonoBehaviour
 
     private void ContinueDrag()
     {
-        groundPlane.Raycast(mouseRay, out offset);
-        Vector3 intersection = mouseRay.GetPoint(offset);
+        groundPlane.Raycast(mouseRay, out mouseTranslation);
+        Vector3 intersection = mouseRay.GetPoint(mouseTranslation);
 
         if (IsMapVisible())
         {
-            previousTranslation = dragOrigin - intersection;
-            transform.position += previousTranslation;
+            cameraTranslation = dragOrigin - intersection;
+            transform.position += cameraTranslation;
         }
         else
         {
-            transform.position -= previousTranslation;
+            transform.position -= cameraTranslation;
         }
     }
 }
