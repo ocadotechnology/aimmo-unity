@@ -10,6 +10,6 @@ about: A template for a new task
 
 ## Acceptance Criteria
 
-
+- [ ] Default tickbox
 
 ## Analytics Requirements
