@@ -5,6 +5,8 @@ public class TerrainGenerator
 {
     public const float TerrainScalingFactor = 0.1f;
     public const float TerrainSnapToGridShift = 0.5f;
+    public const string TerrainTag = "Terrain";
+    public const string TerrainEdgeTag = "TerrainEdge";
     private GameObject terrainGameObject;
     private GameObject terrainEdgeGameObject;
     public GameObject terrainFolder;
@@ -91,17 +93,17 @@ public class TerrainGenerator
 
     private GameObject GetTerrainGameObject()
     {
-        return GameObject.FindWithTag("Terrain");
+        return GameObject.FindWithTag(TerrainTag);
     }
 
     private GameObject GetTerrainEdgeGameObject()
     {
-        return GameObject.FindWithTag("TerrainEdge");
+        return GameObject.FindWithTag(TerrainEdgeTag);
     }
 
     private GameObject GetTerrainFolder()
     {
-        return GameObject.Find("Terrain");
+        return GameObject.Find(TerrainTag);
     }
 
     private void UpdateTerrainMaterial(TerrainDTO terrain)
