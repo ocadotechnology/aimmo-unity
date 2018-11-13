@@ -25,7 +25,6 @@ public struct GameStateDTO
 public enum Era
 {
     PreHistory,
-    LessFlat,
     Future
 }
 
