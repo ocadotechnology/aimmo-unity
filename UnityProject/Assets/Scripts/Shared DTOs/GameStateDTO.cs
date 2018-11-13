@@ -37,12 +37,10 @@ public static class EraMethods
         {
             case "pre_history":
                 return Era.PreHistory;
-            case "less_flat":
-                return Era.LessFlat;
             case "future":
                 return Era.Future;
             default:
-                return Era.LessFlat;
+                return Era.Future;
         }
     }
 }
