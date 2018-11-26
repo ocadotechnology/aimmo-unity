@@ -207,7 +207,7 @@ namespace AIMMOUnityTest
             }";
 
             GameStateDTO gameState = JsonUtility.FromJson<GameStateDTO>(gameUpdateJSON);
-            Assert.AreEqual(Era.LessFlat, gameState.EraType);
+            Assert.AreEqual(Era.Future, gameState.EraType);
             Assert.AreEqual(new Location(-2, -2), gameState.southWestCorner);
             Assert.AreEqual(new Location(2, 2), gameState.northEastCorner);
             Assert.AreEqual(1, gameState.players.Length);

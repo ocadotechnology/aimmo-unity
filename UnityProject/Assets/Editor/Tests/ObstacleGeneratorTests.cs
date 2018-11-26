@@ -29,7 +29,7 @@ namespace AIMMOUnityTest
         [Test]
         public void TestGenerateObstacleFromPrefab()
         {
-            string resource = "Prefabs/Obstacles/obstacle_lessFlat_van";
+            string resource = "Prefabs/Obstacles/obstacle_future_wall";
             GameObject obstaclePrefab = Resources.Load<GameObject>(resource);
             GameObject obstacleParent = new GameObject();
 
@@ -39,7 +39,7 @@ namespace AIMMOUnityTest
             Assert.AreEqual(obstacleParent.transform, generatedObstacle.transform.parent);
             Assert.AreEqual("Obstacle", generatedObstacle.tag);
             Assert.AreEqual(0.5f, generatedObstacle.transform.position.x, 0.01f);
-            Assert.AreEqual(1.0f, generatedObstacle.transform.position.z, 0.01f);
+            Assert.AreEqual(0.5f, generatedObstacle.transform.position.z, 0.01f);
         }
 
         [Test]
