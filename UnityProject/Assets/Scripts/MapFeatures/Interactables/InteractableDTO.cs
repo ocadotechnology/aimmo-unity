@@ -1,29 +1,29 @@
 using System;
 
-namespace MapFeatures.Pickups
+namespace MapFeatures.Interactables
 {
     [Serializable]
     public struct PickupsDTO
     {
-        public PickupDTO[] pickups;
+        public InteractableDTO[] interactables;
     }
 
 
     [Serializable]
-    public struct PickupDTO : IEquatable<PickupDTO>
+    public struct InteractableDTO : IEquatable<InteractableDTO>
     {
         public string type;
         public Location location;
 
-        public PickupType PickupType
+        public InteractableType InteractableType
         {
             get
             {
-                return PickupTypeMethods.PickupTypeForString(type);
+                return InteractableTypeMethods.InteractableTypeForString(type);
             }
         }
 
-        public bool Equals(PickupDTO other)
+        public bool Equals(InteractableDTO other)
         {
             if (type == other.type && location.Equals(other.location))
                 return true;
@@ -41,27 +41,27 @@ namespace MapFeatures.Pickups
         }
     }
 
-    public enum PickupType
+    public enum InteractableType
     {
         Health,
         Invulnerability,
         DamageBoost
     }
 
-    public static class PickupTypeMethods
+    public static class InteractableTypeMethods
     {
-        public static PickupType PickupTypeForString(string pickupType)
+        public static InteractableType InteractableTypeForString(string pickupType)
         {
             switch (pickupType.ToLower())
             {
                 case "health":
-                    return PickupType.Health;
+                    return InteractableType.Health;
                 case "invulnerability":
-                    return PickupType.Invulnerability;
+                    return InteractableType.Invulnerability;
                 case "damage_boost":
-                    return PickupType.DamageBoost;
+                    return InteractableType.DamageBoost;
                 default:
-                    return PickupType.Health;
+                    return InteractableType.Health;
             }
         }
     }

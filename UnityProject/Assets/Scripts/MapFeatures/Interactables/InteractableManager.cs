@@ -7,36 +7,36 @@ using UnityEngine;
  * types, so that will need to be taken care of.
  */
 
-namespace MapFeatures.Pickups
+namespace MapFeatures.Interactables
 {
-    public class PickupManager : MapFeatureManager<PickupDTO>
+    public class PickupManager : MapFeatureManager<InteractableDTO>
     {
-        List<PickupDTO> currentPickups = new List<PickupDTO>();
-        List<PickupDTO> pickupsToDelete = new List<PickupDTO>();
-        List<PickupDTO> pickupsToCreate = new List<PickupDTO>();
+        List<InteractableDTO> currentInteractables = new List<InteractableDTO>();
+        List<InteractableDTO> interactablesToDelete = new List<InteractableDTO>();
+        List<InteractableDTO> interactablesToCreate = new List<InteractableDTO>();
 
-        public override bool Create(PickupDTO dto)
+        public override bool Create(InteractableDTO dto)
         {
             // TODO: some checking that this location is free to place on.
-            GameObject pickup = PickupGenerator.GeneratePickup(dto);
+            GameObject interactable = InteractableGenerator.GenerateInteractable(dto);
 
             // Update currentPickups for next UpdateFeatures call.
-            if (pickup == null)
+            if (interactable == null)
             {
                 Debug.Log("Generated pickup is null!");
                 return false;
             }
 
-            currentPickups.Add(dto);
+            currentInteractables.Add(dto);
 
             return true;
         }
 
-        public override bool Delete(PickupDTO dto)
+        public override bool Delete(InteractableDTO dto)
         {
-            if (currentPickups.Contains(dto))
+            if (currentInteractables.Contains(dto))
             {
-                if (!currentPickups.Remove(dto))
+                if (!currentInteractables.Remove(dto))
                 {
                     return false;
                 }
@@ -53,36 +53,36 @@ namespace MapFeatures.Pickups
 
         public override string MapFeatureId(string id)
         {
-            return string.Format("Pickup{0}", id);
+            return string.Format("Interactable{0}", id);
         }
 
         public override string MapFeatureTag()
         {
-            return "Pickup";
+            return "Interactable";
         }
 
         /* Receives a PickupDTO array and handles it appropriately. */
-        public override bool UpdateFeatures(PickupDTO[] dtoArray)
+        public override bool UpdateFeatures(InteractableDTO[] dtoArray)
         {
-            CreatePickups(dtoArray);
-            DeletePickups(dtoArray);
+            CreateInteractables(dtoArray);
+            DeleteInteractables(dtoArray);
 
             return true;
         }
 
-        private bool CreatePickups(PickupDTO[] dtoArray)
+        private bool CreateInteractables(InteractableDTO[] dtoArray)
         {
             // We need a list for mutable sizing of the data structure.
-            List<PickupDTO> newPickups = dtoArray.OfType<PickupDTO>().ToList();
+            List<InteractableDTO> newPickups = dtoArray.OfType<InteractableDTO>().ToList();
 
             // Clear old contents.
-            pickupsToCreate.Clear();
+            interactablesToCreate.Clear();
 
             // Find elements that exist in provided array that doesn't exist
             // in current world pickups.
-            pickupsToCreate = (List<PickupDTO>) newPickups.Except(currentPickups).ToList();
+            interactablesToCreate = (List<InteractableDTO>) newPickups.Except(currentInteractables).ToList();
 
-            foreach (PickupDTO pickup in pickupsToCreate)
+            foreach (InteractableDTO pickup in interactablesToCreate)
             {
                 Create(pickup);
             }
@@ -90,21 +90,21 @@ namespace MapFeatures.Pickups
             return true;
         }
 
-        private bool DeletePickups(PickupDTO[] dtoArray)
+        private bool DeleteInteractables(InteractableDTO[] dtoArray)
         {
             // We need a list for mutable sizing of the data structure.
-            List<PickupDTO> newPickups = dtoArray.OfType<PickupDTO>().ToList();
+            List<InteractableDTO> newInteractables = dtoArray.OfType<InteractableDTO>().ToList();
 
             // Clear old contents.
-            pickupsToDelete.Clear();
+            interactablesToDelete.Clear();
 
             // We find elements that exist in currentPickups but not dtoArray 
             // (ie. newPickups).
-            pickupsToDelete = (List<PickupDTO>)  currentPickups.Except(newPickups).ToList();
+            interactablesToDelete = (List<InteractableDTO>)  currentInteractables.Except(newInteractables).ToList();
 
-            foreach (PickupDTO pickup in pickupsToDelete)
+            foreach (InteractableDTO interactable in interactablesToDelete)
             {
-                Delete(pickup);
+                Delete(interactable);
             }
 
             return true;

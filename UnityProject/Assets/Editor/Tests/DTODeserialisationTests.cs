@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using NUnit.Framework;
-using MapFeatures.Pickups;
+using MapFeatures.Interactable;
 using MapFeatures.Obstacles;
 using MapFeatures.ScoreLocations;
 using Players;
@@ -73,7 +73,7 @@ namespace AIMMOUnityTest
 
             PickupsDTO pickupsDTO = JsonUtility.FromJson<PickupsDTO>(pickupJSON);
             Assert.AreEqual(2, pickupsDTO.pickups.Length);
-            PickupDTO pickupDTO = pickupsDTO.pickups[0];
+            InteractableDTO pickupDTO = pickupsDTO.pickups[0];
             Assert.AreEqual(new Location(1, 3), pickupDTO.location);
             Assert.AreEqual(PickupType.Invulnerability, pickupDTO.PickupType);
         }
@@ -174,7 +174,7 @@ namespace AIMMOUnityTest
                         ""orientation"": ""east""
                     }
                 ],
-                ""pickups"": [
+                ""interactables"": [
                     {
                         ""type"": ""boost"",
                         ""location"": {
@@ -211,7 +211,7 @@ namespace AIMMOUnityTest
             Assert.AreEqual(new Location(-2, -2), gameState.southWestCorner);
             Assert.AreEqual(new Location(2, 2), gameState.northEastCorner);
             Assert.AreEqual(1, gameState.players.Length);
-            Assert.AreEqual(1, gameState.pickups.Length);
+            Assert.AreEqual(1, gameState.interactables.Length);
             Assert.AreEqual(1, gameState.scoreLocations.Length);
             Assert.AreEqual(1, gameState.obstacles.Length);
         }

@@ -47,7 +47,7 @@ public class WorldControls : MonoBehaviour
     {
 
 #if !UNITY_EDITOR && UNITY_WEBGL
-			WebGLInput.captureAllKeyboardInput = false;
+			 WebGLInput.captureAllKeyboardInput = false;
 #endif
     }
 
@@ -181,8 +181,8 @@ public class WorldControls : MonoBehaviour
         playerManager.UpdatePlayersState(players);
 
         // Pickup updates.
-        PickupDTO[] pickups = gameState.pickups;
-        pickupManager.UpdateFeatures(pickups);
+        InteractableDTO[] interactables = gameState.interactables;
+        pickupManager.UpdateFeatures(interactables);
 
         // Score updates.
         ScoreLocationDTO[] scores = gameState.scoreLocations;

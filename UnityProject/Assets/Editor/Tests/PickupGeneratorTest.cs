@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using NUnit.Framework;
-using MapFeatures.Pickups;
+using MapFeatures.Interactable;
 
 namespace AIMMOUnityTest
 {
@@ -25,12 +25,12 @@ namespace AIMMOUnityTest
         [Test]
         public void TestPickupGeneratorByDTO()
         {
-            PickupDTO pickupDTO = new PickupDTO();
+            InteractableDTO interactableDTO = new InteractableDTO();
             Location pickupLocation = new Location(10, 20);
-            pickupDTO.location = pickupLocation;
-            pickupDTO.type = "health";
+            interactableDTO.location = pickupLocation;
+            interactableDTO.type = "health";
 
-            GameObject generatedPickup = PickupGenerator.GeneratePickup(pickupDTO);
+            GameObject generatedPickup = PickupGenerator.GeneratePickup(interactableDTO);
 
             Assert.AreEqual(pickupLocation.x, generatedPickup.transform.localPosition.x);
             Assert.AreEqual(0, generatedPickup.transform.localPosition.y);

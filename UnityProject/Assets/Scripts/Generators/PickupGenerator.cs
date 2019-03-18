@@ -1,35 +1,35 @@
 using UnityEngine;
-using MapFeatures.Pickups;
+using MapFeatures.Interactables;
 
-public class PickupGenerator
+public class InteractableGenerator
 {
     /* As we don't pass ID from the back-end as of now, instead we get the
      * location (xy) and append to the end of a "pickup_type_" string.
      */
-    public static GameObject GeneratePickup(GameObject pickupPrefab)
+    public static GameObject GenerateInteractable(GameObject pickupPrefab)
     {
-        GameObject pickup = Object.Instantiate(
+        GameObject interactable = Object.Instantiate(
                                 pickupPrefab, 
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
-        pickup.transform.SetParent(GameObject.Find("Pickups").transform, false);
+        interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
 
-        return pickup;
+        return interactable;
     }
 
-    public static GameObject GeneratePickup(PickupDTO pickupDTO)
+    public static GameObject GenerateInteractable(InteractableDTO InteractableDTO)
     {
-        string resource = "Prefabs/Pickups/pickup_" + pickupDTO.type;
-        GameObject pickupPrefab = Resources.Load<GameObject>(resource);
+        string resource = "Prefabs/Interactables/interactable_" + InteractableDTO.type;
+        GameObject interactablePrefab = Resources.Load<GameObject>(resource);
 
-        GameObject pickup = Object.Instantiate(
-                                pickupPrefab,
-                                new Vector3(pickupDTO.location.x, 0, pickupDTO.location.y),
+        GameObject interactable = Object.Instantiate(
+                                interactablePrefab,
+                                new Vector3(InteractableDTO.location.x, 0, InteractableDTO.location.y),
                                 Quaternion.identity) as GameObject;
-        pickup.transform.SetParent(GameObject.Find("Pickups").transform, false);
+        interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
 
-        pickup.name = "pickup_" + pickupDTO.type + "_" + pickupDTO.location.x + "_" + pickupDTO.location.y;
+        interactable.name = "interactable_" + InteractableDTO.type + "_" + InteractableDTO.location.x + "_" + InteractableDTO.location.y;
 
-        return pickup;            
+        return interactable;            
     }
 }
