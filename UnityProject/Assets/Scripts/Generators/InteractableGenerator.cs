@@ -6,10 +6,10 @@ public class InteractableGenerator
     /* As we don't pass ID from the back-end as of now, instead we get the
      * location (xy) and append to the end of a "pickup_type_" string.
      */
-    public static GameObject GenerateInteractable(GameObject pickupPrefab)
+    public static GameObject GenerateInteractable(GameObject interactablePrefab)
     {
         GameObject interactable = Object.Instantiate(
-                                pickupPrefab, 
+                                interactablePrefab, 
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
         interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
@@ -21,6 +21,8 @@ public class InteractableGenerator
     {
         string resource = "Prefabs/Interactables/interactable_" + InteractableDTO.type;
         GameObject interactablePrefab = Resources.Load<GameObject>(resource);
+
+
 
         GameObject interactable = Object.Instantiate(
                                 interactablePrefab,

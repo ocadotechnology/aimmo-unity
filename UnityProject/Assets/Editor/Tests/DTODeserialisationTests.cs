@@ -1,9 +1,8 @@
 using System;
 using UnityEngine;
 using NUnit.Framework;
-using MapFeatures.Interactable;
+using MapFeatures.Interactables;
 using MapFeatures.Obstacles;
-using MapFeatures.ScoreLocations;
 using Players;
 
 namespace AIMMOUnityTest
@@ -52,8 +51,8 @@ namespace AIMMOUnityTest
         [Test]
         public void TestPickupDTODeserialisation()
         {
-            string pickupJSON = @" {
-                ""pickups"": [
+            string interactableJSON = @" {
+                ""interactables"": [
                     {
                         ""type"": ""Invulnerability"",
                         ""location"": {
@@ -71,43 +70,11 @@ namespace AIMMOUnityTest
                 ]
             }";
 
-            PickupsDTO pickupsDTO = JsonUtility.FromJson<PickupsDTO>(pickupJSON);
-            Assert.AreEqual(2, pickupsDTO.pickups.Length);
-            InteractableDTO pickupDTO = pickupsDTO.pickups[0];
-            Assert.AreEqual(new Location(1, 3), pickupDTO.location);
-            Assert.AreEqual(PickupType.Invulnerability, pickupDTO.PickupType);
-        }
-
-        [Test]
-        public void TestScoreDTODeserialisation()
-        {
-            string scoreLocationJSON = @" {
-                ""scoreLocations"": [
-                    {
-                        ""location"": {
-                            ""x"": -2,
-                            ""y"": -9
-                        } 
-                    },
-                    {
-                        ""location"": {
-                            ""x"": -2,
-                            ""y"": 1
-                        } 
-                    },
-                    {
-                        ""location"": {
-                            ""x"": -2,
-                            ""y"": 4
-                        } 
-                    }
-                ]
-            } ";
-
-            ScoreLocationsDTO scoreLocationsDTO = JsonUtility.FromJson<ScoreLocationsDTO>(scoreLocationJSON);
-            Assert.AreEqual(3, scoreLocationsDTO.scoreLocations.Length);
-            ScoreLocationDTO scoreLocationDTO = scoreLocationsDTO.scoreLocations[0];
-            Assert.AreEqual(new Location(-2, -9), scoreLocationDTO.location);
+            PickupsDTO interactablesDTO = JsonUtility.FromJson<PickupsDTO>(interactableJSON);
+            Assert.AreEqual(2, interactablesDTO.interactables.Length);
+            InteractableDTO interactableDTO = interactablesDTO.interactables[0];
+            Assert.AreEqual(new Location(1, 3), interactableDTO.location);
+            Assert.AreEqual(InteractableType.Invulnerability, interactableDTO.InteractableType);
         }
 
         [Test]
@@ -212,7 +179,6 @@ namespace AIMMOUnityTest
             Assert.AreEqual(new Location(2, 2), gameState.northEastCorner);
             Assert.AreEqual(1, gameState.players.Length);
             Assert.AreEqual(1, gameState.interactables.Length);
-            Assert.AreEqual(1, gameState.scoreLocations.Length);
             Assert.AreEqual(1, gameState.obstacles.Length);
         }
     }

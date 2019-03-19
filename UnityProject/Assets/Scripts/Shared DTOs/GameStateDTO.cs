@@ -1,7 +1,6 @@
 using Players;
-using MapFeatures.Interactable;
+using MapFeatures.Interactables;
 using MapFeatures.Obstacles;
-using MapFeatures.ScoreLocations;
 
 public struct GameStateDTO
 {
@@ -10,7 +9,6 @@ public struct GameStateDTO
     public Location northEastCorner;
     public PlayerDTO[] players;
     public InteractableDTO[] interactables;
-    public ScoreLocationDTO[] scoreLocations;
     public ObstacleDTO[] obstacles;
 
     public Era EraType

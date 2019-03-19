@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace MapFeatures.Interactables
 {
-    public class PickupManager : MapFeatureManager<InteractableDTO>
+    public class InteractableManager : MapFeatureManager<InteractableDTO>
     {
         List<InteractableDTO> currentInteractables = new List<InteractableDTO>();
         List<InteractableDTO> interactablesToDelete = new List<InteractableDTO>();
@@ -41,7 +41,7 @@ namespace MapFeatures.Interactables
                     return false;
                 }
 
-                GameObject objectToDestroy = GameObject.Find("pickup_" + dto.type + "_" + dto.location.x + "_" + dto.location.y);
+                GameObject objectToDestroy = GameObject.Find("interactable_" + dto.type + "_" + dto.location.x + "_" + dto.location.y);
 
                 Destroy(objectToDestroy);
                 return true;
@@ -61,7 +61,7 @@ namespace MapFeatures.Interactables
             return "Interactable";
         }
 
-        /* Receives a PickupDTO array and handles it appropriately. */
+        /* Receives a InteractableDTO array and handles it appropriately. */
         public override bool UpdateFeatures(InteractableDTO[] dtoArray)
         {
             CreateInteractables(dtoArray);
@@ -73,18 +73,18 @@ namespace MapFeatures.Interactables
         private bool CreateInteractables(InteractableDTO[] dtoArray)
         {
             // We need a list for mutable sizing of the data structure.
-            List<InteractableDTO> newPickups = dtoArray.OfType<InteractableDTO>().ToList();
+            List<InteractableDTO> newInteractables = dtoArray.OfType<InteractableDTO>().ToList();
 
             // Clear old contents.
             interactablesToCreate.Clear();
 
             // Find elements that exist in provided array that doesn't exist
             // in current world pickups.
-            interactablesToCreate = (List<InteractableDTO>) newPickups.Except(currentInteractables).ToList();
+            interactablesToCreate = (List<InteractableDTO>) newInteractables.Except(currentInteractables).ToList();
 
-            foreach (InteractableDTO pickup in interactablesToCreate)
+            foreach (InteractableDTO interactable in interactablesToCreate)
             {
-                Create(pickup);
+                Create(interactable);
             }
 
             return true;

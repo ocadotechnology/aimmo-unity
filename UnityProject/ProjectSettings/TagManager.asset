@@ -7,11 +7,11 @@ TagManager:
   - MapFeature
   - Avatar
   - Terrain
-  - Pickup
   - Obstacle
   - Score
   - Grid
   - TerrainEdge
+  - Interactable
   layers:
   - Default
   - TransparentFX
