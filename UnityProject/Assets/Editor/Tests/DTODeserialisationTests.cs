@@ -49,7 +49,7 @@ namespace AIMMOUnityTest
         }
 
         [Test]
-        public void TestPickupDTODeserialisation()
+        public void TestInteractableDTODeserialisation()
         {
             string interactableJSON = @" {
                 ""interactables"": [
@@ -70,7 +70,7 @@ namespace AIMMOUnityTest
                 ]
             }";
 
-            PickupsDTO interactablesDTO = JsonUtility.FromJson<PickupsDTO>(interactableJSON);
+            InteractablesDTO interactablesDTO = JsonUtility.FromJson<InteractablesDTO>(interactableJSON);
             Assert.AreEqual(2, interactablesDTO.interactables.Length);
             InteractableDTO interactableDTO = interactablesDTO.interactables[0];
             Assert.AreEqual(new Location(1, 3), interactableDTO.location);
@@ -148,10 +148,9 @@ namespace AIMMOUnityTest
                             ""x"": 1,
                             ""y"": 3
                         }
-                    }
-                ],
-                ""scoreLocations"": [
+                    },
                     {
+                        ""type"": ""score"",
                         ""location"": {
                             ""x"": 1,
                             ""y"": 3
@@ -178,7 +177,7 @@ namespace AIMMOUnityTest
             Assert.AreEqual(new Location(-2, -2), gameState.southWestCorner);
             Assert.AreEqual(new Location(2, 2), gameState.northEastCorner);
             Assert.AreEqual(1, gameState.players.Length);
-            Assert.AreEqual(1, gameState.interactables.Length);
+            Assert.AreEqual(2, gameState.interactables.Length);
             Assert.AreEqual(1, gameState.obstacles.Length);
         }
     }

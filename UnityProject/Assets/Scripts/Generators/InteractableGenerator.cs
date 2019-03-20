@@ -4,7 +4,7 @@ using MapFeatures.Interactables;
 public class InteractableGenerator
 {
     /* As we don't pass ID from the back-end as of now, instead we get the
-     * location (xy) and append to the end of a "pickup_type_" string.
+     * location (xy) and append to the end of a "interactable_type_" string.
      */
     public static GameObject GenerateInteractable(GameObject interactablePrefab)
     {
@@ -13,25 +13,51 @@ public class InteractableGenerator
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
         interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
-
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
         return interactable;
     }
 
-    public static GameObject GenerateInteractable(InteractableDTO InteractableDTO)
+    public static GameObject GenerateInteractable(InteractableDTO interactableDTO)
     {
-        string resource = "Prefabs/Interactables/interactable_" + InteractableDTO.type;
+        string resource = "Prefabs/Interactables/interactable_" + interactableDTO.type;
         GameObject interactablePrefab = Resources.Load<GameObject>(resource);
 
 
 
         GameObject interactable = Object.Instantiate(
                                 interactablePrefab,
-                                new Vector3(InteractableDTO.location.x, 0, InteractableDTO.location.y),
+                                new Vector3(interactableDTO.location.x, 0, interactableDTO.location.y),
                                 Quaternion.identity) as GameObject;
         interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
 
-        interactable.name = "interactable_" + InteractableDTO.type + "_" + InteractableDTO.location.x + "_" + InteractableDTO.location.y;
-
+        interactable.name = "interactable_" + interactableDTO.type + "_" + interactableDTO.location.x + "_" + interactableDTO.location.y;
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
         return interactable;            
     }
 }

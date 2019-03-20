@@ -3,7 +3,7 @@ using System;
 namespace MapFeatures.Interactables
 {
     [Serializable]
-    public struct PickupsDTO
+    public struct InteractablesDTO
     {
         public InteractableDTO[] interactables;
     }
@@ -45,14 +45,15 @@ namespace MapFeatures.Interactables
     {
         Health,
         Invulnerability,
-        DamageBoost
+        DamageBoost,
+        Score
     }
 
     public static class InteractableTypeMethods
     {
-        public static InteractableType InteractableTypeForString(string pickupType)
+        public static InteractableType InteractableTypeForString(string interactableType)
         {
-            switch (pickupType.ToLower())
+            switch (interactableType.ToLower())
             {
                 case "health":
                     return InteractableType.Health;
@@ -60,6 +61,8 @@ namespace MapFeatures.Interactables
                     return InteractableType.Invulnerability;
                 case "damage_boost":
                     return InteractableType.DamageBoost;
+                case "score":
+                    return InteractableType.Score;
                 default:
                     return InteractableType.Health;
             }

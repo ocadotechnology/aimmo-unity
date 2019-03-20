@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-/* Still not clear what pickups will do, probably there will be different
+/* Still not clear what interactables will do, probably there will be different
  * types, so that will need to be taken care of.
  */
 
@@ -19,11 +19,11 @@ namespace MapFeatures.Interactables
         {
             // TODO: some checking that this location is free to place on.
             GameObject interactable = InteractableGenerator.GenerateInteractable(dto);
-
-            // Update currentPickups for next UpdateFeatures call.
+            interactable = null;
+            // Update currentinteractables for next UpdateFeatures call.
             if (interactable == null)
             {
-                Debug.Log("Generated pickup is null!");
+                Debug.Log("Generated interactable is null!");
                 return false;
             }
 
@@ -47,7 +47,7 @@ namespace MapFeatures.Interactables
                 return true;
             }
 
-            Debug.Log("dto not found in currentPickups!");
+            Debug.Log("dto not found in currentInteractables!");
             return false;
         }
 
@@ -79,7 +79,7 @@ namespace MapFeatures.Interactables
             interactablesToCreate.Clear();
 
             // Find elements that exist in provided array that doesn't exist
-            // in current world pickups.
+            // in current world interactables.
             interactablesToCreate = (List<InteractableDTO>) newInteractables.Except(currentInteractables).ToList();
 
             foreach (InteractableDTO interactable in interactablesToCreate)
@@ -98,8 +98,8 @@ namespace MapFeatures.Interactables
             // Clear old contents.
             interactablesToDelete.Clear();
 
-            // We find elements that exist in currentPickups but not dtoArray 
-            // (ie. newPickups).
+            // We find elements that exist in currentInteractables but not dtoArray 
+            // (ie. newInteractables).
             interactablesToDelete = (List<InteractableDTO>)  currentInteractables.Except(newInteractables).ToList();
 
             foreach (InteractableDTO interactable in interactablesToDelete)
