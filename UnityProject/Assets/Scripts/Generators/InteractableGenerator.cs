@@ -32,6 +32,6 @@ public class InteractableGenerator
 
         interactable.name = "interactable_" + interactableDTO.type + "_" + interactableDTO.location.x + "_" + interactableDTO.location.y;
 
-        return interactable;            
+        return interactable;
     }
 }
