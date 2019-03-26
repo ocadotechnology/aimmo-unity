@@ -4,8 +4,7 @@ using UnitySocketIO;
 using UnitySocketIO.Events;
 #endif
 using MapFeatures.Obstacles;
-using MapFeatures.Pickups;
-using MapFeatures.ScoreLocations;
+using MapFeatures.Interactables;
 using Players;
 using Utilities;
 
@@ -35,8 +34,7 @@ public class WorldControls : MonoBehaviour
 
     // Map feature managers.
     private ObstacleManager obstacleManager;
-    private ScorePointManager scorePointManager;
-    private PickupManager pickupManager;
+    private InteractableManager interactableManager;
 
     // Player manager.
     private PlayerManager playerManager;
@@ -47,7 +45,7 @@ public class WorldControls : MonoBehaviour
     {
 
 #if !UNITY_EDITOR && UNITY_WEBGL
-			WebGLInput.captureAllKeyboardInput = false;
+			 WebGLInput.captureAllKeyboardInput = false;
 #endif
     }
 
@@ -59,8 +57,9 @@ public class WorldControls : MonoBehaviour
 
         // Initialise map feature managers.
         obstacleManager = gameObject.AddComponent(typeof(ObstacleManager)) as ObstacleManager;
-        scorePointManager = gameObject.AddComponent(typeof(ScorePointManager)) as ScorePointManager;
-        pickupManager = gameObject.AddComponent(typeof(PickupManager)) as PickupManager;
+        interactableManager = gameObject.AddComponent(typeof(InteractableManager)) as InteractableManager;
+
+
 
         // Initialise player manager.
         playerManager = gameObject.AddComponent(typeof(PlayerManager)) as PlayerManager;
@@ -180,12 +179,8 @@ public class WorldControls : MonoBehaviour
         PlayerDTO[] players = gameState.players;
         playerManager.UpdatePlayersState(players);
 
-        // Pickup updates.
-        PickupDTO[] pickups = gameState.pickups;
-        pickupManager.UpdateFeatures(pickups);
-
-        // Score updates.
-        ScoreLocationDTO[] scores = gameState.scoreLocations;
-        scorePointManager.UpdateFeatures(scores);
+        // Interactable updates.
+        InteractableDTO[] interactables = gameState.interactables;
+        interactableManager.UpdateFeatures(interactables);
     }
 }

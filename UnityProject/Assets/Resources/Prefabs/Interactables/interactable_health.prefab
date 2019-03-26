@@ -23,8 +23,8 @@ GameObject:
   - component: {fileID: 23919501004045654}
   - component: {fileID: 114560752478917744}
   m_Layer: 0
-  m_Name: pickup_health
-  m_TagString: Pickup
+  m_Name: interactable_health
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,6 +55,7 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 2100000, guid: 3773027c1a8af47f29b1c5d841f71f48, type: 2}
   m_StaticBatchInfo:
