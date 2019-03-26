@@ -13,20 +13,7 @@ public class InteractableGenerator
                                 Vector3.zero, 
                                 Quaternion.identity) as GameObject;
         interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+
         return interactable;
     }
 
@@ -44,20 +31,7 @@ public class InteractableGenerator
         interactable.transform.SetParent(GameObject.Find("Interactables").transform, false);
 
         interactable.name = "interactable_" + interactableDTO.type + "_" + interactableDTO.location.x + "_" + interactableDTO.location.y;
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
-        Debug.Log("I AM A LOG MESSAGE PAY ATTENTION TO ME!!!!!!!!!!!!!!");
+
         return interactable;            
     }
 }

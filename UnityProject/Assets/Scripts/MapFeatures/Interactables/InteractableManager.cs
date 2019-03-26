@@ -19,7 +19,7 @@ namespace MapFeatures.Interactables
         {
             // TODO: some checking that this location is free to place on.
             GameObject interactable = InteractableGenerator.GenerateInteractable(dto);
-            interactable = null;
+
             // Update currentinteractables for next UpdateFeatures call.
             if (interactable == null)
             {
